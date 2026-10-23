@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profit & Loss Statement — Invenza</title>
+  <meta name="description" content="Comprehensive income statement, COGS analysis, overhead expenses, and net profit margins.">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+</head>
+<body>
+  <div id="sidebar-container"></div>
+  <div id="main-wrapper">
+    <div id="header-container"></div>
+    <main class="flex-1 p-6">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb">
+            <a href="../dashboard.html">Home</a>
+            <span class="sep">/</span>
+            <a href="../dashboard.html">Reports</a>
+            <span class="sep">/</span>
+            <span class="current">Profit &amp; Loss</span>
+          </div>
+          <h1 class="page-title">Profit &amp; Loss Statement</h1>
+          <p class="page-subtitle">Monthly financial statement of revenues, costs of goods sold, and operating profit.</p>
+        </div>
+        <div class="flex gap-2.5 flex-wrap items-center">
+          <button class="btn btn-secondary btn-sm">Q1 2026</button>
+          <button class="btn btn-secondary btn-sm">Q2 2026</button>
+          <button class="btn btn-primary btn-sm">Year to Date (2026)</button>
+          <button class="btn btn-secondary btn-sm" aria-label="Export P and L Statement as PDF" onclick="Toast.info('Exporting P&L Statement...','Export')">Export PDF</button>
+        </div>
+      </div>
+
+      <!-- Financial KPI Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Gross Sales</div>
+          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">$67,347.00</div>
+          <div class="trend-up text-[11px] mt-[2px]">● 12.5% increase</div>
+        </div>
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Cost of Goods (COGS)</div>
+          <div class="text-[26px] font-extrabold text-[#DC2626] mt-1">$34,107.00</div>
+          <div class="text-[11px] text-[var(--muted)] mt-[2px]">50.6% of sales revenue</div>
+        </div>
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Gross Profit</div>
+          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">$33,240.00</div>
+          <div class="text-[11px] text-[var(--muted)] mt-[2px]">49.4% gross margin</div>
+        </div>
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Net Operating Profit</div>
+          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">$18,420.00</div>
+          <div class="text-[11px] text-[var(--muted)] mt-[2px]">27.3% net profit margin</div>
+        </div>
+      </div>
+
+      <!-- Comparison Chart -->
+      <div class="card mb-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-[15px] font-bold text-[var(--text)] mb-0">Revenue vs Cost &amp; Expenses (2026)</h3>
+          <span class="badge badge-success">Profitable Quarter</span>
+        </div>
+        <div class="h-[260px]">
+          <canvas id="pnlChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Detailed Statement Table -->
+      <div class="card p-0 overflow-hidden">
+        <div class="py-4 px-5 border-b border-[var(--border)] flex items-center justify-between">
+          <h3 class="text-[15px] font-bold text-[var(--text)] mb-0">Detailed Income Statement</h3>
+          <span class="text-xs text-[var(--muted)]">All amounts in USD ($)</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Account / Line Item</th>
+                <th>Category</th>
+                <th class="text-right">Jan - Apr</th>
+                <th class="text-right">May - Aug</th>
+                <th class="text-right">YTD Total</th>
+                <th class="text-right">% Revenue</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Revenue Section -->
+              <tr class="bg-[var(--background)]">
+                <td colspan="6" class="font-extrabold text-[var(--text)] text-sm">1. OPERATING REVENUE</td>
+              </tr>
+              <tr>
+                <td class="pl-7 font-medium">Gross Retail Product Sales</td>
+                <td>Revenue</td>
+                <td class="text-right">$24,200.00</td>
+                <td class="text-right">$43,147.00</td>
+                <td class="text-right font-bold text-[var(--text)]">$67,347.00</td>
+                <td class="text-right font-semibold">100.0%</td>
+              </tr>
+              <tr>
+                <td class="pl-7 font-medium text-[var(--danger)]">Less: Sales Returns &amp; Discounts</td>
+                <td>Contra Revenue</td>
+                <td class="text-right text-[var(--danger)]">-$480.00</td>
+                <td class="text-right text-[var(--danger)]">-$940.00</td>
+                <td class="text-right font-bold text-[var(--danger)]">-$1,420.00</td>
+                <td class="text-right text-[var(--danger)]">-2.1%</td>
+              </tr>
+              <tr class="border-t border-[var(--border)] border-b-2 border-[var(--border)] font-bold">
+                <td class="pl-7 text-[var(--primary)]">Net Sales Revenue</td>
+                <td>Total Inflow</td>
+                <td class="text-right">$23,720.00</td>
+                <td class="text-right">$42,207.00</td>
+                <td class="text-right text-[var(--primary)]">$65,927.00</td>
+                <td class="text-right">97.9%</td>
+              </tr>
+
+              <!-- COGS Section -->
+              <tr class="bg-[var(--background)]">
+                <td colspan="6" class="font-extrabold text-[var(--text)] text-sm">2. COST OF GOODS SOLD (COGS)</td>
+              </tr>
+              <tr>
+                <td class="pl-7 font-medium">Inventory Purchase Costs</td>
+                <td>Cost of Sales</td>
+                <td class="text-right">$12,500.00</td>
+                <td class="text-right">$21,607.00</td>
+                <td class="text-right font-bold text-[var(--text)]">$34,107.00</td>
+                <td class="text-right">50.6%</td>
+              </tr>
+              <tr class="border-t border-[var(--border)] border-b-2 border-[var(--border)] font-bold">
+                <td class="pl-7 text-[var(--primary)]">GROSS PROFIT</td>
+                <td>Margin</td>
+                <td class="text-right">$11,220.00</td>
+                <td class="text-right">$20,600.00</td>
+                <td class="text-right text-[var(--primary)]">$31,820.00</td>
+                <td class="text-right">47.3%</td>
+              </tr>
+
+              <!-- Operating Expenses -->
+              <tr class="bg-[var(--background)]">
+                <td colspan="6" class="font-extrabold text-[var(--text)] text-sm">3. OPERATING EXPENSES</td>
+              </tr>
+              <tr>
+                <td class="pl-7 font-medium">Facility Rent &amp; Storage</td>
+                <td>Overhead</td>
+                <td class="text-right">$3,600.00</td>
+                <td class="text-right">$3,600.00</td>
+                <td class="text-right font-bold">$7,200.00</td>
+                <td class="text-right">10.7%</td>
+              </tr>
+              <tr>
+                <td class="pl-7 font-medium">Staff Payroll &amp; Benefits</td>
+                <td>Payroll</td>
+                <td class="text-right">$1,950.00</td>
+                <td class="text-right">$2,450.00</td>
+                <td class="text-right font-bold">$4,400.00</td>
+                <td class="text-right">6.5%</td>
+              </tr>
+              <tr>
+                <td class="pl-7 font-medium">Utilities, Freight &amp; Misc</td>
+                <td>Operations</td>
+                <td class="text-right">$820.00</td>
+                <td class="text-right">$980.00</td>
+                <td class="text-right font-bold">$1,800.00</td>
+                <td class="text-right">2.7%</td>
+              </tr>
+              <tr class="bg-[var(--primary-light)] font-extrabold text-[15px]">
+                <td class="text-[var(--primary)]">NET OPERATING PROFIT</td>
+                <td>Final Net</td>
+                <td class="text-right text-[var(--primary)]">$4,850.00</td>
+                <td class="text-right text-[var(--primary)]">$13,570.00</td>
+                <td class="text-right text-[var(--primary)]">$18,420.00</td>
+                <td class="text-right text-[var(--primary)]">27.3%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+    <footer class="app-footer">
+      <span class="app-footer-text">Copyright © 2026 Invenza All rights reserved.</span>
+    </footer>
+  </div>
+
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
+
+  <script>
+    window.BASE_PATH = '../';
+    window.CURRENT_PAGE = 'profit-loss';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const ctx = document.getElementById('pnlChart').getContext('2d');
+      if (ctx) {
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+            datasets: [
+              {
+                label: 'Gross Revenue ($)',
+                data: [4200, 5800, 6400, 7800, 8900, 9400, 11200, 13647],
+                backgroundColor: '#22B573',
+                borderRadius: 4
+              },
+              {
+                label: 'COGS & Cost ($)',
+                data: [2100, 2900, 3200, 3900, 4500, 4800, 5700, 6907],
+                backgroundColor: '#EF4444',
+                borderRadius: 4
+              },
+              {
+                label: 'Net Profit ($)',
+                data: [1200, 1800, 2100, 2600, 3100, 3200, 3900, 4820],
+                backgroundColor: '#3B82F6',
+                borderRadius: 4
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'top' } },
+            scales: {
+              x: { grid: { display: false } },
+              y: { grid: { color: 'rgba(0,0,0,0.05)' } }
+            }
+          }
+        });
+      }
+    });
+  </script>
+  <script src="../assets/js/chart.min.js"></script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

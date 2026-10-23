@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales Returns — Invenza</title>
+  <meta name="description" content="Manage customer returns, exchange credits, and refund logs.">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+</head>
+<body>
+  <div id="sidebar-container"></div>
+  <div id="main-wrapper">
+    <div id="header-container"></div>
+    <main class="flex-1 p-6">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb">
+            <a href="../dashboard.html">Home</a>
+            <span class="sep">/</span>
+            <a href="sales.html">Sales</a>
+            <span class="sep">/</span>
+            <span class="current">Sales Returns</span>
+          </div>
+          <h1 class="page-title">Sales Returns</h1>
+          <p class="page-subtitle">Track customer merchandise returns, restocking, and credit notes.</p>
+        </div>
+        <div class="flex gap-2.5 flex-wrap">
+          <button class="btn btn-primary" onclick="openAddSalesReturnModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Record Return
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-wider">Total Returns</div>
+          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">12</div>
+          <div class="text-[11px] text-[var(--muted)] mt-0.5">1.5% return rate</div>
+        </div>
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-wider">Refunded Value</div>
+          <div class="text-[26px] font-extrabold text-red-500 mt-1">$620.00</div>
+          <div class="text-[11px] text-[var(--muted)] mt-0.5">Credited to customers</div>
+        </div>
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-wider">Restocked Units</div>
+          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">15 <span class="text-[13px] font-medium text-[var(--muted)]">Units</span></div>
+          <div class="text-[11px] text-[var(--muted)] mt-0.5">Returned to shelf</div>
+        </div>
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-wider">Pending Approval</div>
+          <div class="text-[26px] font-extrabold text-amber-500 mt-1">1</div>
+          <div class="text-[11px] text-[var(--muted)] mt-0.5">Requires manager signoff</div>
+        </div>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="card mb-5 p-4">
+        <div class="flex gap-3 flex-wrap items-center">
+          <div class="search-box flex-1 min-w-[200px]">
+            <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" class="form-input h-[38px] text-[13px]" placeholder="Search return ref, invoice # or customer...">
+          </div>
+          <select class="form-input form-select h-[38px] text-[13px] min-w-[140px]">
+            <option value="">All Status</option>
+            <option>Approved</option>
+            <option>Pending</option>
+            <option>Rejected</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Sales Returns Table -->
+      <div class="card p-0 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Return Ref</th>
+                <th>Original Invoice</th>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Refund Amount</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="font-mono font-bold text-[var(--primary)]">SRET-0008</td>
+                <td><a href="../invoices/invoice-details.html" class="font-mono font-semibold text-[var(--primary)] no-underline">INV-000124</a></td>
+                <td>
+                  <div class="font-semibold text-[var(--text)]">Michael Brown</div>
+                  <div class="text-[11px] text-[var(--muted)]">michael@brown.com</div>
+                </td>
+                <td class="text-xs text-[var(--muted)]">Aug 24, 2026</td>
+                <td>Mechanical Keyboard</td>
+                <td class="font-semibold">1</td>
+                <td class="text-[13px] font-bold text-[var(--text)]">$89.99</td>
+                <td class="text-xs text-[var(--muted)]">Customer bought wrong switch type</td>
+                <td><span class="badge badge-success">Approved</span></td>
+                <td>
+                  <button class="btn btn-secondary btn-sm" onclick="Toast.info('Viewing return SRET-0008','Return')">View</button>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-mono font-bold text-[var(--primary)]">SRET-0007</td>
+                <td><a href="../invoices/invoice-details.html" class="font-mono font-semibold text-[var(--primary)] no-underline">INV-000118</a></td>
+                <td>
+                  <div class="font-semibold text-[var(--text)]">Sarah Wilson</div>
+                  <div class="text-[11px] text-[var(--muted)]">sarah@wilson.com</div>
+                </td>
+                <td class="text-xs text-[var(--muted)]">Aug 21, 2026</td>
+                <td>USB-C Hub</td>
+                <td class="font-semibold">1</td>
+                <td class="text-[13px] font-bold text-[var(--text)]">$49.99</td>
+                <td class="text-xs text-[var(--muted)]">Incompatible with monitor port</td>
+                <td><span class="badge badge-warning">Pending</span></td>
+                <td>
+                  <button class="btn btn-secondary btn-sm" onclick="Toast.info('Viewing return SRET-0007','Return')">View</button>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-mono font-bold text-[var(--primary)]">SRET-0006</td>
+                <td><a href="../invoices/invoice-details.html" class="font-mono font-semibold text-[var(--primary)] no-underline">INV-000110</a></td>
+                <td>
+                  <div class="font-semibold text-[var(--text)]">John Smith</div>
+                  <div class="text-[11px] text-[var(--muted)]">john@smith.com</div>
+                </td>
+                <td class="text-xs text-[var(--muted)]">Aug 16, 2026</td>
+                <td>Wireless Mouse</td>
+                <td class="font-semibold">2</td>
+                <td class="text-[13px] font-bold text-[var(--text)]">$59.98</td>
+                <td class="text-xs text-[var(--muted)]">Duplicate gift purchase</td>
+                <td><span class="badge badge-success">Approved</span></td>
+                <td>
+                  <button class="btn btn-secondary btn-sm" onclick="Toast.info('Viewing return SRET-0006','Return')">View</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+    <footer class="flex items-center justify-between flex-wrap gap-2 mt-auto pt-5 px-6 pb-5 border-t border-[var(--border)]">
+      <div class="text-xs text-[var(--muted)]">Copyright © 2026 Invenza All rights reserved.</div>
+    </footer>
+  </div>
+
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
+
+  <script>
+    window.BASE_PATH = '../';
+    window.CURRENT_PAGE = 'sales-returns';
+
+    function openAddSalesReturnModal() {
+      Modal.show({
+        title: 'Process Sales Return',
+        size: 'md',
+        body: `
+          <div class="flex flex-col gap-3.5">
+            <div>
+              <label class="form-label">Select Invoice # <span class="required">*</span></label>
+              <select class="form-input form-select" required>
+                <option value="">Choose Invoice...</option>
+                <option>INV-000125 - John Smith ($845.00)</option>
+                <option>INV-000124 - Michael Brown ($1,240.00)</option>
+                <option>INV-000123 - Sarah Wilson ($620.00)</option>
+              </select>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="form-label">Return Date <span class="required">*</span></label>
+                <input type="date" class="form-input" value="${new Date().toISOString().split('T')[0]}" required>
+              </div>
+              <div>
+                <label class="form-label">Restock to Inventory?</label>
+                <select class="form-input form-select">
+                  <option>Yes (Restock)</option>
+                  <option>No (Damaged / Waste)</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="form-label">Reason for Return</label>
+              <select class="form-input form-select">
+                <option>Defective Unit</option>
+                <option>Wrong Item Purchased</option>
+                <option>Buyer Remorse / Changed Mind</option>
+                <option>Found Better Price</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">Refund Method</label>
+              <select class="form-input form-select">
+                <option>Cash Refund</option>
+                <option>Original Payment Method</option>
+                <option>Store Credit / Gift Card</option>
+              </select>
+            </div>
+          </div>
+        `,
+        footer: `
+          <button class="btn btn-secondary" onclick="this.closest('.modal-backdrop').remove()">Cancel</button>
+          <button class="btn btn-primary" onclick="saveSalesReturn()">Approve &amp; Refund</button>
+        `
+      });
+    }
+
+    function saveSalesReturn() {
+      document.querySelector('.modal-backdrop')?.remove();
+      Toast.success('Sales Return SRET-0009 created and customer refunded!', 'Return Completed');
+    }
+  </script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

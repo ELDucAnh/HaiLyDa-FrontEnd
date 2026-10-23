@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Purchase Report — Invenza</title>
+  <meta name="description" content="Procurement spending reports, vendor analysis, and purchase order tracking.">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+</head>
+<body>
+  <div id="sidebar-container"></div>
+  <div id="main-wrapper">
+    <div id="header-container"></div>
+    <main class="flex-1 p-6">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb">
+            <a href="../dashboard.html">Home</a>
+            <span class="sep">/</span>
+            <a href="../purchases/purchases.html">Reports</a>
+            <span class="sep">/</span>
+            <span class="current">Purchase Report</span>
+          </div>
+          <h1 class="page-title">Purchase &amp; Vendor Analytics</h1>
+          <p class="page-subtitle">Historical procurement spend, supplier volume allocation, and cost trends.</p>
+        </div>
+        <div class="flex gap-2.5 flex-wrap">
+          <button class="btn btn-secondary btn-sm" aria-label="Export purchase report as PDF" onclick="Toast.info('Exporting report...','Export')">Export PDF</button>
+        </div>
+      </div>
+
+      <!-- KPI Summary Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Total Procurement</div>
+          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">$28,450.00</div>
+          <div class="text-[11px] text-[var(--muted)] mt-[2px]">Across 45 orders</div>
+        </div>
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Average PO Value</div>
+          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">$632.22</div>
+          <div class="text-[11px] text-[var(--muted)] mt-[2px]">Average basket size</div>
+        </div>
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Purchase Returns</div>
+          <div class="text-[26px] font-extrabold text-[var(--danger)] mt-1">$1,840.00</div>
+          <div class="text-[11px] text-[var(--muted)] mt-[2px]">6.4% return rate</div>
+        </div>
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Active Suppliers</div>
+          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">27</div>
+          <div class="text-[11px] text-[var(--muted)] mt-[2px]">Reliable vendor network</div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        <div class="card lg:col-span-2">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-[15px] font-bold text-[var(--text)] mb-0">Monthly Purchase Expenditure</h3>
+            <span class="badge badge-info">2026 Spend</span>
+          </div>
+          <div class="h-[250px]">
+            <canvas id="purchaseSpendChart"></canvas>
+          </div>
+        </div>
+
+        <div class="card flex flex-col justify-between">
+          <div>
+            <h3 class="text-[15px] font-bold text-[var(--text)] mb-4">Supplier Spend Share</h3>
+            <div class="h-[200px] relative">
+              <canvas id="supplierShareChart"></canvas>
+            </div>
+          </div>
+          <div class="flex justify-around border-t border-[var(--border)] pt-3 mt-3 text-xs">
+            <span class="text-[#22B573] font-semibold">● Apex (50%)</span>
+            <span class="text-[#3B82F6] font-semibold">● Global (31%)</span>
+            <span class="text-[var(--warning)] font-semibold">● Zenith (19%)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Supplier Performance Table -->
+      <div class="card p-0 overflow-hidden">
+        <div class="py-4 px-5 border-b border-[var(--border)] flex items-center justify-between">
+          <h3 class="text-[15px] font-bold text-[var(--text)] mb-0">Top Supplier Expenditure Breakdown</h3>
+          <a href="../suppliers/suppliers.html" class="btn btn-secondary btn-sm">Suppliers Directory</a>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Supplier</th>
+                <th>Category</th>
+                <th>Total Orders</th>
+                <th>Total Spend</th>
+                <th>Paid Amount</th>
+                <th>Pending Due</th>
+                <th>Fulfillment Rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="font-semibold text-[var(--text)]">Apex Electronics Ltd</td>
+                <td>Electronics Hardware</td>
+                <td class="font-semibold">18 Orders</td>
+                <td class="font-bold text-[var(--text)]">$14,200.00</td>
+                <td class="text-[var(--primary)] font-semibold">$14,200.00</td>
+                <td class="text-[var(--muted)]">$0.00</td>
+                <td><span class="badge badge-success">99.2%</span></td>
+              </tr>
+              <tr>
+                <td class="font-semibold text-[var(--text)]">Global Supplies Co</td>
+                <td>Accessories</td>
+                <td class="font-semibold">14 Orders</td>
+                <td class="font-bold text-[var(--text)]">$8,750.00</td>
+                <td class="text-[var(--primary)] font-semibold">$5,200.00</td>
+                <td class="text-[var(--danger)] font-semibold">$3,550.00</td>
+                <td><span class="badge badge-success">97.8%</span></td>
+              </tr>
+              <tr>
+                <td class="font-semibold text-[var(--text)]">Zenith Office Ware</td>
+                <td>Furniture</td>
+                <td class="font-semibold">13 Orders</td>
+                <td class="font-bold text-[var(--text)]">$5,500.00</td>
+                <td class="text-[var(--primary)] font-semibold">$4,700.00</td>
+                <td class="text-[var(--warning)] font-semibold">$800.00</td>
+                <td><span class="badge badge-success">98.5%</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+    <footer class="app-footer">
+      <span class="app-footer-text">Copyright © 2026 Invenza All rights reserved.</span>
+    </footer>
+  </div>
+
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
+
+  <script>
+    window.BASE_PATH = '../';
+    window.CURRENT_PAGE = 'purchase-report';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const ctxSpend = document.getElementById('purchaseSpendChart').getContext('2d');
+      if (ctxSpend) {
+        new Chart(ctxSpend, {
+          type: 'bar',
+          data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+            datasets: [{
+              label: 'Procurement Spend ($)',
+              data: [2800, 3200, 2900, 3600, 4100, 3800, 3950, 4100],
+              backgroundColor: '#3B82F6',
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { grid: { display: false } },
+              y: { grid: { color: 'rgba(0,0,0,0.05)' } }
+            }
+          }
+        });
+      }
+
+      const ctxShare = document.getElementById('supplierShareChart').getContext('2d');
+      if (ctxShare) {
+        new Chart(ctxShare, {
+          type: 'doughnut',
+          data: {
+            labels: ['Apex Electronics', 'Global Supplies', 'Zenith Office'],
+            datasets: [{
+              data: [14200, 8750, 5500],
+              backgroundColor: ['#22B573', '#3B82F6', '#F59E0B'],
+              borderWidth: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            cutout: '65%'
+          }
+        });
+      }
+    });
+  </script>
+  <script src="../assets/js/chart.min.js"></script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

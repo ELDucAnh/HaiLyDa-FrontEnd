@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brands — Invenza</title>
+  <meta name="description" content="Manage manufacturer brands and product vendors in Invenza.">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+</head>
+<body>
+  <div id="sidebar-container"></div>
+  <div id="main-wrapper">
+    <div id="header-container"></div>
+    <main class="flex-1 p-6">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb">
+            <a href="../dashboard.html">Home</a>
+            <span class="sep">/</span>
+            <a href="products.html">Inventory</a>
+            <span class="sep">/</span>
+            <span class="current">Brands</span>
+          </div>
+          <h1 class="page-title">Brands</h1>
+          <p class="page-subtitle">Manage manufacturers and product brands.</p>
+        </div>
+        <div class="page-header-actions">
+          <button class="btn btn-primary" aria-label="Add new brand" onclick="openAddBrandModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Brand
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats Row -->
+      <section class="page-section" aria-label="Brand statistics">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div class="stat-card">
+            <div class="stat-card-body">
+              <div class="stat-label">Total Brands</div>
+              <div class="stat-value">12</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-body">
+              <div class="stat-label">Active Brands</div>
+              <div class="stat-value text-[var(--primary)]">10</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-body">
+              <div class="stat-label">Branded Items</div>
+              <div class="stat-value">98</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-body">
+              <div class="stat-label">Top Brand</div>
+              <div class="stat-value text-[22px]">Anker (24 items)</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Filter Bar -->
+      <section class="page-section" aria-label="Brand filters">
+        <div class="filter-bar mb-5">
+          <div class="search-box">
+            <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input id="brand-search" type="text" class="form-input" placeholder="Search brands..." oninput="filterBrands()">
+          </div>
+          <select id="brand-status-filter" class="form-input form-select" onchange="filterBrands()">
+            <option value="all">All Status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Brands Grid -->
+      <section class="page-section" aria-label="Brands grid">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5" id="brands-grid">
+          <!-- Dynamically rendered -->
+        </div>
+      </section>
+
+    </main>
+    <footer class="app-footer">
+      <div class="app-footer-text">Copyright © 2026 Invenza All rights reserved.</div>
+    </footer>
+  </div>
+
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
+
+  <script>
+    window.BASE_PATH = '../';
+    window.CURRENT_PAGE = 'brands';
+
+    const BRANDS = [
+      { id: 1, name: 'Logitech', code: 'LOGI', website: 'logitech.com', products: 18, status: 'Active', bg: '#DCFCE7', fg: '#15803D', logo: '../assets/img/brands/logitech.svg' },
+      { id: 2, name: 'Corsair', code: 'CORS', website: 'corsair.com', products: 12, status: 'Active', bg: '#DBEAFE', fg: '#1D4ED8', logo: '../assets/img/brands/corsair.svg' },
+      { id: 3, name: 'Anker', code: 'ANKR', website: 'anker.com', products: 24, status: 'Active', bg: '#FEF3C7', fg: '#B45309', logo: '../assets/img/brands/anker.svg' },
+      { id: 4, name: 'JBL', code: 'JBLX', website: 'jbl.com', products: 8, status: 'Active', bg: '#F3E8FF', fg: '#7E22CE', logo: '../assets/img/brands/jbl.svg' },
+      { id: 5, name: 'Sony', code: 'SONY', website: 'sony.com', products: 15, status: 'Active', bg: '#FEE2E2', fg: '#B91C1C', logo: '../assets/img/brands/sony.svg' },
+      { id: 6, name: 'Apple', code: 'APPL', website: 'apple.com', products: 7, status: 'Active', bg: '#E0E7FF', fg: '#4338CA', logo: '../assets/img/brands/apple.svg' },
+      { id: 7, name: 'BenQ', code: 'BENQ', website: 'benq.com', products: 5, status: 'Active', bg: '#ECFDF5', fg: '#065F46', logo: '../assets/img/brands/benq.svg' },
+      { id: 8, name: 'Steelcase', code: 'STLC', website: 'steelcase.com', products: 4, status: 'Active', bg: '#FEF2F2', fg: '#991B1B', logo: '../assets/img/brands/steelcase.svg' },
+      { id: 9, name: 'Rain Design', code: 'RAIN', website: 'raindesign.com', products: 3, status: 'Active', bg: '#EFF6FF', fg: '#2563EB', logo: '../assets/img/brands/rain-design.svg' },
+      { id: 10, name: 'SanDisk', code: 'SNDK', website: 'sandisk.com', products: 11, status: 'Active', bg: '#FFFBEB', fg: '#D97706', logo: '../assets/img/brands/sandisk.svg' },
+      { id: 11, name: 'Kensington', code: 'KENS', website: 'kensington.com', products: 2, status: 'Inactive', bg: '#F3F4F6', fg: '#4B5563', logo: '../assets/img/brands/kensington.svg' },
+      { id: 12, name: 'AmazonBasics', code: 'AMZB', website: 'amazon.com', products: 9, status: 'Active', bg: '#F5F3FF', fg: '#6D28D9', logo: '../assets/img/brands/amazonbasics.svg' },
+    ];
+
+    function renderBrands(list) {
+      const grid = document.getElementById('brands-grid');
+      if (!grid) return;
+      if (list.length === 0) {
+        grid.innerHTML = '<div class="col-span-full text-center py-10 text-[var(--muted)]">No brands found matching your filter.</div>';
+        return;
+      }
+      grid.innerHTML = list.map(b => `
+        <div class="card flex flex-col justify-between text-center py-6 px-4">
+          <div>
+            <div class="w-20 h-20 rounded-full mx-auto mb-3 flex items-center justify-center p-3 bg-[var(--background)] border border-[var(--border)]">
+              <img src="${b.logo}" alt="${b.name} logo" class="w-full h-full object-contain">
+            </div>
+            <h3 class="text-[15px] font-bold text-[var(--text)]">${b.name}</h3>
+            <div class="text-[11px] text-[var(--muted)] font-mono mt-0.5">${b.code}</div>
+            <div class="text-xs text-[var(--primary)] mt-1.5">${b.website}</div>
+          </div>
+          <div class="mt-5 pt-3.5 border-t border-[var(--border)] flex items-center justify-between">
+            <span class="badge ${b.status === 'Active' ? 'badge-success' : 'badge-gray'}">${b.status}</span>
+            <span class="text-xs font-semibold text-[var(--text)]">${b.products} Products</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterBrands() {
+      const q = (document.getElementById('brand-search')?.value || '').toLowerCase();
+      const status = document.getElementById('brand-status-filter')?.value || 'all';
+      const filtered = BRANDS.filter(b => {
+        const matchesQ = b.name.toLowerCase().includes(q) || b.code.toLowerCase().includes(q);
+        const matchesStatus = status === 'all' || b.status === status;
+        return matchesQ && matchesStatus;
+      });
+      renderBrands(filtered);
+    }
+
+    function openAddBrandModal() {
+      Modal.show({
+        title: 'Add New Brand',
+        size: 'sm',
+        body: `
+          <div class="flex flex-col gap-3.5">
+            <div>
+              <label class="form-label">Brand Name <span class="required">*</span></label>
+              <input type="text" id="new-brand-name" class="form-input" placeholder="e.g. Samsung" required>
+            </div>
+            <div>
+              <label class="form-label">Brand Code</label>
+              <input type="text" class="form-input" placeholder="e.g. SAMS">
+            </div>
+            <div>
+              <label class="form-label">Website</label>
+              <input type="text" class="form-input" placeholder="e.g. samsung.com">
+            </div>
+            <div>
+              <label class="form-label">Status</label>
+              <select class="form-input form-select">
+                <option>Active</option>
+                <option>Inactive</option>
+              </select>
+            </div>
+          </div>
+        `,
+        footer: `
+          <button class="btn btn-secondary" onclick="this.closest('.modal-backdrop').remove()">Cancel</button>
+          <button class="btn btn-primary" onclick="saveBrand()">Save Brand</button>
+        `
+      });
+    }
+
+    function saveBrand() {
+      const name = document.getElementById('new-brand-name')?.value;
+      if (!name) {
+        Toast.warning('Brand name is required.', 'Validation');
+        return;
+      }
+      document.querySelector('.modal-backdrop')?.remove();
+      Toast.success(`Brand "${name}" added successfully!`, 'Brand Created');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderBrands(BRANDS);
+    });
+  </script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Users & Team &mdash; Invenza</title>
+  <meta name="description" content="Manage staff accounts, access permissions, and activity logs.">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+</head>
+<body>
+  <div id="sidebar-container"></div>
+  <div id="main-wrapper">
+    <div id="header-container"></div>
+    <main class="flex-1 p-4 md:p-6">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb">
+            <a href="../dashboard.html">Home</a>
+            <span class="sep">/</span>
+            <span class="current">Users</span>
+          </div>
+          <h1 class="page-title">Team &amp; Staff Members</h1>
+          <p class="page-subtitle">Manage user authentication credentials, role assignments, and branch access.</p>
+        </div>
+        <div class="page-header-actions">
+          <a href="roles.html" class="btn btn-secondary" aria-label="View roles and permissions">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Roles &amp; Permissions
+          </a>
+          <button class="btn btn-primary" aria-label="Add new team member" onclick="openAddUserModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Member
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats Grid -->
+      <section class="page-section" aria-label="User statistics">
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+          <div class="stat-card">
+            <div class="stat-card-body">
+              <div class="stat-label">Total Accounts</div>
+              <div class="stat-value">8</div>
+              <div class="stat-sub-label">Across 3 locations</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-body">
+              <div class="stat-label">Active Status</div>
+              <div class="stat-value text-[var(--primary)]">7</div>
+              <div class="stat-sub-label">1 inactive/suspended</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-body">
+              <div class="stat-label">Administrators</div>
+              <div class="stat-value">2</div>
+              <div class="stat-sub-label">Full system privileges</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-body">
+              <div class="stat-label">Storefront Cashiers</div>
+              <div class="stat-value text-[var(--info)]">4</div>
+              <div class="stat-sub-label">POS counter access</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Users Table -->
+      <section class="page-section" aria-label="Users table">
+        <div class="card p-0 overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="data-table">
+              <caption class="sr-only">Team and staff members listing</caption>
+              <thead>
+                <tr>
+                  <th class="w-10"><input type="checkbox" aria-label="Select all rows"></th>
+                  <th>Staff Member</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Assigned Warehouse</th>
+                  <th>Last Login</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="checkbox" aria-label="Select row"></td>
+                  <td>
+                    <div class="flex items-center gap-2.5">
+                      <img src="../assets/img/avator/1.jpg" alt="John Smith" class="w-9 h-9 rounded-full object-cover">
+                      <div>
+                        <div class="font-semibold text-[var(--text)]">John Smith</div>
+                        <div class="text-[11px] text-[var(--muted)]">Primary Administrator</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-[13px] text-[var(--text)]">john@invenza.com</td>
+                  <td><span class="badge badge-success">Administrator</span></td>
+                  <td class="text-[13px] text-[var(--text)]">Main Warehouse</td>
+                  <td class="text-xs text-[var(--muted)]">Just now (Online)</td>
+                  <td><span class="badge badge-success">Active</span></td>
+                  <td>
+                    <button class="btn btn-secondary btn-icon-sm" aria-label="Edit user John Smith" onclick="Toast.info('Editing user John Smith','User')">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" aria-label="Select row"></td>
+                  <td>
+                    <div class="flex items-center gap-2.5">
+                      <img src="../assets/img/avator/2.jpg" alt="Alex Turner" class="w-9 h-9 rounded-full object-cover">
+                      <div>
+                        <div class="font-semibold text-[var(--text)]">Alex Turner</div>
+                        <div class="text-[11px] text-[var(--muted)]">Warehouse Supervisor</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-[13px] text-[var(--text)]">alex@invenza.com</td>
+                  <td><span class="badge badge-info">Store Manager</span></td>
+                  <td class="text-[13px] text-[var(--text)]">Warehouse B (North)</td>
+                  <td class="text-xs text-[var(--muted)]">2 hours ago</td>
+                  <td><span class="badge badge-success">Active</span></td>
+                  <td>
+                    <button class="btn btn-secondary btn-icon-sm" aria-label="Edit user Alex Turner" onclick="Toast.info('Editing user Alex Turner','User')">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" aria-label="Select row"></td>
+                  <td>
+                    <div class="flex items-center gap-2.5">
+                      <img src="../assets/img/avator/3.jpg" alt="Cashier Terminal 1" class="w-9 h-9 rounded-full object-cover">
+                      <div>
+                        <div class="font-semibold text-[var(--text)]">Cashier Terminal 1</div>
+                        <div class="text-[11px] text-[var(--muted)]">Storefront Register</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-[13px] text-[var(--text)]">pos1@invenza.com</td>
+                  <td><span class="badge badge-warning">Cashier</span></td>
+                  <td class="text-[13px] text-[var(--text)]">Retail Storefront</td>
+                  <td class="text-xs text-[var(--muted)]">Today at 9:00 AM</td>
+                  <td><span class="badge badge-success">Active</span></td>
+                  <td>
+                    <button class="btn btn-secondary btn-icon-sm" aria-label="Edit Cashier account" onclick="Toast.info('Editing Cashier account','User')">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+    <footer class="app-footer">
+      <div class="app-footer-text">Copyright &copy; 2026 Invenza All rights reserved.</div>
+    </footer>
+  </div>
+
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
+
+  <script>
+    window.BASE_PATH = '../';
+    window.CURRENT_PAGE = 'users-list';
+
+    function openAddUserModal() {
+      Modal.show({
+        title: 'Add Team Member',
+        size: 'md',
+        body: `
+          <div class="flex flex-col gap-3.5">
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="form-label">Full Name <span class="required">*</span></label>
+                <input type="text" id="user-name" class="form-input" placeholder="e.g. David Miller" required>
+              </div>
+              <div>
+                <label class="form-label">Email Address <span class="required">*</span></label>
+                <input type="email" class="form-input" placeholder="e.g. david@invenza.com" required>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="form-label">Role <span class="required">*</span></label>
+                <select class="form-input form-select" required>
+                  <option>Store Manager</option>
+                  <option>Cashier</option>
+                  <option>Inventory Clerk</option>
+                  <option>Administrator</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label">Assigned Location</label>
+                <select class="form-input form-select">
+                  <option>Main Warehouse (Central)</option>
+                  <option>Warehouse B (North)</option>
+                  <option>Retail Storefront</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="form-label">Temporary Password <span class="required">*</span></label>
+              <input type="password" class="form-input" placeholder="————————" required>
+            </div>
+          </div>
+        `,
+        footer: `
+          <button class="btn btn-secondary" onclick="this.closest('.modal-backdrop').remove()">Cancel</button>
+          <button class="btn btn-primary" onclick="saveUser()">Add Member</button>
+        `
+      });
+    }
+
+    function saveUser() {
+      const name = document.getElementById('user-name')?.value;
+      if (!name) {
+        Toast.warning('User name is required.', 'Validation');
+        return;
+      }
+      document.querySelector('.modal-backdrop')?.remove();
+      Toast.success(`User "${name}" invited successfully!`, 'Member Added');
+    }
+  </script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

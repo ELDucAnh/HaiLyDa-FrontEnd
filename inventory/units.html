@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Units of Measurement — Invenza</title>
+  <meta name="description" content="Manage inventory units of measurement and conversion factors.">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+</head>
+<body>
+  <div id="sidebar-container"></div>
+  <div id="main-wrapper">
+    <div id="header-container"></div>
+    <main class="flex-1 p-6">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb">
+            <a href="../dashboard.html">Home</a>
+            <span class="sep">/</span>
+            <a href="products.html">Inventory</a>
+            <span class="sep">/</span>
+            <span class="current">Units</span>
+          </div>
+          <h1 class="page-title">Units of Measurement</h1>
+          <p class="page-subtitle">Configure stock quantity units, abbreviations, and conversion ratios.</p>
+        </div>
+        <div class="page-header-actions">
+          <button class="btn btn-primary" aria-label="Add new unit of measurement" onclick="openAddUnitModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Unit
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <section class="page-section" aria-label="Unit statistics">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+          <div class="stat-card">
+            <div class="stat-card-body">
+              <div class="stat-label">Total Units</div>
+              <div class="stat-value">7</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-body">
+              <div class="stat-label">Base Units</div>
+              <div class="stat-value text-[var(--primary)]">4</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-body">
+              <div class="stat-label">Assigned Items</div>
+              <div class="stat-value">104</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Units Table Card -->
+      <section class="page-section" aria-label="Units table">
+        <div class="card p-0 overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="data-table">
+              <caption class="sr-only">Units of measurement listing</caption>
+              <thead>
+                <tr>
+                  <th>Unit Name</th>
+                  <th>Short Name / Symbol</th>
+                  <th>Base Unit</th>
+                  <th>Operator</th>
+                  <th>Operation Value</th>
+                  <th>Active Products</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="font-semibold text-[var(--text)]">Piece</td>
+                  <td class="font-mono font-semibold text-[var(--muted)]">pc</td>
+                  <td>- (Base Unit)</td>
+                  <td>*</td>
+                  <td>1</td>
+                  <td><span class="badge badge-info">74 items</span></td>
+                  <td><span class="badge badge-success">Active</span></td>
+                  <td>
+                    <button class="btn btn-secondary btn-icon-sm" aria-label="Edit unit Piece" onclick="Toast.info('Editing unit Piece','Unit')">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-semibold text-[var(--text)]">Box (10 Pcs)</td>
+                  <td class="font-mono font-semibold text-[var(--muted)]">bx-10</td>
+                  <td>Piece</td>
+                  <td>*</td>
+                  <td>10</td>
+                  <td><span class="badge badge-info">12 items</span></td>
+                  <td><span class="badge badge-success">Active</span></td>
+                  <td>
+                    <button class="btn btn-secondary btn-icon-sm" aria-label="Edit unit Box" onclick="Toast.info('Editing unit Box','Unit')">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-semibold text-[var(--text)]">Dozen</td>
+                  <td class="font-mono font-semibold text-[var(--muted)]">dz</td>
+                  <td>Piece</td>
+                  <td>*</td>
+                  <td>12</td>
+                  <td><span class="badge badge-info">8 items</span></td>
+                  <td><span class="badge badge-success">Active</span></td>
+                  <td>
+                    <button class="btn btn-secondary btn-icon-sm" aria-label="Edit unit Dozen" onclick="Toast.info('Editing unit Dozen','Unit')">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-semibold text-[var(--text)]">Kilogram</td>
+                  <td class="font-mono font-semibold text-[var(--muted)]">kg</td>
+                  <td>- (Base Unit)</td>
+                  <td>*</td>
+                  <td>1</td>
+                  <td><span class="badge badge-info">4 items</span></td>
+                  <td><span class="badge badge-success">Active</span></td>
+                  <td>
+                    <button class="btn btn-secondary btn-icon-sm" aria-label="Edit unit Kilogram" onclick="Toast.info('Editing unit Kilogram','Unit')">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-semibold text-[var(--text)]">Liter</td>
+                  <td class="font-mono font-semibold text-[var(--muted)]">ltr</td>
+                  <td>- (Base Unit)</td>
+                  <td>*</td>
+                  <td>1</td>
+                  <td><span class="badge badge-info">2 items</span></td>
+                  <td><span class="badge badge-success">Active</span></td>
+                  <td>
+                    <button class="btn btn-secondary btn-icon-sm" aria-label="Edit unit Liter" onclick="Toast.info('Editing unit Liter','Unit')">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-semibold text-[var(--text)]">Meter</td>
+                  <td class="font-mono font-semibold text-[var(--muted)]">m</td>
+                  <td>- (Base Unit)</td>
+                  <td>*</td>
+                  <td>1</td>
+                  <td><span class="badge badge-info">4 items</span></td>
+                  <td><span class="badge badge-success">Active</span></td>
+                  <td>
+                    <button class="btn btn-secondary btn-icon-sm" aria-label="Edit unit Meter" onclick="Toast.info('Editing unit Meter','Unit')">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+    <footer class="app-footer">
+      <div class="app-footer-text">Copyright © 2026 Invenza All rights reserved.</div>
+    </footer>
+  </div>
+
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
+
+  <script>
+    window.BASE_PATH = '../';
+    window.CURRENT_PAGE = 'units';
+
+    function openAddUnitModal() {
+      Modal.show({
+        title: 'Add New Unit',
+        size: 'sm',
+        body: `
+          <div class="flex flex-col gap-3.5">
+            <div>
+              <label class="form-label">Unit Name <span class="required">*</span></label>
+              <input type="text" id="new-unit-name" class="form-input" placeholder="e.g. Carton (24 pcs)" required>
+            </div>
+            <div>
+              <label class="form-label">Short Name / Symbol <span class="required">*</span></label>
+              <input type="text" class="form-input" placeholder="e.g. ctn-24" required>
+            </div>
+            <div>
+              <label class="form-label">Base Unit</label>
+              <select class="form-input form-select">
+                <option value="">None (Is Base Unit)</option>
+                <option>Piece (pc)</option>
+                <option>Kilogram (kg)</option>
+                <option>Liter (ltr)</option>
+                <option>Meter (m)</option>
+              </select>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="form-label">Operator</label>
+                <select class="form-input form-select">
+                  <option>*</option>
+                  <option>/</option>
+                  <option>+</option>
+                  <option>-</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label">Operation Value</label>
+                <input type="number" class="form-input" value="1" min="0.01" step="0.01">
+              </div>
+            </div>
+          </div>
+        `,
+        footer: `
+          <button class="btn btn-secondary" onclick="this.closest('.modal-backdrop').remove()">Cancel</button>
+          <button class="btn btn-primary" onclick="saveUnit()">Save Unit</button>
+        `
+      });
+    }
+
+    function saveUnit() {
+      const name = document.getElementById('new-unit-name')?.value;
+      if (!name) {
+        Toast.warning('Unit name is required.', 'Validation');
+        return;
+      }
+      document.querySelector('.modal-backdrop')?.remove();
+      Toast.success(`Unit "${name}" added successfully!`, 'Unit Saved');
+    }
+  </script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

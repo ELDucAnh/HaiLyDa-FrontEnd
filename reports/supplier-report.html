@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supplier Report — Invenza</title>
+  <meta name="description" content="Supplier performance scorecards, on-time delivery rates, and vendor lead times.">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+</head>
+<body>
+  <div id="sidebar-container"></div>
+  <div id="main-wrapper">
+    <div id="header-container"></div>
+    <main class="flex-1 p-6">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb">
+            <a href="../dashboard.html">Home</a>
+            <span class="sep">/</span>
+            <a href="../suppliers/suppliers.html">Reports</a>
+            <span class="sep">/</span>
+            <span class="current">Supplier Report</span>
+          </div>
+          <h1 class="page-title">Supplier Performance Scorecard</h1>
+          <p class="page-subtitle">Track procurement efficiency, vendor lead times, defect rates, and reliability.</p>
+        </div>
+        <div class="flex gap-2.5 flex-wrap">
+          <button class="btn btn-secondary btn-sm" aria-label="Export supplier scorecard as PDF" onclick="Toast.info('Exporting scorecard...','Export')">Export PDF</button>
+        </div>
+      </div>
+
+      <!-- KPI Summary Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">On-Time Delivery Rate</div>
+          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">98.4%</div>
+          <div class="trend-up text-[11px] mt-[2px]">● +1.2% this quarter</div>
+        </div>
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Quality Acceptance</div>
+          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">99.1%</div>
+          <div class="text-[11px] text-[var(--muted)] mt-[2px]">Low defect incidence</div>
+        </div>
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Average Lead Time</div>
+          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">4.2 <span class="text-[13px] font-medium text-[var(--muted)]">Days</span></div>
+          <div class="trend-up text-[11px] mt-[2px]">● 0.8 days faster</div>
+        </div>
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Active PO Contracts</div>
+          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">27</div>
+          <div class="text-[11px] text-[var(--muted)] mt-[2px]">Audited vendors</div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <div class="card">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-[15px] font-bold text-[var(--text)] mb-0">Average Delivery Lead Time (Days)</h3>
+            <span class="badge badge-info">Lower is Better</span>
+          </div>
+          <div class="h-[230px]">
+            <canvas id="supplierLeadTimeChart"></canvas>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-[15px] font-bold text-[var(--text)] mb-0">On-Time Fulfillment Comparison</h3>
+            <span class="badge badge-success">Target &gt; 95%</span>
+          </div>
+          <div class="h-[230px]">
+            <canvas id="supplierFulfillmentChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Supplier Matrix Table -->
+      <div class="card p-0 overflow-hidden">
+        <div class="py-4 px-5 border-b border-[var(--border)] flex items-center justify-between">
+          <h3 class="text-[15px] font-bold text-[var(--text)] mb-0">Supplier Quality &amp; Reliability Scorecard</h3>
+          <a href="../suppliers/suppliers.html" class="btn btn-secondary btn-sm">Manage Suppliers</a>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Supplier</th>
+                <th>Category</th>
+                <th>Orders Fulfilled</th>
+                <th>On-Time Rate</th>
+                <th>Avg Lead Time</th>
+                <th>Defect Rate</th>
+                <th>Overall Rating</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="font-semibold text-[var(--text)]">Apex Electronics Ltd</td>
+                <td>Electronics Hardware</td>
+                <td class="font-semibold">18</td>
+                <td><span class="badge badge-success">99.2%</span></td>
+                <td>3.4 Days</td>
+                <td class="text-[var(--muted)] text-[13px]">0.4%</td>
+                <td><span class="badge badge-success">A+ (98/100)</span></td>
+              </tr>
+              <tr>
+                <td class="font-semibold text-[var(--text)]">Zenith Office Ware</td>
+                <td>Furniture</td>
+                <td class="font-semibold">13</td>
+                <td><span class="badge badge-success">98.5%</span></td>
+                <td>4.8 Days</td>
+                <td class="text-[var(--muted)] text-[13px]">0.8%</td>
+                <td><span class="badge badge-success">A (95/100)</span></td>
+              </tr>
+              <tr>
+                <td class="font-semibold text-[var(--text)]">Global Supplies Co</td>
+                <td>Accessories</td>
+                <td class="font-semibold">14</td>
+                <td><span class="badge badge-warning">94.1%</span></td>
+                <td>5.6 Days</td>
+                <td class="text-[var(--warning)] text-[13px] font-semibold">2.1%</td>
+                <td><span class="badge badge-warning">B+ (88/100)</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+    <footer class="app-footer">
+      <span class="app-footer-text">Copyright © 2026 Invenza All rights reserved.</span>
+    </footer>
+  </div>
+
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
+
+  <script>
+    window.BASE_PATH = '../';
+    window.CURRENT_PAGE = 'supplier-report';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const ctxLead = document.getElementById('supplierLeadTimeChart').getContext('2d');
+      if (ctxLead) {
+        new Chart(ctxLead, {
+          type: 'bar',
+          data: {
+            labels: ['Apex Electronics', 'Zenith Office', 'Global Supplies', 'TechParts Ltd'],
+            datasets: [{
+              label: 'Days to Deliver',
+              data: [3.4, 4.8, 5.6, 3.8],
+              backgroundColor: '#3B82F6',
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { grid: { display: false } },
+              y: { grid: { color: 'rgba(0,0,0,0.05)' } }
+            }
+          }
+        });
+      }
+
+      const ctxFulfill = document.getElementById('supplierFulfillmentChart').getContext('2d');
+      if (ctxFulfill) {
+        new Chart(ctxFulfill, {
+          type: 'bar',
+          data: {
+            labels: ['Apex Electronics', 'Zenith Office', 'Global Supplies', 'TechParts Ltd'],
+            datasets: [{
+              label: 'On-Time Delivery %',
+              data: [99.2, 98.5, 94.1, 97.4],
+              backgroundColor: '#22B573',
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { grid: { display: false } },
+              y: { min: 80, max: 100, grid: { color: 'rgba(0,0,0,0.05)' } }
+            }
+          }
+        });
+      }
+    });
+  </script>
+  <script src="../assets/js/chart.min.js"></script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

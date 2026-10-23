@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales Report — Invenza</title>
+  <meta name="description" content="Detailed sales performance analytics, revenue trends, and top selling item insights.">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+</head>
+<body>
+  <div id="sidebar-container"></div>
+  <div id="main-wrapper">
+    <div id="header-container"></div>
+    <main class="flex-1 p-6">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb">
+            <a href="../dashboard.html">Home</a>
+            <span class="sep">/</span>
+            <a href="../sales/sales.html">Reports</a>
+            <span class="sep">/</span>
+            <span class="current">Sales Report</span>
+          </div>
+          <h1 class="page-title">Sales Analytics &amp; Report</h1>
+          <p class="page-subtitle">Historical sales trajectory, channel distributions, and product velocity.</p>
+        </div>
+        <div class="flex gap-2.5 flex-wrap items-center">
+          <button class="btn btn-secondary btn-sm">Daily</button>
+          <button class="btn btn-secondary btn-sm">Weekly</button>
+          <button class="btn btn-primary btn-sm">Monthly (2026)</button>
+          <button class="btn btn-secondary btn-sm" aria-label="Export sales report as PDF" onclick="Toast.info('Generating PDF Report...','Export')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export PDF
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI Summary Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Gross Revenue</div>
+          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">$67,347.00</div>
+          <div class="trend-up text-[11px] mt-[2px]">● +14.2% vs previous period</div>
+        </div>
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Total Orders</div>
+          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">786</div>
+          <div class="trend-up text-[11px] mt-[2px]">● +8.5% order volume</div>
+        </div>
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Avg Order Value</div>
+          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">$85.68</div>
+          <div class="trend-up text-[11px] mt-[2px]">● +$4.20 per basket</div>
+        </div>
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Discounts Given</div>
+          <div class="text-[26px] font-extrabold text-[var(--warning)] mt-1">$1,420.00</div>
+          <div class="text-[11px] text-[var(--muted)] mt-[2px]">2.1% promo rate</div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        
+        <!-- Revenue Trend (2 cols) -->
+        <div class="card lg:col-span-2">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-[15px] font-bold text-[var(--text)] mb-0">Revenue &amp; Gross Margin</h3>
+            <span class="badge badge-info">Monthly Breakdown</span>
+          </div>
+          <div class="h-[250px]">
+            <canvas id="salesReportChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Payment Method Distribution -->
+        <div class="card flex flex-col justify-between">
+          <div>
+            <h3 class="text-[15px] font-bold text-[var(--text)] mb-4">Sales by Payment Method</h3>
+            <div class="h-[200px] relative">
+              <canvas id="paymentMethodChart"></canvas>
+            </div>
+          </div>
+          <div class="flex justify-around border-t border-[var(--border)] pt-3 mt-3 text-xs">
+            <span class="text-[#22B573] font-semibold">● Credit Card (52%)</span>
+            <span class="text-[#3B82F6] font-semibold">● Cash (30%)</span>
+            <span class="text-[#8B5CF6] font-semibold">● Wire (18%)</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Top Selling Products Table -->
+      <div class="card p-0 overflow-hidden">
+        <div class="py-4 px-5 border-b border-[var(--border)] flex items-center justify-between">
+          <h3 class="text-[15px] font-bold text-[var(--text)] mb-0">Top Performing Products</h3>
+          <a href="../inventory/products.html" class="btn btn-secondary btn-sm">Full Catalog</a>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>SKU</th>
+                <th>Category</th>
+                <th>Units Sold</th>
+                <th>Unit Price</th>
+                <th>Total Revenue</th>
+                <th>Profit Margin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="font-semibold text-[var(--text)]">Wireless Mouse Pro</td>
+                <td class="font-mono text-xs text-[var(--muted)]">WM-001</td>
+                <td>Electronics</td>
+                <td class="font-bold">184</td>
+                <td>$29.99</td>
+                <td class="font-bold text-[var(--primary)]">$5,518.16</td>
+                <td><span class="badge badge-success">49.9%</span></td>
+              </tr>
+              <tr>
+                <td class="font-semibold text-[var(--text)]">Mechanical Keyboard</td>
+                <td class="font-mono text-xs text-[var(--muted)]">MK-002</td>
+                <td>Electronics</td>
+                <td class="font-bold">122</td>
+                <td>$89.99</td>
+                <td class="font-bold text-[var(--primary)]">$10,978.78</td>
+                <td><span class="badge badge-success">38.8%</span></td>
+              </tr>
+              <tr>
+                <td class="font-semibold text-[var(--text)]">Wireless Headphones</td>
+                <td class="font-mono text-xs text-[var(--muted)]">WH-009</td>
+                <td>Electronics</td>
+                <td class="font-bold">94</td>
+                <td>$149.99</td>
+                <td class="font-bold text-[var(--primary)]">$14,099.06</td>
+                <td><span class="badge badge-success">40.0%</span></td>
+              </tr>
+              <tr>
+                <td class="font-semibold text-[var(--text)]">USB-C Hub (7-in-1)</td>
+                <td class="font-mono text-xs text-[var(--muted)]">UH-003</td>
+                <td>Electronics</td>
+                <td class="font-bold">88</td>
+                <td>$49.99</td>
+                <td class="font-bold text-[var(--primary)]">$4,399.12</td>
+                <td><span class="badge badge-success">49.9%</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+    <footer class="app-footer">
+      <span class="app-footer-text">Copyright © 2026 Invenza All rights reserved.</span>
+    </footer>
+  </div>
+
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
+
+  <script>
+    window.BASE_PATH = '../';
+    window.CURRENT_PAGE = 'sales-report';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Sales Report Line/Bar Chart
+      const ctx = document.getElementById('salesReportChart').getContext('2d');
+      if (ctx) {
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+            datasets: [
+              {
+                label: 'Gross Sales ($)',
+                data: [4200, 5800, 6400, 7800, 8900, 9400, 11200, 13647],
+                borderColor: '#22B573',
+                backgroundColor: 'rgba(34, 181, 115, 0.1)',
+                tension: 0.35,
+                fill: true,
+                borderWidth: 2.5
+              },
+              {
+                label: 'Net Profit ($)',
+                data: [1200, 1800, 2100, 2600, 3100, 3200, 3900, 4820],
+                borderColor: '#3B82F6',
+                backgroundColor: 'transparent',
+                borderDash: [5, 5],
+                tension: 0.35,
+                borderWidth: 2
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'top' } },
+            scales: {
+              x: { grid: { display: false } },
+              y: { grid: { color: 'rgba(0,0,0,0.05)' } }
+            }
+          }
+        });
+      }
+
+      // Payment Donut
+      const ctxPay = document.getElementById('paymentMethodChart').getContext('2d');
+      if (ctxPay) {
+        new Chart(ctxPay, {
+          type: 'doughnut',
+          data: {
+            labels: ['Credit Card', 'Cash', 'Bank Transfer'],
+            datasets: [{
+              data: [52, 30, 18],
+              backgroundColor: ['#22B573', '#3B82F6', '#8B5CF6'],
+              borderWidth: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            cutout: '65%'
+          }
+        });
+      }
+    });
+  </script>
+  <script src="../assets/js/chart.min.js"></script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

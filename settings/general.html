@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>General Settings — Invenza</title>
+  <meta name="description" content="Configure enterprise profile, business currency, date format, and company branding.">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+</head>
+<body>
+  <div id="sidebar-container"></div>
+  <div id="main-wrapper">
+    <div id="header-container"></div>
+    <main class="flex-1 p-6">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb">
+            <a href="../dashboard.html">Home</a>
+            <span class="sep">/</span>
+            <span class="current">Settings</span>
+          </div>
+          <h1 class="page-title">Company &amp; General Settings</h1>
+          <p class="page-subtitle">Configure your enterprise information, localization, currencies, and brand assets.</p>
+        </div>
+      </div>
+
+      <!-- Settings Nav Tabs -->
+      <div class="settings-nav-tabs flex gap-2 border-b border-[var(--border)] pb-3 mb-6 overflow-x-auto">
+        <a href="general.html" class="btn btn-primary btn-sm">General</a>
+        <a href="inventory.html" class="btn btn-secondary btn-sm">Inventory</a>
+        <a href="sales.html" class="btn btn-secondary btn-sm">Sales &amp; POS</a>
+        <a href="purchases.html" class="btn btn-secondary btn-sm">Purchases</a>
+        <a href="notifications.html" class="btn btn-secondary btn-sm">Notifications</a>
+      </div>
+
+      <!-- General Settings Form -->
+      <form onsubmit="event.preventDefault(); Toast.success('General settings saved successfully!','Settings Updated');" class="max-w-4xl">
+        <div class="card mb-6">
+          <div class="card-header mb-4 pb-3 border-b border-[var(--border)]">
+            <h3 class="card-title">Company Profile</h3>
+          </div>
+          
+          <div class="flex items-center gap-5 mb-5">
+            <div class="w-[72px] h-[72px] rounded-[18px] bg-[var(--primary)] flex items-center justify-center text-white text-2xl font-extrabold shrink-0">
+              SF
+            </div>
+            <div>
+              <div class="text-sm font-semibold text-[var(--text)]">Company Brand Logo</div>
+              <div class="text-xs text-[var(--muted)] mt-0.5">PNG, SVG, or JPG (Recommended size 200x200px)</div>
+              <div class="flex gap-2.5 mt-2">
+                <button type="button" class="btn btn-secondary btn-sm" aria-label="Upload new company logo" onclick="Toast.info('Logo upload dialog...','Upload')">Upload New</button>
+                <button type="button" class="btn btn-ghost btn-sm text-[var(--danger)]" onclick="Toast.info('Logo removed','Remove')">Remove</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="form-label" for="company-name">Company / Legal Entity Name <span class="required">*</span></label>
+              <input id="company-name" type="text" class="form-input" value="Invenza Retail &amp; Logistics Inc." required>
+            </div>
+            <div>
+              <label class="form-label" for="tax-vat">Tax / VAT Registration Number</label>
+              <input id="tax-vat" type="text" class="form-input" value="US-994820184">
+            </div>
+            <div>
+              <label class="form-label" for="support-email">Official Support Email <span class="required">*</span></label>
+              <input id="support-email" type="email" class="form-input" value="contact@invenza.io" required>
+            </div>
+            <div>
+              <label class="form-label" for="business-phone">Official Business Phone <span class="required">*</span></label>
+              <input id="business-phone" type="text" class="form-input" value="+1 (555) 019-2834" required>
+            </div>
+            <div class="col-span-full">
+              <label class="form-label" for="hq-address">Headquarters Address</label>
+              <input id="hq-address" type="text" class="form-input" value="100 Tech Park Avenue, Suite 400, San Francisco, CA 94107, USA">
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-6">
+          <div class="card-header mb-4 pb-3 border-b border-[var(--border)]">
+            <h3 class="card-title">Localization &amp; Currency</h3>
+          </div>
+          
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="form-label" for="base-currency">Base Currency</label>
+              <select id="base-currency" class="form-input form-select">
+                <option selected>USD ($) — United States Dollar</option>
+                <option>EUR (—) — Euro</option>
+                <option>GBP (—) — British Pound</option>
+                <option>CAD ($) — Canadian Dollar</option>
+                <option>AUD ($) — Australian Dollar</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" for="currency-position">Currency Symbol Position</label>
+              <select id="currency-position" class="form-input form-select">
+                <option selected>Before Amount ($100.00)</option>
+                <option>After Amount (100.00 $)</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" for="timezone">Default Timezone</label>
+              <select id="timezone" class="form-input form-select">
+                <option selected>(UTC-08:00) Pacific Time (US &amp; Canada)</option>
+                <option>(UTC-05:00) Eastern Time (US &amp; Canada)</option>
+                <option>(UTC+00:00) UTC / London</option>
+                <option>(UTC+01:00) Central European Time</option>
+                <option>(UTC+08:00) Singapore, Hong Kong</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" for="date-format">Date Format</label>
+              <select id="date-format" class="form-input form-select">
+                <option selected>MMM DD, YYYY (e.g. Sep 15, 2026)</option>
+                <option>YYYY-MM-DD (e.g. 2026-09-15)</option>
+                <option>DD/MM/YYYY (e.g. 15/09/2026)</option>
+                <option>MM/DD/YYYY (e.g. 09/15/2026)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-3">
+          <button type="submit" class="btn btn-primary" aria-label="Save general settings">Save General Settings</button>
+        </div>
+      </form>
+
+    </main>
+    <footer class="app-footer">
+      <span class="app-footer-text">Copyright © 2026 Invenza All rights reserved.</span>
+    </footer>
+  </div>
+
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
+  <script>window.BASE_PATH = '../'; window.CURRENT_PAGE = 'settings-general';</script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

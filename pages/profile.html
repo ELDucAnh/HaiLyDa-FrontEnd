@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile — Invenza</title>
+  <meta name="description" content="Manage your Invenza profile and account settings.">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+</head>
+<body>
+  <div id="sidebar-container"></div>
+  <div id="main-wrapper">
+    <div id="header-container"></div>
+    <main class="flex-1 p-6">
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb"><a href="../dashboard.html">Home</a><span class="sep">/</span><span class="current">My Profile</span></div>
+          <h1 class="page-title">My Profile</h1>
+        </div>
+        <button class="btn btn-primary" onclick="saveProfile()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Save Changes
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Profile Card -->
+        <div class="card text-center lg:col-span-1">
+          <div class="avatar avatar-lg w-24 h-24 text-[32px] mx-auto mb-4">JS</div>
+          <h2 class="text-lg font-bold text-[var(--text)]">John Smith</h2>
+          <div class="text-[13px] text-[var(--muted)] mt-1">Administrator</div>
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-[20px] bg-[var(--primary-light)] text-[var(--primary)] text-xs font-semibold mt-2">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="5"/></svg> Active
+          </div>
+          <div class="mt-5 pt-5 border-t border-[var(--border)]">
+            <button class="btn btn-secondary btn-sm w-full justify-center" onclick="document.getElementById('avatar-input').click()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Upload Photo
+            </button>
+            <input id="avatar-input" type="file" accept="image/*" class="hidden">
+          </div>
+          <div class="text-left flex flex-col gap-2.5 mt-5">
+            <div class="flex items-center gap-2 text-[13px] text-[var(--muted)]">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              john@invenza.com
+            </div>
+            <div class="flex items-center gap-2 text-[13px] text-[var(--muted)]">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.18a2 2 0 0 1 1.99-2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              +1 (555) 123-4567
+            </div>
+            <div class="flex items-center gap-2 text-[13px] text-[var(--muted)]">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Member since Jan 2026
+            </div>
+          </div>
+        </div>
+
+        <!-- Profile Form -->
+        <div class="col-span-2">
+          <div class="card mb-5">
+            <div class="card-header mb-5 pb-3 border-b border-[var(--border)]">
+              <h3 class="card-title">Personal Information</h3>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="form-label" for="p-first">First Name</label>
+                <input id="p-first" type="text" class="form-input" value="John">
+              </div>
+              <div>
+                <label class="form-label" for="p-last">Last Name</label>
+                <input id="p-last" type="text" class="form-input" value="Smith">
+              </div>
+              <div>
+                <label class="form-label" for="p-email">Email Address</label>
+                <input id="p-email" type="email" class="form-input" value="john@invenza.com">
+              </div>
+              <div>
+                <label class="form-label" for="p-phone">Phone Number</label>
+                <input id="p-phone" type="tel" class="form-input" value="+1 (555) 123-4567">
+              </div>
+              <div class="col-span-full">
+                <label class="form-label" for="p-bio">Bio</label>
+                <textarea id="p-bio" class="form-input form-textarea" rows="3">Inventory management specialist with 8+ years of experience in supply chain optimization.</textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mb-5">
+            <div class="card-header mb-5 pb-3 border-b border-[var(--border)]">
+              <h3 class="card-title">Change Password</h3>
+            </div>
+            <div class="flex flex-col gap-3.5">
+              <div>
+                <label class="form-label" for="p-current-pw">Current Password</label>
+                <input id="p-current-pw" type="password" class="form-input" placeholder="Enter current password">
+              </div>
+              <div>
+                <label class="form-label" for="p-new-pw">New Password</label>
+                <input id="p-new-pw" type="password" class="form-input" placeholder="Min. 8 characters">
+              </div>
+              <div>
+                <label class="form-label" for="p-confirm-pw">Confirm New Password</label>
+                <input id="p-confirm-pw" type="password" class="form-input" placeholder="Repeat new password">
+              </div>
+              <button class="btn btn-secondary self-start" onclick="Toast.success('Password updated successfully!','Password Changed')">Update Password</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header mb-5 pb-3 border-b border-[var(--border)]">
+              <h3 class="card-title">Preferences</h3>
+            </div>
+            <div class="flex flex-col gap-3.5">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-[13px] font-medium text-[var(--text)]">Email Notifications</div>
+                  <div class="text-xs text-[var(--muted)]">Receive updates about sales and inventory</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" checked id="email-notif">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-[13px] font-medium text-[var(--text)]">Low Stock Alerts</div>
+                  <div class="text-xs text-[var(--muted)]">Get notified when products run low</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" checked id="low-stock-alerts">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              <div>
+                <label class="form-label" for="p-currency">Default Currency</label>
+                <select id="p-currency" class="form-input form-select">
+                  <option selected>USD — US Dollar</option>
+                  <option>EUR — Euro</option>
+                  <option>GBP — British Pound</option>
+                  <option>BDT — Bangladeshi Taka</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label" for="p-timezone">Timezone</label>
+                <select id="p-timezone" class="form-input form-select">
+                  <option>UTC-05:00 Eastern Time</option>
+                  <option>UTC-08:00 Pacific Time</option>
+                  <option selected>UTC+00:00 London</option>
+                  <option>UTC+06:00 Dhaka</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="app-footer">
+      <span class="app-footer-text">Copyright © 2026 Invenza All rights reserved.</span>
+    </footer>
+  </div>
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
+  <script>window.BASE_PATH = '../'; window.CURRENT_PAGE = 'profile';</script>
+  <script src="../assets/js/app.js"></script>
+  <script>
+    function saveProfile() { Toast.success('Profile updated successfully!', 'Profile Saved'); }
+  </script>
+</body>
+</html>

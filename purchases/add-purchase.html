@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Purchase — Invenza</title>
+  <meta name="description" content="Create a new supplier purchase order in Invenza.">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+</head>
+<body>
+  <div id="sidebar-container"></div>
+  <div id="main-wrapper">
+    <div id="header-container"></div>
+    <main class="flex-1 p-6">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb">
+            <a href="../dashboard.html">Home</a>
+            <span class="sep">/</span>
+            <a href="purchases.html">Purchases</a>
+            <span class="sep">/</span>
+            <span class="current">Add Purchase</span>
+          </div>
+          <h1 class="page-title">Create Purchase Order</h1>
+          <p class="page-subtitle">Record incoming vendor inventory and payment obligations.</p>
+        </div>
+        <a href="purchases.html" class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Back to Purchases
+        </a>
+      </div>
+
+      <form id="add-purchase-form" onsubmit="handleSavePurchase(event)">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+          <!-- Left / Main: General Info & Product Table -->
+          <div class="col-span-2 flex flex-col gap-6">
+
+            <!-- General Details Card -->
+            <div class="card">
+              <h3 class="text-[15px] font-bold text-[var(--text)] mb-4 pb-3 border-b border-[var(--border)]">Purchase Information</h3>
+              <div class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">
+                <div>
+                  <label class="form-label">Supplier <span class="required">*</span></label>
+                  <select class="form-input form-select" required>
+                    <option value="">Select Supplier...</option>
+                    <option>Apex Electronics Ltd</option>
+                    <option>Global Supplies Co</option>
+                    <option>Zenith Office Ware</option>
+                    <option>TechParts Distribution</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="form-label">PO Reference #</label>
+                  <input type="text" class="form-input bg-[var(--background)] font-mono font-semibold" value="PO-00049" readonly>
+                </div>
+                <div>
+                  <label class="form-label">Purchase Date <span class="required">*</span></label>
+                  <input type="date" class="form-input" id="po-date" required>
+                </div>
+                <div>
+                  <label class="form-label">Destination Warehouse <span class="required">*</span></label>
+                  <select class="form-input form-select" required>
+                    <option>Main Warehouse (Central)</option>
+                    <option>Warehouse B (North)</option>
+                    <option>Retail Storefront</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="form-label">Order Status</label>
+                  <select class="form-input form-select">
+                    <option>Received</option>
+                    <option>Ordered</option>
+                    <option>Pending</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Items Selection -->
+            <div class="card">
+              <div class="flex items-center justify-between mb-4 flex-wrap gap-2.5">
+                <h3 class="text-[15px] font-bold text-[var(--text)] m-0">Order Line Items</h3>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="addPurchaseItemRow()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  Add Item Row
+                </button>
+              </div>
+
+              <div class="overflow-x-auto">
+                <table class="data-table" id="purchase-items-table">
+                  <thead>
+                    <tr>
+                      <th class="min-w-[200px]">Product</th>
+                      <th class="w-[110px]">Cost ($)</th>
+                      <th class="w-[100px]">Quantity</th>
+                      <th class="w-[90px]">Tax (%)</th>
+                      <th class="w-[120px]">Subtotal</th>
+                      <th class="w-[50px]"></th>
+                    </tr>
+                  </thead>
+                  <tbody id="purchase-items-tbody">
+                    <tr>
+                      <td>
+                        <select class="form-input form-select item-prod" onchange="calcPurchaseTotals()">
+                          <option value="15.00">Wireless Mouse (WM-001)</option>
+                          <option value="55.00">Mechanical Keyboard (MK-002)</option>
+                          <option value="25.00">USB-C Hub (UH-003)</option>
+                          <option value="90.00">Wireless Headphones (WH-009)</option>
+                        </select>
+                      </td>
+                      <td><input type="number" class="form-input item-cost" value="15.00" min="0" step="0.01" oninput="calcPurchaseTotals()"></td>
+                      <td><input type="number" class="form-input item-qty" value="20" min="1" oninput="calcPurchaseTotals()"></td>
+                      <td><input type="number" class="form-input item-tax" value="10" min="0" oninput="calcPurchaseTotals()"></td>
+                      <td class="font-bold text-[var(--text)]"><span class="item-subtotal">$330.00</span></td>
+                      <td>
+                        <button type="button" class="btn btn-danger btn-icon-sm" onclick="removePurchaseRow(this)">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <select class="form-input form-select item-prod" onchange="calcPurchaseTotals()">
+                          <option value="55.00" selected>Mechanical Keyboard (MK-002)</option>
+                          <option value="15.00">Wireless Mouse (WM-001)</option>
+                          <option value="25.00">USB-C Hub (UH-003)</option>
+                          <option value="90.00">Wireless Headphones (WH-009)</option>
+                        </select>
+                      </td>
+                      <td><input type="number" class="form-input item-cost" value="55.00" min="0" step="0.01" oninput="calcPurchaseTotals()"></td>
+                      <td><input type="number" class="form-input item-qty" value="10" min="1" oninput="calcPurchaseTotals()"></td>
+                      <td><input type="number" class="form-input item-tax" value="10" min="0" oninput="calcPurchaseTotals()"></td>
+                      <td class="font-bold text-[var(--text)]"><span class="item-subtotal">$605.00</span></td>
+                      <td>
+                        <button type="button" class="btn btn-danger btn-icon-sm" onclick="removePurchaseRow(this)">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Notes -->
+            <div class="card">
+              <h3 class="text-[15px] font-bold text-[var(--text)] mb-3">Notes &amp; Terms</h3>
+              <textarea class="form-input" rows="3" placeholder="Enter purchase terms, freight forwarding details or notes for the supplier..."></textarea>
+            </div>
+
+          </div>
+
+          <!-- Right: Financial Summary & Actions -->
+          <div class="flex flex-col gap-6">
+            
+            <div class="card">
+              <h3 class="text-[15px] font-bold text-[var(--text)] mb-4 pb-3 border-b border-[var(--border)]">Order Calculation</h3>
+              
+              <div class="flex flex-col gap-3.5">
+                <div class="flex justify-between text-sm">
+                  <span class="text-[var(--muted)]">Items Subtotal</span>
+                  <span class="font-semibold text-[var(--text)]" id="po-calc-subtotal">$850.00</span>
+                </div>
+
+                <div class="flex justify-between items-center">
+                  <span class="text-[13px] text-[var(--muted)]">Order Discount ($)</span>
+                  <input type="number" id="po-discount" class="form-input w-[100px] h-[34px] text-right" value="0" min="0" oninput="calcPurchaseTotals()">
+                </div>
+
+                <div class="flex justify-between items-center">
+                  <span class="text-[13px] text-[var(--muted)]">Shipping Cost ($)</span>
+                  <input type="number" id="po-shipping" class="form-input w-[100px] h-[34px] text-right" value="45" min="0" oninput="calcPurchaseTotals()">
+                </div>
+
+                <div class="flex justify-between text-sm">
+                  <span class="text-[var(--muted)]">Estimated Tax</span>
+                  <span class="font-semibold text-[var(--text)]" id="po-calc-tax">$85.00</span>
+                </div>
+
+                <div class="flex justify-between text-lg font-extrabold border-t border-[var(--border)] pt-3.5">
+                  <span class="text-[var(--text)]">Grand Total</span>
+                  <span class="text-[var(--primary)]" id="po-calc-total">$980.00</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment Details -->
+            <div class="card">
+              <h3 class="text-[15px] font-bold text-[var(--text)] mb-4 pb-3 border-b border-[var(--border)]">Payment Details</h3>
+              
+              <div class="flex flex-col gap-3.5">
+                <div>
+                  <label class="form-label">Payment Status</label>
+                  <select class="form-input form-select" id="po-payment-status">
+                    <option value="Paid">Paid</option>
+                    <option value="Partial">Partial Payment</option>
+                    <option value="Unpaid">Unpaid / On Credit</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="form-label">Amount Paid ($)</label>
+                  <input type="number" class="form-input" id="po-paid-amount" value="980.00" min="0" step="0.01">
+                </div>
+                <div>
+                  <label class="form-label">Payment Method</label>
+                  <select class="form-input form-select">
+                    <option>Bank Wire Transfer</option>
+                    <option>Company Credit Card</option>
+                    <option>Cash</option>
+                    <option>Cheque</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex gap-2.5">
+              <button type="submit" class="btn btn-primary flex-1 justify-center p-3">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Save Purchase Order
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </form>
+
+    </main>
+    <footer class="app-footer">
+      <div class="app-footer-text">Copyright © 2026 Invenza All rights reserved.</div>
+    </footer>
+  </div>
+
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
+
+  <script>
+    window.BASE_PATH = '../';
+    window.CURRENT_PAGE = 'add-purchase';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const dateEl = document.getElementById('po-date');
+      if (dateEl) dateEl.value = new Date().toISOString().split('T')[0];
+      calcPurchaseTotals();
+    });
+
+    function addPurchaseItemRow() {
+      const tbody = document.getElementById('purchase-items-tbody');
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>
+          <select class="form-input form-select item-prod" onchange="calcPurchaseTotals()">
+            <option value="25.00">USB-C Hub (UH-003)</option>
+            <option value="15.00">Wireless Mouse (WM-001)</option>
+            <option value="55.00">Mechanical Keyboard (MK-002)</option>
+            <option value="90.00">Wireless Headphones (WH-009)</option>
+          </select>
+        </td>
+        <td><input type="number" class="form-input item-cost" value="25.00" min="0" step="0.01" oninput="calcPurchaseTotals()"></td>
+        <td><input type="number" class="form-input item-qty" value="10" min="1" oninput="calcPurchaseTotals()"></td>
+        <td><input type="number" class="form-input item-tax" value="10" min="0" oninput="calcPurchaseTotals()"></td>
+        <td class="font-bold text-[var(--text)]"><span class="item-subtotal">$275.00</span></td>
+        <td>
+          <button type="button" class="btn btn-danger btn-icon-sm" onclick="removePurchaseRow(this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>
+          </button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+      calcPurchaseTotals();
+    }
+
+    function removePurchaseRow(btn) {
+      const rows = document.querySelectorAll('#purchase-items-tbody tr');
+      if (rows.length <= 1) {
+        Toast.warning('At least one item is required in the purchase order.', 'Order Items');
+        return;
+      }
+      btn.closest('tr').remove();
+      calcPurchaseTotals();
+    }
+
+    function calcPurchaseTotals() {
+      const rows = document.querySelectorAll('#purchase-items-tbody tr');
+      let itemsSubtotal = 0;
+      let totalTax = 0;
+
+      rows.forEach(r => {
+        const cost = parseFloat(r.querySelector('.item-cost')?.value || 0);
+        const qty = parseFloat(r.querySelector('.item-qty')?.value || 0);
+        const taxRate = parseFloat(r.querySelector('.item-tax')?.value || 0);
+        
+        const lineBase = cost * qty;
+        const lineTax = (lineBase * taxRate) / 100;
+        const lineTotal = lineBase + lineTax;
+
+        itemsSubtotal += lineBase;
+        totalTax += lineTax;
+
+        const subEl = r.querySelector('.item-subtotal');
+        if (subEl) subEl.textContent = `$${lineTotal.toFixed(2)}`;
+      });
+
+      const discount = parseFloat(document.getElementById('po-discount')?.value || 0);
+      const shipping = parseFloat(document.getElementById('po-shipping')?.value || 0);
+      const grandTotal = Math.max(0, itemsSubtotal - discount + totalTax + shipping);
+
+      document.getElementById('po-calc-subtotal').textContent = `$${itemsSubtotal.toFixed(2)}`;
+      document.getElementById('po-calc-tax').textContent = `$${totalTax.toFixed(2)}`;
+      document.getElementById('po-calc-total').textContent = `$${grandTotal.toFixed(2)}`;
+
+      const paidEl = document.getElementById('po-paid-amount');
+      if (paidEl && document.getElementById('po-payment-status').value === 'Paid') {
+        paidEl.value = grandTotal.toFixed(2);
+      }
+    }
+
+    function handleSavePurchase(e) {
+      e.preventDefault();
+      Toast.success('Purchase Order PO-00049 created successfully!', 'Purchase Saved');
+      setTimeout(() => {
+        window.location.href = 'purchases.html';
+      }, 1000);
+    }
+  </script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

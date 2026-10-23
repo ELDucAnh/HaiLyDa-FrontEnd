@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roles & Permissions &mdash; Invenza</title>
+  <meta name="description" content="Configure role-based access control, granular module permissions, and staff limits.">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+</head>
+<body>
+  <div id="sidebar-container"></div>
+  <div id="main-wrapper">
+    <div id="header-container"></div>
+    <main class="flex-1 p-6">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb">
+            <a href="../dashboard.html">Home</a>
+            <span class="sep">/</span>
+            <a href="users.html">Users</a>
+            <span class="sep">/</span>
+            <span class="current">Roles &amp; Permissions</span>
+          </div>
+          <h1 class="page-title">Roles &amp; Permissions</h1>
+          <p class="page-subtitle">Configure granular security access, data visibility, and authorization policies.</p>
+        </div>
+        <div class="page-header-actions">
+          <a href="users.html" class="btn btn-secondary" aria-label="View staff directory">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Staff Directory
+          </a>
+          <button class="btn btn-primary" aria-label="Save permission settings" onclick="Toast.success('Permission policies updated successfully!','Permissions Saved')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Save Permissions
+          </button>
+        </div>
+      </div>
+
+      <!-- Roles Cards Row -->
+      <section class="page-section" aria-label="Role definitions">
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+          <div class="card border-[var(--primary)] bg-[var(--primary-light)]">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-[15px] font-bold text-[var(--text)]">Administrator</span>
+              <span class="badge badge-success">Active</span>
+            </div>
+            <div class="stat-sub-label mb-3">Full uncontrolled access to all business modules and configurations.</div>
+            <div class="text-[11px] font-bold text-[var(--primary)]">2 Members Assigned</div>
+          </div>
+
+          <div class="card">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-[15px] font-bold text-[var(--text)]">Store Manager</span>
+              <span class="badge badge-info">Custom</span>
+            </div>
+            <div class="stat-sub-label mb-3">Can manage catalog, sales, and inventory stock adjustments.</div>
+            <div class="stat-sub-label">1 Member Assigned</div>
+          </div>
+
+          <div class="card">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-[15px] font-bold text-[var(--text)]">Cashier</span>
+              <span class="badge badge-warning">Restricted</span>
+            </div>
+            <div class="stat-sub-label mb-3">Limited to Point of Sale (POS) checkout and creating receipts.</div>
+            <div class="stat-sub-label">4 Members Assigned</div>
+          </div>
+
+          <div class="card">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-[15px] font-bold text-[var(--text)]">Inventory Clerk</span>
+              <span class="badge badge-gray">Restricted</span>
+            </div>
+            <div class="stat-sub-label mb-3">Allowed to receive purchase shipments and audit count levels.</div>
+            <div class="stat-sub-label">1 Member Assigned</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Permission Matrix Table -->
+      <section class="page-section" aria-label="Permission matrix">
+        <div class="card p-0 overflow-hidden">
+          <div class="card-header pt-[10px] pl-[10px] pr-[10px] border-b border-[var(--border)] flex-wrap gap-2.5">
+            <div>
+              <h3 class="card-title m-0">Permissions Matrix for Store Manager</h3>
+              <div class="stat-sub-label mt-0.5">Select checkbox capabilities granted to this role</div>
+            </div>
+            <div class="flex gap-2">
+              <button class="btn btn-secondary btn-sm" aria-label="Select all permissions" onclick="toggleAllPermissions(true)">Select All</button>
+              <button class="btn btn-secondary btn-sm" aria-label="Deselect all permissions" onclick="toggleAllPermissions(false)">Deselect All</button>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="data-table">
+              <caption class="sr-only">Permission matrix for Store Manager role</caption>
+              <thead>
+                <tr>
+                  <th class="min-w-[220px]">Module / Resource</th>
+                  <th class="text-center w-[120px]">View / Read</th>
+                  <th class="text-center w-[120px]">Create / Add</th>
+                  <th class="text-center w-[120px]">Edit / Update</th>
+                  <th class="text-center w-[120px]">Delete / Remove</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="font-semibold text-[var(--text)]">Inventory &amp; Products</td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="View Inventory & Products permission"></td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="Create Inventory & Products permission"></td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="Edit Inventory & Products permission"></td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Delete Inventory & Products permission"></td>
+                </tr>
+                <tr>
+                  <td class="font-semibold text-[var(--text)]">Sales &amp; Point of Sale (POS)</td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="View Sales & POS permission"></td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="Create Sales & POS permission"></td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="Edit Sales & POS permission"></td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Delete Sales & POS permission"></td>
+                </tr>
+                <tr>
+                  <td class="font-semibold text-[var(--text)]">Purchases &amp; Vendors</td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="View Purchases & Vendors permission"></td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="Create Purchases & Vendors permission"></td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Edit Purchases & Vendors permission"></td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Delete Purchases & Vendors permission"></td>
+                </tr>
+                <tr>
+                  <td class="font-semibold text-[var(--text)]">Customers &amp; CRM</td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="View Customers & CRM permission"></td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="Create Customers & CRM permission"></td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="Edit Customers & CRM permission"></td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Delete Customers & CRM permission"></td>
+                </tr>
+                <tr>
+                  <td class="font-semibold text-[var(--text)]">Expenses Tracking</td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="View Expenses Tracking permission"></td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="Create Expenses Tracking permission"></td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Edit Expenses Tracking permission"></td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Delete Expenses Tracking permission"></td>
+                </tr>
+                <tr>
+                  <td class="font-semibold text-[var(--text)]">Reports &amp; Analytics</td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="View Reports & Analytics permission"></td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Create Reports & Analytics permission"></td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Edit Reports & Analytics permission"></td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Delete Reports & Analytics permission"></td>
+                </tr>
+                <tr>
+                  <td class="font-semibold text-[var(--text)]">System Settings &amp; Users</td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="View System Settings & Users permission"></td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Create System Settings & Users permission"></td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Edit System Settings & Users permission"></td>
+                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Delete System Settings & Users permission"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+    <footer class="app-footer">
+      <div class="app-footer-text">Copyright &copy; 2026 Invenza All rights reserved.</div>
+    </footer>
+  </div>
+
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
+
+  <script>
+    window.BASE_PATH = '../';
+    window.CURRENT_PAGE = 'roles';
+
+    function toggleAllPermissions(checked) {
+      document.querySelectorAll('.perm-cb').forEach(cb => cb.checked = checked);
+    }
+  </script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

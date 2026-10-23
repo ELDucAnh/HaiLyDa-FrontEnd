@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Report — Invenza</title>
+  <meta name="description" content="Customer purchasing behavior, lifetime value metrics, and top client insights.">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+</head>
+<body>
+  <div id="sidebar-container"></div>
+  <div id="main-wrapper">
+    <div id="header-container"></div>
+    <main class="flex-1 p-6">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb">
+            <a href="../dashboard.html">Home</a>
+            <span class="sep">/</span>
+            <a href="../customers/customers.html">Reports</a>
+            <span class="sep">/</span>
+            <span class="current">Customer Report</span>
+          </div>
+          <h1 class="page-title">Customer Analytics</h1>
+          <p class="page-subtitle">Understand customer cohort behavior, retention rates, and lifetime values.</p>
+        </div>
+        <div class="flex gap-2.5 flex-wrap">
+          <button class="btn btn-secondary btn-sm" aria-label="Export customer report as PDF" onclick="Toast.info('Exporting customer metrics...','Export')">Export PDF</button>
+        </div>
+      </div>
+
+      <!-- KPI Summary Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Registered Clients</div>
+          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">1,842</div>
+          <div class="trend-up text-[11px] mt-[2px]">● +48 this month</div>
+        </div>
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Repeat Purchase Rate</div>
+          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">68.4%</div>
+          <div class="trend-up text-[11px] mt-[2px]">High client loyalty</div>
+        </div>
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Average Spend / User</div>
+          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">$438.50</div>
+          <div class="text-[11px] text-[var(--muted)] mt-[2px]">Across all accounts</div>
+        </div>
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Retention Rate</div>
+          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">92.1%</div>
+          <div class="text-[11px] text-[var(--muted)] mt-[2px]">Annual cohort retention</div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        <div class="card lg:col-span-2">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-[15px] font-bold text-[var(--text)] mb-0">New vs Returning Customer Sales</h3>
+            <span class="badge badge-info">Monthly Growth</span>
+          </div>
+          <div class="h-[250px]">
+            <canvas id="customerGrowthChart"></canvas>
+          </div>
+        </div>
+
+        <div class="card flex flex-col justify-between">
+          <div>
+            <h3 class="text-[15px] font-bold text-[var(--text)] mb-4">Customer Tiers</h3>
+            <div class="h-[200px] relative">
+              <canvas id="customerTierChart"></canvas>
+            </div>
+          </div>
+          <div class="flex justify-around border-t border-[var(--border)] pt-3 mt-3 text-xs">
+            <span class="text-[#22B573] font-semibold">● VIP Tier (25%)</span>
+            <span class="text-[#3B82F6] font-semibold">● Regular (55%)</span>
+            <span class="text-[var(--warning)] font-semibold">● Casual (20%)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Customers Table -->
+      <div class="card p-0 overflow-hidden">
+        <div class="py-4 px-5 border-b border-[var(--border)] flex items-center justify-between">
+          <h3 class="text-[15px] font-bold text-[var(--text)] mb-0">Top Customers by Lifetime Value (LTV)</h3>
+          <a href="../customers/customers.html" class="btn btn-secondary btn-sm">Full Directory</a>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Customer Name</th>
+                <th>Company / Tag</th>
+                <th>Total Orders</th>
+                <th>Total Spent</th>
+                <th>Avg Order Size</th>
+                <th>Last Order</th>
+                <th>Loyalty Tier</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="font-semibold text-[var(--text)]">John Smith</td>
+                <td>Acme Corp</td>
+                <td class="font-bold">24 Orders</td>
+                <td class="font-bold text-[var(--primary)]">$4,850.00</td>
+                <td>$202.08</td>
+                <td class="text-xs text-[var(--muted)]">Aug 24, 2026</td>
+                <td><span class="badge badge-success">Platinum VIP</span></td>
+              </tr>
+              <tr>
+                <td class="font-semibold text-[var(--text)]">Michael Brown</td>
+                <td>Brown Logistics</td>
+                <td class="font-bold">15 Orders</td>
+                <td class="font-bold text-[var(--primary)]">$3,240.00</td>
+                <td>$216.00</td>
+                <td class="text-xs text-[var(--muted)]">Aug 23, 2026</td>
+                <td><span class="badge badge-info">Gold Member</span></td>
+              </tr>
+              <tr>
+                <td class="font-semibold text-[var(--text)]">Sarah Wilson</td>
+                <td>Wilson Design Studio</td>
+                <td class="font-bold">8 Orders</td>
+                <td class="font-bold text-[var(--primary)]">$1,920.00</td>
+                <td>$240.00</td>
+                <td class="text-xs text-[var(--muted)]">Aug 22, 2026</td>
+                <td><span class="badge badge-info">Gold Member</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+    <footer class="app-footer">
+      <span class="app-footer-text">Copyright © 2026 Invenza All rights reserved.</span>
+    </footer>
+  </div>
+
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
+
+  <script>
+    window.BASE_PATH = '../';
+    window.CURRENT_PAGE = 'customer-report';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const ctxGrowth = document.getElementById('customerGrowthChart').getContext('2d');
+      if (ctxGrowth) {
+        new Chart(ctxGrowth, {
+          type: 'bar',
+          data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+            datasets: [
+              {
+                label: 'Returning Customers ($)',
+                data: [2600, 3700, 4200, 5100, 5900, 6400, 7800, 9400],
+                backgroundColor: '#22B573',
+                borderRadius: 4
+              },
+              {
+                label: 'New Customers ($)',
+                data: [1600, 2100, 2200, 2700, 3000, 3000, 3400, 4247],
+                backgroundColor: '#3B82F6',
+                borderRadius: 4
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'top' } },
+            scales: {
+              x: { stacked: true, grid: { display: false } },
+              y: { stacked: true, grid: { color: 'rgba(0,0,0,0.05)' } }
+            }
+          }
+        });
+      }
+
+      const ctxTier = document.getElementById('customerTierChart').getContext('2d');
+      if (ctxTier) {
+        new Chart(ctxTier, {
+          type: 'doughnut',
+          data: {
+            labels: ['VIP Tier', 'Regular Clients', 'Casual Walk-in'],
+            datasets: [{
+              data: [25, 55, 20],
+              backgroundColor: ['#22B573', '#3B82F6', '#F59E0B'],
+              borderWidth: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            cutout: '65%'
+          }
+        });
+      }
+    });
+  </script>
+  <script src="../assets/js/chart.min.js"></script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

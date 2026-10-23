@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Point of Sale (POS) — Invenza</title>
+  <meta name="description" content="Fast, touch-ready point of sale checkout interface.">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+  <style>
+    .pos-product-card { transition: all 0.25s cubic-bezier(0.4,0,0.2,1); position: relative; user-select: none; }
+    .pos-product-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px -8px rgba(0,0,0,0.12); }
+    .pos-product-card:active { transform: translateY(-1px) scale(0.98); }
+    .pos-product-card .out-of-stock-overlay { opacity: 0; transition: opacity 0.2s ease; }
+    .pos-product-card:hover .out-of-stock-overlay { opacity: 1; }
+    .quick-amount-btn { transition: all 0.15s ease; }
+    .quick-amount-btn:hover { transform: scale(1.05); }
+    .quick-amount-btn:active { transform: scale(0.95); }
+    @keyframes cartBounce { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+    .cart-bounce { animation: cartBounce 0.3s ease; }
+    .cart-item-enter { animation: slideIn 0.25s ease forwards; }
+    @keyframes slideIn { from{opacity:0;transform:translateX(12px)} to{opacity:1;transform:translateX(0)} }
+  </style>
+<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+</head>
+<body>
+  <div id="sidebar-container"></div>
+  <div id="main-wrapper">
+    <div id="header-container"></div>
+    <main class="flex-1 p-4 md:p-6">
+
+      <!-- Page Header -->
+      <div class="page-header mb-5">
+        <div>
+          <div class="breadcrumb">
+            <a href="../dashboard.html">Home</a>
+            <span class="sep">/</span>
+            <a href="sales.html">Sales</a>
+            <span class="sep">/</span>
+            <span class="current">Point of Sale</span>
+          </div>
+          <div class="flex items-center gap-3 mt-1">
+            <h1 class="page-title mb-0">Point of Sale (POS)</h1>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold border border-emerald-200">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              Register #01 Active
+            </span>
+          </div>
+        </div>
+        <div class="flex gap-2.5 items-center">
+          <a href="sales.html" class="btn btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            Sales List
+          </a>
+          <button class="btn btn-secondary" onclick="Toast.info('Cash drawer opened.','Register')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="6" y1="12" x2="18" y2="12"/><circle cx="12" cy="16" r="1"/></svg>
+            Open Drawer
+          </button>
+        </div>
+      </div>
+
+      <!-- POS Grid Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+
+        <!-- Left: Product Catalog -->
+        <div class="lg:col-span-7 flex flex-col gap-4">
+
+          <!-- Search & Filter Bar -->
+          <div class="bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-3">
+            <div class="flex gap-3 items-center">
+              <div class="relative flex-1 min-w-0">
+                <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--muted)]" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="pos-search" class="w-full h-11 pl-11 pr-4 rounded-xl border border-[var(--border)] bg-[var(--background)] text-[var(--text)] text-sm font-medium placeholder:text-[var(--muted)] focus:outline-none focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/10 transition-all" placeholder="Scan barcode or type product name / SKU..." autofocus>
+                <kbd class="absolute right-3 top-1/2 -translate-y-1/2 px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--muted)] bg-[var(--surface)] border border-[var(--border)]">/</kbd>
+              </div>
+              <select id="pos-category-filter" class="h-11 px-4 pr-9 rounded-xl border border-[var(--border)] bg-[var(--background)] text-[var(--text)] text-sm font-medium appearance-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%236B7280%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[right_10px_center] focus:outline-none focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/10 transition-all min-w-[160px]">
+                <option value="all">All Categories</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Accessories">Accessories</option>
+                <option value="Furniture">Furniture</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Product Cards Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3.5" id="pos-product-grid">
+            <!-- Rendered by pos.js -->
+          </div>
+
+        </div>
+
+        <!-- Right: Cart & Checkout -->
+        <div class="lg:col-span-5 flex flex-col gap-4 sticky top-20">
+
+          <!-- Cart Card -->
+          <div class="bg-[var(--surface)] border border-[var(--border)] rounded-2xl overflow-hidden">
+
+            <!-- Customer Section -->
+            <div class="px-5 pt-5 pb-4 border-b border-[var(--border)]">
+              <div class="flex items-center gap-3">
+                <div class="flex-1 min-w-0">
+                  <label class="block text-[11px] font-semibold text-[var(--muted)] uppercase tracking-wider mb-1.5">Customer</label>
+                  <div class="relative">
+                    <select class="w-full h-10 pl-3 pr-9 rounded-xl border border-[var(--border)] bg-[var(--background)] text-[var(--text)] text-[13px] font-medium appearance-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%236B7280%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[right_10px_center] focus:outline-none focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/10 transition-all" id="pos-customer">
+                      <option value="walk-in">Walk-in Customer (Guest)</option>
+                      <option value="1">John Smith (VIP)</option>
+                      <option value="2">Michael Brown</option>
+                      <option value="3">Sarah Wilson</option>
+                      <option value="4">Emma Johnson</option>
+                    </select>
+                  </div>
+                </div>
+                <button type="button" class="w-10 h-10 rounded-xl border border-dashed border-[var(--border)] flex items-center justify-center text-[var(--muted)] hover:border-[var(--primary)] hover:text-[var(--primary)] hover:bg-[var(--primary-light)] transition-all mt-5" onclick="Toast.info('Quick Add Customer modal','Customer')" title="Add New Customer">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Cart Items Header -->
+            <div class="px-5 pt-4 pb-2 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-[var(--text)]">Current Cart</span>
+                <span id="pos-cart-count" class="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-[var(--primary-light)] text-[var(--primary)] text-[11px] font-bold">0</span>
+              </div>
+              <button id="pos-clear-cart" class="text-[11px] font-semibold text-red-500 hover:text-red-700 hover:bg-red-50 px-2.5 py-1 rounded-lg transition-all">Clear All</button>
+            </div>
+
+            <!-- Cart Items Container -->
+            <div id="pos-cart-items" class="max-h-[280px] overflow-y-auto px-5 pb-4">
+              <!-- Rendered by pos.js -->
+            </div>
+
+          </div>
+
+          <!-- Calculation Card -->
+          <div class="bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-5">
+
+            <!-- Subtotal -->
+            <div class="flex justify-between items-center mb-4">
+              <span class="text-sm text-[var(--muted)] font-medium">Subtotal</span>
+              <span class="text-sm font-bold text-[var(--text)]" id="pos-subtotal">$0.00</span>
+            </div>
+
+            <!-- Discount & Tax Inputs -->
+            <div class="grid grid-cols-2 gap-3 mb-4">
+              <div>
+                <label class="block text-[11px] font-semibold text-[var(--muted)] uppercase tracking-wider mb-1.5">Discount (%)</label>
+                <input type="number" id="pos-discount-input" class="w-full h-9 px-3 rounded-lg border border-[var(--border)] bg-[var(--background)] text-[var(--text)] text-xs font-semibold focus:outline-none focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/10 transition-all" placeholder="0" min="0" max="100">
+              </div>
+              <div>
+                <label class="block text-[11px] font-semibold text-[var(--muted)] uppercase tracking-wider mb-1.5">Tax (%)</label>
+                <input type="number" id="pos-tax-input" class="w-full h-9 px-3 rounded-lg border border-[var(--border)] bg-[var(--background)] text-[var(--text)] text-xs font-semibold focus:outline-none focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/10 transition-all" value="10" min="0" max="100">
+              </div>
+            </div>
+
+            <!-- Discount & Tax Amounts -->
+            <div class="space-y-2 mb-4">
+              <div class="flex justify-between items-center text-[13px]">
+                <span class="text-[var(--muted)] font-medium">Discount Amount</span>
+                <span class="text-red-500 font-semibold" id="pos-discount">-$0.00</span>
+              </div>
+              <div class="flex justify-between items-center text-[13px]">
+                <span class="text-[var(--muted)] font-medium">Tax Amount</span>
+                <span class="font-semibold text-[var(--text)]" id="pos-tax">$0.00</span>
+              </div>
+            </div>
+
+            <!-- Payable Total -->
+            <div class="flex justify-between items-center pt-4 border-t border-[var(--border)]">
+              <span class="text-base font-bold text-[var(--text)]">Payable Total</span>
+              <span class="text-2xl font-extrabold text-[var(--primary)]" id="pos-total">$0.00</span>
+            </div>
+
+          </div>
+
+          <!-- Payment Card -->
+          <div class="bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-5">
+
+            <!-- Quick Amount Buttons -->
+            <div class="flex flex-wrap gap-2 mb-4">
+              <button class="quick-amount-btn px-3 py-1.5 rounded-lg bg-[var(--background)] border border-[var(--border)] text-[12px] font-semibold text-[var(--text)] hover:border-[var(--primary)] hover:text-[var(--primary)] hover:bg-[var(--primary-light)]" onclick="document.getElementById('pos-paid-amount').value='10';document.getElementById('pos-paid-amount').dispatchEvent(new Event('input'))">$10</button>
+              <button class="quick-amount-btn px-3 py-1.5 rounded-lg bg-[var(--background)] border border-[var(--border)] text-[12px] font-semibold text-[var(--text)] hover:border-[var(--primary)] hover:text-[var(--primary)] hover:bg-[var(--primary-light)]" onclick="document.getElementById('pos-paid-amount').value='20';document.getElementById('pos-paid-amount').dispatchEvent(new Event('input'))">$20</button>
+              <button class="quick-amount-btn px-3 py-1.5 rounded-lg bg-[var(--background)] border border-[var(--border)] text-[12px] font-semibold text-[var(--text)] hover:border-[var(--primary)] hover:text-[var(--primary)] hover:bg-[var(--primary-light)]" onclick="document.getElementById('pos-paid-amount').value='50';document.getElementById('pos-paid-amount').dispatchEvent(new Event('input'))">$50</button>
+              <button class="quick-amount-btn px-3 py-1.5 rounded-lg bg-[var(--background)] border border-[var(--border)] text-[12px] font-semibold text-[var(--text)] hover:border-[var(--primary)] hover:text-[var(--primary)] hover:bg-[var(--primary-light)]" onclick="document.getElementById('pos-paid-amount').value='100';document.getElementById('pos-paid-amount').dispatchEvent(new Event('input'))">$100</button>
+            </div>
+
+            <!-- Tendered Cash & Change -->
+            <div class="grid grid-cols-2 gap-3 mb-4">
+              <div>
+                <label class="block text-[11px] font-semibold text-[var(--muted)] uppercase tracking-wider mb-1.5">Tendered Cash ($)</label>
+                <input type="number" id="pos-paid-amount" class="w-full h-11 px-3 rounded-xl border border-[var(--border)] bg-[var(--background)] text-[var(--text)] text-sm font-bold focus:outline-none focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/10 transition-all" placeholder="0.00" min="0" step="0.01">
+              </div>
+              <div>
+                <label class="block text-[11px] font-semibold text-[var(--muted)] uppercase tracking-wider mb-1.5">Change Due</label>
+                <div id="pos-change" class="h-11 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center px-3.5 font-bold text-sm text-emerald-700">$0.00</div>
+              </div>
+            </div>
+
+            <!-- Complete Sale Button -->
+            <button id="pos-complete-btn" class="group relative w-full h-14 rounded-2xl bg-gradient-to-r from-emerald-500 via-emerald-500 to-emerald-600 text-white text-[15px] font-bold flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-[0_8px_30px_-4px_rgba(34,181,115,0.5)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-[0_4px_15px_-2px_rgba(34,181,115,0.4)] overflow-hidden">
+              <span class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></span>
+              <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm group-hover:bg-white/30 transition-all">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span class="flex items-center gap-2">
+                Complete Sale
+                <span class="px-2.5 py-0.5 rounded-lg bg-white/20 text-[14px] font-extrabold backdrop-blur-sm"><span id="pos-total-label">0.00</span></span>
+              </span>
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+    <footer class="flex items-center justify-between flex-wrap gap-2 mt-auto pt-5 px-6 pb-5 border-t border-[var(--border)]">
+      <div class="text-xs text-[var(--muted)]">Copyright © 2026 Invenza All rights reserved.</div>
+    </footer>
+  </div>
+
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
+
+  <script>
+    window.BASE_PATH = '../';
+    window.CURRENT_PAGE = 'add-sale';
+  </script>
+  <script src="../assets/js/app.js"></script>
+  <script src="../assets/js/pos.js"></script>
+</body>
+</html>

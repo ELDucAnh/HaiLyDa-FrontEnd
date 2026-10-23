@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Purchase Returns — Invenza</title>
+  <meta name="description" content="Manage vendor returns, damaged shipments, and refund claims.">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+</head>
+<body>
+  <div id="sidebar-container"></div>
+  <div id="main-wrapper">
+    <div id="header-container"></div>
+    <main class="flex-1 p-6">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb">
+            <a href="../dashboard.html">Home</a>
+            <span class="sep">/</span>
+            <a href="purchases.html">Purchases</a>
+            <span class="sep">/</span>
+            <span class="current">Purchase Returns</span>
+          </div>
+          <h1 class="page-title">Purchase Returns</h1>
+          <p class="page-subtitle">Track supplier debits, returned items, and refund processing.</p>
+        </div>
+        <div class="flex gap-2.5 flex-wrap">
+          <button class="btn btn-primary" onclick="openAddReturnModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Create Return
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-wider">Total Returns</div>
+          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">7</div>
+          <div class="text-[11px] text-[var(--muted)] mt-0.5">This month</div>
+        </div>
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-wider">Refund Amount</div>
+          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">$1,840.00</div>
+          <div class="text-[11px] text-[var(--muted)] mt-0.5">Claimed back</div>
+        </div>
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-wider">Pending Approval</div>
+          <div class="text-[26px] font-extrabold text-[#F59E0B] mt-1">2</div>
+          <div class="text-[11px] text-[var(--muted)] mt-0.5">Under supplier review</div>
+        </div>
+        <div class="card p-4">
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-wider">Completed</div>
+          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">5</div>
+          <div class="text-[11px] text-[var(--muted)] mt-0.5">Credit note received</div>
+        </div>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="card mb-5 p-4">
+        <div class="flex gap-3 flex-wrap items-center">
+          <div class="search-box flex-1 min-w-[200px]">
+            <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" class="form-input h-[38px] text-[13px]" placeholder="Search return ref, PO ref or supplier...">
+          </div>
+          <select class="form-input form-select h-[38px] text-[13px] min-w-[140px]">
+            <option value="">All Status</option>
+            <option>Completed</option>
+            <option>Pending</option>
+            <option>Rejected</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Returns Table -->
+      <div class="card p-0 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Return Ref</th>
+                <th>PO Ref</th>
+                <th>Supplier</th>
+                <th>Date</th>
+                <th>Items Qty</th>
+                <th>Refund Total</th>
+                <th>Return Reason</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="font-mono font-bold text-[var(--primary)]">PRET-0012</td>
+                <td><a href="purchases.html" class="font-mono font-semibold text-[var(--text)] no-underline">PO-00047</a></td>
+                <td class="font-semibold text-[var(--text)]">Zenith Office Ware</td>
+                <td class="text-xs text-[var(--muted)]">Aug 22, 2026</td>
+                <td class="font-semibold">4 Units</td>
+                <td class="text-[13px] font-bold text-[var(--primary)]">$480.00</td>
+                <td class="text-xs text-[var(--muted)]">Defective packaging / damage</td>
+                <td><span class="badge badge-success">Completed</span></td>
+                <td>
+                  <button class="btn btn-secondary btn-sm" onclick="Toast.info('Viewing Return PRET-0012','Return')">View</button>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-mono font-bold text-[var(--primary)]">PRET-0011</td>
+                <td><a href="purchases.html" class="font-mono font-semibold text-[var(--text)] no-underline">PO-00046</a></td>
+                <td class="font-semibold text-[var(--text)]">Global Supplies Co</td>
+                <td class="text-xs text-[var(--muted)]">Aug 17, 2026</td>
+                <td class="font-semibold">10 Units</td>
+                <td class="text-[13px] font-bold text-[var(--primary)]">$750.00</td>
+                <td class="text-xs text-[var(--muted)]">Wrong product specifications sent</td>
+                <td><span class="badge badge-warning">Pending</span></td>
+                <td>
+                  <button class="btn btn-secondary btn-sm" onclick="Toast.info('Viewing Return PRET-0011','Return')">View</button>
+                </td>
+              </tr>
+              <tr>
+                <td class="font-mono font-bold text-[var(--primary)]">PRET-0010</td>
+                <td><a href="purchases.html" class="font-mono font-semibold text-[var(--text)] no-underline">PO-00042</a></td>
+                <td class="font-semibold text-[var(--text)]">Apex Electronics Ltd</td>
+                <td class="text-xs text-[var(--muted)]">Aug 05, 2026</td>
+                <td class="font-semibold">8 Units</td>
+                <td class="text-[13px] font-bold text-[var(--primary)]">$610.00</td>
+                <td class="text-xs text-[var(--muted)]">Expired shelf life</td>
+                <td><span class="badge badge-success">Completed</span></td>
+                <td>
+                  <button class="btn btn-secondary btn-sm" onclick="Toast.info('Viewing Return PRET-0010','Return')">View</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+    <footer class="px-6 py-5 border-t border-[var(--border)] flex items-center justify-between flex-wrap gap-2 mt-auto">
+      <div class="text-xs text-[var(--muted)]">Copyright © 2026 Invenza All rights reserved.</div>
+    </footer>
+  </div>
+
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
+
+  <script>
+    window.BASE_PATH = '../';
+    window.CURRENT_PAGE = 'purchase-returns';
+
+    function openAddReturnModal() {
+      Modal.show({
+        title: 'Create Purchase Return',
+        size: 'md',
+        body: `
+          <div class="flex flex-col gap-3.5">
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="form-label">Purchase Order # <span class="required">*</span></label>
+                <select class="form-input form-select" required>
+                  <option value="">Select PO...</option>
+                  <option>PO-00048 (Apex Electronics)</option>
+                  <option>PO-00047 (Zenith Office Ware)</option>
+                  <option>PO-00046 (Global Supplies)</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label">Return Date <span class="required">*</span></label>
+                <input type="date" class="form-input" value="${new Date().toISOString().split('T')[0]}" required>
+              </div>
+            </div>
+            <div>
+              <label class="form-label">Returned Product <span class="required">*</span></label>
+              <input type="text" class="form-input" placeholder="e.g. Wireless Mouse Pro (WM-001)" required>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="form-label">Return Quantity <span class="required">*</span></label>
+                <input type="number" class="form-input" min="1" value="1" required>
+              </div>
+              <div>
+                <label class="form-label">Expected Refund ($) <span class="required">*</span></label>
+                <input type="number" class="form-input" min="0" step="0.01" value="50.00" required>
+              </div>
+            </div>
+            <div>
+              <label class="form-label">Reason for Return</label>
+              <select class="form-input form-select">
+                <option>Defective / Damaged</option>
+                <option>Wrong Product Delivered</option>
+                <option>Not as Described</option>
+                <option>Overstock Return</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">Notes</label>
+              <textarea class="form-input" rows="2" placeholder="Describe the defect or communication with supplier..."></textarea>
+            </div>
+          </div>
+        `,
+        footer: `
+          <button class="btn btn-secondary" onclick="this.closest('.modal-backdrop').remove()">Cancel</button>
+          <button class="btn btn-primary" onclick="saveReturn()">Submit Return</button>
+        `
+      });
+    }
+
+    function saveReturn() {
+      document.querySelector('.modal-backdrop')?.remove();
+      Toast.success('Purchase Return PRET-0013 submitted successfully!', 'Return Logged');
+    }
+  </script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Categories — Invenza</title>
+  <meta name="description" content="Manage product categories and hierarchy in Invenza.">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+</head>
+<body>
+  <div id="sidebar-container"></div>
+  <div id="main-wrapper">
+    <div id="header-container"></div>
+    <main class="flex-1 p-4 md:p-6">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb">
+            <a href="../dashboard.html">Home</a>
+            <span class="sep">/</span>
+            <a href="products.html">Inventory</a>
+            <span class="sep">/</span>
+            <span class="current">Categories</span>
+          </div>
+          <h1 class="page-title">Categories</h1>
+          <p class="page-subtitle">Organize and classify your product inventory.</p>
+        </div>
+        <div class="page-header-actions">
+          <button class="btn btn-secondary" aria-label="Export categories" onclick="Toast.info('Exporting categories...','Export')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Export
+          </button>
+          <button class="btn btn-primary" aria-label="Add new category" onclick="openAddCategoryModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Category
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats Row -->
+      <section class="page-section" aria-label="Category statistics">
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+          <div class="stat-card">
+            <div class="stat-card-body">
+              <div class="stat-label">Total Categories</div>
+              <div class="stat-value">8</div>
+              <div class="stat-sub-label">Across 3 parent groups</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-body">
+              <div class="stat-label">Subcategories</div>
+              <div class="stat-value text-[var(--primary)]">14</div>
+              <div class="stat-sub-label">Nested levels</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-body">
+              <div class="stat-label">Categorized Items</div>
+              <div class="stat-value">104</div>
+              <div class="stat-sub-label">100% catalog coverage</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-body">
+              <div class="stat-label">Top Category</div>
+              <div class="stat-value text-[22px] whitespace-nowrap overflow-hidden text-ellipsis">Electronics</div>
+              <div class="stat-sub-label">48 items registered</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Filter Bar -->
+      <section class="page-section" aria-label="Category filters">
+        <div class="filter-bar mb-5">
+          <div class="search-box">
+            <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input id="category-search" type="text" class="form-input" placeholder="Search categories by name, slug or code..." oninput="filterCategories()">
+          </div>
+          <select id="category-status-filter" class="form-input form-select" onchange="filterCategories()">
+            <option value="all">All Status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Categories Table Card -->
+      <section class="page-section" aria-label="Categories table">
+        <div class="card p-0 overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="data-table" id="categories-table">
+              <caption class="sr-only">Product categories listing</caption>
+              <thead>
+                <tr>
+                  <th class="w-10"><input type="checkbox" aria-label="Select all rows"></th>
+                  <th>Category Name</th>
+                  <th>Code</th>
+                  <th>Slug</th>
+                  <th>Parent Category</th>
+                  <th>Products Count</th>
+                  <th>Status</th>
+                  <th>Created</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="categories-tbody">
+                <!-- Dynamically populated / sample rendered -->
+              </tbody>
+            </table>
+          </div>
+          <div class="table-footer mt-[20px] pl-[15px] pb-[20px]">
+            <div class="table-footer-info" id="categories-info">Showing 8 of 8 categories</div>
+            <div class="table-footer-actions">
+              <div class="pagination">
+                <button class="page-btn" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+    <footer class="app-footer">
+      <div class="app-footer-text">Copyright © 2026 Invenza All rights reserved.</div>
+    </footer>
+  </div>
+
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
+  
+  <script>
+    window.BASE_PATH = '../';
+    window.CURRENT_PAGE = 'categories';
+
+    const CATEGORIES = [
+      { id: 1, name: 'Electronics', code: 'CAT-ELEC', slug: 'electronics', parent: 'None (Root)', count: 48, status: 'Active', created: '2026-01-10', color: '#DBEAFE', textColor: '#1D4ED8' },
+      { id: 2, name: 'Computers & Laptops', code: 'CAT-COMP', slug: 'computers-laptops', parent: 'Electronics', count: 24, status: 'Active', created: '2026-01-12', color: '#DCFCE7', textColor: '#15803D' },
+      { id: 3, name: 'Accessories', code: 'CAT-ACCS', slug: 'accessories', parent: 'None (Root)', count: 32, status: 'Active', created: '2026-01-15', color: '#FEF3C7', textColor: '#B45309' },
+      { id: 4, name: 'Audio & Sound', code: 'CAT-AUD', slug: 'audio-sound', parent: 'Electronics', count: 16, status: 'Active', created: '2026-01-18', color: '#F3E8FF', textColor: '#7E22CE' },
+      { id: 5, name: 'Office Furniture', code: 'CAT-FURN', slug: 'office-furniture', parent: 'None (Root)', count: 12, status: 'Active', created: '2026-01-20', color: '#FEE2E2', textColor: '#B91C1C' },
+      { id: 6, name: 'Stationery', code: 'CAT-STAT', slug: 'stationery', parent: 'None (Root)', count: 9, status: 'Active', created: '2026-02-01', color: '#ECFDF5', textColor: '#065F46' },
+      { id: 7, name: 'Networking Cables', code: 'CAT-NETW', slug: 'networking-cables', parent: 'Accessories', count: 18, status: 'Active', created: '2026-02-05', color: '#E0E7FF', textColor: '#4338CA' },
+      { id: 8, name: 'Seasonal Goods', code: 'CAT-SEAS', slug: 'seasonal-goods', parent: 'None (Root)', count: 0, status: 'Inactive', created: '2026-02-10', color: '#F3F4F6', textColor: '#4B5563' }
+    ];
+
+    function renderCategories(list) {
+      const tbody = document.getElementById('categories-tbody');
+      if (!tbody) return;
+      if (list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" class="text-center" style="padding:30px;color:var(--muted);">No categories found.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = list.map(c => `
+        <tr>
+          <td><input type="checkbox" aria-label="Select row"></td>
+          <td>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:36px;height:36px;border-radius:10px;background:${c.color};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:${c.textColor};flex-shrink:0;">
+                ${c.name.slice(0,2).toUpperCase()}
+              </div>
+              <div>
+                <span style="font-size:13px;font-weight:600;color:var(--text);">${c.name}</span>
+              </div>
+            </div>
+          </td>
+          <td style="font-size:12px;font-weight:600;color:var(--muted);font-family:monospace;">${c.code}</td>
+          <td style="font-size:12px;color:var(--muted);">${c.slug}</td>
+          <td style="font-size:13px;color:var(--text);">${c.parent}</td>
+          <td><span class="badge badge-info">${c.count} Items</span></td>
+          <td><span class="badge ${c.status === 'Active' ? 'badge-success' : 'badge-gray'}">${c.status}</span></td>
+          <td style="font-size:12px;color:var(--muted);">${c.created}</td>
+          <td>
+            <div style="display:flex;gap:6px;">
+              <button class="btn btn-secondary btn-icon-sm" aria-label="Edit category ${c.name}" onclick="Toast.info('Editing category ${c.name}','Category')" title="Edit">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              </button>
+              <button class="btn btn-danger btn-icon-sm" aria-label="Delete category ${c.name}" onclick="Toast.error('Cannot delete category with products assigned.','Delete')" title="Delete">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function filterCategories() {
+      const q = (document.getElementById('category-search')?.value || '').toLowerCase();
+      const status = document.getElementById('category-status-filter')?.value || 'all';
+      const filtered = CATEGORIES.filter(c => {
+        const matchesQ = c.name.toLowerCase().includes(q) || c.code.toLowerCase().includes(q) || c.slug.toLowerCase().includes(q);
+        const matchesStatus = status === 'all' || c.status === status;
+        return matchesQ && matchesStatus;
+      });
+      renderCategories(filtered);
+      document.getElementById('categories-info').textContent = `Showing ${filtered.length} of ${CATEGORIES.length} categories`;
+    }
+
+    function openAddCategoryModal() {
+      Modal.show({
+        title: 'Add New Category',
+        size: 'md',
+        body: `
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div>
+              <label class="form-label">Category Name <span class="required">*</span></label>
+              <input type="text" id="new-cat-name" class="form-input" placeholder="e.g. Smart Wearables" required>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div>
+                <label class="form-label">Category Code</label>
+                <input type="text" id="new-cat-code" class="form-input" placeholder="e.g. CAT-WEAR">
+              </div>
+              <div>
+                <label class="form-label">Parent Category</label>
+                <select class="form-input form-select">
+                  <option value="">None (Root Category)</option>
+                  <option>Electronics</option>
+                  <option>Accessories</option>
+                  <option>Office Furniture</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="form-label">Description</label>
+              <textarea class="form-input" rows="3" placeholder="Brief notes or description about this category..."></textarea>
+            </div>
+            <div>
+              <label class="form-label">Status</label>
+              <select class="form-input form-select">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </div>
+          </div>
+        `,
+        footer: `
+          <button class="btn btn-secondary" onclick="this.closest('.modal-backdrop').remove()">Cancel</button>
+          <button class="btn btn-primary" onclick="saveCategory()">Save Category</button>
+        `
+      });
+    }
+
+    function saveCategory() {
+      const name = document.getElementById('new-cat-name')?.value;
+      if (!name) {
+        Toast.warning('Category name is required.', 'Validation');
+        return;
+      }
+      document.querySelector('.modal-backdrop')?.remove();
+      Toast.success(`Category "${name}" created successfully!`, 'Category Created');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCategories(CATEGORIES);
+    });
+  </script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

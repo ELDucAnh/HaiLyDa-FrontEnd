@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice Details — INV-000125 — Invenza</title>
+  <meta name="description" content="Detailed printable invoice view with itemized pricing, tax breakdowns, and payment confirmation.">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+  <style>
+    /* Print styles - cannot be converted to Tailwind utility classes */
+    @media print {
+      #sidebar, #app-header, .page-header, footer, #toast-container, .no-print {
+        display: none !important;
+      }
+      #main-wrapper {
+        margin-left: 0 !important;
+        padding: 0 !important;
+      }
+      .printable-card {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        background: white !important;
+        color: black !important;
+      }
+    }
+  </style>
+<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+</head>
+<body>
+  <div id="sidebar-container"></div>
+  <div id="main-wrapper">
+    <div id="header-container"></div>
+    <main class="flex-1 p-6">
+
+      <!-- Page Header with Actions -->
+      <div class="page-header no-print">
+        <div>
+          <div class="breadcrumb">
+            <a href="../dashboard.html">Home</a>
+            <span class="sep">/</span>
+            <a href="invoices.html">Invoices</a>
+            <span class="sep">/</span>
+            <span class="current">INV-000125</span>
+          </div>
+          <div class="flex items-center gap-3 mt-1">
+            <h1 class="page-title mb-0">Invoice INV-000125</h1>
+            <span class="badge badge-success">PAID</span>
+          </div>
+        </div>
+        <div class="flex gap-2.5 flex-wrap">
+          <a href="invoices.html" class="btn btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            Back
+          </a>
+          <button class="btn btn-secondary" onclick="window.print()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            Print
+          </button>
+          <button class="btn btn-secondary" onclick="Toast.info('Downloading PDF invoice...','Export')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            PDF
+          </button>
+          <button class="btn btn-primary" onclick="Toast.success('Invoice sent to john@smith.com','Email Sent')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Send to Customer
+          </button>
+        </div>
+      </div>
+
+      <!-- Printable Invoice Document -->
+      <div class="card printable-card max-w-4xl mx-auto p-10 relative">
+        
+        <!-- Paid Stamp Banner -->
+        <div class="absolute top-[30px] right-[40px] border-[3px] border-[#16A34A] text-[#16A34A] font-black text-xl px-[18px] py-1 rounded-lg rotate-[8deg] tracking-[2px] uppercase opacity-[0.85]">
+          PAID
+        </div>
+
+        <!-- Invoice Header -->
+        <div class="flex justify-between items-start flex-wrap gap-5 mb-9 pb-6 border-b border-[var(--border)]">
+          <div class="flex items-center gap-3">
+            <div class="w-[44px] h-[44px] rounded-xl bg-gradient-to-br from-[#22B573] to-[#16A34A] flex items-center justify-center shadow-[0_2px_8px_rgba(34,181,115,0.3)]">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L3 7v10l9 5 9-5V7l-9-5z" fill="white" fill-opacity="0.2"/>
+                <path d="M12 2L3 7v10l9 5 9-5V7l-9-5z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M12 22V12" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M3 7l9 5 9-5" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+                <circle cx="12" cy="12" r="2.5" fill="white" stroke="white" stroke-width="0.5"/>
+              </svg>
+            </div>
+            <div class="border-l border-[var(--border)] pl-3">
+              <div class="text-[22px] font-bold text-[var(--text)] leading-[1.1] tracking-[-0.3px]">Invenza</div>
+              <div class="text-[10px] text-[var(--primary)] font-semibold tracking-[0.8px] uppercase mt-[2px]">Inventory Management</div>
+            </div>
+          </div>
+
+          <div class="text-right">
+            <div class="text-sm font-bold text-[var(--text)]">Invenza Inc.</div>
+            <div class="text-xs text-[var(--muted)] mt-[2px]">100 Tech Park Avenue, Suite 400</div>
+            <div class="text-xs text-[var(--muted)]">San Francisco, CA 94107, USA</div>
+            <div class="text-xs text-[var(--muted)]">contact@invenza.io | +1 (555) 019-2834</div>
+            <div class="text-xs text-[var(--muted)]">Tax ID: US-994820184</div>
+          </div>
+        </div>
+
+        <!-- Bill To & Invoice Info Columns -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div>
+            <div class="text-[11px] font-bold text-[var(--muted)] uppercase tracking-[0.6px] mb-2">Billed To:</div>
+            <div class="text-[15px] font-bold text-[var(--text)]">John Smith</div>
+            <div class="text-[13px] text-[var(--muted)] mt-[2px]">Acme Commercial Supplies</div>
+            <div class="text-[13px] text-[var(--muted)]">742 Evergreen Terrace, Springfield, OR</div>
+            <div class="text-[13px] text-[var(--muted)]">john@smith.com | +1 (555) 384-9912</div>
+          </div>
+
+          <div class="bg-[var(--background)] p-[18px] rounded-xl flex flex-col gap-2">
+            <div class="flex justify-between text-[13px]">
+              <span class="text-[var(--muted)]">Invoice Number:</span>
+              <span class="font-bold font-mono text-[var(--text)]">INV-000125</span>
+            </div>
+            <div class="flex justify-between text-[13px]">
+              <span class="text-[var(--muted)]">Issue Date:</span>
+              <span class="font-semibold text-[var(--text)]">August 24, 2026</span>
+            </div>
+            <div class="flex justify-between text-[13px]">
+              <span class="text-[var(--muted)]">Due Date:</span>
+              <span class="font-semibold text-[var(--text)]">September 07, 2026</span>
+            </div>
+            <div class="flex justify-between text-[13px]">
+              <span class="text-[var(--muted)]">Payment Method:</span>
+              <span class="font-semibold text-[var(--text)]">Cash (Receipt #8841)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Line Items Table -->
+        <div class="overflow-x-auto mb-6">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th class="w-[50px]">#</th>
+                <th>Item &amp; Description</th>
+                <th>SKU</th>
+                <th class="text-right">Unit Price</th>
+                <th class="text-center">Qty</th>
+                <th class="text-right">Tax (10%)</th>
+                <th class="text-right">Total Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-xs text-[var(--muted)]">1</td>
+                <td>
+                  <div class="font-semibold text-[var(--text)]">Wireless Mouse Pro</div>
+                  <div class="text-[11px] text-[var(--muted)]">Ergonomic 2.4GHz USB-C rechargeable optical mouse</div>
+                </td>
+                <td class="font-mono text-xs text-[var(--muted)]">WM-001</td>
+                <td class="text-right text-[13px]">$29.99</td>
+                <td class="text-center font-semibold">10</td>
+                <td class="text-right text-[13px] text-[var(--muted)]">$29.99</td>
+                <td class="text-right font-bold text-[var(--text)]">$329.89</td>
+              </tr>
+              <tr>
+                <td class="text-xs text-[var(--muted)]">2</td>
+                <td>
+                  <div class="font-semibold text-[var(--text)]">Mechanical Keyboard</div>
+                  <div class="text-[11px] text-[var(--muted)]">RGB Backlit Linear Red switches with detachable braided cord</div>
+                </td>
+                <td class="font-mono text-xs text-[var(--muted)]">MK-002</td>
+                <td class="text-right text-[13px]">$89.99</td>
+                <td class="text-center font-semibold">4</td>
+                <td class="text-right text-[13px] text-[var(--muted)]">$36.00</td>
+                <td class="text-right font-bold text-[var(--text)]">$395.96</td>
+              </tr>
+              <tr>
+                <td class="text-xs text-[var(--muted)]">3</td>
+                <td>
+                  <div class="font-semibold text-[var(--text)]">USB-C Hub (7-in-1)</div>
+                  <div class="text-[11px] text-[var(--muted)]">4K HDMI, 100W Power Delivery, SD/TF card reader</div>
+                </td>
+                <td class="font-mono text-xs text-[var(--muted)]">UH-003</td>
+                <td class="text-right text-[13px]">$49.99</td>
+                <td class="text-center font-semibold">2</td>
+                <td class="text-right text-[13px] text-[var(--muted)]">$10.00</td>
+                <td class="text-right font-bold text-[var(--text)]">$109.98</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Totals & Payment Breakdown -->
+        <div class="flex justify-end mb-8">
+          <div class="w-[320px] flex flex-col gap-[10px]">
+            <div class="flex justify-between text-[13px]">
+              <span class="text-[var(--muted)]">Subtotal:</span>
+              <span class="font-semibold text-[var(--text)]">$768.15</span>
+            </div>
+            <div class="flex justify-between text-[13px]">
+              <span class="text-[var(--muted)]">Discount (0%):</span>
+              <span class="text-[var(--muted)]">$0.00</span>
+            </div>
+            <div class="flex justify-between text-[13px]">
+              <span class="text-[var(--muted)]">Tax (VAT 10%):</span>
+              <span class="font-semibold text-[var(--text)]">$76.85</span>
+            </div>
+            <div class="flex justify-between text-lg font-extrabold border-t-2 border-[var(--border)] pt-[10px] mt-1">
+              <span class="text-[var(--text)]">Grand Total:</span>
+              <span class="text-[var(--primary)]">$845.00</span>
+            </div>
+            <div class="flex justify-between text-[13px] text-[var(--primary)] font-semibold bg-[var(--primary-light)] py-2 px-3 rounded-lg mt-1.5">
+              <span>Amount Paid:</span>
+              <span>$845.00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer / Bank info -->
+        <div class="border-t border-[var(--border)] pt-5 flex justify-between items-end flex-wrap gap-5">
+          <div class="max-w-[400px]">
+            <div class="text-xs font-bold text-[var(--text)] mb-1">Payment Terms &amp; Instructions</div>
+            <div class="text-[11px] text-[var(--muted)] leading-relaxed">
+              Payment is due within 14 days of invoice issuance. For electronic wire transfers, please reference INV-000125 in the memo line.<br>
+              Bank: Silicon Valley Commerce Bank &bull; Routing: 121000358 &bull; Account: 9948-2849-01
+            </div>
+          </div>
+          <div class="text-center">
+            <div class="text-lg font-['Courier_New',monospace] text-[var(--muted)] tracking-[2px] mb-1">J. Smith</div>
+            <div class="border-t border-[var(--muted)] w-[140px] mx-auto mb-1"></div>
+            <div class="text-[11px] text-[var(--muted)]">Authorized Signature</div>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+    <footer class="py-5 px-6 border-t border-[var(--border)] flex items-center justify-between flex-wrap gap-2 mt-auto">
+      <div class="text-xs text-[var(--muted)]">Copyright © 2026 Invenza All rights reserved.</div>
+    </footer>
+  </div>
+
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
+  <script>window.BASE_PATH = '../'; window.CURRENT_PAGE = 'invoices';</script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

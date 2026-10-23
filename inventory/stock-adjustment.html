@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Adjustment — Invenza</title>
+  <meta name="description" content="Audit, reconcile, and adjust inventory quantities in Invenza.">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <link rel="stylesheet" href="../assets/css/tailwind.css">
+<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+</head>
+<body>
+  <div id="sidebar-container"></div>
+  <div id="main-wrapper">
+    <div id="header-container"></div>
+    <main class="flex-1 p-6">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div>
+          <div class="breadcrumb">
+            <a href="../dashboard.html">Home</a>
+            <span class="sep">/</span>
+            <a href="products.html">Inventory</a>
+            <span class="sep">/</span>
+            <span class="current">Stock Adjustment</span>
+          </div>
+          <h1 class="page-title">Stock Adjustment</h1>
+          <p class="page-subtitle">Track manual inventory reconciliations, damage write-offs, and stock audits.</p>
+        </div>
+        <div class="page-header-actions">
+          <button class="btn btn-secondary" aria-label="Export adjustment log" onclick="Toast.info('Exporting adjustment log...','Export')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export Log
+          </button>
+          <button class="btn btn-primary" aria-label="Create new stock adjustment" onclick="openAdjustmentModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            New Adjustment
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats Cards -->
+      <section class="page-section" aria-label="Adjustment statistics">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div class="stat-card">
+            <div class="stat-card-body">
+              <div class="stat-label">Total Adjustments</div>
+              <div class="stat-value">24</div>
+              <div class="stat-sub-label">This month</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-body">
+              <div class="stat-label">Stock Added (+)</div>
+              <div class="stat-value text-[var(--primary)]">+62 <span class="text-sm font-medium text-[var(--muted)]">items</span></div>
+              <div class="stat-sub-label">Audit discovery</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-body">
+              <div class="stat-label">Stock Subtracted (-)</div>
+              <div class="stat-value text-[var(--danger)]">-18 <span class="text-sm font-medium text-[var(--muted)]">items</span></div>
+              <div class="stat-sub-label">Damaged / Expired</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-body">
+              <div class="stat-label">Net Value Difference</div>
+              <div class="stat-value">+$1,420.00</div>
+              <div class="trend-up stat-sub-label">Net inventory gain</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Filter Bar -->
+      <section class="page-section" aria-label="Adjustment filters">
+        <div class="filter-bar mb-5">
+          <div class="search-box">
+            <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" class="form-input" placeholder="Search reference, product, or reason...">
+          </div>
+          <select class="form-input form-select">
+            <option value="">All Warehouses</option>
+            <option>Main Warehouse (Central)</option>
+            <option>Warehouse B (North)</option>
+            <option>Retail Storefront</option>
+          </select>
+          <select class="form-input form-select">
+            <option value="">All Reasons</option>
+            <option>Stock Count Audit</option>
+            <option>Damaged Goods</option>
+            <option>Expired Stock</option>
+            <option>Internal Transfer</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Adjustments Table -->
+      <section class="page-section" aria-label="Adjustments table">
+        <div class="card p-0 overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="data-table">
+              <caption class="sr-only">Stock adjustment records</caption>
+              <thead>
+                <tr>
+                  <th>Reference #</th>
+                  <th>Date</th>
+                  <th>Warehouse</th>
+                  <th>Product Affected</th>
+                  <th>Adjustment Type</th>
+                  <th>Quantity</th>
+                  <th>Total Value</th>
+                  <th>Reason</th>
+                  <th>Adjusted By</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="font-mono font-bold text-[var(--primary)]">ADJ-00104</td>
+                  <td class="text-xs text-[var(--muted)]">Aug 24, 2026</td>
+                  <td class="text-sm text-[var(--text)]">Main Warehouse</td>
+                  <td>
+                    <div class="font-semibold text-[var(--text)]">Mechanical Keyboard</div>
+                    <div class="text-xs text-[var(--muted)] font-mono">MK-002</div>
+                  </td>
+                  <td><span class="badge badge-success">Addition (+)</span></td>
+                  <td class="text-sm font-bold text-[var(--primary)]">+50</td>
+                  <td class="text-sm font-semibold text-[var(--text)]">$2,750.00</td>
+                  <td class="text-xs text-[var(--muted)]">Stock Count Audit</td>
+                  <td class="text-xs text-[var(--muted)]">John Smith</td>
+                  <td>
+                    <button class="btn btn-secondary btn-sm" aria-label="View adjustment ADJ-00104" onclick="Toast.info('Viewing adjustment details ADJ-00104','Adjustment')">View</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-mono font-bold text-[var(--primary)]">ADJ-00103</td>
+                  <td class="text-xs text-[var(--muted)]">Aug 22, 2026</td>
+                  <td class="text-sm text-[var(--text)]">Warehouse B</td>
+                  <td>
+                    <div class="font-semibold text-[var(--text)]">Bluetooth Speaker</div>
+                    <div class="text-xs text-[var(--muted)] font-mono">BS-005</div>
+                  </td>
+                  <td><span class="badge badge-danger">Subtraction (-)</span></td>
+                  <td class="text-sm font-bold text-[var(--danger)]">-3</td>
+                  <td class="text-sm font-semibold text-[var(--text)]">$135.00</td>
+                  <td class="text-xs text-[var(--muted)]">Damaged in transit</td>
+                  <td class="text-xs text-[var(--muted)]">Alex Turner</td>
+                  <td>
+                    <button class="btn btn-secondary btn-sm" aria-label="View adjustment ADJ-00103" onclick="Toast.info('Viewing adjustment details ADJ-00103','Adjustment')">View</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-mono font-bold text-[var(--primary)]">ADJ-00102</td>
+                  <td class="text-xs text-[var(--muted)]">Aug 18, 2026</td>
+                  <td class="text-sm text-[var(--text)]">Main Warehouse</td>
+                  <td>
+                    <div class="font-semibold text-[var(--text)]">Wireless Mouse</div>
+                    <div class="text-xs text-[var(--muted)] font-mono">WM-001</div>
+                  </td>
+                  <td><span class="badge badge-danger">Subtraction (-)</span></td>
+                  <td class="text-sm font-bold text-[var(--danger)]">-1</td>
+                  <td class="text-sm font-semibold text-[var(--text)]">$15.00</td>
+                  <td class="text-xs text-[var(--muted)]">Quality Control Reject</td>
+                  <td class="text-xs text-[var(--muted)]">Sarah Wilson</td>
+                  <td>
+                    <button class="btn btn-secondary btn-sm" aria-label="View adjustment ADJ-00102" onclick="Toast.info('Viewing adjustment details ADJ-00102','Adjustment')">View</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-mono font-bold text-[var(--primary)]">ADJ-00101</td>
+                  <td class="text-xs text-[var(--muted)]">Aug 15, 2026</td>
+                  <td class="text-sm text-[var(--text)]">Retail Storefront</td>
+                  <td>
+                    <div class="font-semibold text-[var(--text)]">USB-C Hub</div>
+                    <div class="text-xs text-[var(--muted)] font-mono">UH-003</div>
+                  </td>
+                  <td><span class="badge badge-success">Addition (+)</span></td>
+                  <td class="text-sm font-bold text-[var(--primary)]">+12</td>
+                  <td class="text-sm font-semibold text-[var(--text)]">$300.00</td>
+                  <td class="text-xs text-[var(--muted)]">Found excess in backroom</td>
+                  <td class="text-xs text-[var(--muted)]">David Miller</td>
+                  <td>
+                    <button class="btn btn-secondary btn-sm" aria-label="View adjustment ADJ-00101" onclick="Toast.info('Viewing adjustment details ADJ-00101','Adjustment')">View</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-footer mt-[20px] pl-[15px] pb-[20px]">
+            <div class="table-footer-info">Showing 4 of 24 adjustment records</div>
+            <div class="table-footer-actions">
+              <div class="pagination">
+                <button class="page-btn" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+    <footer class="app-footer">
+      <div class="app-footer-text">Copyright © 2026 Invenza All rights reserved.</div>
+    </footer>
+  </div>
+
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
+
+  <script>
+    window.BASE_PATH = '../';
+    window.CURRENT_PAGE = 'stock-adjustment';
+
+    function openAdjustmentModal() {
+      Modal.show({
+        title: 'New Stock Adjustment',
+        size: 'md',
+        body: `
+          <div class="flex flex-col gap-3.5">
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="form-label">Warehouse <span class="required">*</span></label>
+                <select class="form-input form-select" required>
+                  <option>Main Warehouse (Central)</option>
+                  <option>Warehouse B (North)</option>
+                  <option>Retail Storefront</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label">Adjustment Date <span class="required">*</span></label>
+                <input type="date" class="form-input" value="${new Date().toISOString().split('T')[0]}" required>
+              </div>
+            </div>
+            <div>
+              <label class="form-label">Select Product <span class="required">*</span></label>
+              <select class="form-input form-select" id="adj-product" required>
+                <option value="">Choose a product...</option>
+                <option value="1">Wireless Mouse (WM-001) - Current: 45</option>
+                <option value="2">Mechanical Keyboard (MK-002) - Current: 23</option>
+                <option value="3">USB-C Hub (UH-003) - Current: 18</option>
+                <option value="4">Laptop Stand (LS-004) - Current: 3</option>
+                <option value="5">Bluetooth Speaker (BS-005) - Current: 0</option>
+              </select>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="form-label">Adjustment Type <span class="required">*</span></label>
+                <select class="form-input form-select" required>
+                  <option value="add">Addition (+ Stock In)</option>
+                  <option value="sub">Subtraction (- Stock Out)</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label">Adjust Quantity <span class="required">*</span></label>
+                <input type="number" id="adj-qty" class="form-input" placeholder="e.g. 5" min="1" required>
+              </div>
+            </div>
+            <div>
+              <label class="form-label">Reason for Adjustment <span class="required">*</span></label>
+              <select class="form-input form-select" required>
+                <option>Stock Count Audit</option>
+                <option>Damaged / Broken</option>
+                <option>Expired / Obsolete</option>
+                <option>Found Inventory</option>
+                <option>Other Adjustment</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">Notes / Remarks</label>
+              <textarea class="form-input" rows="2" placeholder="Provide extra context or explanation for auditing..."></textarea>
+            </div>
+          </div>
+        `,
+        footer: `
+          <button class="btn btn-secondary" onclick="this.closest('.modal-backdrop').remove()">Cancel</button>
+          <button class="btn btn-primary" onclick="saveAdjustment()">Submit Adjustment</button>
+        `
+      });
+    }
+
+    function saveAdjustment() {
+      const prod = document.getElementById('adj-product')?.value;
+      const qty = document.getElementById('adj-qty')?.value;
+      if (!prod || !qty) {
+        Toast.warning('Please select a product and enter a valid quantity.', 'Validation');
+        return;
+      }
+      document.querySelector('.modal-backdrop')?.remove();
+      Toast.success('Stock adjustment ADJ-00105 recorded and inventory updated!', 'Adjustment Recorded');
+    }
+  </script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

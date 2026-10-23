@@ -1,0 +1,15 @@
+{
+  "name": "invenza",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "npx tailwindcss -i ./src/input.css -o ./assets/css/tailwind.css --minify",
+    "watch": "npx tailwindcss -i ./src/input.css -o ./assets/css/tailwind.css --watch",
+    "dev": "npx concurrently \"npx tailwindcss -i ./src/input.css -o ./assets/css/tailwind.css --watch\" \"npx lite-server\""
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17",
+    "lite-server": "^2.6.1",
+    "concurrently": "^9.0.0"
+  }
+}
