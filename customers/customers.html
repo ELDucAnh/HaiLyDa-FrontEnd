@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Customers &mdash; Invenza</title>
-  <meta name="description" content="Manage customer directory, contact details, loyalty points, and purchase histories.">
+  <title>Khách hàng &mdash; Invenza</title>
+  <meta name="description" content="Quản lý danh sách khách hàng, thông tin liên hệ, điểm tích lũy và lịch sử mua hàng.">
   <link rel="stylesheet" href="../assets/css/app.css">
   <link rel="stylesheet" href="../assets/css/tailwind.css">
 <script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
@@ -19,36 +19,36 @@
       <div class="page-header">
         <div>
           <div class="breadcrumb">
-            <a href="../dashboard.html">Home</a>
+            <a href="../dashboard.html">Tổng quan</a>
             <span class="sep">/</span>
-            <span class="current">Customers</span>
+            <span class="current">Khách hàng</span>
           </div>
-          <h1 class="page-title">Customers Directory</h1>
-          <p class="page-subtitle">Manage customer contacts, outstanding balances, and order histories.</p>
+          <h1 class="page-title">Khách hàng và hội viên</h1>
+          <p class="page-subtitle">Tra cứu hội viên, hạng thẻ, chi tiêu 12 tháng và lịch sử điểm.</p>
         </div>
         <div class="page-header-actions">
-          <button class="btn btn-secondary" aria-label="Export customer list" onclick="Toast.info('Exporting customer list...','Export')">
+          <button class="btn btn-secondary" aria-label="Xuất danh sách khách hàng" onclick="Toast.info('Đang xuất danh sách khách hàng...','Xuất dữ liệu')">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            Export
+            Xuất dữ liệu
           </button>
-          <button class="btn btn-primary" aria-label="Add new customer" onclick="openAddCustomerModal()">
+          <button class="btn btn-primary" aria-label="Thêm khách hàng" onclick="openAddCustomerModal()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Add Customer
+            Thêm khách hàng
           </button>
         </div>
       </div>
 
       <!-- Stats Grid -->
-      <section class="page-section" aria-label="Customer statistics">
+      <section class="page-section" aria-label="Thống kê khách hàng">
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
           <div class="stat-card">
             <div class="stat-card-icon icon-bg-info">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
             </div>
             <div class="stat-card-body">
-              <div class="stat-label">Total Customers</div>
+              <div class="stat-label">Tổng khách hàng</div>
               <div class="stat-value">1,842</div>
-              <div class="trend-up stat-sub-label">↑ +48 this month</div>
+              <div class="trend-up stat-sub-label">↑ +48 tháng này</div>
             </div>
           </div>
           <div class="stat-card">
@@ -56,9 +56,9 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>
             </div>
             <div class="stat-card-body">
-              <div class="stat-label">Active</div>
+              <div class="stat-label">Đang hoạt động</div>
               <div class="stat-value text-[var(--primary)]">1,680</div>
-              <div class="stat-sub-label">91.2% active rate</div>
+              <div class="stat-sub-label">91.2% tỷ lệ hoạt động</div>
             </div>
           </div>
           <div class="stat-card">
@@ -66,9 +66,9 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
             </div>
             <div class="stat-card-body">
-              <div class="stat-label">Receivables</div>
+              <div class="stat-label">Khoản phải thu</div>
               <div class="stat-value text-[var(--warning)]">$6,487.00</div>
-              <div class="stat-sub-label">18 pending invoices</div>
+              <div class="stat-sub-label">18 hóa đơn chờ thanh toán</div>
             </div>
           </div>
           <div class="stat-card">
@@ -76,153 +76,83 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
             </div>
             <div class="stat-card-body">
-              <div class="stat-label">Avg LTV</div>
+              <div class="stat-label">Giá trị vòng đời trung bình</div>
               <div class="stat-value">$438.50</div>
-              <div class="trend-up stat-sub-label">↑ +5.4% YoY</div>
+              <div class="trend-up stat-sub-label">↑ +5.4% so với cùng kỳ năm trước</div>
             </div>
           </div>
         </div>
       </section>
 
       <!-- Filter Bar -->
-      <section class="page-section" aria-label="Customer filters">
-        <div class="filter-bar mb-5">
-          <div class="search-box">
-            <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="text" class="form-input" placeholder="Search customer name, email, phone or company...">
+      <section class="page-section mb-6" aria-labelledby="customer-filter-title">
+        <div class="card">
+          <h2 id="customer-filter-title" class="card-title mb-4">Bộ lọc hội viên</h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+            <div class="min-w-0 md:col-span-2">
+              <label class="form-label" for="customer-search">Tìm hội viên</label>
+              <input id="customer-search" type="search"
+                     class="form-input w-full h-11"
+                     placeholder="Tên, mã hội viên hoặc số điện thoại">
+            </div>
+
+            <div class="min-w-0">
+              <label class="form-label" for="customer-tier">Hạng thẻ</label>
+              <select id="customer-tier" class="form-input form-select w-full h-11">
+                <option value="">Tất cả hạng</option>
+                <option value="Member">Thành viên</option>
+                <option value="Silver">Bạc</option>
+                <option value="Gold">Vàng</option>
+                <option value="VIP">VIP</option>
+              </select>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2 mt-4">
+              <button type="button"
+                      class="btn btn-primary h-11"
+                      onclick="Toast.info('Chức năng lọc chưa được tích hợp.', 'Bộ lọc')">
+                Áp dụng
+              </button>
+
+              <button type="button"
+                      class="btn btn-secondary h-11">
+                Xóa bộ lọc
+              </button>
+            </div>
           </div>
-          <select class="form-input form-select">
-            <option value="">All Statuses</option>
-            <option>Active</option>
-            <option>Inactive</option>
-          </select>
-          <select class="form-input form-select">
-            <option value="">Balance Status</option>
-            <option>All Customers</option>
-            <option>With Outstanding Balance</option>
-            <option>Zero Balance</option>
-          </select>
         </div>
       </section>
 
       <!-- Customers Table -->
-      <section class="page-section" aria-label="Customers table">
+      <section class="page-section" aria-label="Bảng khách hàng">
         <div class="card p-0 overflow-hidden">
           <div class="overflow-x-auto">
-            <table class="data-table">
-              <caption class="sr-only">Customers directory listing</caption>
+            <table id="customers-table" class="data-table">
+              <caption class="sr-only">Danh sách khách hàng và hội viên</caption>
               <thead>
-                <tr>
-                  <th class="w-10"><input type="checkbox" aria-label="Select all rows"></th>
-                  <th>Customer</th>
-                  <th>Contact Info</th>
-                  <th>Location</th>
-                  <th>Total Orders</th>
-                  <th>Total Spent</th>
-                  <th>Outstanding Balance</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
+              <tr>
+                <th>Mã hội viên</th><th>Họ tên</th><th>Số điện thoại</th>
+                <th>Hạng thẻ</th><th>Chi tiêu 12 tháng</th><th>Điểm khả dụng</th>
+                <th>Lần mua gần nhất</th><th>Thao tác</th>
+              </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td><input type="checkbox" aria-label="Select row"></td>
-                  <td>
-                    <div class="flex items-center gap-2.5">
-                      <img src="../assets/img/avator/1.jpg" alt="John Smith" class="w-9 h-9 rounded-full object-cover">
-                      <div>
-                        <div class="font-semibold text-[var(--text)]">John Smith</div>
-                        <div class="text-[11px] text-[var(--muted)]">Acme Corp &bull; VIP Member</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="text-[13px] text-[var(--text)]">john@smith.com</div>
-                    <div class="text-[11px] text-[var(--muted)]">+1 (555) 384-9912</div>
-                  </td>
-                  <td class="text-[13px] text-[var(--muted)]">Springfield, OR</td>
-                  <td class="font-semibold text-[var(--text)]">24 Orders</td>
-                  <td class="font-bold text-[var(--primary)]">$4,850.00</td>
-                  <td class="text-[13px] text-[var(--muted)]">$0.00</td>
-                  <td><span class="badge badge-success">Active</span></td>
-                  <td>
-                    <div class="flex gap-1.5">
-                      <button class="btn btn-secondary btn-icon-sm" aria-label="View customer John Smith" onclick="Toast.info('Viewing customer profile','Customer')">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                      </button>
-                      <button class="btn btn-secondary btn-icon-sm" aria-label="Edit customer John Smith" onclick="Toast.info('Editing customer','Edit')">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox" aria-label="Select row"></td>
-                  <td>
-                    <div class="flex items-center gap-2.5">
-                      <img src="../assets/img/avator/2.jpg" alt="Michael Brown" class="w-9 h-9 rounded-full object-cover">
-                      <div>
-                        <div class="font-semibold text-[var(--text)]">Michael Brown</div>
-                        <div class="text-[11px] text-[var(--muted)]">Brown Logistics</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="text-[13px] text-[var(--text)]">michael@brown.com</div>
-                    <div class="text-[11px] text-[var(--muted)]">+1 (555) 728-1920</div>
-                  </td>
-                  <td class="text-[13px] text-[var(--muted)]">Seattle, WA</td>
-                  <td class="font-semibold text-[var(--text)]">15 Orders</td>
-                  <td class="font-bold text-[var(--primary)]">$3,240.00</td>
-                  <td class="font-semibold text-[var(--danger)]">$1,240.00</td>
-                  <td><span class="badge badge-success">Active</span></td>
-                  <td>
-                    <div class="flex gap-1.5">
-                      <button class="btn btn-secondary btn-icon-sm" aria-label="View customer Michael Brown" onclick="Toast.info('Viewing customer profile','Customer')">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                      </button>
-                      <button class="btn btn-secondary btn-icon-sm" aria-label="Edit customer Michael Brown" onclick="Toast.info('Editing customer','Edit')">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox" aria-label="Select row"></td>
-                  <td>
-                    <div class="flex items-center gap-2.5">
-                      <img src="../assets/img/avator/3.jpg" alt="Sarah Wilson" class="w-9 h-9 rounded-full object-cover">
-                      <div>
-                        <div class="font-semibold text-[var(--text)]">Sarah Wilson</div>
-                        <div class="text-[11px] text-[var(--muted)]">Wilson Design Studio</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="text-[13px] text-[var(--text)]">sarah@wilson.com</div>
-                    <div class="text-[11px] text-[var(--muted)]">+1 (555) 918-3482</div>
-                  </td>
-                  <td class="text-[13px] text-[var(--muted)]">Portland, OR</td>
-                  <td class="font-semibold text-[var(--text)]">8 Orders</td>
-                  <td class="font-bold text-[var(--primary)]">$1,920.00</td>
-                  <td class="font-semibold text-[var(--warning)]">$320.00</td>
-                  <td><span class="badge badge-success">Active</span></td>
-                  <td>
-                    <div class="flex gap-1.5">
-                      <button class="btn btn-secondary btn-icon-sm" aria-label="View customer Sarah Wilson" onclick="Toast.info('Viewing customer profile','Customer')">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                      </button>
-                      <button class="btn btn-secondary btn-icon-sm" aria-label="Edit customer Sarah Wilson" onclick="Toast.info('Editing customer','Edit')">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
+              <tr>
+                <td>HV-0001</td><td>Nguyễn An</td><td>0900 000 001</td>
+                <td><span class="badge badge-purple">VIP</span></td>
+                <td>12.500.000 ₫</td><td>1.250 điểm</td><td>28/10/2026</td>
+                <td>
+                  <a href="#customer-history" class="btn btn-secondary btn-sm">
+                    Lịch sử
+                  </a>
+                </td>
+              </tr>
               </tbody>
             </table>
           </div>
           <div class="table-footer mt-[20px] pl-[15px] pb-[20px]">
-            <div class="table-footer-info">Showing 3 of 1,842 customers</div>
+            <div class="table-footer-info">Hiển thị 3 trong tổng số 1,842 khách hàng</div>
             <div class="table-footer-actions">
               <div class="pagination">
                 <button class="page-btn" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
@@ -235,9 +165,61 @@
         </div>
       </section>
 
+      <section id="customer-history" class="card mt-4">
+        <h2 class="card-title mb-4">Lịch sử giao dịch · HV-0001</h2>
+        <div class="overflow-x-auto">
+          <table class="data-table">
+            <thead>
+            <tr>
+              <th>Thời gian</th><th>Hóa đơn tham chiếu</th><th>Giao dịch</th>
+              <th>Số tiền</th><th>Thay đổi điểm</th><th>Số dư sau giao dịch</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>
+                <time datetime="2026-10-28T09:15:00+07:00"
+                      class="whitespace-nowrap tabular-nums">
+                  28/10/2026 09:15
+                </time>
+              </td>
+              <td>
+                <a href="../invoices/invoice-details.html?invoiceId=HD-00125"
+                   class="text-[var(--primary)] underline">
+                  HD-00125
+                </a>
+              </td>
+              <td>Tích điểm mua hàng</td>
+              <td class="whitespace-nowrap">450.000 ₫</td>
+              <td>+450</td>
+              <td>1.250</td>
+            </tr>
+            <tr>
+              <td>
+                <time datetime="2026-10-27T15:20:00+07:00"
+                      class="whitespace-nowrap tabular-nums">
+                  27/10/2026 15:20
+                </time>
+              </td>
+              <td>
+                <a href="../invoices/invoice-details.html?invoiceId=HD-00120"
+                   class="text-[var(--primary)] underline">
+                  HD-00120
+                </a>
+              </td>
+              <td>Điều chỉnh do hoàn tiền</td>
+              <td class="whitespace-nowrap">45.000 ₫</td>
+              <td>-45</td>
+              <td>800</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
     </main>
     <footer class="app-footer">
-      <div class="app-footer-text">Copyright &copy; 2026 Invenza All rights reserved.</div>
+      <div class="app-footer-text">Bản quyền &copy; 2026 Invenza Bảo lưu mọi quyền.</div>
     </footer>
   </div>
 
@@ -249,52 +231,52 @@
 
     function openAddCustomerModal() {
       Modal.show({
-        title: 'Add New Customer',
+        title: 'Thêm khách hàng',
         size: 'md',
         body: `
           <div class="flex flex-col gap-3.5">
             <div class="grid grid-cols-2 gap-3">
               <div>
-                <label class="form-label">Full Name <span class="required">*</span></label>
-                <input type="text" id="cust-name" class="form-input" placeholder="e.g. Jessica Alba" required>
+                <label class="form-label">Họ và tên <span class="required">*</span></label>
+                <input type="text" id="cust-name" class="form-input" placeholder="Ví dụ: Jessica Alba" required>
               </div>
               <div>
-                <label class="form-label">Company Name</label>
-                <input type="text" class="form-input" placeholder="e.g. Honest Tech LLC">
+                <label class="form-label">Tên công ty</label>
+                <input type="text" class="form-input" placeholder="Ví dụ: Honest Tech LLC">
               </div>
             </div>
             <div class="grid grid-cols-2 gap-3">
               <div>
-                <label class="form-label">Email Address <span class="required">*</span></label>
-                <input type="email" class="form-input" placeholder="e.g. jessica@honest.com" required>
+                <label class="form-label">Địa chỉ email <span class="required">*</span></label>
+                <input type="email" class="form-input" placeholder="Ví dụ: jessica@honest.com" required>
               </div>
               <div>
-                <label class="form-label">Phone Number</label>
-                <input type="text" class="form-input" placeholder="e.g. +1 (555) 019-2831">
+                <label class="form-label">Số điện thoại</label>
+                <input type="text" class="form-input" placeholder="Ví dụ: +1 (555) 019-2831">
               </div>
             </div>
             <div>
-              <label class="form-label">Billing Address</label>
-              <input type="text" class="form-input" placeholder="Street address, Suite / Floor">
+              <label class="form-label">Địa chỉ thanh toán</label>
+              <input type="text" class="form-input" placeholder="Số nhà, tên đường, phòng / tầng">
             </div>
             <div class="grid grid-cols-2 gap-3">
               <div>
-                <label class="form-label">City, State</label>
-                <input type="text" class="form-input" placeholder="e.g. San Francisco, CA">
+                <label class="form-label">Tỉnh, thành phố</label>
+                <input type="text" class="form-input" placeholder="Ví dụ: San Francisco, CA">
               </div>
               <div>
-                <label class="form-label">Customer Status</label>
+                <label class="form-label">Trạng thái khách hàng</label>
                 <select class="form-input form-select">
-                  <option>Active</option>
-                  <option>Inactive</option>
+                  <option value="Active">Đang hoạt động</option>
+                  <option value="Inactive">Ngừng hoạt động</option>
                 </select>
               </div>
             </div>
           </div>
         `,
         footer: `
-          <button class="btn btn-secondary" onclick="this.closest('.modal-backdrop').remove()">Cancel</button>
-          <button class="btn btn-primary" onclick="saveCustomer()">Save Customer</button>
+          <button class="btn btn-secondary" onclick="this.closest('.modal-backdrop').remove()">Hủy</button>
+          <button class="btn btn-primary" onclick="saveCustomer()">Lưu khách hàng</button>
         `
       });
     }
@@ -302,11 +284,11 @@
     function saveCustomer() {
       const name = document.getElementById('cust-name')?.value;
       if (!name) {
-        Toast.warning('Customer name is required.', 'Validation');
+        Toast.warning('Vui lòng nhập tên khách hàng.', 'Kiểm tra thông tin');
         return;
       }
       document.querySelector('.modal-backdrop')?.remove();
-      Toast.success(`Customer "${name}" created successfully!`, 'Customer Added');
+      Toast.success(`Đã tạo khách hàng "${name}" thành công!`, 'Đã thêm khách hàng');
     }
   </script>
   <script src="../assets/js/app.js"></script>

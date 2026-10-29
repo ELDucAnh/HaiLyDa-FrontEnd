@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="vi" class="">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard &mdash; Invenza Inventory Management</title>
-  <meta name="description" content="Invenza dashboard with real-time sales, inventory, and purchase overview.">
+  <title>Tổng quan &mdash; Invenza</title>
+  <meta name="description" content="Tổng quan bán hàng, tồn kho và mua hàng của Invenza.">
   <link rel="stylesheet" href="assets/css/app.css">
   <link rel="stylesheet" href="assets/css/tailwind.css">
 <script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
@@ -22,25 +22,112 @@
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           </div>
           <div>
-            <h1 class="welcome-title">Welcome back, John!</h1>
-            <p class="welcome-subtitle">Here's what's happening with your inventory today. You have <strong>5 items</strong> running low on stock.</p>
+            <h1 class="welcome-title">Chào mừng trở lại, Anh!</h1>
+            <p class="welcome-subtitle">Theo dõi doanh thu, số ly bán và cảnh báo tại các chi nhánh.</p>
           </div>
         </div>
         <div class="welcome-actions">
-          <button data-date-filter="mtd" class="btn-welcome-outline" aria-label="Filter by month to date">
+          <button data-date-filter="mtd" class="btn-welcome-outline" aria-label="Lọc từ đầu tháng">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            Month to Date
+            Từ đầu tháng
           </button>
-          <button data-date-filter="ytd" class="btn-welcome-outline" aria-label="Filter by year to date">
+          <button data-date-filter="ytd" class="btn-welcome-outline" aria-label="Lọc từ đầu năm">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-            Year to Date
+            Từ đầu năm
           </button>
-          <button class="btn-welcome-export" onclick="Toast.info('Exporting dashboard data...','Export')" aria-label="Export dashboard data">
+          <button class="btn-welcome-export" onclick="Toast.info('Đang xuất dữ liệu tổng quan...','Xuất dữ liệu')" aria-label="Xuất dữ liệu tổng quan">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Export
+            Xuất dữ liệu
           </button>
         </div>
       </div>
+
+      <!-- Filter 12 chi nhánh -->
+      <section class="card mb-6" aria-labelledby="dashboard-filter-title">
+        <h2 id="dashboard-filter-title" class="card-title mb-4">Bộ lọc tổng quan</h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 items-end">
+          <div class="min-w-0">
+            <label class="form-label" for="dashboard-branch">Chi nhánh</label>
+            <select id="dashboard-branch" class="form-input form-select w-full h-11">
+              <option value="">Toàn chuỗi — 12 chi nhánh</option>
+              <option value="CN01">CN01 — Chi nhánh 01</option>
+              <option value="CN02">CN02 — Chi nhánh 02</option>
+              <option value="CN03">CN03 — Chi nhánh 03</option>
+              <option value="CN04">CN04 — Chi nhánh 04</option>
+              <option value="CN05">CN05 — Chi nhánh 05</option>
+              <option value="CN06">CN06 — Chi nhánh 06</option>
+              <option value="CN07">CN07 — Chi nhánh 07</option>
+              <option value="CN08">CN08 — Chi nhánh 08</option>
+              <option value="CN09">CN09 — Chi nhánh 09</option>
+              <option value="CN10">CN10 — Chi nhánh 10</option>
+              <option value="CN11">CN11 — Chi nhánh 11</option>
+              <option value="CN12">CN12 — Chi nhánh 12</option>
+            </select>
+          </div>
+
+          <div class="min-w-0">
+            <label class="form-label" for="dashboard-shift">Ca làm việc</label>
+            <select id="dashboard-shift" class="form-input form-select w-full h-11">
+              <option value="">Tất cả ca</option>
+              <option value="morning">Ca sáng</option>
+              <option value="afternoon">Ca chiều</option>
+              <option value="evening">Ca tối</option>
+            </select>
+          </div>
+
+          <div class="min-w-0 relative" data-date-picker>
+            <label id="dashboard-from-label" class="form-label"
+                   for="dashboard-from-button">Từ ngày</label>
+            <input id="dashboard-from" name="from" type="date"
+                   class="sr-only" tabindex="-1"
+                   aria-labelledby="dashboard-from-label"
+                   data-range-end="dashboard-to">
+            <button id="dashboard-from-button" type="button"
+                    class="form-input w-full h-11 flex items-center justify-between gap-2 text-left"
+                    data-date-open disabled>
+              <span data-date-text>Chọn ngày</span>
+              <span class="text-xs text-[var(--muted)]">Lịch</span>
+            </button>
+            <p data-date-error class="text-xs text-[var(--danger)] mt-2"
+               role="status" hidden></p>
+          </div>
+
+          <div class="min-w-0 relative" data-date-picker>
+            <label id="dashboard-to-label" class="form-label"
+                   for="dashboard-to-button">Đến ngày</label>
+            <input id="dashboard-to" name="to" type="date"
+                   class="sr-only" tabindex="-1"
+                   aria-labelledby="dashboard-to-label"
+                   data-range-start="dashboard-from">
+            <button id="dashboard-to-button" type="button"
+                    class="form-input w-full h-11 flex items-center justify-between gap-2 text-left"
+                    data-date-open disabled>
+              <span data-date-text>Chọn ngày</span>
+              <span class="text-xs text-[var(--muted)]">Lịch</span>
+            </button>
+            <p data-date-error class="text-xs text-[var(--danger)] mt-2"
+               role="status" hidden></p>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 mt-4">
+          <button type="button"
+                  class="btn btn-primary h-11"
+                  onclick="Toast.info('Chức năng lọc chưa được tích hợp.', 'Bộ lọc')">
+            Áp dụng
+          </button>
+
+          <button type="button"
+                  class="btn btn-secondary h-11">
+            Xóa bộ lọc
+          </button>
+        </div>
+        <noscript>
+          <p class="text-sm text-[var(--danger)] mt-3">
+            Cần bật JavaScript để sử dụng lịch chọn ngày.
+          </p>
+        </noscript>
+      </section>
 
       <!-- Row 1: Stats Cards -->
       <div class="page-section grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
@@ -52,8 +139,9 @@
             </div>
             <div class="trend-up">↑ 8.2%</div>
           </div>
-          <div class="dash-stat-value" data-count="786">786</div>
-          <div class="dash-stat-label">Total Sales</div>
+          <!-- Thẻ 1 -->
+          <div class="dash-stat-value">786</div>
+          <div class="dash-stat-label">Số ly đã bán</div>
           <div class="dash-stat-bar"><div class="dash-stat-bar-fill" style="width:78%;background:var(--primary)"></div></div>
         </div>
 
@@ -65,8 +153,9 @@
             </div>
             <div class="trend-up">↑ 12.5%</div>
           </div>
-          <div class="dash-stat-value">$<span data-count="17584">17,584</span></div>
-          <div class="dash-stat-label">Revenue</div>
+          <!-- Thẻ 2 -->
+          <div class="dash-stat-value">35.370.000 ₫</div>
+          <div class="dash-stat-label">Doanh thu</div>
           <div class="dash-stat-bar"><div class="dash-stat-bar-fill" style="width:85%;background:var(--info)"></div></div>
         </div>
 
@@ -78,8 +167,9 @@
             </div>
             <div class="trend-down">↓ 3.1%</div>
           </div>
-          <div class="dash-stat-value">$<span data-count="12487">12,487</span></div>
-          <div class="dash-stat-label">Cost</div>
+          <!-- Thẻ 3 -->
+          <div class="dash-stat-value">12</div>
+          <div class="dash-stat-label">Lô nguyên liệu cận hạn</div>
           <div class="dash-stat-bar"><div class="dash-stat-bar-fill" style="width:62%;background:var(--danger)"></div></div>
         </div>
 
@@ -92,8 +182,9 @@
             </div>
             <div class="trend-up">↑ 18.4%</div>
           </div>
-          <div class="dash-stat-value dash-stat-profit">$<span data-count="5097">5,097</span></div>
-          <div class="dash-stat-label">Profit</div>
+          <!-- Thẻ 4 -->
+          <div class="dash-stat-value">2</div>
+          <div class="dash-stat-label">Chi nhánh cần xem xét hòa vốn</div>
           <div class="dash-stat-bar"><div class="dash-stat-bar-fill" style="width:45%;background:var(--warning)"></div></div>
         </div>
       </div>
@@ -109,19 +200,19 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
               </div>
               <div>
-                <h2 class="card-title">Sales Statistics</h2>
-                <p class="card-subtitle">Monthly revenue overview</p>
+                <h2 class="card-title">Doanh thu theo thời gian</h2>
+                <p class="card-subtitle">Tổng quan doanh thu theo tháng</p>
               </div>
             </div>
             <div class="flex gap-1.5">
-              <button data-sales-period="daily" class="btn btn-secondary btn-sm" aria-label="View daily sales">Daily</button>
-              <button data-sales-period="weekly" class="btn btn-secondary btn-sm" aria-label="View weekly sales">Weekly</button>
-              <button data-sales-period="monthly" class="btn btn-primary btn-sm" aria-label="View monthly sales">Monthly</button>
+              <button data-sales-period="daily" class="btn btn-secondary btn-sm" aria-label="Xem đơn hàng theo ngày">Ngày</button>
+              <button data-sales-period="weekly" class="btn btn-secondary btn-sm" aria-label="Xem đơn hàng theo tuần">Tuần</button>
+              <button data-sales-period="monthly" class="btn btn-primary btn-sm" aria-label="Xem đơn hàng theo tháng">Tháng</button>
             </div>
           </div>
           <div class="flex items-baseline gap-3 mb-5">
             <div class="dash-chart-total">$ 67,347</div>
-            <span class="trend-up" style="font-size:12px">↑ 8.2% vs last period</span>
+            <span class="trend-up" style="font-size:12px">↑ 8.2% so với kỳ trước</span>
           </div>
           <div class="chart-container h-[240px]">
             <canvas id="salesChart"></canvas>
@@ -135,7 +226,7 @@
               <div class="stat-card-icon icon-bg-success w-8 h-8 rounded-lg">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
               </div>
-              <h2 class="card-title">Revenue Breakdown</h2>
+              <h2 class="card-title">Doanh thu theo kênh</h2>
             </div>
           </div>
           <div class="flex flex-col gap-3">
@@ -143,8 +234,8 @@
               <div class="flex items-center gap-3">
                 <div class="dash-revenue-dot" style="background:var(--primary)"></div>
                 <div>
-                  <div class="dash-revenue-label">Total Sales</div>
-                  <div class="dash-revenue-desc">786 transactions</div>
+                  <div class="dash-revenue-label">Tổng đơn hàng</div>
+                  <div class="dash-revenue-desc">786 giao dịch</div>
                 </div>
               </div>
               <div class="dash-revenue-amount">$17,584</div>
@@ -153,8 +244,8 @@
               <div class="flex items-center gap-3">
                 <div class="dash-revenue-dot" style="background:var(--info)"></div>
                 <div>
-                  <div class="dash-revenue-label">Revenue</div>
-                  <div class="dash-revenue-desc">Net income</div>
+                  <div class="dash-revenue-label">Doanh thu</div>
+                  <div class="dash-revenue-desc">Thu nhập ròng</div>
                 </div>
               </div>
               <div class="dash-revenue-amount">$17,584</div>
@@ -163,8 +254,8 @@
               <div class="flex items-center gap-3">
                 <div class="dash-revenue-dot" style="background:var(--danger)"></div>
                 <div>
-                  <div class="dash-revenue-label">Cost</div>
-                  <div class="dash-revenue-desc">Operating expenses</div>
+                  <div class="dash-revenue-label">Chi phí</div>
+                  <div class="dash-revenue-desc">Chi phí vận hành</div>
                 </div>
               </div>
               <div class="dash-revenue-amount">$12,487</div>
@@ -173,8 +264,8 @@
               <div class="flex items-center gap-3">
                 <div class="dash-revenue-dot" style="background:var(--warning)"></div>
                 <div>
-                  <div class="dash-revenue-label">Profit</div>
-                  <div class="dash-revenue-desc">Net profit margin</div>
+                  <div class="dash-revenue-label">Lợi nhuận</div>
+                  <div class="dash-revenue-desc">Biên lợi nhuận ròng</div>
                 </div>
               </div>
               <div class="dash-revenue-amount dash-stat-profit">$5,097</div>
@@ -193,7 +284,7 @@
               <div class="stat-card-icon icon-bg-primary w-8 h-8 rounded-lg">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
               </div>
-              <h2 class="card-title">Inventory Overview</h2>
+              <h2 class="card-title">Nguyên liệu cận hạn</h2>
             </div>
           </div>
           <div class="flex gap-4">
@@ -202,14 +293,14 @@
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
               </div>
               <div class="dash-metric-value">214</div>
-              <div class="dash-metric-label">Qty in Hand</div>
+              <div class="dash-metric-label">Số lượng hiện có</div>
             </div>
             <div class="dash-metric-card flex-1">
               <div class="dash-metric-icon icon-bg-warning">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               </div>
               <div class="dash-metric-value">64</div>
-              <div class="dash-metric-label">Will Be Received</div>
+              <div class="dash-metric-label">Sắp nhận</div>
             </div>
           </div>
         </div>
@@ -221,7 +312,7 @@
               <div class="stat-icon icon-bg-info w-8 h-8 rounded-lg">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
               </div>
-              <h2 class="card-title">No. of Users</h2>
+              <h2 class="card-title">Khách và số ly</h2>
             </div>
           </div>
           <div class="flex gap-4">
@@ -230,26 +321,26 @@
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
               </div>
               <div class="dash-metric-value">1.8K</div>
-              <div class="dash-metric-label">Total Customers</div>
+              <div class="dash-metric-label">Tổng khách hàng</div>
             </div>
             <div class="dash-metric-card flex-1">
               <div class="dash-metric-icon icon-bg-purple">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
               </div>
               <div class="dash-metric-value">27</div>
-              <div class="dash-metric-label">Total Suppliers</div>
+              <div class="dash-metric-label">Tổng nhà cung cấp</div>
             </div>
           </div>
         </div>
 
-        <!-- Stock Overview -->
+        <!-- Cảnh báo chi nhánh -->
         <div class="card animate-slideInUp stagger-4">
           <div class="card-header">
             <div class="flex items-center gap-2">
               <div class="stat-icon icon-bg-danger w-8 h-8 rounded-lg">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
               </div>
-              <h2 class="card-title">Stock Overview</h2>
+              <h2 class="card-title">Cảnh báo chi nhánh</h2>
             </div>
           </div>
           <div class="flex flex-col gap-3">
@@ -257,7 +348,7 @@
               <div class="flex items-center justify-between mb-2">
                 <div class="dash-stock-info">
                   <div class="dash-stock-dot" style="background:var(--danger)"></div>
-                  <span class="text-[13px] font-medium">Low Stock Items</span>
+                  <span class="text-[13px] font-medium">Mặt hàng tồn thấp</span>
                 </div>
                 <span class="text-[18px] font-bold text-[var(--danger)]">02</span>
               </div>
@@ -267,7 +358,7 @@
               <div class="flex items-center justify-between mb-2">
                 <div class="dash-stock-info">
                   <div class="dash-stock-dot" style="background:var(--info)"></div>
-                  <span class="text-[13px] font-medium">Item Groups</span>
+                  <span class="text-[13px] font-medium">Nhóm mặt hàng</span>
                 </div>
                 <span class="text-[18px] font-bold">14</span>
               </div>
@@ -277,7 +368,7 @@
               <div class="flex items-center justify-between mb-2">
                 <div class="dash-stock-info">
                   <div class="dash-stock-dot" style="background:var(--primary)"></div>
-                  <span class="text-[13px] font-medium">No. of Items</span>
+                  <span class="text-[13px] font-medium">Số mặt hàng</span>
                 </div>
                 <span class="text-[18px] font-bold">104</span>
               </div>
@@ -298,18 +389,18 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
               </div>
               <div>
-                <h2 class="card-title">Customer Statistics</h2>
-                <p class="card-subtitle">New vs returning customers</p>
+                <h2 class="card-title">Lượng khách theo thời gian</h2>
+                <p class="card-subtitle">Khách mới và khách quay lại</p>
               </div>
             </div>
             <div class="flex gap-1.5">
-              <button data-customer-period="weekly" class="btn btn-secondary btn-sm" aria-label="View weekly customers">Weekly</button>
-              <button data-customer-period="monthly" class="btn btn-primary btn-sm" aria-label="View monthly customers">Monthly</button>
+              <button data-customer-period="weekly" class="btn btn-secondary btn-sm" aria-label="Xem khách hàng theo tuần">Tuần</button>
+              <button data-customer-period="monthly" class="btn btn-primary btn-sm" aria-label="Xem khách hàng theo tháng">Tháng</button>
             </div>
           </div>
           <div class="flex items-baseline gap-3 mb-5">
             <div class="dash-chart-total">1,377</div>
-            <span class="dash-chart-subtitle">peak month customers</span>
+            <span class="dash-chart-subtitle">khách trong tháng cao điểm</span>
           </div>
           <div class="chart-container h-[240px]">
             <canvas id="customerChart"></canvas>
@@ -323,7 +414,7 @@
               <div class="stat-icon icon-bg-warning w-8 h-8 rounded-lg">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
               </div>
-              <h2 class="card-title">Purchase Overview</h2>
+              <h2 class="card-title">Món bán chạy</h2>
             </div>
           </div>
           <div class="flex flex-col gap-3">
@@ -334,7 +425,7 @@
                 </div>
                 <div class="flex-1">
                   <div class="flex items-center justify-between mb-1">
-                    <span class="text-[13px] font-medium">No. of Purchases</span>
+                    <span class="text-[13px] font-medium">Số đơn mua</span>
                     <span class="text-[15px] font-bold">45</span>
                   </div>
                   <div class="dash-progress-track"><div class="dash-progress-fill" style="width:65%;background:#8B5CF6"></div></div>
@@ -348,7 +439,7 @@
                 </div>
                 <div class="flex-1">
                   <div class="flex items-center justify-between mb-1">
-                    <span class="text-[13px] font-medium">Purchase Cost</span>
+                    <span class="text-[13px] font-medium">Chi phí mua hàng</span>
                     <span class="text-[15px] font-bold">$786</span>
                   </div>
                   <div class="dash-progress-track"><div class="dash-progress-fill" style="width:40%;background:var(--warning)"></div></div>
@@ -362,7 +453,7 @@
                 </div>
                 <div class="flex-1">
                   <div class="flex items-center justify-between mb-1">
-                    <span class="text-[13px] font-medium">Cancelled Orders</span>
+                    <span class="text-[13px] font-medium">Đơn đã hủy</span>
                     <span class="text-[15px] font-bold text-[var(--danger)]">04</span>
                   </div>
                   <div class="dash-progress-track"><div class="dash-progress-fill" style="width:12%;background:var(--danger)"></div></div>
@@ -376,7 +467,7 @@
                 </div>
                 <div class="flex-1">
                   <div class="flex items-center justify-between mb-1">
-                    <span class="text-[13px] font-medium">Returns</span>
+                    <span class="text-[13px] font-medium">Đổi trả</span>
                     <span class="text-[15px] font-bold">07</span>
                   </div>
                   <div class="dash-progress-track"><div class="dash-progress-fill" style="width:18%;background:var(--primary)"></div></div>
@@ -388,190 +479,191 @@
       </div>
 
       <!-- Row 5: Recent Sales -->
-      <section class="page-section card animate-slideInUp stagger-4" aria-label="Recent sales">
+      <section class="page-section card animate-slideInUp stagger-4" aria-label="Đơn hàng gần đây">
         <div class="card-header">
           <div class="flex items-center gap-2">
             <div class="stat-card-icon icon-bg-primary w-8 h-8 rounded-lg">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
             </div>
             <div>
-              <h2 class="card-title">Recent Sales</h2>
-              <p class="card-subtitle">Latest transactions</p>
+              <h2 class="card-title">Đơn hàng gần đây</h2>
+              <p class="card-subtitle">Giao dịch gần đây</p>
             </div>
           </div>
-          <a href="sales/sales.html" class="btn btn-secondary btn-sm" aria-label="View all sales">View All Sales</a>
+          <a href="sales/sales.html" class="btn btn-secondary btn-sm" aria-label="Xem tất cả đơn hàng">Xem tất cả đơn hàng</a>
         </div>
         <div class="overflow-x-auto">
           <table class="data-table">
-            <caption class="sr-only">Recent sales transactions</caption>
+            <caption class="sr-only">Danh sách đơn hàng gần đây</caption>
             <thead>
-              <tr>
-                <th>Invoice</th>
-                <th>Customer</th>
-                <th>Date</th>
-                <th>Amount</th>
-                <th>Payment</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
+            <tr>
+              <th scope="col">Mã đơn</th>
+              <th scope="col">Chi nhánh / Ca</th>
+              <th scope="col">Khách hàng</th>
+              <th scope="col">Kênh bán</th>
+              <th scope="col">Thời gian</th>
+              <th scope="col">Tổng tiền</th>
+              <th scope="col">Thanh toán</th>
+              <th scope="col">Thao tác</th>
+            </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><a href="invoices/invoice-details.html" class="text-[13px] font-semibold text-[var(--primary)] no-underline">INV-000125</a></td>
-                <td>
-                    <div class="flex items-center gap-2">
-                      <img src="assets/img/avator/1.jpg" alt="John Smith" class="w-8 h-8 rounded-full object-cover">
-                      <span class="text-[13px] font-medium text-[var(--text)]">John Smith</span>
-                    </div>
-                </td>
-                <td class="text-[13px] text-[var(--muted)]">Aug 24, 2026</td>
-                <td class="text-[13px] font-semibold text-[var(--text)]">$845.00</td>
-                <td class="text-[13px] text-[var(--muted)]">Cash</td>
-                <td><span class="badge badge-success">Paid</span></td>
-                <td><a href="invoices/invoice-details.html" class="btn btn-secondary btn-sm" aria-label="View invoice INV-000125">View</a></td>
-              </tr>
-              <tr>
-                <td><a href="invoices/invoice-details.html" class="text-[13px] font-semibold text-[var(--primary)] no-underline">INV-000124</a></td>
-                <td>
-                    <div class="flex items-center gap-2">
-                      <img src="assets/img/avator/2.jpg" alt="Michael Brown" class="w-8 h-8 rounded-full object-cover">
-                      <span class="text-[13px] font-medium text-[var(--text)]">Michael Brown</span>
-                    </div>
-                </td>
-                <td class="text-[13px] text-[var(--muted)]">Aug 23, 2026</td>
-                <td class="text-[13px] font-semibold text-[var(--text)]">$1,240.00</td>
-                <td class="text-[13px] text-[var(--muted)]">Credit Card</td>
-                <td><span class="badge badge-warning">Pending</span></td>
-                <td><a href="invoices/invoice-details.html" class="btn btn-secondary btn-sm" aria-label="View invoice INV-000124">View</a></td>
-              </tr>
-              <tr>
-                <td><a href="invoices/invoice-details.html" class="text-[13px] font-semibold text-[var(--primary)] no-underline">INV-000123</a></td>
-                <td>
-                    <div class="flex items-center gap-2">
-                      <img src="assets/img/avator/3.jpg" alt="Sarah Wilson" class="w-8 h-8 rounded-full object-cover">
-                      <span class="text-[13px] font-medium text-[var(--text)]">Sarah Wilson</span>
-                    </div>
-                </td>
-                <td class="text-[13px] text-[var(--muted)]">Aug 22, 2026</td>
-                <td class="text-[13px] font-semibold text-[var(--text)]">$620.00</td>
-                <td class="text-[13px] text-[var(--muted)]">Bank Transfer</td>
-                <td><span class="badge badge-info">Partial</span></td>
-                <td><a href="invoices/invoice-details.html" class="btn btn-secondary btn-sm" aria-label="View invoice INV-000123">View</a></td>
-              </tr>
-              <tr>
-                <td><a href="invoices/invoice-details.html" class="text-[13px] font-semibold text-[var(--primary)] no-underline">INV-000122</a></td>
-                <td>
-                    <div class="flex items-center gap-2">
-                      <img src="assets/img/avator/1.jpg" alt="David Miller" class="w-8 h-8 rounded-full object-cover">
-                      <span class="text-[13px] font-medium text-[var(--text)]">David Miller</span>
-                    </div>
-                </td>
-                <td class="text-[13px] text-[var(--muted)]">Aug 21, 2026</td>
-                <td class="text-[13px] font-semibold text-[var(--text)]">$380.00</td>
-                <td class="text-[13px] text-[var(--muted)]">Cash</td>
-                <td><span class="badge badge-danger">Cancelled</span></td>
-                <td><a href="invoices/invoice-details.html" class="btn btn-secondary btn-sm" aria-label="View invoice INV-000122">View</a></td>
-              </tr>
-              <tr>
-                <td><a href="invoices/invoice-details.html" class="text-[13px] font-semibold text-[var(--primary)] no-underline">INV-000121</a></td>
-                <td>
-                    <div class="flex items-center gap-2">
-                      <img src="assets/img/avator/2.jpg" alt="Emma Johnson" class="w-8 h-8 rounded-full object-cover">
-                      <span class="text-[13px] font-medium text-[var(--text)]">Emma Johnson</span>
-                    </div>
-                </td>
-                <td class="text-[13px] text-[var(--muted)]">Aug 20, 2026</td>
-                <td class="text-[13px] font-semibold text-[var(--text)]">$1,895.00</td>
-                <td class="text-[13px] text-[var(--muted)]">Credit Card</td>
-                <td><span class="badge badge-success">Paid</span></td>
-                <td><a href="invoices/invoice-details.html" class="btn btn-secondary btn-sm" aria-label="View invoice INV-000121">View</a></td>
-              </tr>
+            <tr>
+              <td>
+                <div class="font-semibold whitespace-nowrap">DH-00125</div>
+                <span class="badge badge-warning">Đơn lớn</span>
+              </td>
+              <td class="whitespace-nowrap">CN01 · Ca sáng</td>
+              <td>
+                <div class="font-medium whitespace-nowrap">Nguyễn An</div>
+                <div class="text-xs text-[var(--muted)] whitespace-nowrap">
+                  0900 000 001
+                </div>
+              </td>
+              <td><span class="badge badge-purple">Trực tuyến</span></td>
+              <td class="whitespace-nowrap">
+                <time datetime="2026-10-28T09:15:00+07:00">
+                  28/10/2026 · 09:15
+                </time>
+              </td>
+              <td class="font-semibold whitespace-nowrap">450.000 ₫</td>
+              <td><span class="badge badge-success">Đã thanh toán</span></td>
+              <td>
+                <a href="invoices/invoice-details.html?orderId=DH-00125"
+                   class="btn btn-secondary btn-sm"
+                   aria-label="Xem hóa đơn của đơn DH-00125">
+                  Xem
+                </a>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="font-semibold whitespace-nowrap">DH-00124</td>
+              <td class="whitespace-nowrap">CN01 · Ca sáng</td>
+              <td>
+                <div class="font-medium whitespace-nowrap">Trần Bình</div>
+                <div class="text-xs text-[var(--muted)] whitespace-nowrap">
+                  0900 000 002
+                </div>
+              </td>
+              <td><span class="badge badge-info">Mang đi</span></td>
+              <td class="whitespace-nowrap">
+                <time datetime="2026-10-28T09:12:00+07:00">
+                  28/10/2026 · 09:12
+                </time>
+              </td>
+              <td class="font-semibold whitespace-nowrap">35.000 ₫</td>
+              <td><span class="badge badge-success">Đã thanh toán</span></td>
+              <td>
+                <a href="invoices/invoice-details.html?orderId=DH-00124"
+                   class="btn btn-secondary btn-sm"
+                   aria-label="Xem hóa đơn của đơn DH-00124">
+                  Xem
+                </a>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="font-semibold whitespace-nowrap">DH-00123</td>
+              <td class="whitespace-nowrap">CN02 · Ca sáng</td>
+              <td>
+                <div class="font-medium whitespace-nowrap">Lê Minh</div>
+                <div class="text-xs text-[var(--muted)] whitespace-nowrap">
+                  0900 000 003
+                </div>
+              </td>
+              <td><span class="badge badge-gray">Tại quầy</span></td>
+              <td class="whitespace-nowrap">
+                <time datetime="2026-10-28T09:05:00+07:00">
+                  28/10/2026 · 09:05
+                </time>
+              </td>
+              <td class="font-semibold whitespace-nowrap">78.000 ₫</td>
+              <td><span class="badge badge-success">Đã thanh toán</span></td>
+              <td>
+                <a href="invoices/invoice-details.html?orderId=DH-00123"
+                   class="btn btn-secondary btn-sm"
+                   aria-label="Xem hóa đơn của đơn DH-00123">
+                  Xem
+                </a>
+              </td>
+            </tr>
             </tbody>
           </table>
         </div>
       </section>
 
       <!-- Row 6: Low Stock -->
-      <section class="page-section card animate-slideInUp stagger-5" aria-label="Low stock products">
+      <section class="page-section card animate-slideInUp stagger-5" aria-label="Sản phẩm tồn thấp">
         <div class="card-header">
           <div class="flex items-center gap-2">
             <div class="stat-icon icon-bg-danger w-8 h-8 rounded-lg">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
             </div>
             <div>
-              <h2 class="card-title">Low Stock Products</h2>
-              <p class="card-subtitle">Items requiring restocking</p>
+              <h2 class="card-title">Nguyên liệu dưới ngưỡng</h2>
+              <p class="card-subtitle">Mặt hàng cần nhập thêm</p>
             </div>
-            <span class="badge badge-danger">5 items</span>
+            <span class="badge badge-danger">3 nguyên liệu</span>
           </div>
-          <a href="inventory/products.html" class="btn btn-secondary btn-sm" aria-label="View all products">View All</a>
+          <a href="inventory/products.html" class="btn btn-secondary btn-sm" aria-label="Xem tất cả sản phẩm">Xem nguyên liệu</a>
         </div>
         <div class="overflow-x-auto">
           <table class="data-table">
-            <caption class="sr-only">Products with low stock levels</caption>
+            <caption class="sr-only">Nguyên liệu dưới ngưỡng tại kho tổng</caption>
             <thead>
-              <tr>
-                <th>Product</th>
-                <th>SKU</th>
-                <th>Current Stock</th>
-                <th>Min Stock</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
+            <tr>
+              <th scope="col">Nguyên liệu</th>
+              <th scope="col">Mã nguyên liệu</th>
+              <th scope="col">Tồn khả dụng</th>
+              <th scope="col">Ngưỡng tối thiểu</th>
+              <th scope="col">Trạng thái</th>
+              <th scope="col">Thao tác</th>
+            </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                    <div class="flex items-center gap-2.5">
-                      <img src="assets/img/products/mouse.jpg" alt="Wireless Mouse" class="w-9 h-9 rounded-[10px] object-cover bg-slate-100">
-                      <span class="text-[13px] font-semibold text-[var(--text)]">Wireless Mouse</span>
-                    </div>
-                </td>
-                <td class="text-xs text-[var(--muted)] font-mono">WM-001</td>
-                <td class="text-sm font-bold text-[var(--danger)]">3</td>
-                <td class="text-[13px] text-[var(--muted)]">10</td>
-                <td><span class="badge badge-danger">Critical</span></td>
-                <td><a href="purchases/add-purchase.html" class="btn btn-outline btn-sm" aria-label="Reorder Wireless Mouse">Reorder</a></td>
-              </tr>
-              <tr>
-                <td>
-                    <div class="flex items-center gap-2.5">
-                      <img src="assets/img/products/speeker.jpg" alt="Bluetooth Speaker" class="w-9 h-9 rounded-[10px] object-cover bg-slate-100">
-                      <span class="text-[13px] font-semibold text-[var(--text)]">Bluetooth Speaker</span>
-                    </div>
-                </td>
-                <td class="text-xs text-[var(--muted)] font-mono">BS-005</td>
-                <td class="text-sm font-bold text-[var(--danger)]">0</td>
-                <td class="text-[13px] text-[var(--muted)]">5</td>
-                <td><span class="badge badge-danger">Out of Stock</span></td>
-                <td><a href="purchases/add-purchase.html" class="btn btn-outline btn-sm" aria-label="Reorder Bluetooth Speaker">Reorder</a></td>
-              </tr>
-              <tr>
-                <td>
-                    <div class="flex items-center gap-2.5">
-                      <img src="assets/img/products/headphone.jpg" alt="Wireless Headphones" class="w-9 h-9 rounded-[10px] object-cover bg-slate-100">
-                      <span class="text-[13px] font-semibold text-[var(--text)]">Wireless Headphones</span>
-                    </div>
-                </td>
-                <td class="text-xs text-[var(--muted)] font-mono">WH-009</td>
-                <td class="text-sm font-bold text-[var(--warning)]">5</td>
-                <td class="text-[13px] text-[var(--muted)]">8</td>
-                <td><span class="badge badge-warning">Low Stock</span></td>
-                <td><a href="purchases/add-purchase.html" class="btn btn-outline btn-sm" aria-label="Reorder Wireless Headphones">Reorder</a></td>
-              </tr>
-              <tr>
-                <td>
-                    <div class="flex items-center gap-2.5">
-                      <img src="assets/img/products/powerbank.jpg" alt="Wireless Charger" class="w-9 h-9 rounded-[10px] object-cover bg-slate-100">
-                      <span class="text-[13px] font-semibold text-[var(--text)]">Wireless Charger</span>
-                    </div>
-                </td>
-                <td class="text-xs text-[var(--muted)] font-mono">WCH-015</td>
-                <td class="text-sm font-bold text-[var(--warning)]">2</td>
-                <td class="text-[13px] text-[var(--muted)]">8</td>
-                <td><span class="badge badge-warning">Low Stock</span></td>
-                <td><a href="purchases/add-purchase.html" class="btn btn-outline btn-sm" aria-label="Reorder Wireless Charger">Reorder</a></td>
-              </tr>
+            <tr>
+              <td class="font-medium">Trân châu khô</td>
+              <td class="whitespace-nowrap">NL-TCK</td>
+              <td class="font-semibold text-[var(--warning)]">15 kg</td>
+              <td>30 kg</td>
+              <td><span class="badge badge-warning">Dưới ngưỡng</span></td>
+              <td>
+                <a href="purchases/add-purchase.html"
+                   class="btn btn-outline btn-sm"
+                   aria-label="Đặt mua trân châu khô cho kho tổng">
+                  Đặt mua
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td class="font-medium">Trà ô long</td>
+              <td class="whitespace-nowrap">NL-TOL</td>
+              <td class="font-semibold text-[var(--warning)]">8 kg</td>
+              <td>20 kg</td>
+              <td><span class="badge badge-warning">Dưới ngưỡng</span></td>
+              <td>
+                <a href="purchases/add-purchase.html"
+                   class="btn btn-outline btn-sm"
+                   aria-label="Đặt mua trà ô long cho kho tổng">
+                  Đặt mua
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td class="font-medium">Sữa tươi</td>
+              <td class="whitespace-nowrap">NL-ST</td>
+              <td class="font-semibold text-[var(--danger)]">0 lít</td>
+              <td>50 lít</td>
+              <td><span class="badge badge-danger">Hết tồn khả dụng</span></td>
+              <td>
+                <a href="purchases/add-purchase.html"
+                   class="btn btn-outline btn-sm"
+                   aria-label="Đặt mua sữa tươi cho kho tổng">
+                  Đặt mua
+                </a>
+              </td>
+            </tr>
             </tbody>
           </table>
         </div>
@@ -581,7 +673,7 @@
 
     <!-- Footer -->
     <footer class="app-footer">
-      <div class="app-footer-text">Copyright &copy; 2026 Invenza All rights reserved.</div>
+      <div class="app-footer-text">Bản quyền &copy; 2026 Invenza Bảo lưu mọi quyền.</div>
     </footer>
   </div>
 

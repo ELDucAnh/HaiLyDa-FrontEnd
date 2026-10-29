@@ -6,6 +6,9 @@ module.exports = {
     './pages/*.html',
     './inventory/*.html',
     './sales/*.html',
+      //trang mới
+    './marketing/*.html',
+
     './purchases/*.html',
     './invoices/*.html',
     './customers/*.html',
