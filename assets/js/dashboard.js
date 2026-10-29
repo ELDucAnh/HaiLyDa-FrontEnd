@@ -29,9 +29,9 @@ const salesData = {
   weekly:  [12400, 15200, 11800, 14600, 13900, 16200, 18400, 14100],
   daily:   [2100, 1850, 2400, 2200, 2800, 3100, 2650],
   labels: {
-    monthly: ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'],
-    weekly:  ['Mon','Tue','Wed','Thu','Fri','Sat','Sun','Mon'],
-    daily:   ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+    monthly: ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'],
+    weekly:  ['T2','T3','T4','T5','T6','T7','CN','T2'],
+    daily:   ['T2','T3','T4','T5','T6','T7','CN'],
   }
 };
 
@@ -39,8 +39,8 @@ const customerData = {
   monthly: [120, 98, 145, 132, 178, 165, 203, 189, 142, 198, 221, 187],
   weekly:  [28, 35, 22, 41, 38, 52, 45],
   labels: {
-    monthly: ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'],
-    weekly:  ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+    monthly: ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'],
+    weekly:  ['T2','T3','T4','T5','T6','T7','CN'],
   }
 };
 
@@ -64,7 +64,7 @@ function initSalesChart(period = 'monthly') {
     data: {
       labels,
       datasets: [{
-        label: 'Sales',
+        label: 'Đơn hàng',
         data,
         borderColor: '#22B573',
         borderWidth: 2.5,
@@ -152,7 +152,7 @@ function initCustomerChart(period = 'monthly') {
     data: {
       labels,
       datasets: [{
-        label: 'Customers',
+        label: 'Khách hàng',
         data,
         backgroundColor: data.map((_, i) => i === peakIdx ? '#22B573' : 'rgba(34,181,115,0.18)'),
         borderColor: data.map((_, i) => i === peakIdx ? '#22B573' : 'transparent'),
@@ -172,7 +172,7 @@ function initCustomerChart(period = 'monthly') {
           padding: 12,
           cornerRadius: 10,
           callbacks: {
-            label: (ctx) => ` ${ctx.parsed.y} customers`,
+            label: (ctx) => ` ${ctx.parsed.y} khách hàng`,
           }
         }
       },
@@ -245,7 +245,7 @@ function initDateFilter() {
       this.style.background = 'rgba(255,255,255,0.95)';
       this.style.color = 'var(--primary)';
       this.style.borderColor = 'rgba(255,255,255,0.95)';
-      Toast.info(`Filtered: ${this.textContent.trim()}`, 'Date Filter');
+      Toast.info(`Đã lọc: ${this.textContent.trim()}`, 'Bộ lọc thời gian');
     });
   });
 }

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đơn hàng — Invenza</title>
+    <meta name="description" content="Quản lý giao dịch bán hàng, đơn hàng và doanh thu trong Invenza.">
+    <link rel="stylesheet" href="../assets/css/app.css">
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+    <script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+</head>
+<body>
+<div id="sidebar-container"></div>
+<div id="main-wrapper">
+    <div id="header-container"></div>
+    <main class="flex-1 p-4 md:p-6">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <div class="breadcrumb">
+                    <a href="../dashboard.html">Tổng quan</a>
+                    <span class="sep">/</span>
+                    <span class="current">Ca làm việc</span>
+                </div>
+                <h1 class="page-title">Mở, đóng ca và bàn giao</h1>
+                <p class="page-subtitle">
+                    Theo dõi quầy, nhân viên, tiền mặt và các nội dung cần bàn giao.
+                </p>
+            </div>
+            <div class="page-header-actions">
+                <a href="add-sale.html" class="btn btn-secondary">Về POS</a>
+            </div>
+        </div>
+
+        <section class="card mb-6">
+            <h2 class="card-title mb-4">Thông tin mở ca</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="form-label" for="shift-branch">Chi nhánh</label>
+                    <select id="shift-branch" class="form-input form-select">
+                        <option value="CN01">Chi nhánh 01</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="form-label" for="shift-counter">Quầy</label>
+                    <select id="shift-counter" class="form-input form-select">
+                        <option value="POS01">Quầy 01</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="form-label" for="shift-staff">Nhân viên</label>
+                    <input id="shift-staff" class="form-input"
+                           value="Nguyễn An" readonly>
+                </div>
+                <div>
+                    <label class="form-label" for="shift-opening-cash">Tiền đầu ca (₫)</label>
+                    <input id="shift-opening-cash" class="form-input"
+                           type="number" min="0" step="1000" placeholder="500000">
+                </div>
+            </div>
+            <div class="flex items-center gap-2 pt-4">
+                <button type="button"
+                        class="btn btn-primary btn-sm shrink-0"
+                        onclick="Toast.info('Chức năng mở ca chưa kết nối xử lý nghiệp vụ.', 'Mở ca')">
+                    Mở ca
+                </button>
+            </div>
+        </section>
+
+        <section class="card mb-6">
+            <h2 class="card-title mb-4">Danh sách ca</h2>
+            <div class="overflow-x-auto">
+                <table class="data-table">
+                    <thead>
+                    <tr>
+                        <th>Mã ca</th><th>Chi nhánh / Quầy</th><th>Nhân viên</th>
+                        <th>Mở ca</th><th>Đóng ca</th><th>Tiền đầu ca</th><th>Trạng thái</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>CA-001</td><td>CN01 / Quầy 01</td><td>Nguyễn An</td>
+                        <td>28/10/2026 · 07:00</td><td>Chưa đóng</td><td>500.000 ₫</td>
+                        <td><span class="badge badge-success">Đang mở</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2 class="card-title mb-4">Đóng ca CA-001 và bàn giao</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="form-label" for="shift-expected-cash">Tiền mặt dự kiến</label>
+                    <input id="shift-expected-cash" class="form-input"
+                           value="Chờ dữ liệu giao dịch" readonly>
+                </div>
+                <div>
+                    <label class="form-label" for="shift-counted-cash">Tiền thực đếm (₫)</label>
+                    <input id="shift-counted-cash" class="form-input"
+                           type="number" min="0" step="1000">
+                </div>
+                <div>
+                    <label class="form-label" for="shift-difference">Chênh lệch tiền</label>
+                    <input id="shift-difference" class="form-input"
+                           value="Chưa đối chiếu" readonly>
+                </div>
+                <div>
+                    <label class="form-label" for="shift-recipient">Người nhận bàn giao</label>
+                    <select id="shift-recipient" class="form-input form-select">
+                        <option value="">Chọn nhân viên</option>
+                        <option value="NV02">Trần Bình</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <label class="form-label" for="shift-handover">
+                    Đơn chưa xong, nguyên liệu và lý do chênh lệch
+                </label>
+                <textarea id="shift-handover" class="form-input form-textarea" rows="3"
+                          placeholder="Ghi mã đơn cần bàn giao và tình trạng nguyên liệu"></textarea>
+            </div>
+
+            <p class="text-sm text-[var(--muted)] mt-4">
+                Đơn chưa xong: DH-00125 · Đang pha chế.
+                Chi tiết nguyên liệu sẽ liên kết với trang đối soát của module kho.
+            </p>
+
+            <button type="button" class="btn btn-primary mt-4" disabled>
+                Gửi yêu cầu đóng ca
+            </button>
+        </section>
+
+    </main>
+    <footer class="app-footer">
+        <div class="app-footer-text">Bản quyền © 2026 Invenza Bảo lưu mọi quyền.</div>
+    </footer>
+</div>
+
+<div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
+<script>window.BASE_PATH = '../'; window.CURRENT_PAGE = 'sales';</script>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="vi" class="">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sales — Invenza</title>
-  <meta name="description" content="Manage sales transactions, customer orders, and revenue in Invenza.">
+  <title>Đơn hàng — Invenza</title>
+  <meta name="description" content="Quản lý giao dịch bán hàng, đơn hàng và doanh thu trong Invenza.">
   <link rel="stylesheet" href="../assets/css/app.css">
   <link rel="stylesheet" href="../assets/css/tailwind.css">
 <script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
@@ -19,36 +19,36 @@
       <div class="page-header">
         <div>
           <div class="breadcrumb">
-            <a href="../dashboard.html">Home</a>
+            <a href="../dashboard.html">Tổng quan</a>
             <span class="sep">/</span>
-            <span class="current">Sales</span>
+            <span class="current">Đơn hàng</span>
           </div>
-          <h1 class="page-title">Sales Orders</h1>
-          <p class="page-subtitle">Track customer transactions, POS checkouts, and invoices.</p>
+          <h1 class="page-title">Quản lý đơn hàng đa kênh</h1>
+          <p class="page-subtitle">Theo dõi đơn tại quầy, mang đi và trực tuyến theo chi nhánh, ca làm việc.</p>
         </div>
         <div class="page-header-actions">
-          <button class="btn btn-secondary" aria-label="Export sales records" onclick="Toast.info('Exporting sales records...','Export')">
+          <button class="btn btn-secondary" aria-label="Xuất danh sách đơn hàng" onclick="Toast.info('Đang xuất danh sách đơn hàng...','Xuất dữ liệu')">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            Export
+            Xuất dữ liệu
           </button>
-          <a href="add-sale.html" class="btn btn-primary" aria-label="Create new sale">
+          <a href="add-sale.html" class="btn btn-primary" aria-label="Tạo đơn hàng mới">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Point of Sale (POS)
+            Bán hàng tại quầy (POS)
           </a>
         </div>
       </div>
 
       <!-- Stats Grid -->
-      <section aria-label="Sales statistics">
+      <section aria-label="Thống kê đơn hàng">
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
           <div class="stat-card">
             <div class="stat-card-icon icon-bg-primary">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
             </div>
             <div class="stat-card-body">
-              <div class="stat-label">Total Sales</div>
+              <div class="stat-label">Tổng đơn hàng</div>
               <div class="stat-value">786</div>
-              <div class="stat-sub-label trend-up">? +8.2% vs last month</div>
+              <div class="stat-sub-label trend-up">? +8.2% so với tháng trước</div>
             </div>
           </div>
           <div class="stat-card">
@@ -56,9 +56,9 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
             </div>
             <div class="stat-card-body">
-              <div class="stat-label">Revenue</div>
+              <div class="stat-label">Doanh thu</div>
               <div class="stat-value">$67,347.00</div>
-              <div class="stat-sub-label trend-up">? +12.5% vs last month</div>
+              <div class="stat-sub-label trend-up">? +12.5% so với tháng trước</div>
             </div>
           </div>
           <div class="stat-card">
@@ -66,9 +66,9 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
             </div>
             <div class="stat-card-body">
-              <div class="stat-label">Net Profit</div>
+              <div class="stat-label">Lợi nhuận ròng</div>
               <div class="stat-value text-[var(--primary)]">$18,420.00</div>
-              <div class="stat-sub-label">27.3% net margin</div>
+              <div class="stat-sub-label">27.3% biên lợi nhuận ròng</div>
             </div>
           </div>
           <div class="stat-card">
@@ -76,169 +76,164 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
             </div>
             <div class="stat-card-body">
-              <div class="stat-label">Unpaid</div>
+              <div class="stat-label">Chưa thanh toán</div>
               <div class="stat-value text-[var(--warning)]">$1,860.00</div>
-              <div class="stat-sub-label">4 pending collections</div>
+              <div class="stat-sub-label">4 khoản chờ thu</div>
             </div>
           </div>
         </div>
       </section>
 
       <!-- Filter Bar -->
-      <div class="filter-bar mb-5">
-        <div class="search-box flex-1 min-w-[200px]">
-          <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" class="form-input h-[38px] text-[13px]" placeholder="Search invoice #, customer name...">
+      <section class="card mb-6" aria-labelledby="sales-filter-title">
+        <h2 id="sales-filter-title" class="card-title mb-4">Bộ lọc đơn hàng</h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 items-end">
+          <div class="min-w-0">
+            <label class="form-label" for="sale-search">Tìm đơn</label>
+            <input id="sale-search" class="form-input w-full h-11" type="search"
+                   placeholder="Mã đơn hoặc số điện thoại">
+          </div>
+
+          <div class="min-w-0">
+            <label class="form-label" for="sale-branch">Chi nhánh</label>
+            <select id="sale-branch" class="form-input form-select w-full h-11">
+              <option value="">Tất cả 12 chi nhánh</option>
+              <option value="CN01">CN01 — Chi nhánh 01</option>
+              <option value="CN02">CN02 — Chi nhánh 02</option>
+              <option value="CN03">CN03 — Chi nhánh 03</option>
+              <option value="CN04">CN04 — Chi nhánh 04</option>
+              <option value="CN05">CN05 — Chi nhánh 05</option>
+              <option value="CN06">CN06 — Chi nhánh 06</option>
+              <option value="CN07">CN07 — Chi nhánh 07</option>
+              <option value="CN08">CN08 — Chi nhánh 08</option>
+              <option value="CN09">CN09 — Chi nhánh 09</option>
+              <option value="CN10">CN10 — Chi nhánh 10</option>
+              <option value="CN11">CN11 — Chi nhánh 11</option>
+              <option value="CN12">CN12 — Chi nhánh 12</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="form-label" for="sale-shift">Ca làm việc</label>
+            <select id="sale-shift" class="form-input form-select w-full h-11">
+              <option value="">Tất cả ca</option>
+              <option value="morning">Ca sáng</option>
+              <option value="afternoon">Ca chiều</option>
+              <option value="evening">Ca tối</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="form-label" for="sale-channel">Kênh bán</label>
+            <select id="sale-channel" class="form-input form-select w-full h-11">
+              <option value="">Tất cả kênh</option>
+              <option value="counter">Tại quầy</option>
+              <option value="takeaway">Mang đi</option>
+              <option value="online">Trực tuyến</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="form-label" for="sale-preparation">Pha chế</label>
+            <select id="sale-preparation" class="form-input form-select w-full h-11">
+              <option value="">Tất cả trạng thái</option>
+              <option value="waiting">Chờ pha chế</option>
+              <option value="preparing">Đang pha chế</option>
+              <option value="ready">Sẵn sàng</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="form-label" for="sale-payment">Thanh toán</label>
+            <select id="sale-payment" class="form-input form-select w-full h-11">
+              <option value="">Tất cả trạng thái</option>
+              <option value="unpaid">Chưa thanh toán</option>
+              <option value="paid">Đã thanh toán</option>
+              <option value="refunded">Đã hoàn tiền</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="form-label" for="sale-delivery">Giao nhận</label>
+            <select id="sale-delivery" class="form-input form-select w-full h-11">
+              <option value="">Tất cả trạng thái</option>
+              <option value="pickup">Nhận tại cửa hàng</option>
+              <option value="waiting">Chờ giao</option>
+              <option value="delivering">Đang giao</option>
+              <option value="delivered">Đã giao</option>
+            </select>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2 mt-4">
+            <button type="button"
+                    class="btn btn-primary h-11"
+                    onclick="Toast.info('Chức năng lọc chưa được tích hợp.', 'Bộ lọc')">
+              Áp dụng
+            </button>
+
+            <button type="button"
+                    class="btn btn-secondary h-11">
+              Xóa bộ lọc
+            </button>
+          </div>
         </div>
-        <select class="form-input form-select h-[38px] text-[13px] min-w-[140px]" aria-label="Filter by payment status">
-          <option value="">All Payment Status</option>
-          <option>Paid</option>
-          <option>Pending</option>
-          <option>Partial</option>
-          <option>Cancelled</option>
-        </select>
-        <select class="form-input form-select h-[38px] text-[13px] min-w-[140px]" aria-label="Filter by payment method">
-          <option value="">Payment Method</option>
-          <option>Cash</option>
-          <option>Credit Card</option>
-          <option>Bank Transfer</option>
-        </select>
-      </div>
+      </section>
 
       <!-- Sales Table -->
-      <section aria-label="Sales orders table">
+      <section aria-label="Bảng đơn hàng">
         <div class="card p-0 overflow-hidden">
           <div class="overflow-x-auto">
             <table class="data-table">
-              <caption class="sr-only">Sales orders list showing invoice details, customer, dates, amounts, and status</caption>
+              <caption class="sr-only">Danh sách đơn hàng đa kênh</caption>
               <thead>
-                <tr>
-                  <th class="w-[40px]"><input type="checkbox" aria-label="Select all rows" class="w-4 h-4 accent-[var(--primary)] cursor-pointer"></th>
-                  <th>Invoice #</th>
-                  <th>Customer</th>
-                  <th>Date</th>
-                  <th>Total Amount</th>
-                  <th>Paid</th>
-                  <th>Balance</th>
-                  <th>Payment Method</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
+              <tr>
+                <th>Mã đơn</th>
+                <th>Chi nhánh / Ca</th>
+                <th>Khách hàng</th>
+                <th>Kênh bán</th>
+                <th>Thời gian</th>
+                <th>Tổng tiền</th>
+                <th>Thanh toán</th>
+                <th>Pha chế</th>
+                <th>Giao nhận</th>
+                <th>Thao tác</th>
+              </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td><input type="checkbox" aria-label="Select row" class="w-4 h-4 accent-[var(--primary)] cursor-pointer"></td>
-                  <td><a href="../invoices/invoice-details.html" class="font-mono font-bold text-[var(--primary)] no-underline">INV-000125</a></td>
-                  <td>
-                    <div class="flex items-center gap-2">
-                      <img src="../assets/img/avator/1.jpg" alt="John Smith" class="w-8 h-8 rounded-full object-cover">
-                      <div>
-                        <span class="text-[13px] font-semibold text-[var(--text)]">John Smith</span>
-                        <div class="text-[11px] text-[var(--muted)]">john@smith.com</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="text-xs text-[var(--muted)]">Aug 24, 2026</td>
-                  <td class="text-[13px] font-bold text-[var(--text)]">$845.00</td>
-                  <td class="text-[13px] font-semibold text-[var(--primary)]">$845.00</td>
-                  <td class="text-[13px] text-[var(--muted)]">$0.00</td>
-                  <td class="text-[13px] text-[var(--text)]">Cash</td>
-                  <td><span class="badge badge-success">Paid</span></td>
-                  <td>
-                    <div class="flex gap-1.5">
-                      <a href="../invoices/invoice-details.html" class="btn btn-secondary btn-sm">View</a>
-                      <button class="btn btn-secondary btn-icon-sm" aria-label="Print receipt" onclick="Toast.info('Printing receipt...','Print')">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox" aria-label="Select row" class="w-4 h-4 accent-[var(--primary)] cursor-pointer"></td>
-                  <td><a href="../invoices/invoice-details.html" class="font-mono font-bold text-[var(--primary)] no-underline">INV-000124</a></td>
-                  <td>
-                    <div class="flex items-center gap-2">
-                      <img src="../assets/img/avator/2.jpg" alt="Michael Brown" class="w-8 h-8 rounded-full object-cover">
-                      <div>
-                        <span class="text-[13px] font-semibold text-[var(--text)]">Michael Brown</span>
-                        <div class="text-[11px] text-[var(--muted)]">michael@brown.com</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="text-xs text-[var(--muted)]">Aug 23, 2026</td>
-                  <td class="text-[13px] font-bold text-[var(--text)]">$1,240.00</td>
-                  <td class="text-[13px] text-[var(--muted)]">$0.00</td>
-                  <td class="text-[13px] font-semibold text-[var(--danger)]">$1,240.00</td>
-                  <td class="text-[13px] text-[var(--text)]">Credit Card</td>
-                  <td><span class="badge badge-warning">Pending</span></td>
-                  <td>
-                    <div class="flex gap-1.5">
-                      <a href="../invoices/invoice-details.html" class="btn btn-secondary btn-sm">View</a>
-                      <button class="btn btn-secondary btn-icon-sm" aria-label="Print receipt" onclick="Toast.info('Printing receipt...','Print')">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox" aria-label="Select row" class="w-4 h-4 accent-[var(--primary)] cursor-pointer"></td>
-                  <td><a href="../invoices/invoice-details.html" class="font-mono font-bold text-[var(--primary)] no-underline">INV-000123</a></td>
-                  <td>
-                    <div class="flex items-center gap-2">
-                      <img src="../assets/img/avator/3.jpg" alt="Sarah Wilson" class="w-8 h-8 rounded-full object-cover">
-                      <div>
-                        <span class="text-[13px] font-semibold text-[var(--text)]">Sarah Wilson</span>
-                        <div class="text-[11px] text-[var(--muted)]">sarah@wilson.com</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="text-xs text-[var(--muted)]">Aug 22, 2026</td>
-                  <td class="text-[13px] font-bold text-[var(--text)]">$620.00</td>
-                  <td class="text-[13px] font-semibold text-[var(--primary)]">$300.00</td>
-                  <td class="text-[13px] font-semibold text-[var(--warning)]">$320.00</td>
-                  <td class="text-[13px] text-[var(--text)]">Bank Transfer</td>
-                  <td><span class="badge badge-info">Partial</span></td>
-                  <td>
-                    <div class="flex gap-1.5">
-                      <a href="../invoices/invoice-details.html" class="btn btn-secondary btn-sm">View</a>
-                      <button class="btn btn-secondary btn-icon-sm" aria-label="Print receipt" onclick="Toast.info('Printing receipt...','Print')">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox" aria-label="Select row" class="w-4 h-4 accent-[var(--primary)] cursor-pointer"></td>
-                  <td><a href="../invoices/invoice-details.html" class="font-mono font-bold text-[var(--primary)] no-underline">INV-000121</a></td>
-                  <td>
-                    <div class="flex items-center gap-2">
-                      <img src="../assets/img/avator/1.jpg" alt="Emma Johnson" class="w-8 h-8 rounded-full object-cover">
-                      <div>
-                        <span class="text-[13px] font-semibold text-[var(--text)]">Emma Johnson</span>
-                        <div class="text-[11px] text-[var(--muted)]">emma@johnson.com</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="text-xs text-[var(--muted)]">Aug 20, 2026</td>
-                  <td class="text-[13px] font-bold text-[var(--text)]">$1,895.00</td>
-                  <td class="text-[13px] font-semibold text-[var(--primary)]">$1,895.00</td>
-                  <td class="text-[13px] text-[var(--muted)]">$0.00</td>
-                  <td class="text-[13px] text-[var(--text)]">Credit Card</td>
-                  <td><span class="badge badge-success">Paid</span></td>
-                  <td>
-                    <div class="flex gap-1.5">
-                      <a href="../invoices/invoice-details.html" class="btn btn-secondary btn-sm">View</a>
-                      <button class="btn btn-secondary btn-icon-sm" aria-label="Print receipt" onclick="Toast.info('Printing receipt...','Print')">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
+              <tr>
+                <td>
+                  <div class="font-semibold">DH-00125</div>
+                </td>
+                <td>CN01 · Ca sáng</td>
+                <td>
+                  Nguyễn An
+                  <div class="text-xs text-[var(--muted)]">0900 000 001</div>
+                </td>
+                <td><span class="badge badge-purple">Trực tuyến</span></td>
+                <td>28/10/2026 · 09:15</td>
+                <td>450.000 ₫</td>
+                <td><span class="badge badge-success">Đã thanh toán</span></td>
+                <td><span class="badge badge-info">Đang pha chế</span></td>
+
+                <td class="align-top">
+                  <span class="badge badge-warning">Chờ giao</span>
+                </td>
+
+                <td>
+                  <a href="../invoices/invoice-details.html?orderId=DH-00125"
+                     class="btn btn-secondary btn-sm"
+                     aria-label="Xem KOT của đơn DH-00125">
+                    Xem KOT
+                  </a>
+                </td>
+
+              </tr>
               </tbody>
             </table>
           </div>
           <div class="table-footer mt-[20px] pl-[15px] pb-[20px]">
-            <div class="table-footer-info">Showing 4 of 786 sales orders</div>
+            <div class="table-footer-info">Hiển thị 4 trong tổng số 786 đơn hàng</div>
             <div class="table-footer-actions">
               <div class="pagination">
                 <button class="page-btn" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
@@ -253,7 +248,7 @@
 
     </main>
     <footer class="app-footer">
-      <div class="app-footer-text">Copyright © 2026 Invenza All rights reserved.</div>
+      <div class="app-footer-text">Bản quyền © 2026 Invenza Bảo lưu mọi quyền.</div>
     </footer>
   </div>
 

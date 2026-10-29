@@ -9,18 +9,102 @@
    Product Catalog
    ============================================ */
 const POS_PRODUCTS = [
-  { id: 1, name: 'Wireless Mouse', sku: 'WM-001', price: 29.99, stock: 45, category: 'Electronics', img: '../assets/img/products/mouse.jpg' },
-  { id: 2, name: 'Mechanical Keyboard', sku: 'MK-002', price: 89.99, stock: 23, category: 'Electronics', img: '../assets/img/products/keyboard.jpg' },
-  { id: 3, name: 'USB-C Hub', sku: 'UH-003', price: 49.99, stock: 18, category: 'Electronics', img: '../assets/img/products/usb.jpg' },
-  { id: 4, name: 'Laptop Stand', sku: 'LS-004', price: 39.99, stock: 31, category: 'Accessories', img: '../assets/img/products/laptop-stand.jpg' },
-  { id: 5, name: 'Bluetooth Speaker', sku: 'BS-005', price: 79.99, stock: 12, category: 'Electronics', img: '../assets/img/products/speeker.jpg' },
-  { id: 6, name: 'Webcam HD', sku: 'WC-006', price: 69.99, stock: 8, category: 'Electronics', img: '../assets/img/products/webcam.jpg' },
-  { id: 7, name: 'Power Bank', sku: 'PB-007', price: 44.99, stock: 27, category: 'Electronics', img: '../assets/img/products/powerbank.jpg' },
-  { id: 8, name: 'HDMI Cable', sku: 'HC-008', price: 14.99, stock: 64, category: 'Accessories', img: '../assets/img/products/hdmi-cable.jpg' },
-  { id: 9, name: 'Wireless Headphones', sku: 'WH-009', price: 149.99, stock: 5, category: 'Electronics', img: '../assets/img/products/headphone.jpg' },
-  { id: 10, name: 'Office Chair', sku: 'OC-010', price: 299.99, stock: 4, category: 'Furniture', img: '../assets/img/products/chair.jpg' },
-  { id: 11, name: 'Monitor Stand', sku: 'MS-011', price: 35.99, stock: 19, category: 'Accessories', img: '../assets/img/products/laptop-stand.jpg' },
-  { id: 12, name: 'Desk Lamp', sku: 'DL-012', price: 24.99, stock: 33, category: 'Furniture', img: '../assets/img/products/webcam.jpg' },
+  {
+    id: 1,
+    name: 'Trà sữa trân châu',
+    sku: 'TS01',
+    price: 39000,
+    stock: 45,
+    category: 'milk-tea'
+  },
+  {
+    id: 2,
+    name: 'Trà sữa ô long',
+    sku: 'TS02',
+    price: 39000,
+    stock: 35,
+    category: 'milk-tea'
+  },
+  {
+    id: 3,
+    name: 'Trà sữa matcha',
+    sku: 'TS03',
+    price: 45000,
+    stock: 30,
+    category: 'milk-tea'
+  },
+  {
+    id: 4,
+    name: 'Trà sữa khoai môn',
+    sku: 'TS04',
+    price: 42000,
+    stock: 28,
+    category: 'milk-tea'
+  },
+  {
+    id: 5,
+    name: 'Trà sữa chocolate',
+    sku: 'TS05',
+    price: 42000,
+    stock: 32,
+    category: 'milk-tea'
+  },
+  {
+    id: 6,
+    name: 'Trà sữa đường đen',
+    sku: 'TS06',
+    price: 45000,
+    stock: 25,
+    category: 'milk-tea'
+  },
+  {
+    id: 7,
+    name: 'Trà đào',
+    sku: 'TT01',
+    price: 35000,
+    stock: 40,
+    category: 'fruit-tea'
+  },
+  {
+    id: 8,
+    name: 'Trà vải',
+    sku: 'TT02',
+    price: 35000,
+    stock: 36,
+    category: 'fruit-tea'
+  },
+  {
+    id: 9,
+    name: 'Trà chanh dây',
+    sku: 'TT03',
+    price: 35000,
+    stock: 30,
+    category: 'fruit-tea'
+  },
+  {
+    id: 10,
+    name: 'Trà xoài',
+    sku: 'TT04',
+    price: 39000,
+    stock: 24,
+    category: 'fruit-tea'
+  },
+  {
+    id: 11,
+    name: 'Trà dâu hibiscus',
+    sku: 'MM01',
+    price: 42000,
+    stock: 18,
+    category: 'seasonal'
+  },
+  {
+    id: 12,
+    name: 'Trà sen nhãn',
+    sku: 'MM02',
+    price: 45000,
+    stock: 20,
+    category: 'seasonal'
+  }
 ];
 
 /* ============================================
@@ -51,8 +135,8 @@ function renderProductGrid(products) {
     grid.innerHTML = `
       <div class="col-span-full flex flex-col items-center justify-center py-10 text-center">
         <svg class="mb-3 text-[var(--muted)]" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <div class="text-[15px] font-semibold text-[var(--text)]">No products found</div>
-        <div class="text-[13px] text-[var(--muted)] mt-1">Try a different search term</div>
+        <div class="text-[15px] font-semibold text-[var(--text)]">Không tìm thấy món</div>
+        <div class="text-[13px] text-[var(--muted)] mt-1">Thử từ khóa khác</div>
       </div>
     `;
     return;
@@ -62,21 +146,58 @@ function renderProductGrid(products) {
     const inCart = cart.find(c => c.id === p.id);
 
     return `
-      <div class="pos-product-card ${inCart ? 'in-cart' : ''}" onclick="addToCart(${p.id})" data-product-id="${p.id}">
-        <div class="w-full h-[100px] rounded-[10px] mb-2.5 relative overflow-hidden bg-slate-100">
-          <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover">
-          ${inCart ? `<div class="absolute top-1.5 right-1.5 w-[22px] h-[22px] bg-[var(--primary)] rounded-full flex items-center justify-center">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>` : ''}
-        </div>
-        <div class="text-xs font-semibold text-[var(--text)] leading-tight mb-1">${p.name}</div>
-        <div class="text-[11px] text-[var(--muted)] mb-1.5">${p.sku}</div>
-        <div class="flex items-center justify-between">
-          <span class="text-[13px] font-bold text-[var(--primary)]">$${p.price.toFixed(2)}</span>
-          <span class="text-[10px] ${p.stock < 10 ? 'text-red-600' : 'text-[var(--muted)]'}">Qty: ${p.stock}</span>
-        </div>
-      </div>
-    `;
+    <button type="button"
+            class="pos-product-card min-w-0 text-left ${inCart ? 'in-cart' : ''}"
+            onclick="addToCart(${p.id})"
+            data-product-id="${p.id}">
+
+      <span class="relative flex items-center justify-center
+                   w-full h-[100px] rounded-[10px] mb-2.5
+                   overflow-hidden bg-[var(--background)]">
+
+        <img src="${p.img}"
+             alt=""
+             class="w-full h-full object-cover">
+
+        ${inCart ? `
+          <span class="absolute top-1.5 right-1.5
+                       flex items-center justify-center
+                       w-[22px] h-[22px] rounded-full
+                       bg-[var(--primary)] text-white">
+            <svg width="12" height="12" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor"
+                 stroke-width="3"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 aria-hidden="true">
+              <path d="m5 12 4 4L19 6"/>
+            </svg>
+          </span>
+        ` : ''}
+
+      </span>
+
+      <span class="block text-xs font-semibold
+                   text-[var(--text)] leading-tight mb-1">
+        ${p.name}
+      </span>
+
+      <span class="block text-[11px] text-[var(--muted)] mb-1.5">
+        ${p.sku}
+      </span>
+
+      <span class="flex items-center justify-between gap-2">
+        <span class="text-[13px] font-bold text-[var(--primary)]">
+          ${p.price.toLocaleString('vi-VN')} ₫
+        </span>
+
+        <span class="text-[10px] ${p.stock < 10 ? 'text-red-600' : 'text-[var(--muted)]'}">
+          Còn: ${p.stock}
+        </span>
+      </span>
+
+    </button>
+  `;
   }).join('');
 }
 
@@ -88,14 +209,14 @@ function addToCart(productId) {
   if (!product) return;
 
   if (product.stock === 0) {
-    Toast.warning('This product is out of stock.', 'Out of Stock');
+    Toast.warning('Món này đã hết hàng.', 'Hết hàng');
     return;
   }
 
   const existing = cart.find(c => c.id === productId);
   if (existing) {
     if (existing.qty >= product.stock) {
-      Toast.warning(`Only ${product.stock} units available.`, 'Stock Limit');
+      Toast.warning(`Chỉ còn ${product.stock} đơn vị khả dụng.`, 'Giới hạn tồn kho');
       return;
     }
     existing.qty++;
@@ -123,7 +244,7 @@ function updateQty(productId, delta) {
   }
 
   if (product && newQty > product.stock) {
-    Toast.warning(`Only ${product.stock} units available.`, 'Stock Limit');
+    Toast.warning(`Chỉ còn ${product.stock} đơn vị khả dụng.`, 'Giới hạn tồn kho');
     return;
   }
 
@@ -159,8 +280,8 @@ function renderCartItems() {
         <div class="w-14 h-14 rounded-full bg-[var(--background)] flex items-center justify-center mb-3">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
         </div>
-        <div class="text-sm font-semibold text-[var(--text)]">Cart is empty</div>
-        <div class="text-xs text-[var(--muted)] mt-1">Click on products to add them</div>
+        <div class="text-sm font-semibold text-[var(--text)]">Giỏ hàng đang trống</div>
+        <div class="text-xs text-[var(--muted)] mt-1">Chọn món để thêm vào giỏ</div>
       </div>
     `;
     return;
@@ -170,7 +291,7 @@ function renderCartItems() {
     <div class="flex items-center gap-2.5 py-3 border-b border-[var(--border)] cart-item-enter">
       <div class="flex-1 min-w-0">
         <div class="text-[13px] font-semibold text-[var(--text)] truncate">${item.name}</div>
-        <div class="text-[11px] text-[var(--muted)]">$${item.price.toFixed(2)} each</div>
+        <div class="text-[11px] text-[var(--muted)]">$${item.price.toFixed(2)} / món</div>
       </div>
       <div class="flex items-center gap-1.5 flex-shrink-0">
         <button onclick="updateQty(${item.id}, -1)" class="w-[26px] h-[26px] rounded-lg border border-[var(--border)] bg-[var(--surface)] flex items-center justify-center text-[var(--muted)] hover:border-[var(--primary)] hover:text-[var(--primary)] transition-all">
@@ -183,7 +304,7 @@ function renderCartItems() {
       </div>
       <div class="text-right flex-shrink-0 min-w-[60px]">
         <div class="text-[13px] font-bold text-[var(--text)]">$${(item.price * item.qty).toFixed(2)}</div>
-        <button onclick="removeFromCart(${item.id})" class="border-none bg-transparent cursor-pointer text-red-500 hover:text-red-700 p-0 text-[11px] mt-0.5 font-medium transition-colors">Remove</button>
+        <button onclick="removeFromCart(${item.id})" class="border-none bg-transparent cursor-pointer text-red-500 hover:text-red-700 p-0 text-[11px] mt-0.5 font-medium transition-colors">Xóa</button>
       </div>
     </div>
   `).join('');
@@ -243,7 +364,7 @@ function updateProductGrid() {
    ============================================ */
 function completeSale() {
   if (cart.length === 0) {
-    Toast.warning('Add at least one product to the cart.', 'Empty Cart');
+    Toast.warning('Vui lòng thêm ít nhất một món vào giỏ hàng.', 'Giỏ hàng trống');
     return;
   }
 
@@ -253,49 +374,49 @@ function completeSale() {
   const total = subtotal - discount + tax;
 
   Modal.show({
-    title: 'Complete Sale',
+    title: 'Hoàn tất bán hàng',
     size: 'sm',
     body: `
       <div class="text-center mb-5">
         <div class="w-14 h-14 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-3">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <div class="text-[17px] font-bold text-[var(--text)]">Confirm Sale</div>
-        <div class="text-[13px] text-[var(--muted)] mt-1">${cart.length} item(s) &middot; ${cart.reduce((s,i)=>s+i.qty,0)} units</div>
+        <div class="text-[17px] font-bold text-[var(--text)]">Xác nhận bán hàng</div>
+        <div class="text-[13px] text-[var(--muted)] mt-1">${cart.length} loại món &middot; ${cart.reduce((s,i)=>s+i.qty,0)} đơn vị</div>
       </div>
       <div class="bg-[var(--background)] rounded-xl p-4 mb-4">
         <div class="flex justify-between mb-2 text-[13px]">
-          <span class="text-[var(--muted)]">Subtotal</span>
+          <span class="text-[var(--muted)]">Tạm tính</span>
           <span class="text-[var(--text)] font-medium">$${subtotal.toFixed(2)}</span>
         </div>
         <div class="flex justify-between mb-2 text-[13px]">
-          <span class="text-[var(--muted)]">Discount (${posDiscount}%)</span>
+          <span class="text-[var(--muted)]">Giảm giá (${posDiscount}%)</span>
           <span class="text-red-600 font-medium">-$${discount.toFixed(2)}</span>
         </div>
         <div class="flex justify-between mb-3 text-[13px]">
-          <span class="text-[var(--muted)]">Tax (${posTax}%)</span>
+          <span class="text-[var(--muted)]">Thuế (${posTax}%)</span>
           <span class="text-[var(--text)] font-medium">$${tax.toFixed(2)}</span>
         </div>
         <div class="flex justify-between text-[16px] font-bold border-t border-[var(--border)] pt-3">
-          <span class="text-[var(--text)]">Grand Total</span>
+          <span class="text-[var(--text)]">Tổng thanh toán</span>
           <span class="text-[var(--primary)]">$${total.toFixed(2)}</span>
         </div>
       </div>
       <div>
-        <label class="form-label">Payment Method</label>
+        <label class="form-label">Phương thức thanh toán</label>
         <select class="form-input form-select" id="sale-payment-method">
-          <option>Cash</option>
-          <option>Credit Card</option>
-          <option>Bank Transfer</option>
-          <option>Mobile Payment</option>
+          <option value="Cash">Tiền mặt</option>
+          <option value="Credit Card">Thẻ tín dụng</option>
+          <option value="Bank Transfer">Chuyển khoản</option>
+          <option value="Mobile Payment">Thanh toán di động</option>
         </select>
       </div>
     `,
     footer: `
-      <button class="btn btn-secondary" onclick="this.closest('.modal-backdrop').remove()">Cancel</button>
+      <button class="btn btn-secondary" onclick="this.closest('.modal-backdrop').remove()">Hủy</button>
       <button class="btn btn-primary" onclick="processSale()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Complete Sale
+        Hoàn tất bán hàng
       </button>
     `
   });
@@ -308,7 +429,7 @@ function processSale() {
   updateCart();
   renderProductGrid(POS_PRODUCTS);
 
-  Toast.success('Sale INV-000126 completed successfully!', 'Sale Complete');
+  Toast.success('Đã hoàn tất đơn INV-000126!', 'Đã hoàn tất bán hàng');
 
   // Optionally reset discount input
   const discountInput = document.getElementById('pos-discount-input');
@@ -373,16 +494,16 @@ function bindPOSEvents() {
     clearBtn.addEventListener('click', () => {
       if (cart.length === 0) return;
       Modal.confirm({
-        title: 'Clear Cart',
-        message: 'Are you sure you want to remove all items from the cart?',
+        title: 'Xóa giỏ hàng',
+        message: 'Bạn có chắc muốn xóa tất cả món khỏi giỏ hàng?',
         type: 'warning',
-        confirmText: 'Clear Cart',
+        confirmText: 'Xóa giỏ hàng',
         onConfirm: () => {
           cart = [];
           posDiscount = 0;
           updateCart();
           renderProductGrid(POS_PRODUCTS);
-          Toast.info('Cart cleared.', 'Cart');
+          Toast.info('Đã xóa giỏ hàng.', 'Giỏ hàng');
         }
       });
     });
