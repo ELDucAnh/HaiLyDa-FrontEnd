@@ -1,161 +1,213 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="vi" class="">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Roles & Permissions &mdash; Invenza</title>
-  <meta name="description" content="Configure role-based access control, granular module permissions, and staff limits.">
+  <title>Phân Quyền 4 Vai Trò Nghiệp Vụ — MiltyWay</title>
+  <meta name="description" content="Cấu hình phân quyền truy cập, ma trận chức năng cho 4 vai trò: Chủ doanh nghiệp, Quản lý chi nhánh, Thu ngân và Nhân viên kho.">
   <link rel="stylesheet" href="../assets/css/app.css">
   <link rel="stylesheet" href="../assets/css/tailwind.css">
-<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+  <script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
 </head>
 <body>
   <div id="sidebar-container"></div>
   <div id="main-wrapper">
     <div id="header-container"></div>
-    <main class="flex-1 p-6">
+    <main class="flex-1 p-4 md:p-6">
 
       <!-- Page Header -->
       <div class="page-header">
         <div>
           <div class="breadcrumb">
-            <a href="../dashboard.html">Home</a>
+            <a href="../dashboard.html">Trang chủ</a>
             <span class="sep">/</span>
-            <a href="users.html">Users</a>
+            <a href="users.html">Nhân viên</a>
             <span class="sep">/</span>
-            <span class="current">Roles &amp; Permissions</span>
+            <span class="current">Phân quyền vai trò</span>
           </div>
-          <h1 class="page-title">Roles &amp; Permissions</h1>
-          <p class="page-subtitle">Configure granular security access, data visibility, and authorization policies.</p>
+          <h1 class="page-title">Ma Trận Phân Quyền 4 Vai Trò Nghiệp Vụ</h1>
+          <p class="page-subtitle">Thiết lập giới hạn dữ liệu và thẩm quyền thao tác cho Chủ doanh nghiệp, Quản lý chi nhánh, Thu ngân và Nhân viên kho.</p>
         </div>
         <div class="page-header-actions">
-          <a href="users.html" class="btn btn-secondary" aria-label="View staff directory">
+          <a href="users.html" class="btn btn-secondary" aria-label="Xem danh sách nhân viên">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            Staff Directory
+            Danh Sách Nhân Viên
           </a>
-          <button class="btn btn-primary" aria-label="Save permission settings" onclick="Toast.success('Permission policies updated successfully!','Permissions Saved')">
+          <button class="btn btn-primary" aria-label="Lưu cấu hình phân quyền" onclick="Toast.success('Đã cập nhật chính sách phân quyền cho toàn hệ thống chuỗi!','Đã Lưu Phân Quyền')">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Save Permissions
+            Lưu Thay Đổi
           </button>
         </div>
       </div>
 
-      <!-- Roles Cards Row -->
-      <section class="page-section" aria-label="Role definitions">
+      <!-- Roles Cards Row: 4 vai trò chuẩn đặc tả -->
+      <section class="page-section" aria-label="4 vai trò cốt lõi">
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
           <div class="card border-[var(--primary)] bg-[var(--primary-light)]">
             <div class="flex justify-between items-center mb-2">
-              <span class="text-[15px] font-bold text-[var(--text)]">Administrator</span>
-              <span class="badge badge-success">Active</span>
+              <span class="text-[15px] font-bold text-[var(--text)]">1. Chủ Doanh Nghiệp</span>
+              <span class="badge badge-success">Toàn quyền</span>
             </div>
-            <div class="stat-sub-label mb-3">Full uncontrolled access to all business modules and configurations.</div>
-            <div class="text-[11px] font-bold text-[var(--primary)]">2 Members Assigned</div>
+            <div class="stat-sub-label mb-3">Toàn quyền cấu hình 12 chi nhánh, xem báo cáo P&amp;L hòa vốn, duyệt đơn mua lớn và quản lý nhân sự.</div>
+            <div class="text-[11px] font-bold text-[var(--primary)]">2 Tài khoản (Ban Giám Đốc)</div>
+          </div>
+
+          <div class="card border-blue-400 bg-blue-50/20">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-[15px] font-bold text-[var(--text)]">2. Quản Lý Chi Nhánh</span>
+              <span class="badge badge-info">Theo Chi Nhánh</span>
+            </div>
+            <div class="stat-sub-label mb-3">Quản lý ca bán hàng tại CN, duyệt biên bản hủy hỏng, đối soát tiền mặt cuối ca, khóa món tạm thời khi hết nguyên liệu.</div>
+            <div class="text-[11px] font-bold text-blue-600">12 Quản lý (Mỗi CN 1 người)</div>
           </div>
 
           <div class="card">
             <div class="flex justify-between items-center mb-2">
-              <span class="text-[15px] font-bold text-[var(--text)]">Store Manager</span>
-              <span class="badge badge-info">Custom</span>
+              <span class="text-[15px] font-bold text-[var(--text)]">3. Thu Ngân Quầy POS</span>
+              <span class="badge badge-warning">Tại Quầy</span>
             </div>
-            <div class="stat-sub-label mb-3">Can manage catalog, sales, and inventory stock adjustments.</div>
-            <div class="stat-sub-label">1 Member Assigned</div>
+            <div class="stat-sub-label mb-3">Bán hàng Touch POS, chọn option size/đường/đá/topping, tích điểm SĐT hội viên, chế độ bán Offline khi mất mạng.</div>
+            <div class="text-[11px] font-bold text-amber-600">32 Nhân viên ca thu ngân</div>
           </div>
 
           <div class="card">
             <div class="flex justify-between items-center mb-2">
-              <span class="text-[15px] font-bold text-[var(--text)]">Cashier</span>
-              <span class="badge badge-warning">Restricted</span>
+              <span class="text-[15px] font-bold text-[var(--text)]">4. Nhân Viên Kho CN</span>
+              <span class="badge badge-gray">Kho &amp; FEFO</span>
             </div>
-            <div class="stat-sub-label mb-3">Limited to Point of Sale (POS) checkout and creating receipts.</div>
-            <div class="stat-sub-label">4 Members Assigned</div>
-          </div>
-
-          <div class="card">
-            <div class="flex justify-between items-center mb-2">
-              <span class="text-[15px] font-bold text-[var(--text)]">Inventory Clerk</span>
-              <span class="badge badge-gray">Restricted</span>
-            </div>
-            <div class="stat-sub-label mb-3">Allowed to receive purchase shipments and audit count levels.</div>
-            <div class="stat-sub-label">1 Member Assigned</div>
+            <div class="stat-sub-label mb-3">Nhập nguyên liệu theo Lô &amp; HSD (FEFO), kiểm kê mù định kỳ, xuất hao hụt, nhận điều chuyển kho khẩn cấp.</div>
+            <div class="text-[11px] font-bold text-slate-600">18 Nhân viên thủ kho</div>
           </div>
         </div>
       </section>
 
       <!-- Permission Matrix Table -->
-      <section class="page-section" aria-label="Permission matrix">
+      <section class="page-section" aria-label="Ma trận phân quyền chi tiết">
         <div class="card p-0 overflow-hidden">
-          <div class="card-header pt-[10px] pl-[10px] pr-[10px] border-b border-[var(--border)] flex-wrap gap-2.5">
+          <div class="card-header pt-4 px-5 pb-3 border-b border-[var(--border)] flex justify-between items-center flex-wrap gap-2.5">
             <div>
-              <h3 class="card-title m-0">Permissions Matrix for Store Manager</h3>
-              <div class="stat-sub-label mt-0.5">Select checkbox capabilities granted to this role</div>
+              <h3 class="card-title m-0">Ma Trận Thẩm Quyền Chi Tiết (Role-Based Access Control)</h3>
+              <div class="stat-sub-label mt-0.5">Tích chọn các quyền hạn thao tác được cấp cho từng vai trò nghiệp vụ</div>
             </div>
             <div class="flex gap-2">
-              <button class="btn btn-secondary btn-sm" aria-label="Select all permissions" onclick="toggleAllPermissions(true)">Select All</button>
-              <button class="btn btn-secondary btn-sm" aria-label="Deselect all permissions" onclick="toggleAllPermissions(false)">Deselect All</button>
+              <button class="btn btn-secondary btn-sm" onclick="Toast.info('Đã hoàn tác về cấu hình mặc định ban đầu','Hoàn Tác')">Đặt Lại Mặc Định</button>
             </div>
           </div>
-
           <div class="overflow-x-auto">
             <table class="data-table">
-              <caption class="sr-only">Permission matrix for Store Manager role</caption>
               <thead>
                 <tr>
-                  <th class="min-w-[220px]">Module / Resource</th>
-                  <th class="text-center w-[120px]">View / Read</th>
-                  <th class="text-center w-[120px]">Create / Add</th>
-                  <th class="text-center w-[120px]">Edit / Update</th>
-                  <th class="text-center w-[120px]">Delete / Remove</th>
+                  <th style="min-width: 280px;">Phân Hệ / Chức Năng Nghiệp Vụ</th>
+                  <th class="text-center" style="width: 140px;">Chủ Doanh Nghiệp</th>
+                  <th class="text-center" style="width: 140px;">Quản Lý Chi Nhánh</th>
+                  <th class="text-center" style="width: 140px;">Thu Ngân POS</th>
+                  <th class="text-center" style="width: 140px;">Nhân Viên Kho</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="font-semibold text-[var(--text)]">Inventory &amp; Products</td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="View Inventory & Products permission"></td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="Create Inventory & Products permission"></td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="Edit Inventory & Products permission"></td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Delete Inventory & Products permission"></td>
+                <!-- Nhóm Bán Hàng & POS -->
+                <tr class="bg-[var(--background)]">
+                  <td colspan="5" class="font-extrabold text-[var(--text)] text-xs uppercase tracking-wide">
+                    1. Phân Hệ Bán Hàng POS &amp; Thu Ngân
+                  </td>
                 </tr>
                 <tr>
-                  <td class="font-semibold text-[var(--text)]">Sales &amp; Point of Sale (POS)</td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="View Sales & POS permission"></td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="Create Sales & POS permission"></td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="Edit Sales & POS permission"></td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Delete Sales & POS permission"></td>
+                  <td class="pl-6 font-medium text-[var(--text)]">Mở ca / Đóng ca bán hàng &amp; Khởi tạo quỹ tiền mặt</td>
+                  <td class="text-center"><input type="checkbox" checked disabled class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" checked class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" checked class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" disabled class="accent-[#22B573]"></td>
                 </tr>
                 <tr>
-                  <td class="font-semibold text-[var(--text)]">Purchases &amp; Vendors</td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="View Purchases & Vendors permission"></td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="Create Purchases & Vendors permission"></td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Edit Purchases & Vendors permission"></td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Delete Purchases & Vendors permission"></td>
+                  <td class="pl-6 font-medium text-[var(--text)]">Thực hiện bán hàng POS, chọn món, chọn Đường/Đá/Topping</td>
+                  <td class="text-center"><input type="checkbox" checked disabled class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" checked class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" checked class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" disabled class="accent-[#22B573]"></td>
                 </tr>
                 <tr>
-                  <td class="font-semibold text-[var(--text)]">Customers &amp; CRM</td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="View Customers & CRM permission"></td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="Create Customers & CRM permission"></td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="Edit Customers & CRM permission"></td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Delete Customers & CRM permission"></td>
+                  <td class="pl-6 font-medium text-[var(--text)]">Chế độ bán Offline khi mất mạng (Lưu LocalStorage)</td>
+                  <td class="text-center"><input type="checkbox" checked disabled class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" checked class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" checked class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" disabled class="accent-[#22B573]"></td>
                 </tr>
                 <tr>
-                  <td class="font-semibold text-[var(--text)]">Expenses Tracking</td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="View Expenses Tracking permission"></td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="Create Expenses Tracking permission"></td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Edit Expenses Tracking permission"></td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Delete Expenses Tracking permission"></td>
+                  <td class="pl-6 font-medium text-[var(--text)]">Áp dụng chiết khấu đặc biệt &gt; 15% hoặc hủy đơn sau in bill</td>
+                  <td class="text-center"><input type="checkbox" checked disabled class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" checked class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" disabled class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" disabled class="accent-[#22B573]"></td>
                 </tr>
                 <tr>
-                  <td class="font-semibold text-[var(--text)]">Reports &amp; Analytics</td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" checked aria-label="View Reports & Analytics permission"></td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Create Reports & Analytics permission"></td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Edit Reports & Analytics permission"></td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Delete Reports & Analytics permission"></td>
+                  <td class="pl-6 font-medium text-[var(--text)]">Tạm khóa món trên Menu khi chi nhánh hết nguyên liệu</td>
+                  <td class="text-center"><input type="checkbox" checked disabled class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" checked class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" disabled class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" disabled class="accent-[#22B573]"></td>
+                </tr>
+
+                <!-- Nhóm Kho & FEFO -->
+                <tr class="bg-[var(--background)]">
+                  <td colspan="5" class="font-extrabold text-[var(--text)] text-xs uppercase tracking-wide">
+                    2. Quản Lý Kho &amp; Nguyên Vật Liệu (FEFO)
+                  </td>
                 </tr>
                 <tr>
-                  <td class="font-semibold text-[var(--text)]">System Settings &amp; Users</td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="View System Settings & Users permission"></td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Create System Settings & Users permission"></td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Edit System Settings & Users permission"></td>
-                  <td class="text-center"><input type="checkbox" class="perm-cb" aria-label="Delete System Settings & Users permission"></td>
+                  <td class="pl-6 font-medium text-[var(--text)]">Nhập nguyên liệu theo Lô &amp; Hạn sử dụng (Batch / EXP)</td>
+                  <td class="text-center"><input type="checkbox" checked disabled class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" checked class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" disabled class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" checked class="accent-[#22B573]"></td>
+                </tr>
+                <tr>
+                  <td class="pl-6 font-medium text-[var(--text)]">Thực hiện kiểm kê mù (Blind Count) định kỳ</td>
+                  <td class="text-center"><input type="checkbox" checked disabled class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" checked class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" disabled class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" checked class="accent-[#22B573]"></td>
+                </tr>
+                <tr>
+                  <td class="pl-6 font-medium text-[var(--text)]">Duyệt biên bản hủy hỏng, hao hụt nguyên liệu cận date</td>
+                  <td class="text-center"><input type="checkbox" checked disabled class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" checked class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" disabled class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" disabled class="accent-[#22B573]"></td>
+                </tr>
+                <tr>
+                  <td class="pl-6 font-medium text-[var(--text)]">Đề xuất và xác nhận nhận điều chuyển kho cấp cứu giữa các CN</td>
+                  <td class="text-center"><input type="checkbox" checked disabled class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" checked class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" disabled class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" checked class="accent-[#22B573]"></td>
+                </tr>
+
+                <!-- Nhóm Báo Cáo & Tài Chính -->
+                <tr class="bg-[var(--background)]">
+                  <td colspan="5" class="font-extrabold text-[var(--text)] text-xs uppercase tracking-wide">
+                    3. Báo Cáo Tài Chính &amp; Cấu Hình Hệ Thống
+                  </td>
+                </tr>
+                <tr>
+                  <td class="pl-6 font-medium text-[var(--text)]">Xem Báo cáo Doanh thu &amp; Báo cáo Hòa vốn 12 Chi nhánh</td>
+                  <td class="text-center"><input type="checkbox" checked disabled class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" class="accent-[#22B573]"> (Chỉ xem CN mình)</td>
+                  <td class="text-center"><input type="checkbox" disabled class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" disabled class="accent-[#22B573]"></td>
+                </tr>
+                <tr>
+                  <td class="pl-6 font-medium text-[var(--text)]">Xem Báo cáo P&amp;L tổng thể toàn chuỗi &amp; Cảnh báo trượt 4 tuần</td>
+                  <td class="text-center"><input type="checkbox" checked disabled class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" disabled class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" disabled class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" disabled class="accent-[#22B573]"></td>
+                </tr>
+                <tr>
+                  <td class="pl-6 font-medium text-[var(--text)]">Cấu hình tham số hệ thống, máy in K80, kết nối mạng &amp; đồng bộ</td>
+                  <td class="text-center"><input type="checkbox" checked disabled class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" checked class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" disabled class="accent-[#22B573]"></td>
+                  <td class="text-center"><input type="checkbox" disabled class="accent-[#22B573]"></td>
                 </tr>
               </tbody>
             </table>
@@ -164,21 +216,12 @@
       </section>
 
     </main>
-    <footer class="app-footer">
-      <div class="app-footer-text">Copyright &copy; 2026 Invenza All rights reserved.</div>
-    </footer>
+    <div id="footer-container"></div>
   </div>
 
+  <div id="modal-container"></div>
   <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
 
-  <script>
-    window.BASE_PATH = '../';
-    window.CURRENT_PAGE = 'roles';
-
-    function toggleAllPermissions(checked) {
-      document.querySelectorAll('.perm-cb').forEach(cb => cb.checked = checked);
-    }
-  </script>
   <script src="../assets/js/app.js"></script>
 </body>
 </html>

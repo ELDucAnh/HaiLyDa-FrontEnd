@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="vi" class="">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Account — Invenza</title>
-  <meta name="description" content="Create your Invenza account.">
+  <title>Đăng Ký Tài Khoản Nhân Sự — MiltyWay</title>
+  <meta name="description" content="Đăng ký tài khoản nhân viên, quản lý ca và gán chi nhánh chuỗi trà sữa MiltyWay.">
   <link rel="stylesheet" href="../assets/css/app.css">
   <link rel="stylesheet" href="../assets/css/tailwind.css">
   <script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
 </head>
 <body class="auth-body">
+  <!-- Animated background elements -->
+  <div class="auth-bg-shape auth-bg-shape-1"></div>
+  <div class="auth-bg-shape auth-bg-shape-2"></div>
+  <div class="auth-bg-shape auth-bg-shape-3"></div>
 
-  <div class="w-full max-w-[480px]">
-    <div class="text-center mb-7">
+  <div class="w-full max-w-[500px] relative z-[1] p-4">
+    <div class="text-center mb-6">
       <div class="auth-logo-wrap inline-flex items-center gap-3">
-        <div class="w-[44px] h-[44px] rounded-xl bg-gradient-to-br from-[#22B573] to-[#16A34A] flex items-center justify-center shadow-[0_4px_14px_rgba(34,181,115,0.35)]">
+        <div class="w-[44px] h-[44px] rounded-2xl bg-gradient-to-br from-[#22B573] to-[#16A34A] flex items-center justify-center shadow-[0_4px_14px_rgba(34,181,115,0.35)]">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2L3 7v10l9 5 9-5V7l-9-5z" fill="white" fill-opacity="0.2"/>
             <path d="M12 2L3 7v10l9 5 9-5V7l-9-5z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
@@ -24,74 +28,100 @@
           </svg>
         </div>
         <div class="text-left border-l border-[var(--border)] pl-3">
-          <div class="text-xl font-bold text-[var(--text)] leading-[1.1] tracking-[-0.3px]">Invenza</div>
-          <div class="text-[10px] text-[var(--primary)] font-semibold tracking-[0.8px] uppercase mt-0.5">Inventory Management</div>
+          <div class="text-2xl font-bold text-[var(--text)] leading-[1.1] tracking-[-0.3px]">MiltyWay</div>
+          <div class="text-[10px] text-[var(--primary)] font-semibold tracking-[0.8px] uppercase mt-0.5">Hồ Sơ Nhân Sự Chuỗi F&amp;B</div>
         </div>
       </div>
     </div>
 
-    <div class="auth-card">
-      <div class="text-center mb-7">
-        <h1 class="auth-title">Create Account</h1>
-        <p class="auth-subtitle">Start managing your inventory today.</p>
+    <div class="auth-card shadow-xl">
+      <div class="text-center mb-6">
+        <h1 class="auth-title">Đăng Ký Tài Khoản Nhân Viên</h1>
+        <p class="auth-subtitle">Ghi danh tài khoản ca trực cho 12 chi nhánh MiltyWay.</p>
       </div>
 
       <form id="register-form" class="flex flex-col gap-4">
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="form-label" for="reg-first">First Name</label>
-            <input id="reg-first" type="text" class="form-input" placeholder="John" required>
+            <label class="form-label" for="reg-first">Họ &amp; Tên Đệm <span class="text-red-500">*</span></label>
+            <input id="reg-first" type="text" class="form-input" placeholder="Nguyễn Văn" required>
           </div>
           <div>
-            <label class="form-label" for="reg-last">Last Name</label>
-            <input id="reg-last" type="text" class="form-input" placeholder="Smith" required>
+            <label class="form-label" for="reg-last">Tên <span class="text-red-500">*</span></label>
+            <input id="reg-last" type="text" class="form-input" placeholder="An" required>
           </div>
         </div>
+
         <div>
-          <label class="form-label" for="reg-email">Email Address</label>
-          <input id="reg-email" type="email" class="form-input" placeholder="john@company.com" required>
+          <label class="form-label" for="reg-email">Email Nội Bộ / Cá Nhân <span class="text-red-500">*</span></label>
+          <input id="reg-email" type="email" class="form-input" placeholder="an.nv@miltyway.vn" required>
         </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="form-label" for="reg-role">Vị Trí Công Tác <span class="text-red-500">*</span></label>
+            <select id="reg-role" class="form-input form-select" required>
+              <option>Thu Ngân Quầy POS</option>
+              <option>Pha Chế (Barista)</option>
+              <option>Nhân Viên Kho Chi Nhánh</option>
+              <option>Quản Lý Chi Nhánh</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label" for="reg-branch">Gán Chi Nhánh <span class="text-red-500">*</span></label>
+            <select id="reg-branch" class="form-input form-select" required>
+              <option>CN01 — Quận 1 (Nguyễn Huệ)</option>
+              <option>CN02 — Quận 3 (Võ Văn Tần)</option>
+              <option>CN03 — Quận 5 (Trần Hưng Đạo)</option>
+              <option>CN04 — Quận 7 (Phú Mỹ Hưng)</option>
+              <option selected>CN05 — Quận 10 (Sư Vạn Hạnh)</option>
+              <option>CN06 — Bình Thạnh (D2)</option>
+              <option>CN07 — Gò Vấp (Phan Văn Trị)</option>
+              <option>CN08 — Tân Bình (Lê Văn Sỹ)</option>
+              <option>CN09 — TP. Thủ Đức (Võ Văn Ngân)</option>
+              <option>CN10 — Phú Nhuận (Phan Xích Long)</option>
+              <option>CN11 — Tân Phú (Tân Sơn Nhì)</option>
+              <option>CN12 — Quận 6 (Hậu Giang)</option>
+            </select>
+          </div>
+        </div>
+
         <div>
-          <label class="form-label" for="reg-company">Company Name</label>
-          <input id="reg-company" type="text" class="form-input" placeholder="My Company Ltd.">
+          <label class="form-label" for="reg-phone">Số Điện Thoại Zalo / Hotline <span class="text-red-500">*</span></label>
+          <input id="reg-phone" type="tel" class="form-input" placeholder="09xxxxxxxx" required>
         </div>
+
         <div>
-          <label class="form-label" for="reg-password">Password</label>
-          <input id="reg-password" type="password" class="form-input" placeholder="Min. 8 characters" required>
+          <label class="form-label" for="reg-password">Mật Khẩu Khởi Tạo <span class="text-red-500">*</span></label>
+          <input id="reg-password" type="password" class="form-input" placeholder="Tối thiểu 8 ký tự..." required>
         </div>
-        <div>
-          <label class="form-label" for="reg-confirm">Confirm Password</label>
-          <input id="reg-confirm" type="password" class="form-input" placeholder="••••••••" required>
+
+        <div class="flex items-start gap-2">
+          <input type="checkbox" id="terms" checked class="w-4 h-4 accent-[#22B573] mt-0.5 cursor-pointer" required>
+          <label for="terms" class="text-xs text-[var(--muted)] cursor-pointer">
+            Tôi đồng ý tuân thủ quy chuẩn bảo mật công thức pha chế và quy định thu ngân MiltyWay.
+          </label>
         </div>
-        <div class="flex items-start gap-2 mt-1">
-          <input type="checkbox" id="terms" required class="w-4 h-4 accent-[#22B573] cursor-pointer mt-0.5">
-          <label for="terms" class="text-[13px] text-[var(--text)] cursor-pointer leading-[1.5]">I agree to the <a href="#" class="text-[#22B573] font-semibold">Terms of Service</a> and <a href="#" class="text-[#22B573] font-semibold">Privacy Policy</a></label>
-        </div>
+
         <button type="submit" class="btn btn-primary btn-lg w-full justify-center mt-1">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          Create Account
+          Hoàn Tất Đăng Ký Tài Khoản
         </button>
       </form>
 
-      <div class="auth-divider text-center">
-        <span class="text-[13px] text-[var(--muted)]">Already have an account? </span>
-        <a href="login.html" class="text-[13px] text-[#22B573] font-semibold no-underline">Sign in</a>
+      <div class="auth-divider text-center mt-4">
+        <span class="text-[13px] text-[var(--muted)]">Đã có tài khoản nhân sự? </span>
+        <a href="login.html" class="text-[13px] text-[#22B573] font-semibold no-underline">Đăng nhập ngay</a>
       </div>
     </div>
   </div>
 
   <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
+
   <script src="../assets/js/app.js"></script>
   <script>
-    (function() { try { if (localStorage.getItem('sf_theme') === 'dark') document.documentElement.classList.add('dark'); } catch(e) {} })();
-    document.addEventListener('DOMContentLoaded', () => Toast.init());
     document.getElementById('register-form').addEventListener('submit', function(e) {
       e.preventDefault();
-      const pw = document.getElementById('reg-password').value;
-      const confirm = document.getElementById('reg-confirm').value;
-      if (pw !== confirm) { Toast.error('Passwords do not match.', 'Validation Error'); return; }
-      if (pw.length < 8) { Toast.error('Password must be at least 8 characters.', 'Validation Error'); return; }
-      Toast.success('Account created successfully!', 'Welcome to Invenza');
+      Toast.success('Đăng ký tài khoản thành công! Vui lòng liên hệ Quản lý chi nhánh duyệt quyền truy cập.', 'Thành Công');
       setTimeout(() => window.location.href = 'login.html', 1500);
     });
   </script>

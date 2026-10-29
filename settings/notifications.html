@@ -1,123 +1,124 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="vi" class="">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notification Settings — Invenza</title>
-  <meta name="description" content="Configure low stock alert notifications, automated email digests, and SMS updates.">
+  <title>Cấu Hình Cảnh Báo Hệ Thống — MiltyWay</title>
+  <meta name="description" content="Thiết lập các ngưỡng cảnh báo sự cố mạng POS, nguyên liệu cận date FEFO, cảnh báo tồn kho và chi nhánh dưới điểm hòa vốn.">
   <link rel="stylesheet" href="../assets/css/app.css">
   <link rel="stylesheet" href="../assets/css/tailwind.css">
-<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+  <script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
 </head>
 <body>
   <div id="sidebar-container"></div>
   <div id="main-wrapper">
     <div id="header-container"></div>
-    <main class="flex-1 p-6">
+    <main class="flex-1 p-4 md:p-6">
 
       <!-- Page Header -->
       <div class="page-header">
         <div>
           <div class="breadcrumb">
-            <a href="../dashboard.html">Home</a>
+            <a href="../dashboard.html">Trang chủ</a>
             <span class="sep">/</span>
-            <a href="general.html">Settings</a>
+            <a href="general.html">Cài đặt</a>
             <span class="sep">/</span>
-            <span class="current">Notifications</span>
+            <span class="current">Cảnh báo sự cố</span>
           </div>
-          <h1 class="page-title">Notification Preferences</h1>
-          <p class="page-subtitle">Manage automated stockout warnings, sales alerts, and daily digest dispatches.</p>
+          <h1 class="page-title">Cấu Hình Cảnh Báo Tự Động &amp; Kịch Bản Sự Cố</h1>
+          <p class="page-subtitle">Quản trị các kênh thông báo đẩy (Push/Email/SMS) khi xảy ra sự cố mạng POS, hàng cận date hoặc dưới điểm hòa vốn.</p>
         </div>
       </div>
 
       <!-- Settings Nav Tabs -->
       <div class="settings-nav-tabs flex gap-2 border-b border-[var(--border)] pb-3 mb-6 overflow-x-auto">
-        <a href="general.html" class="btn btn-secondary btn-sm">General</a>
-        <a href="inventory.html" class="btn btn-secondary btn-sm">Inventory</a>
-        <a href="sales.html" class="btn btn-secondary btn-sm">Sales &amp; POS</a>
-        <a href="purchases.html" class="btn btn-secondary btn-sm">Purchases</a>
-        <a href="notifications.html" class="btn btn-primary btn-sm">Notifications</a>
+        <a href="general.html" class="btn btn-secondary btn-sm">Thông Tin Chung</a>
+        <a href="inventory.html" class="btn btn-secondary btn-sm">Kho &amp; FEFO</a>
+        <a href="sales.html" class="btn btn-secondary btn-sm">Bán Hàng &amp; POS</a>
+        <a href="purchases.html" class="btn btn-secondary btn-sm">Thu Mua &amp; Chuyển Kho</a>
+        <a href="notifications.html" class="btn btn-primary btn-sm">Cảnh Báo Sự Cố</a>
+        <a href="offline-sync.html" class="btn btn-secondary btn-sm">Đồng Bộ &amp; Offline</a>
       </div>
 
-      <form onsubmit="event.preventDefault(); Toast.success('Notification settings saved!','Preferences Saved');" class="max-w-4xl">
+      <form onsubmit="event.preventDefault(); Toast.success('Đã lưu cấu hình thông báo và cảnh báo sự cố!','Đã Lưu');" class="max-w-4xl">
+        <!-- Cảnh báo FEFO & Kho Hàng -->
         <div class="card mb-6">
           <div class="card-header mb-4 pb-3 border-b border-[var(--border)]">
-            <h3 class="card-title">Alert Trigger Conditions</h3>
+            <h3 class="card-title">Cảnh Báo Hạn Sử Dụng FEFO &amp; Tồn An Toàn</h3>
           </div>
           
-          <div class="flex flex-col gap-4.5">
-            
-            <div class="flex items-start justify-between gap-4">
+          <div class="space-y-4">
+            <div class="flex items-start justify-between gap-4 p-3 rounded-lg border border-[var(--border)]">
               <div>
-                <div class="font-semibold text-[var(--text)] text-sm">Low Stock Item Alert</div>
-                <div class="text-xs text-[var(--muted)] mt-0.5">Send an immediate email when a product reaches its minimum safety stock level.</div>
+                <div class="font-bold text-[var(--text)] text-sm">Cảnh Báo Lô Hàng Cận Date (Trước 7 ngày và 48 giờ)</div>
+                <div class="text-xs text-[var(--muted)] mt-0.5">Tự động đẩy thông báo chuông và popup nhắc nhở thủ kho / barista ưu tiên xuất lô FEFO.</div>
               </div>
-              <input type="checkbox" checked class="w-[18px] h-[18px] accent-[var(--primary)] cursor-pointer shrink-0">
+              <input type="checkbox" checked class="w-5 h-5 accent-[#22B573] cursor-pointer mt-1">
             </div>
 
-            <div class="border-t border-[var(--border)] pt-4 flex items-start justify-between gap-4">
+            <div class="flex items-start justify-between gap-4 p-3 rounded-lg border border-[var(--border)]">
               <div>
-                <div class="font-semibold text-[var(--text)] text-sm">Daily Sales &amp; Stock Digest</div>
-                <div class="text-xs text-[var(--muted)] mt-0.5">Receive an automated morning summary of daily revenue, top sellers, and low inventory items at 8:00 AM.</div>
+                <div class="font-bold text-[var(--text)] text-sm">Cảnh Báo Nguyên Liệu Dưới Tồn An Toàn (Safety Stock Alert)</div>
+                <div class="text-xs text-[var(--muted)] mt-0.5">Phát tín hiệu khi sữa tươi &lt; 15 hộp, trà lá &lt; 5kg, ly nắp &lt; 500 cái để kịp tạo phiếu điều chuyển cấp cứu.</div>
               </div>
-              <input type="checkbox" checked class="w-[18px] h-[18px] accent-[var(--primary)] cursor-pointer shrink-0">
+              <input type="checkbox" checked class="w-5 h-5 accent-[#22B573] cursor-pointer mt-1">
             </div>
 
-            <div class="border-t border-[var(--border)] pt-4 flex items-start justify-between gap-4">
+            <div class="flex items-start justify-between gap-4 p-3 rounded-lg border border-[var(--border)]">
               <div>
-                <div class="font-semibold text-[var(--text)] text-sm">Customer Invoice Overdue Warnings</div>
-                <div class="text-xs text-[var(--muted)] mt-0.5">Automatically dispatch reminder emails to clients 3 days before and on due date.</div>
+                <div class="font-bold text-[var(--text)] text-sm">Nhắc Nhở Hủy Trân Châu Đã Nấu Quá 4 Giờ</div>
+                <div class="text-xs text-[var(--muted)] mt-0.5">Chuông báo trên màn hình Barista khi nồi trân châu đạt mốc 3h45 để chuẩn bị nấu nồi mới hoặc hủy hạt thừa.</div>
               </div>
-              <input type="checkbox" checked class="w-[18px] h-[18px] accent-[var(--primary)] cursor-pointer shrink-0">
-            </div>
-
-            <div class="border-t border-[var(--border)] pt-4 flex items-start justify-between gap-4">
-              <div>
-                <div class="font-semibold text-[var(--text)] text-sm">Purchase Order Inbound Receipt</div>
-                <div class="text-xs text-[var(--muted)] mt-0.5">Notify warehouse manager when a supplier delivery is marked received.</div>
-              </div>
-              <input type="checkbox" checked class="w-[18px] h-[18px] accent-[var(--primary)] cursor-pointer shrink-0">
-            </div>
-
-          </div>
-        </div>
-
-        <div class="card mb-6">
-          <div class="card-header mb-4 pb-3 border-b border-[var(--border)]">
-            <h3 class="card-title">Alert Recipients</h3>
-          </div>
-          
-          <div class="flex flex-col gap-4">
-            <div>
-              <label class="form-label" for="alert-email">Alert Notification Email Address <span class="required">*</span></label>
-              <input id="alert-email" type="email" class="form-input" value="admin@invenza.com" required>
-            </div>
-            <div>
-              <label class="form-label" for="supervisor-sms">Warehouse Supervisor SMS Phone (Optional)</label>
-              <input id="supervisor-sms" type="text" class="form-input" placeholder="+1 (555) 019-2834">
-            </div>
-            <div>
-              <button type="button" class="btn btn-secondary btn-sm" aria-label="Send test alert notification" onclick="Toast.success('Test alert notification sent to admin@invenza.com!','Test Sent')">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                Send Test Alert
-              </button>
+              <input type="checkbox" checked class="w-5 h-5 accent-[#22B573] cursor-pointer mt-1">
             </div>
           </div>
         </div>
 
-        <div class="flex gap-3">
-          <button type="submit" class="btn btn-primary" aria-label="Save notification preferences">Save Notification Preferences</button>
+        <!-- Cảnh Báo Vận Hành & Tài Chính Đặc Tả Mục 11 -->
+        <div class="card mb-6">
+          <div class="card-header mb-4 pb-3 border-b border-[var(--border)]">
+            <h3 class="card-title">Cảnh Báo Sự Cố Mạng POS &amp; Điểm Hòa Vốn</h3>
+          </div>
+          
+          <div class="space-y-4">
+            <div class="flex items-start justify-between gap-4 p-3 rounded-lg border border-red-200 bg-red-50/20">
+              <div>
+                <div class="font-bold text-red-700 text-sm">Cảnh Báo Chi Nhánh Dưới Điểm Hòa Vốn (Mục 11 Đặc Tả)</div>
+                <div class="text-xs text-red-600 mt-0.5">Gửi email khẩn cấp đến Chủ Doanh Nghiệp khi doanh thu chi nhánh thấp hơn điểm hòa vốn liên tục 4 tuần hoặc 3 tháng.</div>
+              </div>
+              <input type="checkbox" checked class="w-5 h-5 accent-red-600 cursor-pointer mt-1">
+            </div>
+
+            <div class="flex items-start justify-between gap-4 p-3 rounded-lg border border-[var(--border)]">
+              <div>
+                <div class="font-bold text-[var(--text)] text-sm">Cảnh Báo Mất Mạng POS &amp; Kích Hoạt Chế Độ Bán Offline</div>
+                <div class="text-xs text-[var(--muted)] mt-0.5">Tự động phát thông báo màu vàng trên màn hình thu ngân: "Đang bán Offline — Dữ liệu lưu an toàn trên máy".</div>
+              </div>
+              <input type="checkbox" checked class="w-5 h-5 accent-[#22B573] cursor-pointer mt-1">
+            </div>
+
+            <div class="flex items-start justify-between gap-4 p-3 rounded-lg border border-[var(--border)]">
+              <div>
+                <div class="font-bold text-[var(--text)] text-sm">Cảnh Báo Đơn Online Quá 3 Phút Chưa Xác Nhận</div>
+                <div class="text-xs text-[var(--muted)] mt-0.5">Phát âm thanh chuông lớn cảnh báo thu ngân trước khi đơn bị hệ thống tự động hủy hoặc chuyển chi nhánh khác (ở mốc 5 phút).</div>
+              </div>
+              <input type="checkbox" checked class="w-5 h-5 accent-[#22B573] cursor-pointer mt-1">
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-3">
+          <button type="button" class="btn btn-secondary" onclick="Toast.info('Đã hủy thay đổi chưa lưu','Hủy')">Hủy Bỏ</button>
+          <button type="submit" class="btn btn-primary">Lưu Cấu Hình Cảnh Báo</button>
         </div>
       </form>
 
     </main>
-    <footer class="app-footer">
-      <span class="app-footer-text">Copyright © 2026 Invenza All rights reserved.</span>
-    </footer>
+    <div id="footer-container"></div>
   </div>
 
   <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
-  <script>window.BASE_PATH = '../'; window.CURRENT_PAGE = 'settings-notifications';</script>
+
   <script src="../assets/js/app.js"></script>
 </body>
 </html>

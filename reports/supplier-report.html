@@ -1,160 +1,192 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="vi" class="">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Supplier Report — Invenza</title>
-  <meta name="description" content="Supplier performance scorecards, on-time delivery rates, and vendor lead times.">
+  <title>Báo Cáo Đánh Giá Nhà Cung Cấp — MiltyWay</title>
+  <meta name="description" content="Đánh giá chất lượng nhà cung cấp nguyên vật liệu F&B, tỷ lệ giao đúng hẹn, chuẩn ATVSTP và thời gian xử lý đơn.">
   <link rel="stylesheet" href="../assets/css/app.css">
   <link rel="stylesheet" href="../assets/css/tailwind.css">
-<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+  <script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
 </head>
 <body>
   <div id="sidebar-container"></div>
   <div id="main-wrapper">
     <div id="header-container"></div>
-    <main class="flex-1 p-6">
+    <main class="flex-1 p-4 md:p-6">
 
       <!-- Page Header -->
       <div class="page-header">
         <div>
           <div class="breadcrumb">
-            <a href="../dashboard.html">Home</a>
+            <a href="../dashboard.html">Trang chủ</a>
             <span class="sep">/</span>
-            <a href="../suppliers/suppliers.html">Reports</a>
+            <a href="../suppliers/suppliers.html">Nhà cung cấp</a>
             <span class="sep">/</span>
-            <span class="current">Supplier Report</span>
+            <span class="current">Đánh giá NCC</span>
           </div>
-          <h1 class="page-title">Supplier Performance Scorecard</h1>
-          <p class="page-subtitle">Track procurement efficiency, vendor lead times, defect rates, and reliability.</p>
+          <h1 class="page-title">Bảng Đánh Giá Hiệu Suất Nhà Cung Cấp (Scorecard)</h1>
+          <p class="page-subtitle">Kiểm định chất lượng nguồn nguyên liệu F&B, tỷ lệ giao hàng đúng hẹn, chuẩn ATVSTP và xử lý sự cố hàng cận date.</p>
         </div>
         <div class="flex gap-2.5 flex-wrap">
-          <button class="btn btn-secondary btn-sm" aria-label="Export supplier scorecard as PDF" onclick="Toast.info('Exporting scorecard...','Export')">Export PDF</button>
+          <button class="btn btn-secondary btn-sm" aria-label="Xuất báo cáo PDF" onclick="Toast.info('Đang xuất bảng chấm điểm nhà cung cấp (PDF)...','Xuất Báo Cáo')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Xuất PDF Scorecard
+          </button>
         </div>
       </div>
 
       <!-- KPI Summary Cards -->
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">On-Time Delivery Rate</div>
-          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">98.4%</div>
-          <div class="trend-up text-[11px] mt-[2px]">● +1.2% this quarter</div>
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Tỷ Lệ Giao Đúng Hạn</div>
+          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">98.6%</div>
+          <div class="trend-up text-[11px] mt-[2px]">● 41/42 lô hàng giao chuẩn hẹn</div>
         </div>
         <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Quality Acceptance</div>
-          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">99.1%</div>
-          <div class="text-[11px] text-[var(--muted)] mt-[2px]">Low defect incidence</div>
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Đạt Chuẩn ATVSTP &amp; HSD</div>
+          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">99.4%</div>
+          <div class="text-[11px] text-[var(--muted)] mt-[2px]">100% lô có phiếu kiểm nghiệm</div>
         </div>
         <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Average Lead Time</div>
-          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">4.2 <span class="text-[13px] font-medium text-[var(--muted)]">Days</span></div>
-          <div class="trend-up text-[11px] mt-[2px]">● 0.8 days faster</div>
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Thời Gian Giao Trung Bình</div>
+          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">1.8 <span class="text-[13px] font-medium text-[var(--muted)]">Ngày</span></div>
+          <div class="trend-up text-[11px] mt-[2px]">● Đơn khẩn cấp xử lý &lt; 24h</div>
         </div>
         <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Active PO Contracts</div>
-          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">27</div>
-          <div class="text-[11px] text-[var(--muted)] mt-[2px]">Audited vendors</div>
+          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Đối Tác Đang Cung Ứng</div>
+          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">18 <span class="text-[13px] font-medium text-[var(--muted)]">Nhà xe / NCC</span></div>
+          <div class="text-[11px] text-[var(--muted)] mt-[2px]">Được xếp hạng A+ và A</div>
         </div>
       </div>
 
       <!-- Charts Row -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        <div class="card">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        <div class="card lg:col-span-2">
           <div class="flex items-center justify-between mb-4">
-            <h3 class="text-[15px] font-bold text-[var(--text)] mb-0">Average Delivery Lead Time (Days)</h3>
-            <span class="badge badge-info">Lower is Better</span>
+            <h3 class="text-[15px] font-bold text-[var(--text)] mb-0">Điểm Đánh Giá Chất Lượng Top Nhà Cung Cấp (Thang điểm 100)</h3>
+            <span class="badge badge-success">Tháng 10/2026</span>
           </div>
-          <div class="h-[230px]">
-            <canvas id="supplierLeadTimeChart"></canvas>
+          <div class="h-[250px]">
+            <canvas id="supplierRatingChart"></canvas>
           </div>
         </div>
 
-        <div class="card">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-[15px] font-bold text-[var(--text)] mb-0">On-Time Fulfillment Comparison</h3>
-            <span class="badge badge-success">Target &gt; 95%</span>
+        <div class="card flex flex-col justify-between">
+          <div>
+            <h3 class="text-[15px] font-bold text-[var(--text)] mb-4">Phân Hạng Đối Tác Cung Ứng</h3>
+            <div class="h-[200px] relative">
+              <canvas id="supplierTierChart"></canvas>
+            </div>
           </div>
-          <div class="h-[230px]">
-            <canvas id="supplierFulfillmentChart"></canvas>
+          <div class="space-y-1.5 border-t border-[var(--border)] pt-3 mt-3 text-xs">
+            <div class="flex justify-between"><span class="text-[#22B573] font-semibold">● Hạng A+ (Chiến lược): 55%</span><span class="font-bold">10 NCC</span></div>
+            <div class="flex justify-between"><span class="text-[#3B82F6] font-semibold">● Hạng A (Đạt chuẩn): 35%</span><span class="font-bold">6 NCC</span></div>
+            <div class="flex justify-between"><span class="text-[#F59E0B] font-semibold">● Hạng B (Cần cải thiện): 10%</span><span class="font-bold">2 NCC</span></div>
           </div>
         </div>
       </div>
 
-      <!-- Supplier Matrix Table -->
-      <div class="card p-0 overflow-hidden">
-        <div class="py-4 px-5 border-b border-[var(--border)] flex items-center justify-between">
-          <h3 class="text-[15px] font-bold text-[var(--text)] mb-0">Supplier Quality &amp; Reliability Scorecard</h3>
-          <a href="../suppliers/suppliers.html" class="btn btn-secondary btn-sm">Manage Suppliers</a>
+      <!-- Scorecard Table -->
+      <section class="page-section" aria-label="Bảng chấm điểm chi tiết đối tác">
+        <div class="card p-0 overflow-hidden">
+          <div class="py-3 px-5 border-b border-[var(--border)] flex items-center justify-between">
+            <h3 class="text-[15px] font-bold text-[var(--text)] mb-0">Bảng Tổng Hợp Chấm Điểm Nhà Cung Cấp F&amp;B</h3>
+            <span class="text-xs text-[var(--muted)]">Tiêu chí: Đúng hẹn · Chất lượng · Hạn dùng FEFO · Hỗ trợ khẩn cấp</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Nhà Cung Cấp</th>
+                  <th>Nhóm Nguyên Liệu</th>
+                  <th class="text-center">Số Lô Nhập</th>
+                  <th class="text-center">Đúng Hẹn (%)</th>
+                  <th class="text-center">Chuẩn ATVSTP</th>
+                  <th class="text-center">Lead Time (Ngày)</th>
+                  <th class="text-center">Điểm Đánh Giá</th>
+                  <th class="text-center">Xếp Hạng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="font-bold text-[var(--text)]">Công ty TNHH Trà Lộc Phát Bảo Lộc</td>
+                  <td>Trà Đen &amp; Oolong nướng</td>
+                  <td class="text-center font-bold">18</td>
+                  <td class="text-center font-bold text-emerald-600">100%</td>
+                  <td class="text-center"><span class="badge badge-success">Tuyệt đối (100%)</span></td>
+                  <td class="text-center">2.0</td>
+                  <td class="text-center font-extrabold text-[var(--primary)]">98 / 100</td>
+                  <td class="text-center"><span class="badge badge-success">Hạng A+ (Chiến lược)</span></td>
+                </tr>
+                <tr>
+                  <td class="font-bold text-[var(--text)]">Công ty CP Sữa Vinamilk (F&amp;B)</td>
+                  <td>Sữa tươi &amp; Sữa đặc có đường</td>
+                  <td class="text-center font-bold">30</td>
+                  <td class="text-center font-bold text-emerald-600">99.2%</td>
+                  <td class="text-center"><span class="badge badge-success">Tuyệt đối (100%)</span></td>
+                  <td class="text-center">1.0</td>
+                  <td class="text-center font-extrabold text-[var(--primary)]">97 / 100</td>
+                  <td class="text-center"><span class="badge badge-success">Hạng A+ (Chiến lược)</span></td>
+                </tr>
+                <tr>
+                  <td class="font-bold text-[var(--text)]">Công ty CP Gia Thịnh Phát (GTP)</td>
+                  <td>Topping trân châu, bột sữa, siro</td>
+                  <td class="text-center font-bold">24</td>
+                  <td class="text-center font-bold text-emerald-600">97.5%</td>
+                  <td class="text-center"><span class="badge badge-success">Đạt chuẩn (99%)</span></td>
+                  <td class="text-center">1.5</td>
+                  <td class="text-center font-extrabold text-[var(--primary)]">94 / 100</td>
+                  <td class="text-center"><span class="badge badge-info">Hạng A</span></td>
+                </tr>
+                <tr>
+                  <td class="font-bold text-[var(--text)]">Công ty TNHH Bao Bì Xanh Sài Gòn</td>
+                  <td>Ly nhựa PP/PET, màng ép nắp</td>
+                  <td class="text-center font-bold">15</td>
+                  <td class="text-center font-bold text-emerald-600">96.0%</td>
+                  <td class="text-center"><span class="badge badge-success">Đạt chuẩn (98%)</span></td>
+                  <td class="text-center">2.5</td>
+                  <td class="text-center font-extrabold text-[var(--primary)]">91 / 100</td>
+                  <td class="text-center"><span class="badge badge-info">Hạng A</span></td>
+                </tr>
+                <tr>
+                  <td class="font-bold text-[var(--text)]">HTX Nông Sản Sạch Đà Lạt GAP</td>
+                  <td>Chanh dây, cam sành, dâu tươi</td>
+                  <td class="text-center font-bold">36</td>
+                  <td class="text-center font-bold text-amber-600">92.0%</td>
+                  <td class="text-center"><span class="badge badge-warning">Hao hụt vận chuyển 3%</span></td>
+                  <td class="text-center">1.2</td>
+                  <td class="text-center font-extrabold text-amber-600">86 / 100</td>
+                  <td class="text-center"><span class="badge badge-warning">Hạng B (Giám sát độ tươi)</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div class="overflow-x-auto">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Supplier</th>
-                <th>Category</th>
-                <th>Orders Fulfilled</th>
-                <th>On-Time Rate</th>
-                <th>Avg Lead Time</th>
-                <th>Defect Rate</th>
-                <th>Overall Rating</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="font-semibold text-[var(--text)]">Apex Electronics Ltd</td>
-                <td>Electronics Hardware</td>
-                <td class="font-semibold">18</td>
-                <td><span class="badge badge-success">99.2%</span></td>
-                <td>3.4 Days</td>
-                <td class="text-[var(--muted)] text-[13px]">0.4%</td>
-                <td><span class="badge badge-success">A+ (98/100)</span></td>
-              </tr>
-              <tr>
-                <td class="font-semibold text-[var(--text)]">Zenith Office Ware</td>
-                <td>Furniture</td>
-                <td class="font-semibold">13</td>
-                <td><span class="badge badge-success">98.5%</span></td>
-                <td>4.8 Days</td>
-                <td class="text-[var(--muted)] text-[13px]">0.8%</td>
-                <td><span class="badge badge-success">A (95/100)</span></td>
-              </tr>
-              <tr>
-                <td class="font-semibold text-[var(--text)]">Global Supplies Co</td>
-                <td>Accessories</td>
-                <td class="font-semibold">14</td>
-                <td><span class="badge badge-warning">94.1%</span></td>
-                <td>5.6 Days</td>
-                <td class="text-[var(--warning)] text-[13px] font-semibold">2.1%</td>
-                <td><span class="badge badge-warning">B+ (88/100)</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+      </section>
 
     </main>
-    <footer class="app-footer">
-      <span class="app-footer-text">Copyright © 2026 Invenza All rights reserved.</span>
-    </footer>
+    <div id="footer-container"></div>
   </div>
 
+  <div id="modal-container"></div>
   <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
 
+  <script src="../assets/js/chart.min.js"></script>
+  <script src="../assets/js/app.js"></script>
   <script>
-    window.BASE_PATH = '../';
-    window.CURRENT_PAGE = 'supplier-report';
-
     document.addEventListener('DOMContentLoaded', () => {
-      const ctxLead = document.getElementById('supplierLeadTimeChart').getContext('2d');
-      if (ctxLead) {
-        new Chart(ctxLead, {
+      // Bar chart điểm đánh giá
+      const ctx = document.getElementById('supplierRatingChart')?.getContext('2d');
+      if (ctx) {
+        new Chart(ctx, {
           type: 'bar',
           data: {
-            labels: ['Apex Electronics', 'Zenith Office', 'Global Supplies', 'TechParts Ltd'],
+            labels: ['Lộc Phát Tea', 'Vinamilk F&B', 'Gia Thịnh Phát', 'Bao Bì Xanh', 'Đà Lạt GAP'],
             datasets: [{
-              label: 'Days to Deliver',
-              data: [3.4, 4.8, 5.6, 3.8],
-              backgroundColor: '#3B82F6',
+              label: 'Điểm Scorecard (Tối đa 100)',
+              data: [98, 97, 94, 91, 86],
+              backgroundColor: ['#22B573', '#22B573', '#3B82F6', '#3B82F6', '#F59E0B'],
               borderRadius: 6
             }]
           },
@@ -164,39 +196,34 @@
             plugins: { legend: { display: false } },
             scales: {
               x: { grid: { display: false } },
-              y: { grid: { color: 'rgba(0,0,0,0.05)' } }
+              y: { min: 70, max: 100, grid: { color: 'rgba(0,0,0,0.05)' } }
             }
           }
         });
       }
 
-      const ctxFulfill = document.getElementById('supplierFulfillmentChart').getContext('2d');
-      if (ctxFulfill) {
-        new Chart(ctxFulfill, {
-          type: 'bar',
+      // Tier Donut
+      const ctxTier = document.getElementById('supplierTierChart')?.getContext('2d');
+      if (ctxTier) {
+        new Chart(ctxTier, {
+          type: 'doughnut',
           data: {
-            labels: ['Apex Electronics', 'Zenith Office', 'Global Supplies', 'TechParts Ltd'],
+            labels: ['Hạng A+ (Chiến lược)', 'Hạng A (Đạt chuẩn)', 'Hạng B (Cần cải thiện)'],
             datasets: [{
-              label: 'On-Time Delivery %',
-              data: [99.2, 98.5, 94.1, 97.4],
-              backgroundColor: '#22B573',
-              borderRadius: 6
+              data: [55, 35, 10],
+              backgroundColor: ['#22B573', '#3B82F6', '#F59E0B'],
+              borderWidth: 0
             }]
           },
           options: {
             responsive: true,
             maintainAspectRatio: false,
             plugins: { legend: { display: false } },
-            scales: {
-              x: { grid: { display: false } },
-              y: { min: 80, max: 100, grid: { color: 'rgba(0,0,0,0.05)' } }
-            }
+            cutout: '68%'
           }
         });
       }
     });
   </script>
-  <script src="../assets/js/chart.min.js"></script>
-  <script src="../assets/js/app.js"></script>
 </body>
 </html>

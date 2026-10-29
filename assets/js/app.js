@@ -36,32 +36,32 @@ function getSidebarHTML() {
 
 <nav id="sidebar-nav" class="flex-1 overflow-y-auto py-3 px-3" style="gap:2px;">
 
-  <div class="sidebar-section-label">MAIN</div>
+  <div class="sidebar-section-label">CHÍNH</div>
 
   <a href="${bp}dashboard.html" class="nav-item" data-page="dashboard">
     <svg class="flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-    <span class="sidebar-label flex-1">Dashboard</span>
+    <span class="sidebar-label flex-1">Bảng điều khiển</span>
   </a>
 
-  <div class="sidebar-section-label">INVENTORY</div>
+  <div class="sidebar-section-label">KHO HÀNG</div>
 
   <!-- Inventory submenu -->
   <div class="submenu-group" data-submenu="inventory">
     <button class="nav-item submenu-toggle" data-page-group="inventory">
       <svg class="flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-      <span class="sidebar-label flex-1 text-left">Inventory</span>
+      <span class="sidebar-label flex-1 text-left">Kho hàng</span>
       <span class="nav-toggle-icon sidebar-label">
         <svg class="icon-plus" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         <svg class="icon-minus" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><line x1="5" y1="12" x2="19" y2="12"/></svg>
       </span>
     </button>
     <div class="submenu" id="submenu-inventory">
-      <a href="${bp}inventory/products.html" class="submenu-item" data-page="products">Products</a>
-      <a href="${bp}inventory/add-product.html" class="submenu-item" data-page="add-product">Add Product</a>
-      <a href="${bp}inventory/categories.html" class="submenu-item" data-page="categories">Categories</a>
-      <a href="${bp}inventory/brands.html" class="submenu-item" data-page="brands">Brands</a>
-      <a href="${bp}inventory/units.html" class="submenu-item" data-page="units">Units</a>
-      <a href="${bp}inventory/stock-adjustment.html" class="submenu-item" data-page="stock-adjustment">Stock Adjustment</a>
+      <a href="${bp}inventory/products.html" class="submenu-item" data-page="products">Sản phẩm</a>
+      <a href="${bp}inventory/add-product.html" class="submenu-item" data-page="add-product">Thêm sản phẩm</a>
+      <a href="${bp}inventory/categories.html" class="submenu-item" data-page="categories">Danh mục</a>
+      <a href="${bp}inventory/brands.html" class="submenu-item" data-page="brands">Thương hiệu</a>
+      <a href="${bp}inventory/units.html" class="submenu-item" data-page="units">Đơn vị tính</a>
+      <a href="${bp}inventory/stock-adjustment.html" class="submenu-item" data-page="stock-adjustment">Điều chỉnh kho</a>
     </div>
   </div>
 
@@ -69,16 +69,16 @@ function getSidebarHTML() {
   <div class="submenu-group" data-submenu="purchases">
     <button class="nav-item submenu-toggle" data-page-group="purchases">
       <svg class="flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-      <span class="sidebar-label flex-1 text-left">Purchases</span>
+      <span class="sidebar-label flex-1 text-left">Nhập hàng</span>
       <span class="nav-toggle-icon sidebar-label">
         <svg class="icon-plus" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         <svg class="icon-minus" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><line x1="5" y1="12" x2="19" y2="12"/></svg>
       </span>
     </button>
     <div class="submenu" id="submenu-purchases">
-      <a href="${bp}purchases/purchases.html" class="submenu-item" data-page="purchases">All Purchases</a>
-      <a href="${bp}purchases/add-purchase.html" class="submenu-item" data-page="add-purchase">Add Purchase</a>
-      <a href="${bp}purchases/purchase-returns.html" class="submenu-item" data-page="purchase-returns">Purchase Returns</a>
+      <a href="${bp}purchases/purchases.html" class="submenu-item" data-page="purchases">Tất cả đơn nhập</a>
+      <a href="${bp}purchases/add-purchase.html" class="submenu-item" data-page="add-purchase">Tạo đơn nhập</a>
+      <a href="${bp}purchases/purchase-returns.html" class="submenu-item" data-page="purchase-returns">Trả hàng nhập</a>
     </div>
   </div>
 
@@ -86,78 +86,78 @@ function getSidebarHTML() {
   <div class="submenu-group" data-submenu="sales">
     <button class="nav-item submenu-toggle" data-page-group="sales">
       <svg class="flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-      <span class="sidebar-label flex-1 text-left">Sales</span>
+      <span class="sidebar-label flex-1 text-left">Bán hàng</span>
       <span class="nav-toggle-icon sidebar-label">
         <svg class="icon-plus" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         <svg class="icon-minus" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><line x1="5" y1="12" x2="19" y2="12"/></svg>
       </span>
     </button>
     <div class="submenu" id="submenu-sales">
-      <a href="${bp}sales/sales.html" class="submenu-item" data-page="sales">All Sales</a>
-      <a href="${bp}sales/add-sale.html" class="submenu-item" data-page="add-sale">Point of Sale</a>
-      <a href="${bp}sales/sales-returns.html" class="submenu-item" data-page="sales-returns">Sales Returns</a>
+      <a href="${bp}sales/sales.html" class="submenu-item" data-page="sales">Tất cả đơn bán</a>
+      <a href="${bp}sales/add-sale.html" class="submenu-item" data-page="add-sale">Điểm bán hàng (POS)</a>
+      <a href="${bp}sales/sales-returns.html" class="submenu-item" data-page="sales-returns">Trả hàng bán</a>
     </div>
   </div>
 
   <a href="${bp}invoices/invoices.html" class="nav-item" data-page="invoices">
     <svg class="flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-    <span class="sidebar-label flex-1">Invoices</span>
+    <span class="sidebar-label flex-1">Hóa đơn</span>
   </a>
 
-  <div class="sidebar-section-label">CRM</div>
+  <div class="sidebar-section-label">KHÁCH HÀNG</div>
 
   <a href="${bp}customers/customers.html" class="nav-item" data-page="customers">
     <svg class="flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-    <span class="sidebar-label flex-1">Customers</span>
+    <span class="sidebar-label flex-1">Khách hàng</span>
   </a>
 
   <a href="${bp}suppliers/suppliers.html" class="nav-item" data-page="suppliers">
-    <svg class="flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-    <span class="sidebar-label flex-1">Suppliers</span>
+    <svg class="flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+    <span class="sidebar-label flex-1">Nhà cung cấp</span>
   </a>
 
   <a href="${bp}expenses/expenses.html" class="nav-item" data-page="expenses">
     <svg class="flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-    <span class="sidebar-label flex-1">Expenses</span>
+    <span class="sidebar-label flex-1">Chi phí</span>
   </a>
 
-  <div class="sidebar-section-label">ANALYTICS</div>
+  <div class="sidebar-section-label">BÁO CÁO & PHÂN TÍCH</div>
 
   <!-- Reports submenu -->
   <div class="submenu-group" data-submenu="reports">
     <button class="nav-item submenu-toggle" data-page-group="reports">
       <svg class="flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-      <span class="sidebar-label flex-1 text-left">Reports</span>
+      <span class="sidebar-label flex-1 text-left">Báo cáo</span>
       <span class="nav-toggle-icon sidebar-label">
         <svg class="icon-plus" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         <svg class="icon-minus" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><line x1="5" y1="12" x2="19" y2="12"/></svg>
       </span>
     </button>
     <div class="submenu" id="submenu-reports">
-      <a href="${bp}reports/sales-report.html" class="submenu-item" data-page="sales-report">Sales Report</a>
-      <a href="${bp}reports/purchase-report.html" class="submenu-item" data-page="purchase-report">Purchase Report</a>
-      <a href="${bp}reports/inventory-report.html" class="submenu-item" data-page="inventory-report">Inventory Report</a>
-      <a href="${bp}reports/profit-loss.html" class="submenu-item" data-page="profit-loss">Profit &amp; Loss</a>
-      <a href="${bp}reports/customer-report.html" class="submenu-item" data-page="customer-report">Customer Report</a>
-      <a href="${bp}reports/supplier-report.html" class="submenu-item" data-page="supplier-report">Supplier Report</a>
+      <a href="${bp}reports/sales-report.html" class="submenu-item" data-page="sales-report">Báo cáo bán hàng</a>
+      <a href="${bp}reports/purchase-report.html" class="submenu-item" data-page="purchase-report">Báo cáo nhập hàng</a>
+      <a href="${bp}reports/inventory-report.html" class="submenu-item" data-page="inventory-report">Báo cáo tồn kho</a>
+      <a href="${bp}reports/profit-loss.html" class="submenu-item" data-page="profit-loss">Lợi nhuận &amp; Lỗ</a>
+      <a href="${bp}reports/customer-report.html" class="submenu-item" data-page="customer-report">Báo cáo khách hàng</a>
+      <a href="${bp}reports/supplier-report.html" class="submenu-item" data-page="supplier-report">Báo cáo nhà cung cấp</a>
     </div>
   </div>
 
-  <div class="sidebar-section-label">ADMIN</div>
+  <div class="sidebar-section-label">QUẢN TRỊ HỆ THỐNG</div>
 
   <!-- Users submenu -->
   <div class="submenu-group" data-submenu="users">
     <button class="nav-item submenu-toggle" data-page-group="users">
       <svg class="flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      <span class="sidebar-label flex-1 text-left">Users</span>
+      <span class="sidebar-label flex-1 text-left">Người dùng</span>
       <span class="nav-toggle-icon sidebar-label">
         <svg class="icon-plus" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         <svg class="icon-minus" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><line x1="5" y1="12" x2="19" y2="12"/></svg>
       </span>
     </button>
     <div class="submenu" id="submenu-users">
-      <a href="${bp}users/users.html" class="submenu-item" data-page="users-list">All Users</a>
-      <a href="${bp}users/roles.html" class="submenu-item" data-page="roles">Roles &amp; Permissions</a>
+      <a href="${bp}users/users.html" class="submenu-item" data-page="users-list">Tất cả người dùng</a>
+      <a href="${bp}users/roles.html" class="submenu-item" data-page="roles">Vai trò &amp; Quyền hạn</a>
     </div>
   </div>
 
@@ -165,18 +165,18 @@ function getSidebarHTML() {
   <div class="submenu-group" data-submenu="settings">
     <button class="nav-item submenu-toggle" data-page-group="settings">
       <svg class="flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M5.34 18.66l-1.41 1.41M2 12h2M20 12h2M6.34 5.34L4.93 4.93M19.07 19.07l-1.41-1.41M12 2v2M12 20v2M18.66 6.34l-1.41 1.41M6.34 18.66l-1.41 1.41"/></svg>
-      <span class="sidebar-label flex-1 text-left">Settings</span>
+      <span class="sidebar-label flex-1 text-left">Cài đặt</span>
       <span class="nav-toggle-icon sidebar-label">
         <svg class="icon-plus" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         <svg class="icon-minus" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><line x1="5" y1="12" x2="19" y2="12"/></svg>
       </span>
     </button>
     <div class="submenu" id="submenu-settings">
-      <a href="${bp}settings/general.html" class="submenu-item" data-page="settings-general">General</a>
-      <a href="${bp}settings/inventory.html" class="submenu-item" data-page="settings-inventory">Inventory</a>
-      <a href="${bp}settings/sales.html" class="submenu-item" data-page="settings-sales">Sales</a>
-      <a href="${bp}settings/purchases.html" class="submenu-item" data-page="settings-purchases">Purchases</a>
-      <a href="${bp}settings/notifications.html" class="submenu-item" data-page="settings-notifications">Notifications</a>
+      <a href="${bp}settings/general.html" class="submenu-item" data-page="settings-general">Cài đặt chung</a>
+      <a href="${bp}settings/inventory.html" class="submenu-item" data-page="settings-inventory">Cài đặt kho</a>
+      <a href="${bp}settings/sales.html" class="submenu-item" data-page="settings-sales">Cài đặt bán hàng</a>
+      <a href="${bp}settings/purchases.html" class="submenu-item" data-page="settings-purchases">Cài đặt nhập hàng</a>
+      <a href="${bp}settings/notifications.html" class="submenu-item" data-page="settings-notifications">Thông báo</a>
     </div>
   </div>
 </nav>

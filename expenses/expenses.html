@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="vi" class="">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Expenses — Invenza</title>
-  <meta name="description" content="Track operational expenditures, utilities, vendor charges, and petty cash.">
+  <title>Chi Phí Vận Hành Chuỗi — MiltyWay</title>
+  <meta name="description" content="Quản lý và kiểm soát chi phí vận hành chi nhánh, tiền thuê mặt bằng, điện nước, hủy nguyên liệu và quỹ tiền mặt.">
   <link rel="stylesheet" href="../assets/css/app.css">
   <link rel="stylesheet" href="../assets/css/tailwind.css">
-<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+  <script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
 </head>
 <body>
   <div id="sidebar-container"></div>
@@ -19,36 +19,36 @@
       <div class="page-header">
         <div>
           <div class="breadcrumb">
-            <a href="../dashboard.html">Home</a>
+            <a href="../dashboard.html">Trang chủ</a>
             <span class="sep">/</span>
-            <span class="current">Expenses</span>
+            <span class="current">Chi phí</span>
           </div>
-          <h1 class="page-title">Expenses Tracker</h1>
-          <p class="page-subtitle">Record and audit operating expenses, overhead costs, and disbursements.</p>
+          <h1 class="page-title">Sổ Theo Dõi Chi Phí Vận Hành</h1>
+          <p class="page-subtitle">Kiểm soát dòng tiền chi mặt bằng, điện nước quầy bar, khấu hao thiết bị và hao hụt hủy hỏng 12 chi nhánh.</p>
         </div>
         <div class="page-header-actions">
-          <button class="btn btn-secondary" aria-label="Export expense records" onclick="Toast.info('Exporting expense records...','Export')">
+          <button class="btn btn-secondary" aria-label="Xuất báo cáo chi phí" onclick="Toast.info('Đang xuất sổ chi tiết chi phí (Excel)...','Xuất Dữ Liệu')">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            Export
+            Xuất Excel
           </button>
-          <button class="btn btn-primary" aria-label="Add new expense" onclick="openAddExpenseModal()">
+          <button class="btn btn-primary" aria-label="Thêm khoản chi mới" onclick="openAddExpenseModal()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Add Expense
+            Lập Phiếu Chi
           </button>
         </div>
       </div>
 
       <!-- Stats Grid -->
-      <section class="page-section" aria-label="Expense statistics">
+      <section class="page-section" aria-label="Thống kê chi phí">
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
           <div class="stat-card">
             <div class="stat-card-icon icon-bg-danger">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
             </div>
             <div class="stat-card-body">
-              <div class="stat-label">Total</div>
-              <div class="stat-value">$4,820.00</div>
-              <div class="stat-sub-label">This month</div>
+              <div class="stat-label">Tổng Chi Tháng Này</div>
+              <div class="stat-value text-[var(--danger)]">412.850.000 ₫</div>
+              <div class="stat-sub-label">Toàn chuỗi 12 chi nhánh TP.HCM</div>
             </div>
           </div>
           <div class="stat-card">
@@ -56,9 +56,9 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
             </div>
             <div class="stat-card-body">
-              <div class="stat-label">Rent</div>
-              <div class="stat-value">$2,100.00</div>
-              <div class="stat-sub-label">43.5% of total</div>
+              <div class="stat-label">Tiền Thuê Mặt Bằng</div>
+              <div class="stat-value">185.000.000 ₫</div>
+              <div class="stat-sub-label">Chiếm 44.8% tổng chi phí</div>
             </div>
           </div>
           <div class="stat-card">
@@ -66,9 +66,9 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
             </div>
             <div class="stat-card-body">
-              <div class="stat-label">Salaries</div>
-              <div class="stat-value">$1,950.00</div>
-              <div class="stat-sub-label">40.4% of total</div>
+              <div class="stat-label">Lương Nhân Sự Ca</div>
+              <div class="stat-value">158.400.000 ₫</div>
+              <div class="stat-sub-label">Thu ngân, Barista &amp; Quản lý</div>
             </div>
           </div>
           <div class="stat-card">
@@ -76,157 +76,193 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
             </div>
             <div class="stat-card-body">
-              <div class="stat-label">Petty Cash</div>
-              <div class="stat-value text-[var(--warning)]">$770.00</div>
-              <div class="stat-sub-label">16.1% of total</div>
+              <div class="stat-label">Điện Nước &amp; Hủy Hàng</div>
+              <div class="stat-value text-[var(--warning)]">69.450.000 ₫</div>
+              <div class="stat-sub-label">Máy đá, tủ đông &amp; hủy cận date</div>
             </div>
           </div>
         </div>
       </section>
 
       <!-- Expense Categories Chart Row -->
-      <section class="page-section" aria-label="Expense charts">
+      <section class="page-section" aria-label="Biểu đồ chi phí">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
           <div class="card flex flex-col justify-between">
             <div>
               <div class="card-header">
-                <h3 class="card-title">Expense by Category</h3>
+                <h3 class="card-title">Cơ Cấu Chi Phí F&amp;B</h3>
               </div>
               <div class="h-[200px] relative">
                 <canvas id="expenseCategoryChart"></canvas>
               </div>
             </div>
-            <div class="flex justify-around border-t border-[var(--border)] pt-3 mt-3 text-xs">
-              <span class="text-[var(--primary)] font-semibold">? Rent: 43%</span>
-              <span class="text-[var(--info)] font-semibold">? Payroll: 40%</span>
-              <span class="text-[var(--warning)] font-semibold">? Misc: 17%</span>
+            <div class="grid grid-cols-2 gap-2 border-t border-[var(--border)] pt-3 mt-3 text-xs">
+              <span class="text-[#3B82F6] font-semibold">● Mặt bằng: 45%</span>
+              <span class="text-[#22B573] font-semibold">● Lương ca: 38%</span>
+              <span class="text-[#F59E0B] font-semibold">● Điện nước: 11%</span>
+              <span class="text-[#EF4444] font-semibold">● Hủy hỏng/Khác: 6%</span>
             </div>
           </div>
 
+          <!-- Chi Phí Theo Chi Nhánh -->
           <div class="card lg:col-span-2">
-            <div class="card-header">
-              <h3 class="card-title mb-0">Monthly Expense Trend</h3>
-              <span class="badge badge-info">Jan - Sep 2026</span>
+            <div class="card-header flex items-center justify-between">
+              <h3 class="card-title">Top Chi Phí Vận Hành Từng Chi Nhánh (Tháng Này)</h3>
+              <span class="badge badge-info">12 Chi Nhánh TP.HCM</span>
             </div>
-            <div class="h-[210px]">
-              <canvas id="expenseTrendChart"></canvas>
+            <div class="h-[210px] relative">
+              <canvas id="branchExpenseChart"></canvas>
             </div>
           </div>
         </div>
       </section>
 
       <!-- Filter Bar -->
-      <section class="page-section" aria-label="Expense filters">
-        <div class="filter-bar mb-5">
-          <div class="search-box">
+      <section class="page-section" aria-label="Bộ lọc chi phí">
+        <div class="filter-bar mb-5 flex flex-wrap gap-3">
+          <div class="search-box flex-1 min-w-[220px]">
             <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="text" class="form-input" placeholder="Search expense reference, title or payee...">
+            <input type="text" class="form-input" placeholder="Tìm kiếm phiếu chi, nội dung chi, người duyệt...">
           </div>
-          <select class="form-input form-select">
-            <option value="">All Categories</option>
-            <option>Warehouse Rent</option>
-            <option>Electricity &amp; Utilities</option>
-            <option>Packaging Material</option>
-            <option>Internet &amp; Software</option>
-            <option>Staff Refreshments</option>
+          <select class="form-input form-select w-auto">
+            <option value="">Tất cả 12 Chi Nhánh</option>
+            <option>CN01 — Quận 1 (Nguyễn Huệ)</option>
+            <option>CN02 — Quận 3 (Võ Văn Tần)</option>
+            <option>CN03 — Quận 5 (Trần Hưng Đạo)</option>
+            <option>CN04 — Quận 7 (Phú Mỹ Hưng)</option>
+            <option>CN05 — Quận 10 (Sư Vạn Hạnh)</option>
+            <option>CN06 — Bình Thạnh (D2 / Nguyễn Gia Trí)</option>
+            <option>CN07 — Gò Vấp (Phan Văn Trị)</option>
+            <option>CN08 — Tân Bình (Lê Văn Sỹ)</option>
+            <option>CN09 — TP. Thủ Đức (Võ Văn Ngân)</option>
+            <option>CN10 — Phú Nhuận (Phan Xích Long)</option>
+            <option>CN11 — Tân Phú (Tân Sơn Nhì)</option>
+            <option>CN12 — Quận 6 (Hậu Giang)</option>
           </select>
-          <select class="form-input form-select">
-            <option value="">Payment Method</option>
-            <option>Bank Wire</option>
-            <option>Company Card</option>
-            <option>Petty Cash</option>
+          <select class="form-input form-select w-auto">
+            <option value="">Tất cả danh mục chi</option>
+            <option>Tiền thuê mặt bằng</option>
+            <option>Lương &amp; Thưởng ca Barista</option>
+            <option>Tiền điện &amp; Nước làm đá</option>
+            <option>Bảo trì máy dập nắp &amp; tủ lạnh</option>
+            <option>Hủy nguyên liệu cận date/pha lỗi</option>
+            <option>Văn phòng phẩm &amp; Hóa đơn</option>
+          </select>
+          <select class="form-input form-select w-auto">
+            <option value="">Tháng 10/2026</option>
+            <option>Tháng 09/2026</option>
+            <option>Tháng 08/2026</option>
           </select>
         </div>
       </section>
 
-      <!-- Expenses Table -->
-      <section class="page-section" aria-label="Expenses table">
+      <!-- Expense Table -->
+      <section class="page-section" aria-label="Bảng kê chi phí">
         <div class="card p-0 overflow-hidden">
           <div class="overflow-x-auto">
             <table class="data-table">
-              <caption class="sr-only">Expense records listing</caption>
+              <caption class="sr-only">Bảng kê chứng từ chi phí chi nhánh</caption>
               <thead>
                 <tr>
-                  <th>Reference #</th>
-                  <th>Expense Title</th>
-                  <th>Category</th>
-                  <th>Date</th>
-                  <th>Amount</th>
-                  <th>Payment Mode</th>
-                  <th>Paid By</th>
-                  <th>Status</th>
-                  <th>Action</th>
+                  <th class="w-10"><input type="checkbox" aria-label="Chọn tất cả"></th>
+                  <th>Mã Phiếu Chi</th>
+                  <th>Ngày Chi</th>
+                  <th>Chi Nhánh</th>
+                  <th>Danh Mục Chi Phí</th>
+                  <th>Nội Dung Khoản Chi</th>
+                  <th>Số Tiền (VNĐ)</th>
+                  <th>Phương Thức</th>
+                  <th>Người Duyệt</th>
+                  <th>Chứng Từ</th>
+                  <th>Thao Tác</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td class="font-mono font-bold text-[var(--primary)]">EXP-00084</td>
+                  <td><input type="checkbox" aria-label="Chọn hàng"></td>
+                  <td class="font-bold text-[var(--primary)]">PC-CN01-0021</td>
+                  <td>28/10/2026</td>
+                  <td><span class="badge badge-info">CN01 — Q.1</span></td>
+                  <td><span class="badge badge-primary">Mặt bằng</span></td>
+                  <td class="font-medium text-[var(--text)]">Thanh toán tiền thuê mặt bằng Nguyễn Huệ Tháng 11</td>
+                  <td class="font-extrabold text-[var(--danger)]">45.000.000 ₫</td>
+                  <td><span class="badge badge-gray">Chuyển khoản VCB</span></td>
+                  <td>Nguyễn Hoàng Long (Admin)</td>
+                  <td><span class="text-xs text-emerald-600 font-semibold cursor-pointer">HD-VAT-892.pdf</span></td>
                   <td>
-                    <div class="font-semibold text-[var(--text)]">Main Warehouse Rent (August)</div>
-                    <div class="text-[11px] text-[var(--muted)]">Landlord Realty LLC</div>
-                  </td>
-                  <td><span class="badge badge-info">Facility &amp; Rent</span></td>
-                  <td class="text-xs text-[var(--muted)]">Aug 20, 2026</td>
-                  <td class="text-sm font-extrabold text-[var(--text)]">$1,800.00</td>
-                  <td class="text-[13px] text-[var(--text)]">Bank Transfer</td>
-                  <td class="text-xs text-[var(--muted)]">Admin John</td>
-                  <td><span class="badge badge-success">Approved</span></td>
-                  <td>
-                    <button class="btn btn-secondary btn-icon-sm" aria-label="View receipt for EXP-00084" onclick="Toast.info('Viewing EXP-00084 receipt','Receipt')">
+                    <button class="btn btn-secondary btn-icon-sm" onclick="Toast.info('Xem chứng từ phiếu chi PC-CN01-0021','Chứng Từ')">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                     </button>
                   </td>
                 </tr>
+
                 <tr>
-                  <td class="font-mono font-bold text-[var(--primary)]">EXP-00083</td>
+                  <td><input type="checkbox" aria-label="Chọn hàng"></td>
+                  <td class="font-bold text-[var(--primary)]">PC-CN05-0045</td>
+                  <td>26/10/2026</td>
+                  <td><span class="badge badge-info">CN05 — Q.10</span></td>
+                  <td><span class="badge badge-warning">Điện &amp; Nước</span></td>
+                  <td class="font-medium text-[var(--text)]">Tiền điện quầy bar (3 tủ lạnh âm + 2 máy làm đá Fest)</td>
+                  <td class="font-extrabold text-[var(--danger)]">14.280.000 ₫</td>
+                  <td><span class="badge badge-gray">Chuyển khoản EVN</span></td>
+                  <td>Trần Thu Hà (QL CN05)</td>
+                  <td><span class="text-xs text-emerald-600 font-semibold cursor-pointer">EVN-202610.pdf</span></td>
                   <td>
-                    <div class="font-semibold text-[var(--text)]">Electricity &amp; Air Conditioning Bill</div>
-                    <div class="text-[11px] text-[var(--muted)]">City Power Grid Co.</div>
-                  </td>
-                  <td><span class="badge badge-warning">Utilities</span></td>
-                  <td class="text-xs text-[var(--muted)]">Aug 18, 2026</td>
-                  <td class="text-sm font-extrabold text-[var(--text)]">$300.00</td>
-                  <td class="text-[13px] text-[var(--text)]">Credit Card</td>
-                  <td class="text-xs text-[var(--muted)]">Admin John</td>
-                  <td><span class="badge badge-success">Approved</span></td>
-                  <td>
-                    <button class="btn btn-secondary btn-icon-sm" aria-label="View receipt for EXP-00083" onclick="Toast.info('Viewing EXP-00083 receipt','Receipt')">
+                    <button class="btn btn-secondary btn-icon-sm" onclick="Toast.info('Xem chứng từ EVN','Chứng Từ')">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                     </button>
                   </td>
                 </tr>
+
                 <tr>
-                  <td class="font-mono font-bold text-[var(--primary)]">EXP-00082</td>
+                  <td><input type="checkbox" aria-label="Chọn hàng"></td>
+                  <td class="font-bold text-[var(--primary)]">PC-CN06-0033</td>
+                  <td>25/10/2026</td>
+                  <td><span class="badge badge-info">CN06 — Bình Thạnh</span></td>
+                  <td><span class="badge badge-danger">Hủy hỏng / Cận date</span></td>
+                  <td class="font-medium text-[var(--text)]">Hủy 12 hộp sữa tươi thanh trùng cận EXP + 3kg trân châu nấu quá 4h</td>
+                  <td class="font-extrabold text-[var(--warning)]">1.450.000 ₫</td>
+                  <td><span class="badge badge-gray">Hao hụt kho</span></td>
+                  <td>Phạm Quốc Bảo (QL CN06)</td>
+                  <td><span class="text-xs text-emerald-600 font-semibold cursor-pointer">BB-HUY-1025.pdf</span></td>
                   <td>
-                    <div class="font-semibold text-[var(--text)]">Cardboard Shipping Boxes &amp; Tape</div>
-                    <div class="text-[11px] text-[var(--muted)]">PackPro Supply</div>
-                  </td>
-                  <td><span class="badge badge-gray">Packaging</span></td>
-                  <td class="text-xs text-[var(--muted)]">Aug 15, 2026</td>
-                  <td class="text-sm font-extrabold text-[var(--text)]">$450.00</td>
-                  <td class="text-[13px] text-[var(--text)]">Petty Cash</td>
-                  <td class="text-xs text-[var(--muted)]">Store Clerk</td>
-                  <td><span class="badge badge-success">Approved</span></td>
-                  <td>
-                    <button class="btn btn-secondary btn-icon-sm" aria-label="View receipt for EXP-00082" onclick="Toast.info('Viewing EXP-00082 receipt','Receipt')">
+                    <button class="btn btn-secondary btn-icon-sm" onclick="Toast.info('Xem biên bản hủy hàng','Chứng Từ')">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                     </button>
                   </td>
                 </tr>
+
                 <tr>
-                  <td class="font-mono font-bold text-[var(--primary)]">EXP-00081</td>
+                  <td><input type="checkbox" aria-label="Chọn hàng"></td>
+                  <td class="font-bold text-[var(--primary)]">PC-CN02-0019</td>
+                  <td>22/10/2026</td>
+                  <td><span class="badge badge-info">CN02 — Q.3</span></td>
+                  <td><span class="badge badge-secondary">Bảo trì thiết bị</span></td>
+                  <td class="font-medium text-[var(--text)]">Thay dao cắt và rơ-le máy dập nắp tự động Fest RC-95</td>
+                  <td class="font-extrabold text-[var(--danger)]">850.000 ₫</td>
+                  <td><span class="badge badge-gray">Tiền mặt quỹ ca</span></td>
+                  <td>Lê Văn Hùng (QL CN02)</td>
+                  <td><span class="text-xs text-emerald-600 font-semibold cursor-pointer">BK-SC-88.jpg</span></td>
                   <td>
-                    <div class="font-semibold text-[var(--text)]">Fiber Internet &amp; Cloud Backup Subscription</div>
-                    <div class="text-[11px] text-[var(--muted)]">FastNet Telecom</div>
+                    <button class="btn btn-secondary btn-icon-sm" onclick="Toast.info('Xem hóa đơn sửa chữa','Chứng Từ')">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
                   </td>
-                  <td><span class="badge badge-info">Software &amp; IT</span></td>
-                  <td class="text-xs text-[var(--muted)]">Aug 10, 2026</td>
-                  <td class="text-sm font-extrabold text-[var(--text)]">$180.00</td>
-                  <td class="text-[13px] text-[var(--text)]">Credit Card</td>
-                  <td class="text-xs text-[var(--muted)]">Admin John</td>
-                  <td><span class="badge badge-success">Approved</span></td>
+                </tr>
+
+                <tr>
+                  <td><input type="checkbox" aria-label="Chọn hàng"></td>
+                  <td class="font-bold text-[var(--primary)]">PC-CN07-0012</td>
+                  <td>20/10/2026</td>
+                  <td><span class="badge badge-info">CN07 — Gò Vấp</span></td>
+                  <td><span class="badge badge-success">Vật tư phụ &amp; Khay</span></td>
+                  <td class="font-medium text-[var(--text)]">Mua bổ sung 20 khay phục vụ gỗ + 5 bình ủ trà Inox 12L</td>
+                  <td class="font-extrabold text-[var(--danger)]">3.200.000 ₫</td>
+                  <td><span class="badge badge-gray">Chuyển khoản MoMo</span></td>
+                  <td>Đặng Thùy Linh (QL CN07)</td>
+                  <td><span class="text-xs text-emerald-600 font-semibold cursor-pointer">HD-BL-55.pdf</span></td>
                   <td>
-                    <button class="btn btn-secondary btn-icon-sm" aria-label="View receipt for EXP-00081" onclick="Toast.info('Viewing EXP-00081 receipt','Receipt')">
+                    <button class="btn btn-secondary btn-icon-sm" onclick="Toast.info('Xem chứng từ mua vật tư','Chứng Từ')">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                     </button>
                   </td>
@@ -234,32 +270,42 @@
               </tbody>
             </table>
           </div>
+
+          <!-- Pagination -->
+          <div class="flex items-center justify-between px-5 py-3 border-t border-[var(--border)] text-xs text-[var(--muted)]">
+            <div>Hiển thị 1 - 5 trong tổng số 64 khoản chi tháng 10/2026</div>
+            <div class="flex gap-1">
+              <button class="btn btn-secondary btn-sm" disabled>Trước</button>
+              <button class="btn btn-primary btn-sm">1</button>
+              <button class="btn btn-secondary btn-sm">2</button>
+              <button class="btn btn-secondary btn-sm">3</button>
+              <button class="btn btn-secondary btn-sm">Sau</button>
+            </div>
+          </div>
         </div>
       </section>
 
     </main>
-    <footer class="app-footer">
-      <div class="app-footer-text">Copyright © 2026 Invenza All rights reserved.</div>
-    </footer>
+    <div id="footer-container"></div>
   </div>
 
+  <div id="modal-container"></div>
   <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
 
+  <script src="../assets/js/chart.min.js"></script>
+  <script src="../assets/js/app.js"></script>
   <script>
-    window.BASE_PATH = '../';
-    window.CURRENT_PAGE = 'expenses';
-
     document.addEventListener('DOMContentLoaded', () => {
-      // Donut Chart
-      const ctxDonut = document.getElementById('expenseCategoryChart')?.getContext('2d');
-      if (ctxDonut) {
-        new Chart(ctxDonut, {
+      // Donut Chart: Cơ cấu chi phí
+      const ctxCat = document.getElementById('expenseCategoryChart')?.getContext('2d');
+      if (ctxCat) {
+        new Chart(ctxCat, {
           type: 'doughnut',
           data: {
-            labels: ['Warehouse Rent', 'Payroll', 'Utilities', 'Packaging', 'Software/IT'],
+            labels: ['Thuê Mặt Bằng', 'Lương Nhân Sự Ca', 'Điện Nước & Đá', 'Hủy Hàng/Bảo Trì'],
             datasets: [{
-              data: [1800, 1950, 300, 450, 320],
-              backgroundColor: ['#22B573', '#3B82F6', '#F59E0B', '#8B5CF6', '#EC4899'],
+              data: [185, 158.4, 45.2, 24.25],
+              backgroundColor: ['#3B82F6', '#22B573', '#F59E0B', '#EF4444'],
               borderWidth: 0
             }]
           },
@@ -272,16 +318,16 @@
         });
       }
 
-      // Trend Chart
-      const ctxTrend = document.getElementById('expenseTrendChart')?.getContext('2d');
-      if (ctxTrend) {
-        new Chart(ctxTrend, {
+      // Bar Chart: Chi phí theo chi nhánh
+      const ctxBranch = document.getElementById('branchExpenseChart')?.getContext('2d');
+      if (ctxBranch) {
+        new Chart(ctxBranch, {
           type: 'bar',
           data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+            labels: ['CN01 Q1', 'CN05 Q10', 'CN06 B.Thạnh', 'CN02 Q3', 'CN07 G.Vấp', 'CN04 Q7', 'CN03 Q5', 'CN09 T.Đức'],
             datasets: [{
-              label: 'Expenses ($)',
-              data: [3800, 4100, 3950, 4300, 4600, 4450, 4700, 4820],
+              label: 'Chi phí (Triệu VNĐ)',
+              data: [62.5, 48.2, 43.6, 41.5, 36.8, 35.4, 32.1, 29.5],
               backgroundColor: '#22B573',
               borderRadius: 6
             }]
@@ -301,70 +347,76 @@
 
     function openAddExpenseModal() {
       Modal.show({
-        title: 'Add New Expense',
-        size: 'md',
+        title: 'Lập Phiếu Chi Mới (Vận Hành Cửa Hàng)',
         body: `
-          <div class="flex flex-col gap-3.5">
-            <div>
-              <label class="form-label">Expense Title <span class="required">*</span></label>
-              <input type="text" id="exp-title" class="form-input" placeholder="e.g. Forklift Maintenance Service" required>
-            </div>
+          <form id="add-expense-form" class="space-y-4">
             <div class="grid grid-cols-2 gap-3">
               <div>
-                <label class="form-label">Expense Category <span class="required">*</span></label>
+                <label class="form-label">Chi Nhánh Chịu Chi Phí <span class="text-red-500">*</span></label>
                 <select class="form-input form-select" required>
-                  <option>Warehouse Rent &amp; Facility</option>
-                  <option>Equipment Maintenance</option>
-                  <option>Utilities &amp; Bills</option>
-                  <option>Packaging &amp; Freight</option>
-                  <option>Software &amp; IT</option>
-                  <option>Staff Meals &amp; Refreshments</option>
+                  <option>CN01 — Quận 1 (Nguyễn Huệ)</option>
+                  <option>CN02 — Quận 3 (Võ Văn Tần)</option>
+                  <option>CN03 — Quận 5 (Trần Hưng Đạo)</option>
+                  <option>CN04 — Quận 7 (Phú Mỹ Hưng)</option>
+                  <option>CN05 — Quận 10 (Sư Vạn Hạnh)</option>
+                  <option>CN06 — Bình Thạnh (D2)</option>
+                  <option>CN07 — Gò Vấp (Phan Văn Trị)</option>
+                  <option>CN08 — Tân Bình (Lê Văn Sỹ)</option>
+                  <option>CN09 — TP. Thủ Đức (Võ Văn Ngân)</option>
+                  <option>CN10 — Phú Nhuận (Phan Xích Long)</option>
+                  <option>CN11 — Tân Phú (Tân Sơn Nhì)</option>
+                  <option>CN12 — Quận 6 (Hậu Giang)</option>
                 </select>
               </div>
               <div>
-                <label class="form-label">Expense Date <span class="required">*</span></label>
-                <input type="date" class="form-input" value="${new Date().toISOString().split('T')[0]}" required>
-              </div>
-            </div>
-            <div class="grid grid-cols-2 gap-3">
-              <div>
-                <label class="form-label">Amount ($) <span class="required">*</span></label>
-                <input type="number" id="exp-amount" class="form-input" placeholder="0.00" min="0.01" step="0.01" required>
-              </div>
-              <div>
-                <label class="form-label">Payment Method</label>
-                <select class="form-input form-select">
-                  <option>Bank Transfer</option>
-                  <option>Corporate Credit Card</option>
-                  <option>Petty Cash</option>
+                <label class="form-label">Danh Mục Chi Phí <span class="text-red-500">*</span></label>
+                <select class="form-input form-select" required>
+                  <option>Tiền thuê mặt bằng</option>
+                  <option>Lương &amp; Thưởng ca Barista</option>
+                  <option>Tiền điện &amp; Nước làm đá</option>
+                  <option>Bảo trì máy móc pha chế</option>
+                  <option>Hủy nguyên liệu cận date/pha lỗi</option>
+                  <option>Chi phí mua đá viên bên ngoài</option>
+                  <option>Văn phòng phẩm &amp; Khác</option>
                 </select>
               </div>
             </div>
             <div>
-              <label class="form-label">Notes &amp; Receipt Reference</label>
-              <textarea class="form-input" rows="2" placeholder="Reference invoice # or description..."></textarea>
+              <label class="form-label">Nội Dung Chi Tiết Khoản Chi <span class="text-red-500">*</span></label>
+              <input type="text" class="form-input" placeholder="Ví dụ: Tiền điện tháng 10, Sửa máy dập nắp..." required>
             </div>
-          </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="form-label">Số Tiền (VNĐ) <span class="text-red-500">*</span></label>
+                <input type="number" class="form-input" placeholder="0" min="1000" step="1000" required>
+              </div>
+              <div>
+                <label class="form-label">Hình Thức Chi</label>
+                <select class="form-input form-select">
+                  <option>Chuyển khoản Ngân hàng</option>
+                  <option>Tiền mặt từ quỹ ca</option>
+                  <option>Ví điện tử MoMo/ZaloPay</option>
+                </select>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="form-label">Người Nhận Tiền / Đơn Vị Thụ Hưởng</label>
+                <input type="text" class="form-input" placeholder="Chủ nhà, EVN, Thợ sửa...">
+              </div>
+              <div>
+                <label class="form-label">Đính Kèm Hóa Đơn / Biên Lai (PDF, JPG)</label>
+                <input type="file" class="form-input text-xs">
+              </div>
+            </div>
+          </form>
         `,
-        footer: `
-          <button class="btn btn-secondary" onclick="this.closest('.modal-backdrop').remove()">Cancel</button>
-          <button class="btn btn-primary" onclick="saveExpense()">Save Expense</button>
-        `
+        confirmText: 'Lập Phiếu Chi',
+        onConfirm: () => {
+          Toast.success('Phiếu chi đã được lưu và gửi duyệt thành công!','Đã Lập Phiếu');
+        }
       });
     }
-
-    function saveExpense() {
-      const title = document.getElementById('exp-title')?.value;
-      const amt = document.getElementById('exp-amount')?.value;
-      if (!title || !amt) {
-        Toast.warning('Please enter title and amount.', 'Validation');
-        return;
-      }
-      document.querySelector('.modal-backdrop')?.remove();
-      Toast.success(`Expense "${title}" ($${parseFloat(amt).toFixed(2)}) recorded!`, 'Expense Saved');
-    }
   </script>
-  <script src="../assets/js/chart.min.js"></script>
-  <script src="../assets/js/app.js"></script>
 </body>
 </html>
