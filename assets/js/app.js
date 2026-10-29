@@ -57,9 +57,10 @@ function getSidebarHTML() {
     </button>
     <div class="submenu" id="submenu-inventory">
       <a href="${bp}inventory/products.html" class="submenu-item" data-page="products">Products</a>
+      <a href="${bp}inventory/ingredients.html" class="submenu-item" data-page="ingredients">Ingredients</a>
       <a href="${bp}inventory/add-product.html" class="submenu-item" data-page="add-product">Add Product</a>
       <a href="${bp}inventory/categories.html" class="submenu-item" data-page="categories">Categories</a>
-      <a href="${bp}inventory/brands.html" class="submenu-item" data-page="brands">Brands</a>
+      <a href="${bp}inventory/branches.html" class="submenu-item" data-page="branches">Branches</a>
       <a href="${bp}inventory/units.html" class="submenu-item" data-page="units">Units</a>
       <a href="${bp}inventory/stock-adjustment.html" class="submenu-item" data-page="stock-adjustment">Stock Adjustment</a>
     </div>
@@ -78,8 +79,27 @@ function getSidebarHTML() {
     <div class="submenu" id="submenu-purchases">
       <a href="${bp}purchases/purchases.html" class="submenu-item" data-page="purchases">All Purchases</a>
       <a href="${bp}purchases/add-purchase.html" class="submenu-item" data-page="add-purchase">Add Purchase</a>
-      <a href="${bp}purchases/purchase-returns.html" class="submenu-item" data-page="purchase-returns">Purchase Returns</a>
+      <a href="${bp}purchases/receipts.html" class="submenu-item" data-page="receipts">Receipts</a>
+      <a href="${bp}purchases/stock-transfers.html" class="submenu-item" data-page="stock-transfers">Stock Transfers</a>
     </div>
+  </div>
+
+  <div class="submenu-group" data-submenu="production">
+    <button class="nav-item submenu-toggle" data-page-group="production">
+      <svg class="flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V5m0 14h16M8 15l3-4 3 2 5-7"/></svg>
+      <span class="sidebar-label flex-1 text-left">Production</span>
+      <span class="nav-toggle-icon sidebar-label"><svg class="icon-plus" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg><svg class="icon-minus" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M5 12h14"/></svg></span>
+    </button>
+    <div class="submenu" id="submenu-production">
+      <a href="${bp}production/recipes.html" class="submenu-item" data-page="recipes">Recipes</a>
+      <a href="${bp}production/batches.html" class="submenu-item" data-page="batches">Production Batches</a>
+    </div>
+  </div>
+
+  <a href="${bp}distribution/planning.html" class="nav-item" data-page="planning"><svg class="flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13v11H3zM16 11h3l3 3v4h-6z"/><circle cx="7.5" cy="18.5" r="1.5"/><circle cx="18.5" cy="18.5" r="1.5"/></svg><span class="sidebar-label flex-1">Distribution Planning</span></a>
+  <div class="submenu-group" data-submenu="stores">
+    <button class="nav-item submenu-toggle" data-page-group="stores"><svg class="flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h18l-2-6H5l-2 6ZM5 10v10h14V10M9 20v-6h6v6"/></svg><span class="sidebar-label flex-1 text-left">Stores</span><span class="nav-toggle-icon sidebar-label"><svg class="icon-plus" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg><svg class="icon-minus" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M5 12h14"/></svg></span></button>
+    <div class="submenu" id="submenu-stores"><a href="${bp}stores/ingredients.html" class="submenu-item" data-page="store-ingredients">Store Ingredients</a><a href="${bp}stores/shift-reconciliation.html" class="submenu-item" data-page="shift-reconciliation">Shift Reconciliation</a></div>
   </div>
 
   <!-- Sales submenu -->

@@ -1,333 +1,406 @@
-<!DOCTYPE html>
-<html lang="en" class="">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add Purchase — Invenza</title>
-  <meta name="description" content="Create a new supplier purchase order in Invenza.">
-  <link rel="stylesheet" href="../assets/css/app.css">
-  <link rel="stylesheet" href="../assets/css/tailwind.css">
-<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
-</head>
-<body>
-  <div id="sidebar-container"></div>
-  <div id="main-wrapper">
-    <div id="header-container"></div>
-    <main class="flex-1 p-6">
-
-      <!-- Page Header -->
-      <div class="page-header">
-        <div>
-          <div class="breadcrumb">
-            <a href="../dashboard.html">Home</a>
-            <span class="sep">/</span>
-            <a href="purchases.html">Purchases</a>
-            <span class="sep">/</span>
-            <span class="current">Add Purchase</span>
-          </div>
-          <h1 class="page-title">Create Purchase Order</h1>
-          <p class="page-subtitle">Record incoming vendor inventory and payment obligations.</p>
-        </div>
-        <a href="purchases.html" class="btn btn-secondary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-          Back to Purchases
-        </a>
-      </div>
-
-      <form id="add-purchase-form" onsubmit="handleSavePurchase(event)">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-          <!-- Left / Main: General Info & Product Table -->
-          <div class="col-span-2 flex flex-col gap-6">
-
-            <!-- General Details Card -->
-            <div class="card">
-              <h3 class="text-[15px] font-bold text-[var(--text)] mb-4 pb-3 border-b border-[var(--border)]">Purchase Information</h3>
-              <div class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">
-                <div>
-                  <label class="form-label">Supplier <span class="required">*</span></label>
-                  <select class="form-input form-select" required>
-                    <option value="">Select Supplier...</option>
-                    <option>Apex Electronics Ltd</option>
-                    <option>Global Supplies Co</option>
-                    <option>Zenith Office Ware</option>
-                    <option>TechParts Distribution</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="form-label">PO Reference #</label>
-                  <input type="text" class="form-input bg-[var(--background)] font-mono font-semibold" value="PO-00049" readonly>
-                </div>
-                <div>
-                  <label class="form-label">Purchase Date <span class="required">*</span></label>
-                  <input type="date" class="form-input" id="po-date" required>
-                </div>
-                <div>
-                  <label class="form-label">Destination Warehouse <span class="required">*</span></label>
-                  <select class="form-input form-select" required>
-                    <option>Main Warehouse (Central)</option>
-                    <option>Warehouse B (North)</option>
-                    <option>Retail Storefront</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="form-label">Order Status</label>
-                  <select class="form-input form-select">
-                    <option>Received</option>
-                    <option>Ordered</option>
-                    <option>Pending</option>
-                  </select>
-                </div>
-              </div>
+<!doctype html>
+<html lang="vi" class="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lập đơn mua nguyên liệu — HaiLyDa</title>
+    <meta
+      name="description"
+      content="Tạo đơn mua cho kho tổng, theo dõi công nợ và phân biệt lượng đặt với lượng thực nhận."
+    />
+    <!-- Giữ nguyên CSS chung và CSS Tailwind của repository. -->
+    <link rel="stylesheet" href="../assets/css/app.css" />
+    <link rel="stylesheet" href="../assets/css/tailwind.css" />
+    <script>
+      try {
+        if (localStorage.getItem("sf_theme") === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      } catch (e) {}
+    </script>
+  </head>
+  <body class="bg-[var(--background)]">
+    <!-- Header và sidebar được assets/js/app.js chèn vào; không dựng lại tại từng trang. -->
+    <div id="sidebar-container"></div>
+    <div id="main-wrapper" class="flex flex-col min-h-screen">
+      <div id="header-container"></div>
+      <main class="flex-1 p-4 md:p-6">
+        <div class="page-header">
+          <div>
+            <div class="breadcrumb">
+              <a href="../dashboard.html">Trang chủ</a>
+              <span class="sep">/</span
+              ><a href="purchases.html">Mua hàng &amp; cấp phát</a>
+              <span class="sep">/</span><span class="current">Lập đơn mua</span>
             </div>
-
-            <!-- Product Items Selection -->
-            <div class="card">
-              <div class="flex items-center justify-between mb-4 flex-wrap gap-2.5">
-                <h3 class="text-[15px] font-bold text-[var(--text)] m-0">Order Line Items</h3>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="addPurchaseItemRow()">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                  Add Item Row
-                </button>
+            <h1 class="page-title">Lập đơn mua nguyên liệu</h1>
+            <p class="page-subtitle mt-1">
+              Tạo đơn mua cho kho tổng, theo dõi công nợ và phân biệt lượng đặt
+              với lượng thực nhận.
+            </p>
+          </div>
+          <div class="page-header-actions">
+            <span class="text-xs text-[var(--muted)]">Dữ liệu minh họa</span>
+          </div>
+        </div>
+        <section
+          class="card mb-6 border-l-4 border-[var(--warning)]"
+          aria-label="Kho nhận theo mapping"
+        >
+          <h2 class="text-sm font-bold mb-1">Kho nhận theo mapping</h2>
+          <p class="text-sm text-[var(--muted)]">
+            Mẫu đơn mua dành cho kho tổng; số lượng đặt được phân biệt với số
+            lượng thực nhận. Cấp phát tới từng cửa hàng được theo dõi ở trang
+            riêng.
+          </p>
+        </section>
+        <form
+          id="add-purchase-form"
+          class="grid grid-cols-1 xl:grid-cols-3 gap-6"
+          novalidate
+        >
+          <div class="xl:col-span-2 flex flex-col gap-6">
+            <section class="card">
+              <h2 class="font-bold mb-4 pb-3 border-b border-[var(--border)]">
+                Thông tin đơn mua
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="form-label" for="po-supplier"
+                    >Nhà cung cấp <span class="required">*</span></label
+                  ><select
+                    id="po-supplier"
+                    name="po-supplier"
+                    class="form-input form-select"
+                    required
+                  >
+                    <option value="">Chọn nhà cung cấp</option>
+                    <option value="ncc-01">Công ty Nguyên liệu An Tâm</option>
+                    <option value="ncc-02">Thực phẩm Minh Phát</option>
+                    <option value="ncc-03">Bao bì Sài Gòn</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="form-label" for="po-reference">Mã đơn mua</label
+                  ><input
+                    id="po-reference"
+                    name="po-reference"
+                    type="text"
+                    class="form-input"
+                    placeholder="PO-2026-046"
+                    value="PO-2026-046"
+                    readonly
+                  />
+                </div>
+                <div>
+                  <label class="form-label" for="po-date"
+                    >Ngày đặt hàng <span class="required">*</span></label
+                  ><input
+                    id="po-date"
+                    name="po-date"
+                    type="date"
+                    class="form-input"
+                    placeholder=""
+                    required
+                  />
+                </div>
+                <div>
+                  <label class="form-label" for="po-warehouse"
+                    >Kho nhận <span class="required">*</span></label
+                  ><select
+                    id="po-warehouse"
+                    name="po-warehouse"
+                    class="form-input form-select"
+                    required
+                  >
+                    <option value="central">Kho tổng / trung tâm</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="form-label" for="po-status">Trạng thái</label
+                  ><select
+                    id="po-status"
+                    name="po-status"
+                    class="form-input form-select"
+                  >
+                    <option value="draft">Bản nháp</option>
+                    <option value="ordered">Đã đặt</option>
+                    <option value="partial">Nhận một phần</option>
+                    <option value="received">Đã nhận đủ</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="form-label" for="po-payment-terms"
+                    >Điều khoản thanh toán</label
+                  ><select
+                    id="po-payment-terms"
+                    name="po-payment-terms"
+                    class="form-input form-select"
+                  >
+                    <option value="prepaid">Thanh toán trước</option>
+                    <option value="net15">Công nợ 15 ngày</option>
+                    <option value="net30">Công nợ 30 ngày</option>
+                  </select>
+                </div>
               </div>
-
+            </section>
+            <section class="card">
+              <div class="flex justify-between items-center gap-3 mb-4">
+                <div>
+                  <h2 class="font-bold">Danh sách nguyên liệu đặt mua</h2>
+                  <p class="text-sm text-[var(--muted)] mt-1">
+                    Khai báo số lượng đặt và lô/hạn dùng khi nhận hàng.
+                  </p>
+                </div>
+              </div>
               <div class="overflow-x-auto">
-                <table class="data-table" id="purchase-items-table">
-                  <thead>
+                <table
+                  id="purchase-items-table"
+                  class="w-full text-sm text-left"
+                >
+                  <thead class="bg-[var(--background)] text-[var(--muted)]">
                     <tr>
-                      <th class="min-w-[200px]">Product</th>
-                      <th class="w-[110px]">Cost ($)</th>
-                      <th class="w-[100px]">Quantity</th>
-                      <th class="w-[90px]">Tax (%)</th>
-                      <th class="w-[120px]">Subtotal</th>
-                      <th class="w-[50px]"></th>
+                      <th scope="col" class="px-4 py-3 text-left font-semibold">
+                        Nguyên liệu
+                      </th>
+                      <th scope="col" class="px-4 py-3 text-left font-semibold">
+                        Đơn vị
+                      </th>
+                      <th scope="col" class="px-4 py-3 text-left font-semibold">
+                        Số lượng đặt
+                      </th>
+                      <th scope="col" class="px-4 py-3 text-left font-semibold">
+                        Số lượng thực nhận
+                      </th>
+                      <th scope="col" class="px-4 py-3 text-left font-semibold">
+                        Mã lô
+                      </th>
+                      <th scope="col" class="px-4 py-3 text-left font-semibold">
+                        Ngày SX
+                      </th>
+                      <th scope="col" class="px-4 py-3 text-left font-semibold">
+                        Hạn dùng
+                      </th>
                     </tr>
                   </thead>
                   <tbody id="purchase-items-tbody">
-                    <tr>
-                      <td>
-                        <select class="form-input form-select item-prod" onchange="calcPurchaseTotals()">
-                          <option value="15.00">Wireless Mouse (WM-001)</option>
-                          <option value="55.00">Mechanical Keyboard (MK-002)</option>
-                          <option value="25.00">USB-C Hub (UH-003)</option>
-                          <option value="90.00">Wireless Headphones (WH-009)</option>
-                        </select>
-                      </td>
-                      <td><input type="number" class="form-input item-cost" value="15.00" min="0" step="0.01" oninput="calcPurchaseTotals()"></td>
-                      <td><input type="number" class="form-input item-qty" value="20" min="1" oninput="calcPurchaseTotals()"></td>
-                      <td><input type="number" class="form-input item-tax" value="10" min="0" oninput="calcPurchaseTotals()"></td>
-                      <td class="font-bold text-[var(--text)]"><span class="item-subtotal">$330.00</span></td>
-                      <td>
-                        <button type="button" class="btn btn-danger btn-icon-sm" onclick="removePurchaseRow(this)">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>
-                        </button>
-                      </td>
+                    <tr
+                      class="border-t border-[var(--border)] hover:bg-[var(--background)]"
+                    >
+                      <td class="px-4 py-3 align-middle">Cốt hồng trà đặc</td>
+                      <td class="px-4 py-3 align-middle">kg</td>
+                      <td class="px-4 py-3 align-middle">30</td>
+                      <td class="px-4 py-3 align-middle">30</td>
+                      <td class="px-4 py-3 align-middle">TR-201026</td>
+                      <td class="px-4 py-3 align-middle">20/10/2026</td>
+                      <td class="px-4 py-3 align-middle">20/04/2027</td>
                     </tr>
-                    <tr>
-                      <td>
-                        <select class="form-input form-select item-prod" onchange="calcPurchaseTotals()">
-                          <option value="55.00" selected>Mechanical Keyboard (MK-002)</option>
-                          <option value="15.00">Wireless Mouse (WM-001)</option>
-                          <option value="25.00">USB-C Hub (UH-003)</option>
-                          <option value="90.00">Wireless Headphones (WH-009)</option>
-                        </select>
+                    <tr
+                      class="border-t border-[var(--border)] hover:bg-[var(--background)]"
+                    >
+                      <td class="px-4 py-3 align-middle">
+                        Sữa tươi thanh trùng
                       </td>
-                      <td><input type="number" class="form-input item-cost" value="55.00" min="0" step="0.01" oninput="calcPurchaseTotals()"></td>
-                      <td><input type="number" class="form-input item-qty" value="10" min="1" oninput="calcPurchaseTotals()"></td>
-                      <td><input type="number" class="form-input item-tax" value="10" min="0" oninput="calcPurchaseTotals()"></td>
-                      <td class="font-bold text-[var(--text)]"><span class="item-subtotal">$605.00</span></td>
-                      <td>
-                        <button type="button" class="btn btn-danger btn-icon-sm" onclick="removePurchaseRow(this)">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>
-                        </button>
-                      </td>
+                      <td class="px-4 py-3 align-middle">lít</td>
+                      <td class="px-4 py-3 align-middle">50</td>
+                      <td class="px-4 py-3 align-middle">30</td>
+                      <td class="px-4 py-3 align-middle">SUA-221026</td>
+                      <td class="px-4 py-3 align-middle">22/10/2026</td>
+                      <td class="px-4 py-3 align-middle">22/11/2026</td>
+                    </tr>
+                    <tr
+                      class="border-t border-[var(--border)] hover:bg-[var(--background)]"
+                    >
+                      <td class="px-4 py-3 align-middle">Ly nhựa 500 ml</td>
+                      <td class="px-4 py-3 align-middle">cái</td>
+                      <td class="px-4 py-3 align-middle">5.000</td>
+                      <td class="px-4 py-3 align-middle">0</td>
+                      <td class="px-4 py-3 align-middle">—</td>
+                      <td class="px-4 py-3 align-middle">—</td>
+                      <td class="px-4 py-3 align-middle">Không áp dụng</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-            </div>
-
-            <!-- Notes -->
-            <div class="card">
-              <h3 class="text-[15px] font-bold text-[var(--text)] mb-3">Notes &amp; Terms</h3>
-              <textarea class="form-input" rows="3" placeholder="Enter purchase terms, freight forwarding details or notes for the supplier..."></textarea>
-            </div>
-
-          </div>
-
-          <!-- Right: Financial Summary & Actions -->
-          <div class="flex flex-col gap-6">
-            
-            <div class="card">
-              <h3 class="text-[15px] font-bold text-[var(--text)] mb-4 pb-3 border-b border-[var(--border)]">Order Calculation</h3>
-              
-              <div class="flex flex-col gap-3.5">
-                <div class="flex justify-between text-sm">
-                  <span class="text-[var(--muted)]">Items Subtotal</span>
-                  <span class="font-semibold text-[var(--text)]" id="po-calc-subtotal">$850.00</span>
-                </div>
-
-                <div class="flex justify-between items-center">
-                  <span class="text-[13px] text-[var(--muted)]">Order Discount ($)</span>
-                  <input type="number" id="po-discount" class="form-input w-[100px] h-[34px] text-right" value="0" min="0" oninput="calcPurchaseTotals()">
-                </div>
-
-                <div class="flex justify-between items-center">
-                  <span class="text-[13px] text-[var(--muted)]">Shipping Cost ($)</span>
-                  <input type="number" id="po-shipping" class="form-input w-[100px] h-[34px] text-right" value="45" min="0" oninput="calcPurchaseTotals()">
-                </div>
-
-                <div class="flex justify-between text-sm">
-                  <span class="text-[var(--muted)]">Estimated Tax</span>
-                  <span class="font-semibold text-[var(--text)]" id="po-calc-tax">$85.00</span>
-                </div>
-
-                <div class="flex justify-between text-lg font-extrabold border-t border-[var(--border)] pt-3.5">
-                  <span class="text-[var(--text)]">Grand Total</span>
-                  <span class="text-[var(--primary)]" id="po-calc-total">$980.00</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Payment Details -->
-            <div class="card">
-              <h3 class="text-[15px] font-bold text-[var(--text)] mb-4 pb-3 border-b border-[var(--border)]">Payment Details</h3>
-              
-              <div class="flex flex-col gap-3.5">
+              <p class="text-xs text-[var(--muted)] mt-3">
+                Bảng là mẫu giao diện tĩnh; dòng mới, tự tính tổng và kiểm tra
+                lô sẽ được nối logic sau.
+              </p>
+            </section>
+            <section class="card">
+              <h2 class="font-bold mb-4">Thông tin kiểm nhận & chất lượng</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label class="form-label">Payment Status</label>
-                  <select class="form-input form-select" id="po-payment-status">
-                    <option value="Paid">Paid</option>
-                    <option value="Partial">Partial Payment</option>
-                    <option value="Unpaid">Unpaid / On Credit</option>
+                  <label class="form-label" for="po-quality"
+                    >Kết quả chất lượng</label
+                  ><select
+                    id="po-quality"
+                    name="po-quality"
+                    class="form-input form-select"
+                  >
+                    <option value="pending">Chưa kiểm tra</option>
+                    <option value="pass">Đạt</option>
+                    <option value="partial">Đạt một phần</option>
+                    <option value="fail">Không đạt</option>
                   </select>
                 </div>
                 <div>
-                  <label class="form-label">Amount Paid ($)</label>
-                  <input type="number" class="form-input" id="po-paid-amount" value="980.00" min="0" step="0.01">
+                  <label class="form-label" for="po-document"
+                    >Chứng từ / mã hóa đơn</label
+                  ><input
+                    id="po-document"
+                    name="po-document"
+                    type="text"
+                    class="form-input"
+                    placeholder="Mã chứng từ nhà cung cấp"
+                  />
                 </div>
                 <div>
-                  <label class="form-label">Payment Method</label>
-                  <select class="form-input form-select">
-                    <option>Bank Wire Transfer</option>
-                    <option>Company Credit Card</option>
-                    <option>Cash</option>
-                    <option>Cheque</option>
-                  </select>
+                  <label class="form-label" for="po-note"
+                    >Ghi chú nhận hàng</label
+                  ><textarea
+                    id="po-note"
+                    name="po-note"
+                    class="form-input form-textarea"
+                    rows="3"
+                    placeholder="Ghi chênh lệch, lô lỗi hoặc chứng từ ATVSTP"
+                  ></textarea>
                 </div>
               </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="flex gap-2.5">
-              <button type="submit" class="btn btn-primary flex-1 justify-center p-3">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                Save Purchase Order
-              </button>
-            </div>
-
+            </section>
           </div>
-
+          <aside class="flex flex-col gap-6">
+            <section class="card">
+              <h2 class="font-bold mb-4">Tổng hợp chi phí</h2>
+              <dl class="space-y-3 text-sm">
+                <div class="flex justify-between">
+                  <dt class="text-[var(--muted)]">Tạm tính</dt>
+                  <dd id="po-calc-subtotal" class="font-semibold">
+                    2.250.000 đ
+                  </dd>
+                </div>
+                <div class="flex justify-between items-center gap-3">
+                  <dt class="text-[var(--muted)]">Chiết khấu (đ)</dt>
+                  <dd class="w-32">
+                    <div>
+                      <label class="form-label" for="po-discount"
+                        >Chiết khấu</label
+                      ><input
+                        id="po-discount"
+                        name="po-discount"
+                        type="number"
+                        class="form-input"
+                        placeholder="0"
+                        value="0"
+                      />
+                    </div>
+                  </dd>
+                </div>
+                <div class="flex justify-between items-center gap-3">
+                  <dt class="text-[var(--muted)]">Vận chuyển (đ)</dt>
+                  <dd class="w-32">
+                    <div>
+                      <label class="form-label" for="po-shipping"
+                        >Phí vận chuyển</label
+                      ><input
+                        id="po-shipping"
+                        name="po-shipping"
+                        type="number"
+                        class="form-input"
+                        placeholder="0"
+                        value="0"
+                      />
+                    </div>
+                  </dd>
+                </div>
+                <div class="flex justify-between">
+                  <dt class="text-[var(--muted)]">Thuế</dt>
+                  <dd id="po-calc-tax">0 đ</dd>
+                </div>
+                <div
+                  class="flex justify-between border-t border-[var(--border)] pt-3"
+                >
+                  <dt class="font-bold">Tổng đơn</dt>
+                  <dd id="po-calc-total" class="font-bold">2.250.000 đ</dd>
+                </div>
+              </dl>
+            </section>
+            <section class="card">
+              <h2 class="font-bold mb-4">Thanh toán</h2>
+              <div class="flex flex-col gap-4">
+                <div>
+                  <label class="form-label" for="po-payment-status"
+                    >Trạng thái thanh toán</label
+                  ><select
+                    id="po-payment-status"
+                    name="po-payment-status"
+                    class="form-input form-select"
+                  >
+                    <option value="unpaid">Chưa thanh toán</option>
+                    <option value="partial">Thanh toán một phần</option>
+                    <option value="paid">Đã thanh toán</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="form-label" for="po-paid-amount"
+                    >Số tiền đã thanh toán (đ)</label
+                  ><input
+                    id="po-paid-amount"
+                    name="po-paid-amount"
+                    type="number"
+                    class="form-input"
+                    placeholder="0"
+                    value="0"
+                  />
+                </div>
+                <div>
+                  <label class="form-label" for="po-payment-note"
+                    >Ghi chú công nợ</label
+                  ><textarea
+                    id="po-payment-note"
+                    name="po-payment-note"
+                    class="form-input form-textarea"
+                    rows="3"
+                    placeholder="Điều khoản và hạn thanh toán"
+                  ></textarea>
+                </div>
+              </div>
+            </section>
+            <section class="card">
+              <h2 class="font-bold mb-3">Lưu đơn mua (mẫu)</h2>
+              <p class="text-sm text-[var(--muted)] mb-4">
+                Các nút bên dưới chưa gọi API và chưa ghi dữ liệu thật.
+              </p>
+              <div class="flex flex-col gap-2">
+                <button type="button" class="btn btn-secondary">
+                  Lưu bản nháp</button
+                ><button type="button" class="btn btn-primary">
+                  Xác nhận đặt hàng (mẫu)</button
+                ><a href="purchases.html" class="btn btn-secondary text-center"
+                  >Quay lại danh sách</a
+                >
+              </div>
+            </section>
+          </aside>
+        </form>
+      </main>
+      <footer class="app-footer">
+        <div class="app-footer-text">
+          © 2026 HaiLyDa Tea Chain · Giao diện minh họa quản lý chuỗi trà sữa
         </div>
-      </form>
-
-    </main>
-    <footer class="app-footer">
-      <div class="app-footer-text">Copyright © 2026 Invenza All rights reserved.</div>
-    </footer>
-  </div>
-
-  <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
-
-  <script>
-    window.BASE_PATH = '../';
-    window.CURRENT_PAGE = 'add-purchase';
-
-    document.addEventListener('DOMContentLoaded', () => {
-      const dateEl = document.getElementById('po-date');
-      if (dateEl) dateEl.value = new Date().toISOString().split('T')[0];
-      calcPurchaseTotals();
-    });
-
-    function addPurchaseItemRow() {
-      const tbody = document.getElementById('purchase-items-tbody');
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>
-          <select class="form-input form-select item-prod" onchange="calcPurchaseTotals()">
-            <option value="25.00">USB-C Hub (UH-003)</option>
-            <option value="15.00">Wireless Mouse (WM-001)</option>
-            <option value="55.00">Mechanical Keyboard (MK-002)</option>
-            <option value="90.00">Wireless Headphones (WH-009)</option>
-          </select>
-        </td>
-        <td><input type="number" class="form-input item-cost" value="25.00" min="0" step="0.01" oninput="calcPurchaseTotals()"></td>
-        <td><input type="number" class="form-input item-qty" value="10" min="1" oninput="calcPurchaseTotals()"></td>
-        <td><input type="number" class="form-input item-tax" value="10" min="0" oninput="calcPurchaseTotals()"></td>
-        <td class="font-bold text-[var(--text)]"><span class="item-subtotal">$275.00</span></td>
-        <td>
-          <button type="button" class="btn btn-danger btn-icon-sm" onclick="removePurchaseRow(this)">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>
-          </button>
-        </td>
-      `;
-      tbody.appendChild(tr);
-      calcPurchaseTotals();
-    }
-
-    function removePurchaseRow(btn) {
-      const rows = document.querySelectorAll('#purchase-items-tbody tr');
-      if (rows.length <= 1) {
-        Toast.warning('At least one item is required in the purchase order.', 'Order Items');
-        return;
-      }
-      btn.closest('tr').remove();
-      calcPurchaseTotals();
-    }
-
-    function calcPurchaseTotals() {
-      const rows = document.querySelectorAll('#purchase-items-tbody tr');
-      let itemsSubtotal = 0;
-      let totalTax = 0;
-
-      rows.forEach(r => {
-        const cost = parseFloat(r.querySelector('.item-cost')?.value || 0);
-        const qty = parseFloat(r.querySelector('.item-qty')?.value || 0);
-        const taxRate = parseFloat(r.querySelector('.item-tax')?.value || 0);
-        
-        const lineBase = cost * qty;
-        const lineTax = (lineBase * taxRate) / 100;
-        const lineTotal = lineBase + lineTax;
-
-        itemsSubtotal += lineBase;
-        totalTax += lineTax;
-
-        const subEl = r.querySelector('.item-subtotal');
-        if (subEl) subEl.textContent = `$${lineTotal.toFixed(2)}`;
-      });
-
-      const discount = parseFloat(document.getElementById('po-discount')?.value || 0);
-      const shipping = parseFloat(document.getElementById('po-shipping')?.value || 0);
-      const grandTotal = Math.max(0, itemsSubtotal - discount + totalTax + shipping);
-
-      document.getElementById('po-calc-subtotal').textContent = `$${itemsSubtotal.toFixed(2)}`;
-      document.getElementById('po-calc-tax').textContent = `$${totalTax.toFixed(2)}`;
-      document.getElementById('po-calc-total').textContent = `$${grandTotal.toFixed(2)}`;
-
-      const paidEl = document.getElementById('po-paid-amount');
-      if (paidEl && document.getElementById('po-payment-status').value === 'Paid') {
-        paidEl.value = grandTotal.toFixed(2);
-      }
-    }
-
-    function handleSavePurchase(e) {
-      e.preventDefault();
-      Toast.success('Purchase Order PO-00049 created successfully!', 'Purchase Saved');
-      setTimeout(() => {
-        window.location.href = 'purchases.html';
-      }, 1000);
-    }
-  </script>
-  <script src="../assets/js/app.js"></script>
-</body>
+      </footer>
+    </div>
+    <div
+      id="toast-container"
+      class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"
+      aria-live="polite"
+    ></div>
+    <!-- BASE_PATH phải được khai báo trước khi nạp app.js để đường dẫn layout đúng ở thư mục con. -->
+    <script>
+      window.BASE_PATH = "../"; window.CURRENT_PAGE = "add-purchase";
+    </script>
+    <script src="../assets/js/app.js"></script>
+  </body>
 </html>

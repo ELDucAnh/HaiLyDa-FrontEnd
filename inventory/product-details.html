@@ -1,216 +1,302 @@
-<!DOCTYPE html>
-<html lang="en" class="">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product Details — Invenza</title>
-  <meta name="description" content="View detailed product specifications, stock levels, and transaction history.">
-  <link rel="stylesheet" href="../assets/css/app.css">
-  <link rel="stylesheet" href="../assets/css/tailwind.css">
-<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
-</head>
-<body>
-  <div id="sidebar-container"></div>
-  <div id="main-wrapper">
-    <div id="header-container"></div>
-    <main class="flex-1 p-6">
-
-      <!-- Page Header -->
-      <div class="page-header">
-        <div>
-          <div class="breadcrumb">
-            <a href="../dashboard.html">Home</a>
-            <span class="sep">/</span>
-            <a href="products.html">Products</a>
-            <span class="sep">/</span>
-            <span class="current">Product Details</span>
-          </div>
-          <div class="flex items-center gap-3 mt-1">
-            <h1 class="page-title mb-0">Wireless Mouse Pro</h1>
-            <span class="badge badge-success">In Stock</span>
-            <span class="badge badge-info">Electronics</span>
-          </div>
-        </div>
-        <div class="page-header-actions">
-          <a href="products.html" class="btn btn-secondary" aria-label="Back to products list">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-            Back
-          </a>
-          <button class="btn btn-secondary" aria-label="Print barcode label" onclick="Toast.info('Printing barcode label...','Barcode')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="8" x2="7" y2="16"/><line x1="10" y1="8" x2="10" y2="16"/><line x1="14" y1="8" x2="14" y2="16"/><line x1="17" y1="8" x2="17" y2="16"/></svg>
-            Print Barcode
-          </button>
-          <a href="add-product.html" class="btn btn-primary" aria-label="Edit this product">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-            Edit Product
-          </a>
-        </div>
-      </div>
-
-      <!-- Quick Metrics -->
-      <section class="page-section" aria-label="Product quick metrics">
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          <div class="stat-card">
-            <div class="stat-card-body">
-              <div class="stat-label">Current Stock</div>
-              <div class="stat-value">45 <span class="text-sm font-medium text-[var(--muted)]">Units</span></div>
-              <div class="trend-up stat-sub-label">? Above minimum (10)</div>
+<!doctype html>
+<html lang="vi" class="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chi tiết món &amp; công thức — HaiLyDa</title>
+    <meta
+      name="description"
+      content="Xem giá chuẩn, giá vốn định mức theo size và lịch sử phiên bản công thức."
+    />
+    <!-- Giữ nguyên CSS chung và CSS Tailwind của repository. -->
+    <link rel="stylesheet" href="../assets/css/app.css" />
+    <link rel="stylesheet" href="../assets/css/tailwind.css" />
+    <script>
+      try {
+        if (localStorage.getItem("sf_theme") === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      } catch (e) {}
+    </script>
+  </head>
+  <body class="bg-[var(--background)]">
+    <!-- Header và sidebar được assets/js/app.js chèn vào; không dựng lại tại từng trang. -->
+    <div id="sidebar-container"></div>
+    <div id="main-wrapper" class="flex flex-col min-h-screen">
+      <div id="header-container"></div>
+      <main class="flex-1 p-4 md:p-6">
+        <div class="page-header">
+          <div>
+            <div class="breadcrumb">
+              <a href="../dashboard.html">Trang chủ</a>
+              <span class="sep">/</span><a href="products.html">Menu đồ uống</a>
+              <span class="sep">/</span
+              ><span class="current">Chi tiết món</span>
             </div>
+            <h1 class="page-title">Chi tiết món &amp; công thức</h1>
+            <p class="page-subtitle mt-1">
+              Xem giá chuẩn, giá vốn định mức theo size và lịch sử phiên bản
+              công thức.
+            </p>
           </div>
-          <div class="stat-card">
-            <div class="stat-card-body">
-              <div class="stat-label">Selling Price</div>
-              <div class="stat-value text-[var(--primary)]">$29.99</div>
-              <div class="stat-sub-label">Cost: $15.00 (Margin: 49.9%)</div>
-            </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-card-body">
-              <div class="stat-label">Total Units Sold</div>
-              <div class="stat-value">184</div>
-              <div class="trend-up stat-sub-label">? +14% this month</div>
-            </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-card-body">
-              <div class="stat-label">Total Revenue Generated</div>
-              <div class="stat-value">$5,518.16</div>
-              <div class="stat-sub-label">From 142 orders</div>
-            </div>
+          <div class="page-header-actions">
+            <span class="text-xs text-[var(--muted)]">Dữ liệu minh họa</span>
           </div>
         </div>
-      </section>
-
-      <!-- Main Details Grid -->
-      <section class="page-section" aria-label="Product details">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-          
-          <!-- Left: Product Overview & Barcode -->
-          <div class="card flex flex-col gap-6">
-            <div class="text-center">
-              <div class="w-[140px] h-[140px] rounded-[20px] bg-[var(--primary-light)] flex items-center justify-center mx-auto mb-4">
-                <span class="text-[44px] font-extrabold text-[var(--primary)]">WM</span>
+        <section
+          class="card mb-6 border-l-4 border-[var(--info)]"
+          aria-label="Lịch sử bất biến"
+        >
+          <h2 class="text-sm font-bold mb-1">Lịch sử bất biến</h2>
+          <p class="text-sm text-[var(--muted)]">
+            Đơn hàng cũ phải giữ giá bán và phiên bản công thức đã áp dụng tại
+            thời điểm giao dịch. Khi công thức mới có hiệu lực, không ghi đè
+            phiên bản cũ.
+          </p>
+        </section>
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-6">
+          <section class="card xl:col-span-2">
+            <div class="flex flex-wrap justify-between gap-4">
+              <div>
+                <p class="text-xs text-[var(--muted)]">MÃ MÓN · HD-001</p>
+                <h2 class="text-xl font-bold mt-1">Hồng trà sữa trân châu</h2>
+                <p class="text-sm text-[var(--muted)] mt-2">
+                  Nhóm Trà sữa · Menu lõi toàn chuỗi
+                </p>
               </div>
-              <h2 class="text-lg font-bold text-[var(--text)]">Wireless Mouse Pro</h2>
-              <div class="text-xs text-[var(--muted)] font-mono mt-1">SKU: WM-001 | Barcode: 88472910384</div>
-            </div>
-
-            <div class="border-t border-[var(--border)] pt-4 flex flex-col gap-3">
-              <div class="flex justify-between text-sm">
-                <span class="text-[var(--muted)]">Category</span>
-                <span class="font-semibold text-[var(--text)]">Electronics</span>
-              </div>
-              <div class="flex justify-between text-sm">
-                <span class="text-[var(--muted)]">Brand</span>
-                <span class="font-semibold text-[var(--text)]">Logitech</span>
-              </div>
-              <div class="flex justify-between text-sm">
-                <span class="text-[var(--muted)]">Unit Type</span>
-                <span class="font-semibold text-[var(--text)]">Piece (pc)</span>
-              </div>
-              <div class="flex justify-between text-sm">
-                <span class="text-[var(--muted)]">Warehouse Location</span>
-                <span class="font-semibold text-[var(--text)]">Section A, Shelf 3</span>
-              </div>
-              <div class="flex justify-between text-sm">
-                <span class="text-[var(--muted)]">Tax Rate</span>
-                <span class="font-semibold text-[var(--text)]">Standard (10%)</span>
-              </div>
-              <div class="flex justify-between text-sm">
-                <span class="text-[var(--muted)]">Primary Supplier</span>
-                <a href="../suppliers/suppliers.html" class="font-semibold text-[var(--primary)] no-underline">Apex Electronics Ltd</a>
+              <div>
+                <span
+                  class="badge badge-success"
+                  >Đang bán</span
+                >
               </div>
             </div>
-
-            <!-- Barcode Mockup -->
-            <div class="bg-[var(--background)] p-4 rounded-xl text-center">
-              <div class="font-mono text-[24px] tracking-[4px] font-bold text-[var(--text)]">|||| | ||||| ||| ||||</div>
-              <div class="text-[11px] text-[var(--muted)] font-mono mt-1.5">88472910384 (EAN-13)</div>
-            </div>
-          </div>
-
-          <!-- Right: Description, Specs & Stock History -->
-          <div class="lg:col-span-2 flex flex-col gap-6">
-            
-            <!-- Description -->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Product Description</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+              <div class="rounded-xl border border-[var(--border)] p-4">
+                <p class="text-sm text-[var(--muted)]">Size M</p>
+                <p class="text-lg font-bold mt-1">35.000 đ</p>
               </div>
-              <p class="text-sm text-[var(--muted)] leading-relaxed">
-                Ergonomic 2.4GHz wireless mouse with silent click technology and high-precision 4000 DPI optical tracking sensor. Compatible with Windows, macOS, Linux, and ChromeOS. Features rechargeable USB-C lithium-ion battery offering up to 70 days of continuous operation on a single full charge.
+              <div class="rounded-xl border border-[var(--border)] p-4">
+                <p class="text-sm text-[var(--muted)]">Size L</p>
+                <p class="text-lg font-bold mt-1">42.000 đ</p>
+              </div>
+              <div class="rounded-xl border border-[var(--border)] p-4">
+                <p class="text-sm text-[var(--muted)]">COGS / ly M</p>
+                <p class="text-lg font-bold mt-1">18.400 đ</p>
+              </div>
+            </div>
+          </section>
+          <aside class="card">
+            <h2 class="font-bold mb-3">Thông tin quản lý</h2>
+            <dl class="space-y-3 text-sm">
+              <div class="flex justify-between gap-3">
+                <dt class="text-[var(--muted)]">Phiên bản đang hiệu lực</dt>
+                <dd class="font-semibold">1.1</dd>
+              </div>
+              <div class="flex justify-between gap-3">
+                <dt class="text-[var(--muted)]">Ngày hiệu lực</dt>
+                <dd>01/10/2026</dd>
+              </div>
+              <div class="flex justify-between gap-3">
+                <dt class="text-[var(--muted)]">Người duyệt</dt>
+                <dd>Quản lý sản phẩm</dd>
+              </div>
+              <div class="flex justify-between gap-3">
+                <dt class="text-[var(--muted)]">Topping cho phép</dt>
+                <dd>4 loại</dd>
+              </div>
+            </dl>
+            <a
+              href="add-product.html"
+              class="btn btn-secondary w-full text-center mt-5"
+              >Mở biểu mẫu công thức</a
+            >
+          </aside>
+        </div>
+        <section class="card p-0 overflow-hidden mb-6">
+          <div
+            class="p-4 md:p-5 flex flex-wrap items-start justify-between gap-3 border-b border-[var(--border)]"
+          >
+            <div>
+              <h2 class="font-bold text-[var(--text)]">
+                Định mức nguyên liệu theo size
+              </h2>
+              <p class="text-sm text-[var(--muted)] mt-1">
+                Định lượng minh họa cho một đơn vị thành phẩm.
               </p>
             </div>
-
-            <!-- Stock Movement Audit Log -->
-            <div class="card p-0 overflow-hidden">
-              <div class="card-header border-b border-[var(--border)]">
-                <h3 class="card-title m-0">Stock Movement History</h3>
-                <a href="stock-adjustment.html" class="btn btn-secondary btn-sm" aria-label="Adjust stock levels">Adjust Stock</a>
-              </div>
-              <div class="overflow-x-auto">
-                <table class="data-table">
-                  <caption class="sr-only">Stock movement history for this product</caption>
-                  <thead>
-                    <tr>
-                      <th>Date</th>
-                      <th>Type</th>
-                      <th>Reference</th>
-                      <th>Qty Change</th>
-                      <th>Stock After</th>
-                      <th>User</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="text-xs text-[var(--muted)]">Aug 24, 2026</td>
-                      <td><span class="badge badge-danger">Sale</span></td>
-                      <td><a href="../invoices/invoice-details.html" class="text-[var(--primary)] font-semibold no-underline">INV-000125</a></td>
-                      <td class="font-bold text-[var(--danger)]">-2</td>
-                      <td class="font-semibold">45</td>
-                      <td class="text-xs text-[var(--muted)]">John Smith</td>
-                    </tr>
-                    <tr>
-                      <td class="text-xs text-[var(--muted)]">Aug 20, 2026</td>
-                      <td><span class="badge badge-success">Purchase</span></td>
-                      <td><a href="../purchases/purchases.html" class="text-[var(--primary)] font-semibold no-underline">PO-00048</a></td>
-                      <td class="font-bold text-[var(--primary)]">+30</td>
-                      <td class="font-semibold">47</td>
-                      <td class="text-xs text-[var(--muted)]">Admin</td>
-                    </tr>
-                    <tr>
-                      <td class="text-xs text-[var(--muted)]">Aug 14, 2026</td>
-                      <td><span class="badge badge-warning">Adjustment</span></td>
-                      <td><span class="font-mono text-xs text-[var(--muted)]">ADJ-0091</span></td>
-                      <td class="font-bold text-[var(--danger)]">-1</td>
-                      <td class="font-semibold">17</td>
-                      <td class="text-xs text-[var(--muted)]">Warehouse Clerk</td>
-                    </tr>
-                    <tr>
-                      <td class="text-xs text-[var(--muted)]">Aug 02, 2026</td>
-                      <td><span class="badge badge-danger">Sale</span></td>
-                      <td><a href="../invoices/invoice-details.html" class="text-[var(--primary)] font-semibold no-underline">INV-000098</a></td>
-                      <td class="font-bold text-[var(--danger)]">-5</td>
-                      <td class="font-semibold">18</td>
-                      <td class="text-xs text-[var(--muted)]">Cashier 1</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
           </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left">
+              <thead class="bg-[var(--background)] text-[var(--muted)]">
+                <tr>
+                  <th scope="col" class="px-4 py-3 text-left font-semibold">
+                    Nguyên liệu
+                  </th>
+                  <th scope="col" class="px-4 py-3 text-left font-semibold">
+                    Đơn vị
+                  </th>
+                  <th scope="col" class="px-4 py-3 text-left font-semibold">
+                    Size M
+                  </th>
+                  <th scope="col" class="px-4 py-3 text-left font-semibold">
+                    Size L
+                  </th>
+                  <th scope="col" class="px-4 py-3 text-left font-semibold">
+                    Ghi chú
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class="border-t border-[var(--border)] hover:bg-[var(--background)]"
+                >
+                  <td class="px-4 py-3 align-middle">Cốt hồng trà đặc</td>
+                  <td class="px-4 py-3 align-middle">ml</td>
+                  <td class="px-4 py-3 align-middle">100</td>
+                  <td class="px-4 py-3 align-middle">140</td>
+                  <td class="px-4 py-3 align-middle">Nền trà</td>
+                </tr>
+                <tr
+                  class="border-t border-[var(--border)] hover:bg-[var(--background)]"
+                >
+                  <td class="px-4 py-3 align-middle">Bột kem béo sữa</td>
+                  <td class="px-4 py-3 align-middle">gram</td>
+                  <td class="px-4 py-3 align-middle">30</td>
+                  <td class="px-4 py-3 align-middle">40</td>
+                  <td class="px-4 py-3 align-middle">Thành phần sữa</td>
+                </tr>
+                <tr
+                  class="border-t border-[var(--border)] hover:bg-[var(--background)]"
+                >
+                  <td class="px-4 py-3 align-middle">Nước đường mía nấu</td>
+                  <td class="px-4 py-3 align-middle">ml</td>
+                  <td class="px-4 py-3 align-middle">25</td>
+                  <td class="px-4 py-3 align-middle">35</td>
+                  <td class="px-4 py-3 align-middle">
+                    Có thể thay đổi theo tùy chọn đường
+                  </td>
+                </tr>
+                <tr
+                  class="border-t border-[var(--border)] hover:bg-[var(--background)]"
+                >
+                  <td class="px-4 py-3 align-middle">Ly nhựa</td>
+                  <td class="px-4 py-3 align-middle">cái</td>
+                  <td class="px-4 py-3 align-middle">1</td>
+                  <td class="px-4 py-3 align-middle">1</td>
+                  <td class="px-4 py-3 align-middle">
+                    Chọn đúng loại ly theo size
+                  </td>
+                </tr>
+                <tr
+                  class="border-t border-[var(--border)] hover:bg-[var(--background)]"
+                >
+                  <td class="px-4 py-3 align-middle">Màng ép miệng ly</td>
+                  <td class="px-4 py-3 align-middle">miếng</td>
+                  <td class="px-4 py-3 align-middle">1</td>
+                  <td class="px-4 py-3 align-middle">1</td>
+                  <td class="px-4 py-3 align-middle">Bao bì</td>
+                </tr>
+                <tr
+                  class="border-t border-[var(--border)] hover:bg-[var(--background)]"
+                >
+                  <td class="px-4 py-3 align-middle">Ống hút trân châu</td>
+                  <td class="px-4 py-3 align-middle">cái</td>
+                  <td class="px-4 py-3 align-middle">1</td>
+                  <td class="px-4 py-3 align-middle">1</td>
+                  <td class="px-4 py-3 align-middle">Bao bì</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <section class="card p-0 overflow-hidden mb-6">
+          <div
+            class="p-4 md:p-5 flex flex-wrap items-start justify-between gap-3 border-b border-[var(--border)]"
+          >
+            <div>
+              <h2 class="font-bold text-[var(--text)]">
+                Lịch sử phiên bản công thức
+              </h2>
+              <p class="text-sm text-[var(--muted)] mt-1">
+                Không xóa phiên bản đã được sử dụng trong đơn hàng.
+              </p>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left">
+              <thead class="bg-[var(--background)] text-[var(--muted)]">
+                <tr>
+                  <th scope="col" class="px-4 py-3 text-left font-semibold">
+                    Phiên bản
+                  </th>
+                  <th scope="col" class="px-4 py-3 text-left font-semibold">
+                    Ngày hiệu lực
+                  </th>
+                  <th scope="col" class="px-4 py-3 text-left font-semibold">
+                    Thay đổi chính
+                  </th>
+                  <th scope="col" class="px-4 py-3 text-left font-semibold">
+                    Người duyệt
+                  </th>
+                  <th scope="col" class="px-4 py-3 text-left font-semibold">
+                    Trạng thái
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class="border-t border-[var(--border)] hover:bg-[var(--background)]"
+                >
+                  <td class="px-4 py-3 align-middle">1.1</td>
+                  <td class="px-4 py-3 align-middle">01/10/2026</td>
+                  <td class="px-4 py-3 align-middle">
+                    Giảm nước đường từ 30 ml xuống 25 ml
+                  </td>
+                  <td class="px-4 py-3 align-middle">Quản lý sản phẩm</td>
+                  <td class="px-4 py-3 align-middle">
+                    <span
+                      class="badge badge-success"
+                      >Đang hiệu lực</span
+                    >
+                  </td>
+                </tr>
+                <tr
+                  class="border-t border-[var(--border)] hover:bg-[var(--background)]"
+                >
+                  <td class="px-4 py-3 align-middle">1.0</td>
+                  <td class="px-4 py-3 align-middle">01/08/2026</td>
+                  <td class="px-4 py-3 align-middle">Công thức khởi tạo</td>
+                  <td class="px-4 py-3 align-middle">Quản lý sản phẩm</td>
+                  <td class="px-4 py-3 align-middle">
+                    <span
+                      class="badge badge-gray"
+                      >Đã thay thế</span
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+      <footer class="app-footer">
+        <div class="app-footer-text">
+          © 2026 HaiLyDa Tea Chain · Giao diện minh họa quản lý chuỗi trà sữa
         </div>
-      </section>
-
-    </main>
-    <footer class="app-footer">
-      <div class="app-footer-text">Copyright © 2026 Invenza All rights reserved.</div>
-    </footer>
-  </div>
-
-  <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
-  <script>window.BASE_PATH = '../'; window.CURRENT_PAGE = 'products';</script>
-  <script src="../assets/js/app.js"></script>
-</body>
+      </footer>
+    </div>
+    <div
+      id="toast-container"
+      class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"
+      aria-live="polite"
+    ></div>
+    <!-- BASE_PATH phải được khai báo trước khi nạp app.js để đường dẫn layout đúng ở thư mục con. -->
+    <script>
+      window.BASE_PATH = "../"; window.CURRENT_PAGE = "product-details";
+    </script>
+    <script src="../assets/js/app.js"></script>
+  </body>
 </html>
