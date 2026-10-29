@@ -1,4 +1,4 @@
-/* ============================================
+﻿/* ============================================
    Invenza — Core Application JavaScript
    Layout Injection + Interactive Behaviors
    ============================================ */
@@ -56,12 +56,13 @@ function getSidebarHTML() {
       </span>
     </button>
     <div class="submenu" id="submenu-inventory">
-      <a href="${bp}inventory/products.html" class="submenu-item" data-page="products">Sản phẩm</a>
-      <a href="${bp}inventory/add-product.html" class="submenu-item" data-page="add-product">Thêm sản phẩm</a>
-      <a href="${bp}inventory/categories.html" class="submenu-item" data-page="categories">Danh mục</a>
-      <a href="${bp}inventory/brands.html" class="submenu-item" data-page="brands">Thương hiệu</a>
-      <a href="${bp}inventory/units.html" class="submenu-item" data-page="units">Đơn vị tính</a>
-      <a href="${bp}inventory/stock-adjustment.html" class="submenu-item" data-page="stock-adjustment">Điều chỉnh kho</a>
+      <a href="${bp}inventory/products.html" class="submenu-item" data-page="products">Products</a>
+      <a href="${bp}inventory/ingredients.html" class="submenu-item" data-page="ingredients">Ingredients</a>
+      <a href="${bp}inventory/add-product.html" class="submenu-item" data-page="add-product">Add Product</a>
+      <a href="${bp}inventory/categories.html" class="submenu-item" data-page="categories">Categories</a>
+      <a href="${bp}inventory/branches.html" class="submenu-item" data-page="branches">Branches</a>
+      <a href="${bp}inventory/units.html" class="submenu-item" data-page="units">Units</a>
+      <a href="${bp}inventory/stock-adjustment.html" class="submenu-item" data-page="stock-adjustment">Stock Adjustment</a>
     </div>
   </div>
 
@@ -76,10 +77,29 @@ function getSidebarHTML() {
       </span>
     </button>
     <div class="submenu" id="submenu-purchases">
-      <a href="${bp}purchases/purchases.html" class="submenu-item" data-page="purchases">Tất cả đơn nhập</a>
-      <a href="${bp}purchases/add-purchase.html" class="submenu-item" data-page="add-purchase">Tạo đơn nhập</a>
-      <a href="${bp}purchases/purchase-returns.html" class="submenu-item" data-page="purchase-returns">Trả hàng nhập</a>
+      <a href="${bp}purchases/purchases.html" class="submenu-item" data-page="purchases">All Purchases</a>
+      <a href="${bp}purchases/add-purchase.html" class="submenu-item" data-page="add-purchase">Add Purchase</a>
+      <a href="${bp}purchases/receipts.html" class="submenu-item" data-page="receipts">Receipts</a>
+      <a href="${bp}purchases/stock-transfers.html" class="submenu-item" data-page="stock-transfers">Stock Transfers</a>
     </div>
+  </div>
+
+  <div class="submenu-group" data-submenu="production">
+    <button class="nav-item submenu-toggle" data-page-group="production">
+      <svg class="flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V5m0 14h16M8 15l3-4 3 2 5-7"/></svg>
+      <span class="sidebar-label flex-1 text-left">Production</span>
+      <span class="nav-toggle-icon sidebar-label"><svg class="icon-plus" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg><svg class="icon-minus" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M5 12h14"/></svg></span>
+    </button>
+    <div class="submenu" id="submenu-production">
+      <a href="${bp}production/recipes.html" class="submenu-item" data-page="recipes">Recipes</a>
+      <a href="${bp}production/batches.html" class="submenu-item" data-page="batches">Production Batches</a>
+    </div>
+  </div>
+
+  <a href="${bp}distribution/planning.html" class="nav-item" data-page="planning"><svg class="flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13v11H3zM16 11h3l3 3v4h-6z"/><circle cx="7.5" cy="18.5" r="1.5"/><circle cx="18.5" cy="18.5" r="1.5"/></svg><span class="sidebar-label flex-1">Distribution Planning</span></a>
+  <div class="submenu-group" data-submenu="stores">
+    <button class="nav-item submenu-toggle" data-page-group="stores"><svg class="flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10h18l-2-6H5l-2 6ZM5 10v10h14V10M9 20v-6h6v6"/></svg><span class="sidebar-label flex-1 text-left">Stores</span><span class="nav-toggle-icon sidebar-label"><svg class="icon-plus" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg><svg class="icon-minus" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M5 12h14"/></svg></span></button>
+    <div class="submenu" id="submenu-stores"><a href="${bp}stores/ingredients.html" class="submenu-item" data-page="store-ingredients">Store Ingredients</a><a href="${bp}stores/shift-reconciliation.html" class="submenu-item" data-page="shift-reconciliation">Shift Reconciliation</a></div>
   </div>
 
   <!-- Sales submenu -->
@@ -328,7 +348,7 @@ function getHeaderHTML() {
    ============================================ */
 function initLayout() {
   const sidebarContainer = document.getElementById('sidebar-container');
-  const headerContainer  = document.getElementById('header-container');
+  const headerContainer = document.getElementById('header-container');
 
   if (sidebarContainer) {
     const aside = document.createElement('aside');
@@ -372,7 +392,7 @@ function initSidebar() {
 
   // Restore state
   let collapsed = false;
-  try { collapsed = localStorage.getItem('sf_sidebar_collapsed') === 'true'; } catch (e) {}
+  try { collapsed = localStorage.getItem('sf_sidebar_collapsed') === 'true'; } catch (e) { }
   if (collapsed) {
     sidebar.classList.add('collapsed');
     mainWrapper && mainWrapper.classList.add('sidebar-collapsed');
@@ -387,18 +407,18 @@ function initSidebar() {
       if (isCollapsed) {
         sidebar.classList.remove('collapsed');
         mainWrapper && mainWrapper.classList.remove('sidebar-collapsed');
-        try { localStorage.setItem('sf_sidebar_collapsed', 'false'); } catch (e) {}
+        try { localStorage.setItem('sf_sidebar_collapsed', 'false'); } catch (e) { }
       } else {
         sidebar.classList.add('collapsed');
         mainWrapper && mainWrapper.classList.add('sidebar-collapsed');
-        try { localStorage.setItem('sf_sidebar_collapsed', 'true'); } catch (e) {}
+        try { localStorage.setItem('sf_sidebar_collapsed', 'true'); } catch (e) { }
       }
     }
   });
 
   // Submenu toggles
   document.querySelectorAll('.submenu-toggle').forEach(btn => {
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function () {
       const group = this.closest('.submenu-group');
       if (!group) return;
       const submenuId = 'submenu-' + group.dataset.submenu;
@@ -505,16 +525,16 @@ function applyChartTheme(isDark) {
               chart.options.plugins.legend.labels.color = isDark ? '#F1F5F9' : '#17212B';
             }
             chart.update();
-          } catch(e) {}
+          } catch (e) { }
         });
       }
-    } catch(e) {}
+    } catch (e) { }
   }
 }
 
 function initDarkMode() {
   let savedTheme = 'light';
-  try { savedTheme = localStorage.getItem('sf_theme') || 'light'; } catch (e) {}
+  try { savedTheme = localStorage.getItem('sf_theme') || 'light'; } catch (e) { }
   const isDark = savedTheme === 'dark';
   if (isDark) {
     document.documentElement.classList.add('dark');
@@ -530,7 +550,7 @@ function initDarkMode() {
     btn._hasDarkModeListener = true;
     btn.addEventListener('click', () => {
       const isDarkNow = document.documentElement.classList.toggle('dark');
-      try { localStorage.setItem('sf_theme', isDarkNow ? 'dark' : 'light'); } catch (e) {}
+      try { localStorage.setItem('sf_theme', isDarkNow ? 'dark' : 'light'); } catch (e) { }
       updateDarkModeIcon(isDarkNow);
       applyChartTheme(isDarkNow);
       // Notify charts + other components to refresh colors
@@ -541,15 +561,15 @@ function initDarkMode() {
 
 function updateDarkModeIcon(isDark) {
   const moon = document.getElementById('dark-mode-icon-moon');
-  const sun  = document.getElementById('dark-mode-icon-sun');
+  const sun = document.getElementById('dark-mode-icon-sun');
   if (moon) moon.style.display = isDark ? 'none' : 'block';
-  if (sun)  sun.style.display  = isDark ? 'block' : 'none';
+  if (sun) sun.style.display = isDark ? 'block' : 'none';
 }
 
 // Apply dark mode immediately (before layout injection to avoid flash)
-(function() {
+(function () {
   var isDark = false;
-  try { isDark = localStorage.getItem('sf_theme') === 'dark'; } catch (e) {}
+  try { isDark = localStorage.getItem('sf_theme') === 'dark'; } catch (e) { }
   if (isDark) {
     document.documentElement.classList.add('dark');
   } else {
@@ -633,7 +653,7 @@ function initSearch() {
     const dropdown = document.getElementById('global-search-dropdown');
     if (!input || !dropdown) return;
 
-    input.addEventListener('input', function() {
+    input.addEventListener('input', function () {
       const q = this.value.trim().toLowerCase();
       if (q.length < 1) { dropdown.style.display = 'none'; return; }
 
@@ -704,9 +724,9 @@ const Toast = {
 
     const icons = {
       success: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
-      error:   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
+      error: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
       warning: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
-      info:    '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+      info: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
     };
 
     const defaultTitles = { success: 'Success', error: 'Error', warning: 'Warning', info: 'Information' };
@@ -735,9 +755,9 @@ const Toast = {
   },
 
   success(msg, title) { return this.show(msg, 'success', title); },
-  error(msg, title)   { return this.show(msg, 'error', title); },
+  error(msg, title) { return this.show(msg, 'error', title); },
   warning(msg, title) { return this.show(msg, 'warning', title); },
-  info(msg, title)    { return this.show(msg, 'info', title); },
+  info(msg, title) { return this.show(msg, 'info', title); },
 };
 
 /* ============================================
@@ -778,7 +798,7 @@ const Modal = {
     const { title = 'Confirm Action', message = 'Are you sure?', confirmText = 'Confirm', cancelText = 'Cancel', type = 'danger', onConfirm, onCancel } = options;
 
     const icons = {
-      danger:  '<div style="width:52px;height:52px;border-radius:50%;background:#FEE2E2;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></div>',
+      danger: '<div style="width:52px;height:52px;border-radius:50%;background:#FEE2E2;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></div>',
       warning: '<div style="width:52px;height:52px;border-radius:50%;background:#FEF3C7;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>',
     };
 
