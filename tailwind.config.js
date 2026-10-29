@@ -5,11 +5,14 @@ module.exports = {
     './*.html',
     './pages/*.html',
     './inventory/*.html',
+    './production/*.html',
     './sales/*.html',
       //trang mới
     './marketing/*.html',
 
     './purchases/*.html',
+    './distribution/*.html',
+    './stores/*.html',
     './invoices/*.html',
     './customers/*.html',
     './suppliers/*.html',
