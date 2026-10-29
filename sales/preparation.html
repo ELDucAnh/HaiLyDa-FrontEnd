@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đơn hàng — Invenza</title>
+    <meta name="description" content="Quản lý giao dịch bán hàng, đơn hàng và doanh thu trong Invenza.">
+    <link rel="stylesheet" href="../assets/css/app.css">
+    <link rel="stylesheet" href="../assets/css/tailwind.css">
+    <script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+</head>
+<body>
+<div id="sidebar-container"></div>
+<div id="main-wrapper">
+    <div id="header-container"></div>
+    <main class="flex-1 p-4 md:p-6">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <div class="breadcrumb">
+                    <a href="../dashboard.html">Tổng quan</a>
+                    <span class="sep">/</span>
+                    <span class="current">Pha chế</span>
+                </div>
+                <h1 class="page-title">Hàng đợi pha chế</h1>
+                <p class="page-subtitle">
+                    Chỉ hiển thị đơn đủ điều kiện chuyển đến quầy pha chế.
+                </p>
+            </div>
+        </div>
+
+        <section class="card mb-6" aria-labelledby="prep-filter-title">
+            <h2 id="prep-filter-title" class="card-title mb-4">Bộ lọc hàng đợi</h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-end">
+                <div class="min-w-0">
+                    <label class="form-label" for="prep-branch">Chi nhánh</label>
+                    <select id="prep-branch" class="form-input form-select w-full h-11">
+                        <option value="CN01">CN01 — Chi nhánh 01</option>
+                        <option value="CN02">CN02 — Chi nhánh 02</option>
+                        <option value="CN03">CN03 — Chi nhánh 03</option>
+                        <option value="CN04">CN04 — Chi nhánh 04</option>
+                        <option value="CN05">CN05 — Chi nhánh 05</option>
+                        <option value="CN06">CN06 — Chi nhánh 06</option>
+                        <option value="CN07">CN07 — Chi nhánh 07</option>
+                        <option value="CN08">CN08 — Chi nhánh 08</option>
+                        <option value="CN09">CN09 — Chi nhánh 09</option>
+                        <option value="CN10">CN10 — Chi nhánh 10</option>
+                        <option value="CN11">CN11 — Chi nhánh 11</option>
+                        <option value="CN12">CN12 — Chi nhánh 12</option>
+                    </select>
+                </div>
+
+                <div class="min-w-0">
+                    <label class="form-label" for="prep-status">Trạng thái pha chế</label>
+                    <select id="prep-status" class="form-input form-select w-full h-11">
+                        <option value="">Tất cả trạng thái</option>
+                        <option value="waiting">Chờ pha chế</option>
+                        <option value="preparing">Đang pha chế</option>
+                        <option value="ready">Sẵn sàng</option>
+                    </select>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2 mt-4">
+                    <button type="button"
+                            class="btn btn-primary h-11"
+                            onclick="Toast.info('Chức năng lọc chưa được tích hợp.', 'Bộ lọc')">
+                        Áp dụng
+                    </button>
+
+                    <button type="button"
+                            class="btn btn-secondary h-11">
+                        Xóa bộ lọc
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="overflow-x-auto">
+                <table class="data-table">
+                    <caption class="sr-only">Đơn đang chờ hoặc đang pha chế</caption>
+                    <thead>
+                    <tr>
+                        <th>Mã đơn</th><th>Kênh</th><th>Nhận lúc</th><th>Chờ</th>
+                        <th>Món và tùy chọn</th><th>Ghi chú</th><th>Trạng thái</th><th>Thao tác</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>DH-00125</td>
+                        <td><span class="badge badge-purple">Trực tuyến</span></td>
+                        <td>28/10/2026 · 09:15</td>
+                        <td>3 phút</td>
+                        <td>
+                            <div class="font-semibold">2 × Trà sữa trân châu · Cỡ ly L</div>
+                            <div class="text-xs text-[var(--muted)]">
+                                Đường 50% · Ít đá · Thêm 1 phần pudding/ly
+                            </div>
+                        </td>
+                        <td>Để món thêm riêng</td>
+                        <td><span class="badge badge-warning">Chờ pha chế</span></td>
+                        <td class="whitespace-nowrap">
+                            <div class="inline-flex items-center gap-1.5">
+                                <button type="button"
+                                        class="btn btn-primary btn-sm shrink-0"
+                                        onclick="Toast.info('Chưa cập nhật trạng thái đơn DH-00125; chức năng đang chờ tích hợp.', 'Pha chế')">
+                                    Pha chế
+                                </button>
+                                <button type="button"
+                                        class="btn btn-secondary btn-sm shrink-0"
+                                        onclick="Toast.info('Chưa gửi báo thiếu cho đơn DH-00125; chức năng đang chờ tích hợp.', 'Báo thiếu')">
+                                    Báo thiếu
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>DH-00124</td>
+                        <td><span class="badge badge-info">Mang đi</span></td>
+                        <td>28/10/2026 · 09:12</td>
+                        <td>6 phút</td>
+                        <td>1 × Trà đào · Cỡ ly M · Đường 30% · Đá bình thường</td>
+                        <td>Không có</td>
+                        <td><span class="badge badge-info">Đang pha chế</span></td>
+                        <td class="whitespace-nowrap">
+                            <button type="button"
+                                    class="btn btn-primary btn-sm shrink-0"
+                                    onclick="Toast.info('Chưa cập nhật trạng thái đơn DH-00124; chức năng đang chờ tích hợp.', 'Món đã sẵn sàng')">
+                                Món đã sẵn sàng
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+    <footer class="app-footer">
+        <div class="app-footer-text">Bản quyền © 2026 Invenza Bảo lưu mọi quyền.</div>
+    </footer>
+</div>
+
+<div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
+<script>window.BASE_PATH = '../'; window.CURRENT_PAGE = 'sales';</script>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

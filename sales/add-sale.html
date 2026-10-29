@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="vi" class="">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Point of Sale (POS) — Invenza</title>
-  <meta name="description" content="Fast, touch-ready point of sale checkout interface.">
+  <title>Bán hàng tại quầy (POS) — Invenza</title>
+  <meta name="description" content="Giao diện bán hàng tại quầy hỗ trợ thao tác cảm ứng.">
   <link rel="stylesheet" href="../assets/css/app.css">
   <link rel="stylesheet" href="../assets/css/tailwind.css">
   <style>
@@ -33,29 +33,42 @@
       <div class="page-header mb-5">
         <div>
           <div class="breadcrumb">
-            <a href="../dashboard.html">Home</a>
+            <a href="../dashboard.html">Tổng quan</a>
             <span class="sep">/</span>
-            <a href="sales.html">Sales</a>
+            <a href="sales.html">Đơn hàng</a>
             <span class="sep">/</span>
-            <span class="current">Point of Sale</span>
+            <span class="current">Bán hàng tại quầy</span>
           </div>
           <div class="flex items-center gap-3 mt-1">
-            <h1 class="page-title mb-0">Point of Sale (POS)</h1>
+            <h1 class="page-title mb-0">Bán hàng tại quầy (POS)</h1>
             <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold border border-emerald-200">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              Register #01 Active
+              Quầy 01 đang hoạt động
             </span>
           </div>
         </div>
         <div class="flex gap-2.5 items-center">
           <a href="sales.html" class="btn btn-secondary">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-            Sales List
+            Danh sách đơn
           </a>
-          <button class="btn btn-secondary" onclick="Toast.info('Cash drawer opened.','Register')">
+          <a href="shifts.html" class="btn btn-secondary">Quản lý ca</a>
+          <button class="btn btn-secondary" onclick="Toast.info('Đã mở ngăn kéo tiền.','Quầy thu ngân')">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="6" y1="12" x2="18" y2="12"/><circle cx="12" cy="16" r="1"/></svg>
-            Open Drawer
+            Mở ngăn kéo tiền
           </button>
+
+        </div>
+      </div>
+
+      <div class="card mb-4" role="status">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <span class="badge badge-gray">Chưa xác định kết nối</span>
+            <span class="text-sm text-[var(--muted)]">
+              CN01 · Quầy 01 · Ca sáng
+            </span>
+          </div>
         </div>
       </div>
 
@@ -70,14 +83,14 @@
             <div class="flex gap-3 items-center">
               <div class="relative flex-1 min-w-0">
                 <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--muted)]" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                <input type="text" id="pos-search" class="w-full h-11 pl-11 pr-4 rounded-xl border border-[var(--border)] bg-[var(--background)] text-[var(--text)] text-sm font-medium placeholder:text-[var(--muted)] focus:outline-none focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/10 transition-all" placeholder="Scan barcode or type product name / SKU..." autofocus>
+                <input type="text" id="pos-search" class="w-full h-11 pl-11 pr-4 rounded-xl border border-[var(--border)] bg-[var(--background)] text-[var(--text)] text-sm font-medium placeholder:text-[var(--muted)] focus:outline-none focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/10 transition-all" placeholder="Quét mã hoặc nhập tên / mã món..." autofocus>
                 <kbd class="absolute right-3 top-1/2 -translate-y-1/2 px-1.5 py-0.5 rounded text-[10px] font-mono text-[var(--muted)] bg-[var(--surface)] border border-[var(--border)]">/</kbd>
               </div>
               <select id="pos-category-filter" class="h-11 px-4 pr-9 rounded-xl border border-[var(--border)] bg-[var(--background)] text-[var(--text)] text-sm font-medium appearance-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%236B7280%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[right_10px_center] focus:outline-none focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/10 transition-all min-w-[160px]">
-                <option value="all">All Categories</option>
-                <option value="Electronics">Electronics</option>
-                <option value="Accessories">Accessories</option>
-                <option value="Furniture">Furniture</option>
+                <option value="all">Tất cả nhóm món</option>
+                <option value="Electronics">Điện tử</option>
+                <option value="Accessories">Phụ kiện</option>
+                <option value="Furniture">Nội thất</option>
               </select>
             </div>
           </div>
@@ -86,6 +99,94 @@
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3.5" id="pos-product-grid">
             <!-- Rendered by pos.js -->
           </div>
+
+          <section class="card" aria-labelledby="pos-options-title">
+            <h2 id="pos-options-title" class="card-title mb-4">Tùy chọn món</h2>
+
+            <div class="grid grid-cols-2 gap-3 mb-4">
+              <div>
+                <label class="form-label" for="drink-size">Cỡ ly</label>
+                <select id="drink-size" class="form-input form-select">
+                  <option value="M">M — 39.000 ₫</option>
+                  <option value="L">L — 45.000 ₫</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="form-label" for="drink-quantity">Số lượng</label>
+                <input id="drink-quantity" class="form-input"
+                       type="number" min="1" step="1" value="1">
+              </div>
+
+              <div>
+                <label class="form-label" for="drink-sugar">Đường</label>
+                <select id="drink-sugar" class="form-input form-select">
+                  <option value="0">0%</option>
+                  <option value="30">30%</option>
+                  <option value="50" selected>50%</option>
+                  <option value="70">70%</option>
+                  <option value="100">100%</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="form-label" for="drink-ice">Đá</label>
+                <select id="drink-ice" class="form-input form-select">
+                  <option value="0">Không đá</option>
+                  <option value="30">Ít đá</option>
+                  <option value="50" selected>Vừa đá</option>
+                  <option value="100">Bình thường</option>
+                </select>
+              </div>
+            </div>
+
+            <fieldset class="mb-4">
+              <legend class="form-label">Món thêm</legend>
+
+              <div class="flex flex-col gap-3">
+                <label class="flex items-center gap-2 text-sm cursor-pointer">
+                  <input type="checkbox"
+                         name="drink-topping"
+                         value="pearl"
+                         class="w-4 h-4 shrink-0 accent-[var(--primary)]">
+                  <span>Trân châu đen · 5.000 ₫/phần</span>
+                </label>
+
+                <label class="flex items-center gap-2 text-sm cursor-pointer">
+                  <input type="checkbox"
+                         name="drink-topping"
+                         value="pudding"
+                         class="w-4 h-4 shrink-0 accent-[var(--primary)]">
+                  <span>Pudding · 7.000 ₫/phần</span>
+                </label>
+
+                <label class="flex items-center gap-2 text-sm text-[var(--muted)]">
+                  <input type="checkbox"
+                         name="drink-topping"
+                         value="cheese"
+                         class="w-4 h-4 shrink-0"
+                         disabled>
+                  <span>Kem phô mai · Tạm hết</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <label class="form-label" for="drink-note">Ghi chú pha chế</label>
+            <textarea id="drink-note" class="form-input form-textarea"
+                      rows="2" placeholder="Ví dụ: để món thêm riêng"></textarea>
+
+            <div class="flex flex-wrap gap-2 mt-4">
+              <button type="button" class="btn btn-primary" disabled>
+                Thêm món với tùy chọn
+              </button>
+              <button type="button" class="btn btn-secondary" disabled>
+                Khóa món trực tuyến
+              </button>
+              <button type="button" class="btn btn-secondary" disabled>
+                Khóa món thêm trực tuyến
+              </button>
+            </div>
+          </section>
 
         </div>
 
@@ -99,10 +200,10 @@
             <div class="px-5 pt-5 pb-4 border-b border-[var(--border)]">
               <div class="flex items-center gap-3">
                 <div class="flex-1 min-w-0">
-                  <label class="block text-[11px] font-semibold text-[var(--muted)] uppercase tracking-wider mb-1.5">Customer</label>
+                  <label class="block text-[11px] font-semibold text-[var(--muted)] uppercase tracking-wider mb-1.5">Khách hàng</label>
                   <div class="relative">
                     <select class="w-full h-10 pl-3 pr-9 rounded-xl border border-[var(--border)] bg-[var(--background)] text-[var(--text)] text-[13px] font-medium appearance-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%236B7280%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[right_10px_center] focus:outline-none focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/10 transition-all" id="pos-customer">
-                      <option value="walk-in">Walk-in Customer (Guest)</option>
+                      <option value="walk-in">Khách vãng lai</option>
                       <option value="1">John Smith (VIP)</option>
                       <option value="2">Michael Brown</option>
                       <option value="3">Sarah Wilson</option>
@@ -110,19 +211,32 @@
                     </select>
                   </div>
                 </div>
-                <button type="button" class="w-10 h-10 rounded-xl border border-dashed border-[var(--border)] flex items-center justify-center text-[var(--muted)] hover:border-[var(--primary)] hover:text-[var(--primary)] hover:bg-[var(--primary-light)] transition-all mt-5" onclick="Toast.info('Quick Add Customer modal','Customer')" title="Add New Customer">
+                <button type="button" class="w-10 h-10 rounded-xl border border-dashed border-[var(--border)] flex items-center justify-center text-[var(--muted)] hover:border-[var(--primary)] hover:text-[var(--primary)] hover:bg-[var(--primary-light)] transition-all mt-5" onclick="Toast.info('Hộp thoại thêm nhanh khách hàng','Khách hàng')" title="Thêm khách hàng">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 </button>
               </div>
             </div>
 
+
+            <div class="px-5 py-4 border-b border-[var(--border)]">
+              <label class="form-label" for="member-phone">Số điện thoại hội viên</label>
+              <div class="flex gap-2">
+                <input id="member-phone" type="tel" inputmode="tel"
+                       class="form-input" placeholder="Nhập số điện thoại">
+                <button type="button" class="btn btn-secondary" disabled>Tra cứu</button>
+              </div>
+              <p class="text-xs text-[var(--muted)] mt-2">
+                Chưa tra cứu hội viên.
+              </p>
+            </div>
+
             <!-- Cart Items Header -->
             <div class="px-5 pt-4 pb-2 flex items-center justify-between">
               <div class="flex items-center gap-2">
-                <span class="text-sm font-bold text-[var(--text)]">Current Cart</span>
+                <span class="text-sm font-bold text-[var(--text)]">Giỏ hàng hiện tại</span>
                 <span id="pos-cart-count" class="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-[var(--primary-light)] text-[var(--primary)] text-[11px] font-bold">0</span>
               </div>
-              <button id="pos-clear-cart" class="text-[11px] font-semibold text-red-500 hover:text-red-700 hover:bg-red-50 px-2.5 py-1 rounded-lg transition-all">Clear All</button>
+              <button id="pos-clear-cart" class="text-[11px] font-semibold text-red-500 hover:text-red-700 hover:bg-red-50 px-2.5 py-1 rounded-lg transition-all">Xóa tất cả</button>
             </div>
 
             <!-- Cart Items Container -->
@@ -134,21 +248,29 @@
 
           <!-- Calculation Card -->
           <div class="bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-5">
+            <div class="mb-4">
+              <label class="form-label" for="pos-voucher-code">Mã mã ưu đãi</label>
+              <div class="flex gap-2">
+                <input id="pos-voucher-code" class="form-input"
+                       type="text" placeholder="Nhập mã ưu đãi">
+                <button type="button" class="btn btn-secondary" disabled>Áp dụng</button>
+              </div>
+            </div>
 
             <!-- Subtotal -->
             <div class="flex justify-between items-center mb-4">
-              <span class="text-sm text-[var(--muted)] font-medium">Subtotal</span>
+              <span class="text-sm text-[var(--muted)] font-medium">Tạm tính</span>
               <span class="text-sm font-bold text-[var(--text)]" id="pos-subtotal">$0.00</span>
             </div>
 
             <!-- Discount & Tax Inputs -->
             <div class="grid grid-cols-2 gap-3 mb-4">
               <div>
-                <label class="block text-[11px] font-semibold text-[var(--muted)] uppercase tracking-wider mb-1.5">Discount (%)</label>
+                <label class="block text-[11px] font-semibold text-[var(--muted)] uppercase tracking-wider mb-1.5">Giảm giá (%)</label>
                 <input type="number" id="pos-discount-input" class="w-full h-9 px-3 rounded-lg border border-[var(--border)] bg-[var(--background)] text-[var(--text)] text-xs font-semibold focus:outline-none focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/10 transition-all" placeholder="0" min="0" max="100">
               </div>
               <div>
-                <label class="block text-[11px] font-semibold text-[var(--muted)] uppercase tracking-wider mb-1.5">Tax (%)</label>
+                <label class="block text-[11px] font-semibold text-[var(--muted)] uppercase tracking-wider mb-1.5">Thuế (%)</label>
                 <input type="number" id="pos-tax-input" class="w-full h-9 px-3 rounded-lg border border-[var(--border)] bg-[var(--background)] text-[var(--text)] text-xs font-semibold focus:outline-none focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/10 transition-all" value="10" min="0" max="100">
               </div>
             </div>
@@ -156,18 +278,18 @@
             <!-- Discount & Tax Amounts -->
             <div class="space-y-2 mb-4">
               <div class="flex justify-between items-center text-[13px]">
-                <span class="text-[var(--muted)] font-medium">Discount Amount</span>
+                <span class="text-[var(--muted)] font-medium">Tiền giảm giá</span>
                 <span class="text-red-500 font-semibold" id="pos-discount">-$0.00</span>
               </div>
               <div class="flex justify-between items-center text-[13px]">
-                <span class="text-[var(--muted)] font-medium">Tax Amount</span>
+                <span class="text-[var(--muted)] font-medium">Tiền thuế</span>
                 <span class="font-semibold text-[var(--text)]" id="pos-tax">$0.00</span>
               </div>
             </div>
 
             <!-- Payable Total -->
             <div class="flex justify-between items-center pt-4 border-t border-[var(--border)]">
-              <span class="text-base font-bold text-[var(--text)]">Payable Total</span>
+              <span class="text-base font-bold text-[var(--text)]">Tổng thanh toán</span>
               <span class="text-2xl font-extrabold text-[var(--primary)]" id="pos-total">$0.00</span>
             </div>
 
@@ -187,11 +309,11 @@
             <!-- Tendered Cash & Change -->
             <div class="grid grid-cols-2 gap-3 mb-4">
               <div>
-                <label class="block text-[11px] font-semibold text-[var(--muted)] uppercase tracking-wider mb-1.5">Tendered Cash ($)</label>
+                <label class="block text-[11px] font-semibold text-[var(--muted)] uppercase tracking-wider mb-1.5">Tiền khách đưa ($)</label>
                 <input type="number" id="pos-paid-amount" class="w-full h-11 px-3 rounded-xl border border-[var(--border)] bg-[var(--background)] text-[var(--text)] text-sm font-bold focus:outline-none focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/10 transition-all" placeholder="0.00" min="0" step="0.01">
               </div>
               <div>
-                <label class="block text-[11px] font-semibold text-[var(--muted)] uppercase tracking-wider mb-1.5">Change Due</label>
+                <label class="block text-[11px] font-semibold text-[var(--muted)] uppercase tracking-wider mb-1.5">Tiền thừa</label>
                 <div id="pos-change" class="h-11 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center px-3.5 font-bold text-sm text-emerald-700">$0.00</div>
               </div>
             </div>
@@ -203,7 +325,7 @@
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
               </div>
               <span class="flex items-center gap-2">
-                Complete Sale
+                Hoàn tất bán hàng
                 <span class="px-2.5 py-0.5 rounded-lg bg-white/20 text-[14px] font-extrabold backdrop-blur-sm"><span id="pos-total-label">0.00</span></span>
               </span>
             </button>
@@ -216,7 +338,7 @@
 
     </main>
     <footer class="flex items-center justify-between flex-wrap gap-2 mt-auto pt-5 px-6 pb-5 border-t border-[var(--border)]">
-      <div class="text-xs text-[var(--muted)]">Copyright © 2026 Invenza All rights reserved.</div>
+      <div class="text-xs text-[var(--muted)]">Bản quyền © 2026 Invenza Bảo lưu mọi quyền.</div>
     </footer>
   </div>
 
