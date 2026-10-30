@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="assets/css/tailwind.css">
 <script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
 </head>
-<body>
+<body class="sales-ui">
   <div id="sidebar-container"></div>
   <div id="main-wrapper">
     <div id="header-container"></div>
@@ -154,7 +154,7 @@
             <div class="trend-up">↑ 12.5%</div>
           </div>
           <!-- Thẻ 2 -->
-          <div class="dash-stat-value">35.370.000 ₫</div>
+          <div class="dash-stat-value">35.370.000 VND</div>
           <div class="dash-stat-label">Doanh thu</div>
           <div class="dash-stat-bar"><div class="dash-stat-bar-fill" style="width:85%;background:var(--info)"></div></div>
         </div>
@@ -211,7 +211,7 @@
             </div>
           </div>
           <div class="flex items-baseline gap-3 mb-5">
-            <div class="dash-chart-total">$ 67,347</div>
+            <div class="dash-chart-total">67.347 VND</div>
             <span class="trend-up" style="font-size:12px">↑ 8.2% so với kỳ trước</span>
           </div>
           <div class="chart-container h-[240px]">
@@ -238,7 +238,7 @@
                   <div class="dash-revenue-desc">786 giao dịch</div>
                 </div>
               </div>
-              <div class="dash-revenue-amount">$17,584</div>
+              <div class="dash-revenue-amount">17.584 VND</div>
             </div>
             <div class="dash-revenue-item">
               <div class="flex items-center gap-3">
@@ -248,7 +248,7 @@
                   <div class="dash-revenue-desc">Thu nhập ròng</div>
                 </div>
               </div>
-              <div class="dash-revenue-amount">$17,584</div>
+              <div class="dash-revenue-amount">17.584 VND</div>
             </div>
             <div class="dash-revenue-item">
               <div class="flex items-center gap-3">
@@ -258,7 +258,7 @@
                   <div class="dash-revenue-desc">Chi phí vận hành</div>
                 </div>
               </div>
-              <div class="dash-revenue-amount">$12,487</div>
+              <div class="dash-revenue-amount">12.487 VND</div>
             </div>
             <div class="dash-revenue-item">
               <div class="flex items-center gap-3">
@@ -268,7 +268,7 @@
                   <div class="dash-revenue-desc">Biên lợi nhuận ròng</div>
                 </div>
               </div>
-              <div class="dash-revenue-amount dash-stat-profit">$5,097</div>
+              <div class="dash-revenue-amount dash-stat-profit">5.097 VND</div>
             </div>
           </div>
         </div>
@@ -440,7 +440,7 @@
                 <div class="flex-1">
                   <div class="flex items-center justify-between mb-1">
                     <span class="text-[13px] font-medium">Chi phí mua hàng</span>
-                    <span class="text-[15px] font-bold">$786</span>
+                    <span class="text-[15px] font-bold">786 VND</span>
                   </div>
                   <div class="dash-progress-track"><div class="dash-progress-fill" style="width:40%;background:var(--warning)"></div></div>
                 </div>
@@ -515,7 +515,7 @@
               </td>
               <td class="whitespace-nowrap">CN01 · Ca sáng</td>
               <td>
-                <div class="font-medium whitespace-nowrap">Nguyễn An</div>
+                <div class="font-medium whitespace-nowrap name-ellipsis" title="Nguyễn An">Nguyễn An</div>
                 <div class="text-xs text-[var(--muted)] whitespace-nowrap">
                   0900 000 001
                 </div>
@@ -526,7 +526,7 @@
                   28/10/2026 · 09:15
                 </time>
               </td>
-              <td class="font-semibold whitespace-nowrap">450.000 ₫</td>
+              <td class="font-semibold whitespace-nowrap">450.000 VND</td>
               <td><span class="badge badge-success">Đã thanh toán</span></td>
               <td>
                 <a href="invoices/invoice-details.html?orderId=DH-00125"
@@ -541,7 +541,7 @@
               <td class="font-semibold whitespace-nowrap">DH-00124</td>
               <td class="whitespace-nowrap">CN01 · Ca sáng</td>
               <td>
-                <div class="font-medium whitespace-nowrap">Trần Bình</div>
+                <div class="font-medium whitespace-nowrap name-ellipsis" title="Trần Bình">Trần Bình</div>
                 <div class="text-xs text-[var(--muted)] whitespace-nowrap">
                   0900 000 002
                 </div>
@@ -552,7 +552,7 @@
                   28/10/2026 · 09:12
                 </time>
               </td>
-              <td class="font-semibold whitespace-nowrap">35.000 ₫</td>
+              <td class="font-semibold whitespace-nowrap">35.000 VND</td>
               <td><span class="badge badge-success">Đã thanh toán</span></td>
               <td>
                 <a href="invoices/invoice-details.html?orderId=DH-00124"
@@ -567,7 +567,7 @@
               <td class="font-semibold whitespace-nowrap">DH-00123</td>
               <td class="whitespace-nowrap">CN02 · Ca sáng</td>
               <td>
-                <div class="font-medium whitespace-nowrap">Lê Minh</div>
+                <div class="font-medium whitespace-nowrap name-ellipsis" title="Lê Minh">Lê Minh</div>
                 <div class="text-xs text-[var(--muted)] whitespace-nowrap">
                   0900 000 003
                 </div>
@@ -578,7 +578,7 @@
                   28/10/2026 · 09:05
                 </time>
               </td>
-              <td class="font-semibold whitespace-nowrap">78.000 ₫</td>
+              <td class="font-semibold whitespace-nowrap">78.000 VND</td>
               <td><span class="badge badge-success">Đã thanh toán</span></td>
               <td>
                 <a href="invoices/invoice-details.html?orderId=DH-00123"
@@ -623,7 +623,7 @@
             </thead>
             <tbody>
             <tr>
-              <td class="font-medium">Trân châu khô</td>
+              <td class="font-medium name-ellipsis" title="Trân châu khô">Trân châu khô</td>
               <td class="whitespace-nowrap">NL-TCK</td>
               <td class="font-semibold text-[var(--warning)]">15 kg</td>
               <td>30 kg</td>
@@ -637,7 +637,7 @@
               </td>
             </tr>
             <tr>
-              <td class="font-medium">Trà ô long</td>
+              <td class="font-medium name-ellipsis" title="Trà ô long">Trà ô long</td>
               <td class="whitespace-nowrap">NL-TOL</td>
               <td class="font-semibold text-[var(--warning)]">8 kg</td>
               <td>20 kg</td>
@@ -651,7 +651,7 @@
               </td>
             </tr>
             <tr>
-              <td class="font-medium">Sữa tươi</td>
+              <td class="font-medium name-ellipsis" title="Sữa tươi">Sữa tươi</td>
               <td class="whitespace-nowrap">NL-ST</td>
               <td class="font-semibold text-[var(--danger)]">0 lít</td>
               <td>50 lít</td>

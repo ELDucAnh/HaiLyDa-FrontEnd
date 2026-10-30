@@ -3773,3 +3773,22 @@ a:focus-visible {
     transition: none;
   }
 }
+
+/* Sales/customer pages only: keep long names inside their existing layout. */
+.sales-ui .data-table td {
+  max-width: 20rem;
+  overflow-wrap: anywhere;
+}
+
+.sales-ui .data-table .font-medium,
+.sales-ui .name-ellipsis {
+  max-width: 14rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.sales-ui .data-table div,
+.sales-ui .pos-product-card {
+  min-width: 0;
+}

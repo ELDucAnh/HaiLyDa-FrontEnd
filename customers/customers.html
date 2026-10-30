@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../assets/css/tailwind.css">
 <script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
 </head>
-<body>
+<body class="sales-ui">
   <div id="sidebar-container"></div>
   <div id="main-wrapper">
     <div id="header-container"></div>
@@ -67,7 +67,7 @@
             </div>
             <div class="stat-card-body">
               <div class="stat-label">Khoản phải thu</div>
-              <div class="stat-value text-[var(--warning)]">$6,487.00</div>
+              <div class="stat-value text-[var(--warning)]">6.487 VND</div>
               <div class="stat-sub-label">18 hóa đơn chờ thanh toán</div>
             </div>
           </div>
@@ -77,7 +77,7 @@
             </div>
             <div class="stat-card-body">
               <div class="stat-label">Giá trị vòng đời trung bình</div>
-              <div class="stat-value">$438.50</div>
+              <div class="stat-value">439 VND</div>
               <div class="trend-up stat-sub-label">↑ +5.4% so với cùng kỳ năm trước</div>
             </div>
           </div>
@@ -139,9 +139,9 @@
               </thead>
               <tbody>
               <tr>
-                <td>HV-0001</td><td>Nguyễn An</td><td>0900 000 001</td>
+                <td>HV-0001</td><td class="name-ellipsis" title="Nguyễn An">Nguyễn An</td><td>0900 000 001</td>
                 <td><span class="badge badge-purple">VIP</span></td>
-                <td>12.500.000 ₫</td><td>1.250 điểm</td><td>28/10/2026</td>
+                <td>12.500.000 VND</td><td>1.250 điểm</td><td>28/10/2026</td>
                 <td>
                   <a href="#customer-history" class="btn btn-secondary btn-sm">
                     Lịch sử
@@ -190,7 +190,7 @@
                 </a>
               </td>
               <td>Tích điểm mua hàng</td>
-              <td class="whitespace-nowrap">450.000 ₫</td>
+              <td class="whitespace-nowrap">450.000 VND</td>
               <td>+450</td>
               <td>1.250</td>
             </tr>
@@ -208,7 +208,7 @@
                 </a>
               </td>
               <td>Điều chỉnh do hoàn tiền</td>
-              <td class="whitespace-nowrap">45.000 ₫</td>
+              <td class="whitespace-nowrap">45.000 VND</td>
               <td>-45</td>
               <td>800</td>
             </tr>
