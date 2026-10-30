@@ -102,7 +102,7 @@ function initSalesChart(period = 'monthly') {
           titleFont: { size: 12, weight: '600' },
           bodyFont: { size: 13 },
           callbacks: {
-            label: (ctx) => ` $${ctx.parsed.y.toLocaleString()}`,
+            label: (ctx) => ` ${ctx.parsed.y.toLocaleString('vi-VN')} VND`,
           }
         }
       },
@@ -124,7 +124,7 @@ function initSalesChart(period = 'monthly') {
           ticks: {
             color: chartColors().tick,
             font: { size: 11 },
-            callback: (v) => '$' + (v >= 1000 ? (v/1000).toFixed(0) + 'k' : v),
+            callback: (v) => v.toLocaleString('vi-VN') + ' VND',
           }
         }
       }

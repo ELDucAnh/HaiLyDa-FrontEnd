@@ -5,6 +5,11 @@
 
 'use strict';
 
+// Display amounts in whole Vietnamese dong; calculations remain unchanged.
+function formatPOSCurrency(value) {
+  return value.toLocaleString('vi-VN', { maximumFractionDigits: 0 }) + ' VND';
+}
+
 /* ============================================
    Product Catalog
    ============================================ */
@@ -177,7 +182,7 @@ function renderProductGrid(products) {
 
       </span>
 
-      <span class="block text-xs font-semibold
+      <span class="block truncate text-xs font-semibold
                    text-[var(--text)] leading-tight mb-1">
         ${p.name}
       </span>
@@ -188,7 +193,7 @@ function renderProductGrid(products) {
 
       <span class="flex items-center justify-between gap-2">
         <span class="text-[13px] font-bold text-[var(--primary)]">
-          ${p.price.toLocaleString('vi-VN')} ₫
+          ${formatPOSCurrency(p.price)}
         </span>
 
         <span class="text-[10px] ${p.stock < 10 ? 'text-red-600' : 'text-[var(--muted)]'}">
@@ -291,7 +296,7 @@ function renderCartItems() {
     <div class="flex items-center gap-2.5 py-3 border-b border-[var(--border)] cart-item-enter">
       <div class="flex-1 min-w-0">
         <div class="text-[13px] font-semibold text-[var(--text)] truncate">${item.name}</div>
-        <div class="text-[11px] text-[var(--muted)]">$${item.price.toFixed(2)} / món</div>
+        <div class="text-[11px] text-[var(--muted)]">${formatPOSCurrency(item.price)} / món</div>
       </div>
       <div class="flex items-center gap-1.5 flex-shrink-0">
         <button onclick="updateQty(${item.id}, -1)" class="w-[26px] h-[26px] rounded-lg border border-[var(--border)] bg-[var(--surface)] flex items-center justify-center text-[var(--muted)] hover:border-[var(--primary)] hover:text-[var(--primary)] transition-all">
@@ -303,7 +308,7 @@ function renderCartItems() {
         </button>
       </div>
       <div class="text-right flex-shrink-0 min-w-[60px]">
-        <div class="text-[13px] font-bold text-[var(--text)]">$${(item.price * item.qty).toFixed(2)}</div>
+        <div class="text-[13px] font-bold text-[var(--text)]">${formatPOSCurrency((item.price * item.qty))}</div>
         <button onclick="removeFromCart(${item.id})" class="border-none bg-transparent cursor-pointer text-red-500 hover:text-red-700 p-0 text-[11px] mt-0.5 font-medium transition-colors">Xóa</button>
       </div>
     </div>
@@ -321,18 +326,18 @@ function calculateTotals() {
     if (el) el.textContent = val;
   };
 
-  set('pos-subtotal', `$${subtotal.toFixed(2)}`);
-  set('pos-discount', `-$${discount.toFixed(2)}`);
-  set('pos-tax', `$${taxAmount.toFixed(2)}`);
-  set('pos-total', `$${total.toFixed(2)}`);
-  set('pos-total-label', `$${total.toFixed(2)}`);
+  set('pos-subtotal', `${formatPOSCurrency(subtotal)}`);
+  set('pos-discount', `-${formatPOSCurrency(discount)}`);
+  set('pos-tax', `${formatPOSCurrency(taxAmount)}`);
+  set('pos-total', `${formatPOSCurrency(total)}`);
+  set('pos-total-label', `${formatPOSCurrency(total)}`);
 
   // Update change
   const paid = parseFloat(document.getElementById('pos-paid-amount')?.value || 0);
   const change = paid - total;
   const changeEl = document.getElementById('pos-change');
   if (changeEl) {
-    changeEl.textContent = paid > 0 ? `$${Math.max(0, change).toFixed(2)}` : '$0.00';
+    changeEl.textContent = paid > 0 ? `${formatPOSCurrency(Math.max(0, change))}` : '0 VND';
     changeEl.className = `h-11 rounded-xl flex items-center px-3.5 font-bold text-sm ${change >= 0 ? 'bg-emerald-50 border border-emerald-200 text-emerald-700' : 'bg-red-50 border border-red-200 text-red-600'}`;
   }
 }
@@ -387,19 +392,19 @@ function completeSale() {
       <div class="bg-[var(--background)] rounded-xl p-4 mb-4">
         <div class="flex justify-between mb-2 text-[13px]">
           <span class="text-[var(--muted)]">Tạm tính</span>
-          <span class="text-[var(--text)] font-medium">$${subtotal.toFixed(2)}</span>
+          <span class="text-[var(--text)] font-medium">${formatPOSCurrency(subtotal)}</span>
         </div>
         <div class="flex justify-between mb-2 text-[13px]">
           <span class="text-[var(--muted)]">Giảm giá (${posDiscount}%)</span>
-          <span class="text-red-600 font-medium">-$${discount.toFixed(2)}</span>
+          <span class="text-red-600 font-medium">-${formatPOSCurrency(discount)}</span>
         </div>
         <div class="flex justify-between mb-3 text-[13px]">
           <span class="text-[var(--muted)]">Thuế (${posTax}%)</span>
-          <span class="text-[var(--text)] font-medium">$${tax.toFixed(2)}</span>
+          <span class="text-[var(--text)] font-medium">${formatPOSCurrency(tax)}</span>
         </div>
         <div class="flex justify-between text-[16px] font-bold border-t border-[var(--border)] pt-3">
           <span class="text-[var(--text)]">Tổng thanh toán</span>
-          <span class="text-[var(--primary)]">$${total.toFixed(2)}</span>
+          <span class="text-[var(--primary)]">${formatPOSCurrency(total)}</span>
         </div>
       </div>
       <div>

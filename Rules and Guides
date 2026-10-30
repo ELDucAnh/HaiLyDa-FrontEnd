@@ -1,0 +1,305 @@
+
+BẢNG MA TRẬN ÁNH XẠ TOÀN BỘ FILE TEMPLATE HIỆN TẠI
+File gốc hiện tại	File đích trong Hệ thống Trà Sữa	Chức năng nghiệp vụ F&B tương ứng	Mức độ thay đổi	Cách tận dụng
+dashboard.html	dashboard.html	Dashboard Toàn Chuỗi 12 Chi Nhánh: Doanh thu, số ly bán, nguyên liệu cận date, cảnh báo hòa vốn, lọc theo từng chi nhánh.
+số khách/ly, món bán chạy theo cửa hàng và ca 	Vừa	Giữ nguyên grid layout, đổi thẻ KPI, đổi chart doanh thu F&B, thêm dropdown chọn 12 chi nhánh.
+index.html	index.html	Chuyển hướng về dashboard.html	Giữ nguyên	Không đổi.
+sales/add-sale.html	sales/add-sale.html	Màn hình Thu Ngân Bán Tại Quầy (Touch POS): Chọn món, chọn Size/Đường/Đá/Topping, tra cứu SĐT hội viên, chế độ bán Offline khi mất mạng.
+
+Thêm voucher	Lớn	Giữ khung 2 cột (catalog + giỏ hàng), mở rộng modal chọn option trà sữa, thanh báo kết nối mạng, mở/đóng ca.
+thêm tác vụ để khóa món/topping -> ngừng bán online
+
+thêm tra cứu hội viên, apply voucher
+sales/sales.html	sales/sales.html	Quản Lý Đơn Hàng Đa Kênh: Danh sách đơn Quầy, Mang đi, Online; lọc theo chi nhánh, ca làm việc, trạng thái pha chế.
+
+thanh toán, giao hàng	Vừa	Giữ table và filter, thêm badge kênh bán và nút xem phiếu pha chế (KOT).
+Thêm Cờ/ghi chú nhận diện đơn lớn và thông tin giao hàng
+sales/sales-returns.html	sales/sales-returns.html	Xử Lý Khiếu Nại & Hoàn Tiền: Đổi trà sữa lỗi, bù voucher, hoàn tiền, tự động trừ lại điểm tích lũy của thành viên.
+
+Hủy trước pha
+	Nhỏ	Giữ form và danh sách đổi trả, sửa lý do phù hợp F&B (hỏng vị, nhầm size, sai đường đá).
+Bổ sung trạng lí do, người duyệt và lịch sử hoàn.
+Mới bổ sung
+
+CÔ ĐỀ NGHỊ BỎ RỒI NHA.	sales/wholesale.html	Quản Lý Đơn Bán Sỉ (B2B): Tiếp nhận đặt tiệc/công ty, kiểm tra công suất, báo giá, đặt cọc, lịch giao nhiều đợt.	Mới (nhân bản từ sales.html)	Tận dụng component table, modal báo giá và form tiến độ đặt cọc.
+inventory/products.html	inventory/products.html	Menu Đồ Uống & Topping Chuỗi: Danh mục trà sữa, trà trái cây, topping; trạng thái đang bán hoặc chi nhánh tạm khóa món.
+
+giá, size	Vừa	Giữ thẻ thống kê và bảng sản phẩm, đổi cột thành Size, Nhóm món, Giá chuẩn, Tình trạng nguyên liệu.
+inventory/add-product.html	inventory/add-product.html	Thêm Món Mới & Định Mức Công Thức (BOM/Recipe): Khai báo món và công thức theo size, nguyên liệu/bán thành phẩm, đơn vị, định lượng	Lớn	Giữ form cơ bản, bổ sung bảng "Công thức pha chế" (chọn nguyên liệu + định lượng ml/gram).
+inventory/product-details.html	inventory/product-details.html	Chi Tiết Món, Giá & Phiên Bản Công Thức: Xem lịch sử phiên bản công thức, định mức chi phí vốn (COGS) từng size.
+Chi tiết món, giá và công thức theo size	Vừa	Tận dụng layout chi tiết sản phẩm, hiển thị bảng công thức và biểu đồ giá vốn.
+inventory/categories.html	inventory/categories.html	Nhóm Món Đồ Uống: Trà Sữa, Trà Trái Cây, Cà Phê & Macchiato, Đá Xay, Món Theo Mùa, Topping.	Nhỏ	Giữ nguyên giao diện quản lý category, đổi danh mục sang F&B.
+inventory/brands.html	inventory/branches.html	Quản Lý 12 Chi Nhánh TP.HCM: Mã CN, địa chỉ, quản lý phụ trách, số máy POS, sức chứa kho, trạng thái kết nối.	Vừa	Đổi từ "Brands" sang "Branches" (Chi nhánh), giữ bảng quản lý và thêm trường dữ liệu kho/quản lý.
+inventory/units.html	inventory/units.html	Đơn Vị Tính & Quy Đổi Pha Chế: Kg ↔ Gram, Lít ↔ Mililit (ml), Hộp, Thùng, Bịch, Quả, Ly, Ống hút.
+
+viên/phần; hệ số > 0.	Nhỏ	Giữ nguyên UI, cập nhật dữ liệu quy đổi đơn vị nguyên vật liệu trà sữa.
+inventory/stock-adjustment.html	inventory/stock-adjustment.html	Kiểm Kê Kho Chi Nhánh & Hao Hụt: Kiểm kê mù, đối chiếu tồn thực tế vs hệ thống, ghi nhận hao hụt/đổ vỡ/hết hạn.
+
+chênh lệch và nguyên nhân từng loại.	Nhỏ	Giữ nguyên UI, cập nhật lý do hao hụt đặc trưng pha chế (pha lỗi, rơi vỡ, cận date hủy).
+Tính hao hụt từng topping và tổng theo giá vốn
+purchases/purchases.html	purchases/purchases.html	Đơn Nhập Nguyên Liệu Theo Lô (Inbound / Lot & EXP): Danh sách đơn mua nguyên liệu cho kho tổng; theo dõi đặt, giao và thanh toán.
+thông tin chi tiết về đơn mua, HSD,...	Vừa	Giữ bảng PO, thêm cột Mã Lô, Ngày SX, Hạn dùng.
+
+Thêm phần xem chi tiết để xem thông tin về đơn nhập đó: lô, ngày sản xuất, hạn dùng và chất lượng, nguồn,...
+purchases/add-purchase.html[1.1]	purchases/add-purchase.html	Lập Đề Xuất & Đơn Đặt Hàng Nhà Cung Cấp: Gợi ý tự động.
+Lập đơn mua cho kho tổng từ nhu cầu chế biến/cấp phát toàn chuỗi, tồn dùng được, tồn an toàn và hàng đang đặt.
+	Vừa	Giữ form PO; cố định nơi nhận kho tổng. Phân biệt lượng đặt với lượng thực nhận.
+purchases/purchase-returns.html	[2.1]purchases/stock-transfers.html	Cấp phát từ khu chế biến đến cửa hàng theo ca sáng/chiều/tối; lưu mẻ, hạn dùng, lượng thực cấp/thực nhận và chênh lệch. Không chuyển giữa cửa hàng.	Lớn; viết lại nghiệp vụ	Chỉ tận dụng bảng/form của purchase-returns làm khung. Thêm ca, cửa hàng, mẻ và trạng thái nháp/chờ xuất/đang giao/đã nhận/chênh lệch. Tăng lượng tại quầy sau kiểm nhận.
+invoices/invoices.html	invoices/invoices.html	Quản Lý Hóa Đơn & Chứng Từ: Hóa đơn bán lẻ quầy, hóa đơn điện tử giả lập, biên lai hoàn tiền.	Nhỏ	Giữ nguyên cấu trúc tra cứu hóa đơn, bổ sung mã chi nhánh và ca làm việc.
+invoices/invoice-details.html	invoices/invoice-details.html	Chi Tiết Hóa Đơn / Mẫu In Bill Trà Sữa: Hiển thị chi tiết từng ly (Size, Đường, Đá, Topping), chiết khấu VIP, mã QR thanh toán.	Vừa	Định dạng lại hóa đơn in bill chuẩn quầy F&B (khổ K80/K57).
+customers/customers.html	customers/customers.html	Hội Viên Chuỗi & Khách Hàng: Quản lý 4 hạng (Member, Silver, Gold, VIP), tổng chi tiêu 12 tháng, số dư điểm thưởng.	Vừa	Giữ nguyên bảng và filter, cập nhật cột Hạng thẻ, Điểm tích lũy, SĐT tra cứu nhanh.
+
+Điểm từ sổ giao dịch, nên thêm xem lịch sử + điểm, gắn với hóa đơn mua.
+suppliers/suppliers.html	suppliers/suppliers.html	Nhà Cung Cấp Nguyên Vật Liệu: Cung cấp trà lá, siro, topping, sữa, ly nắp, máy móc; đánh giá thời gian giao và chất lượng.	Nhỏ	Giữ nguyên UI, cập nhật nhà cung cấp ngành F&B Việt Nam.
+expenses/expenses.html	expenses/expenses.html	Chi Phí Vận Hành Chi Nhánh: Tiền thuê mặt bằng, điện nước, khấu hao thiết bị quầy bar, lương nhân sự, chi phí hủy hỏng.	Nhỏ	Giữ nguyên UI, cập nhật các danh mục chi phí đặc thù quán trà sữa.
+reports/sales-report.html	reports/sales-report.html	Báo Cáo Doanh Thu Chuỗi: Doanh số theo cửa hàng/ca/món/size/topping và kênh quầy/online; lọc đơn lớn, quà tặng, số khách và món bán chạy/chậm.
+	Vừa	Giữ các biểu đồ, đổi dữ liệu sang phân tích món trà sữa, khung giờ vàng phục vụ.
+
+ Liên kết số bán với nhu cầu cấp nguyên liệu
+reports/inventory-report.html	reports/inventory-report.html	Báo Cáo Tồn Kho & Cảnh Báo Cận Date (FEFO): Tồn thực tế vs Tồn an toàn tại kho; danh sách lô sắp hết hạn trong 7 ngày.	Vừa	Giữ layout báo cáo, bổ sung bảng theo dõi hạn sử dụng nguyên liệu nhạy cảm (sữa tươi, trân châu chín).
+reports/profit-loss.html	reports/profit-loss.html	Báo Cáo Hiệu Quả Chi Nhánh & Điểm Hòa Vốn: Doanh thu, COGS, biên đóng góp, cảnh báo chi nhánh thua lỗ liên tiếp.	Vừa	Tận dụng bảng P&L, tích hợp cảnh báo trung bình trượt 4 tuần và 3 tháng theo yêu cầu mục 11.
+
+bổ sung món bán chạy/chậm, lượng khách,
+Quy định kỳ và phân bổ chi phí tập trung; ngưỡng cảnh báo do người có quyền cấu hình.
+
+reports/customer-report.html	reports/customer-report.html	Báo Cáo Thành Viên & Khách VIP: Tần suất quay lại, phân bổ hạng thẻ Member-VIP, hiệu quả khuyến mãi/voucher.
+
+hiệu quả khuyến mãi phải có thêm dữ liệu bán hàng theo cửa hàng/kênh	Nhỏ	Giữ nguyên UI, cập nhật phân khúc khách hàng F&B.
+reports/purchase-report.html	[3.1]reports/purchase-report.html	Báo Cáo Nhập Hàng & Công Nợ Nhà Cung Cấp: Chi phí nguyên liệu nhập	Nhỏ	Giữ nguyên UI, đổi dữ liệu nguyên liệu pha chế.
+reports/supplier-report.html	reports/supplier-report.html	Báo Cáo Đánh Giá Nhà Cung Cấp: Tỷ lệ giao hàng đúng hẹn, tỷ lệ lô đạt chuẩn chất lượng ATVSTP.	Nhỏ	Giữ nguyên UI.
+users/users.html	users/users.html	Danh Sách Nhân Viên & Gán Chi Nhánh: Quản lý nhân viên thu ngân, pha chế, thủ kho gắn với chi nhánh công tác cụ thể.	Vừa	Giữ bảng user, bổ sung cột "Chi nhánh làm việc", "Quầy phụ trách", "Trạng thái ca".
+users/roles.html	users/roles.html	Phân Quyền 4 Vai Trò: Chủ doanh nghiệp, Quản lý chi nhánh, Thu ngân, Nhân viên kho chi nhánh.
+
+kho tổng và chế biến/cấp phát; quyền kiểm nhận/đối soát được gán rõ.
+	Vừa về UI; lớn về logic quyền	Giữ nguyên ma trận quyền (Permission Matrix), cấu hình đúng 4 vai trò trong tài liệu đặc tả.
+settings/general.html	settings/general.html	Cài Đặt Thương Hiệu Chuỗi: Tên thương hiệu, trụ sở chính, 12 chi nhánh, định dạng tiền tệ VNĐ, cấu hình máy in bill.	Nhỏ	Giữ form settings, cập nhật thông tin thương hiệu trà sữa.
+settings/inventory.html	settings/inventory.html	Cấu Hình Kho & FEFO: Ngưỡng tồn an toàn mặc định, quy tắc xuất kho FEFO, quy chuẩn tỷ lệ hao hụt pha chế cho phép.
+
+	Nhỏ	Giữ form, đổi sang cấu hình kho F&B.
+settings/sales.html	settings/sales.html	Cấu Hình Bán Hàng & Đơn Online: Thời gian tự động hủy đơn online nếu mất kết nối (5 phút), quy định làm tròn tiền.
+
+ngưỡng đơn lớn/quà, khóa online khi nguyên liệu chạm ngưỡng
+
+ngưỡng hao hụt riêng từng loại. Ngưỡng online theo cửa hàng/nguyên liệu	Vừa	Giữ form, thêm tham số thời gian chờ xác nhận đơn online.
+
+thêm cấu hình theo loại/cửa hàng. Không áp một tỷ lệ hao hụt chung cho mọi topping.
+
+settings/purchases.html	settings/purchases.html	Cấu Hình Mua Hàng: Quy định hạn dùng tối thiểu khi nhận hàng từ nhà cung cấp
+	Nhỏ	Giữ form, cập nhật thông số.
+settings/notifications.html	settings/notifications.html	Cảnh Báo Hệ Thống: Thông báo nguyên liệu cận date, thông báo tồn dưới mức an toàn, cảnh báo mất mạng POS.
+
+nguyên liệu tại quầy thấp, khóa online.	Nhỏ	Giữ form cấu hình thông báo.
+
+cảnh báo theo cửa hàng/ca/nguyên liệu, có người nhận và trạng thái xử lí.
+Mới bổ sung	settings/offline-sync.html	Trung Tâm Giám Sát Đồng Bộ & Đối Soát: Quản lý hàng đợi đơn offline, đối soát doanh thu ca của Quản lý chi nhánh.	Mới (nhân bản từ settings/general.html)	Tận dụng style card, hiển thị danh sách đơn chờ sync và nút ép đồng bộ thủ công.
+
+Bổ sung mã đơn duy nhất, thử lại an toàn, lịch sử lỗi và xác nhận máy chủ
+pages/login.html	pages/login.html	Đăng Nhập Hệ Thống: Hỗ trợ chọn vai trò và chi nhánh làm việc (cho Quản lý, Thu ngân, Thủ kho).	Nhỏ	Giữ form login, đổi logo trà sữa, thêm dropdown chọn Chi nhánh nếu là nhân viên cửa hàng.
+pages/profile.html	pages/profile.html	Hồ Sơ Cá Nhân & Đổi Ca: Thông tin nhân sự, ca làm việc hiện tại, lịch sử đăng nhập thiết bị.	Nhỏ	Giữ nguyên layout profile.
+pages/register.html, forgot-password.html, reset-password.html, 404.html	Các trang bổ trợ	Các trang xác thực và lỗi hệ thống	Giữ nguyên	Chỉ thay đổi tên thương hiệu và màu sắc nhận diện.
+assets/js/app.js	assets/js/app.js	Core Layout Injection: Cung cấp Sidebar F&B chuẩn hóa, Header có Branch Switcher, Toast, Modal, Search.	Vừa	Sửa getSidebarHTML() và getHeaderHTML(), dữ liệu tìm kiếm nhanh F&B.
+assets/js/pos.js	assets/js/pos.js	Bộ Xử Lý Giỏ Hàng POS Trà Sữa: Xử lý option Topping/Đường/Đá, tra cứu Member, lưu đơn Offline vào LocalStorage.
+
+tính nguyên liệu/quà, thanh toán	Lớn	Mở rộng cấu trúc giỏ hàng từ pos.js hiện tại.
+assets/js/dashboard.js	assets/js/dashboard.js	Biểu Đồ Doanh Thu & So Sánh 12 Chi Nhánh: doanh số/khách/ly theo cửa hàng và ca, món/topping bán chạy, hao hụt và hiệu quả cấp phát.	Vừa	Cập nhật dữ liệu demo và cấu hình Chart.js.
+bổ sung lọc và đơn vị.
+
+assets/js/tables.js	assets/js/tables.js	Bộ Lọc & Phân Trang DataTable: Hỗ trợ lọc theo Chi nhánh, Kênh bán, Hạng thành viên, Trạng thái.	Giữ nguyên	Class DataTable dùng chung cho toàn bộ bảng trong dự án.
+
+bổ sung trường lọc cửa hàng/ca/
+Nhân bản inventory/products.html	inventory/ingredients.html	Nguyên liệu và bán thành phẩm: mã, đơn vị, quy đổi, bảo quản, hạn dùng sau chế biến, giá vốn và hao hụt định mức từng loại.	Mới	Giữ bảng/form danh mục; tách khỏi menu đồ uống. Ví dụ trân châu thô và trân châu chín là hai đối tượng liên kết qua mẻ.
+[4.1]Nhân bản inventory/add-product.html	production/recipes.html	Công thức chế biến mẻ: nguyên liệu đầu vào, sản lượng chuẩn, phiên bản/hiệu lực, người duyệt.	Mới	Tận dụng bảng định lượng; phân biệt công thức pha 1 ly. Khi bán ly không trừ lại nguyên liệu thô đã dùng nấu mẻ.
+Nhân bản purchases/add-purchase.html	production/batches.html	Mẻ chế biến: lô/ lượng đầu vào, sản lượng lý thuyết/thực tế, hao hụt, chất lượng, hạn dùng và người thực hiện/duyệt.	Mới	Giữ form nhiều dòng. Chỉ mẻ đạt, còn hạn được cấp; truy xuất từ cửa hàng về mẻ và lô.
+Nhân bản purchases/purchases.html	purchases/receipts.html	Phiếu nhập kho tổng: tham chiếu đơn mua, thực nhận theo lô, hạn dùng, chất lượng và chênh lệch.	Mới	Tận dụng bảng PO; tách đặt mua khỏi nhập thực nhận. Chỉ phần đạt mới tăng tồn khả dụng.
+Nhân bản reports/sales-report.html	distribution/planning.html	Kế hoạch cấp sáng/chiều/tối theo cửa hàng: mức bán trung bình từng món/topping, khách, khuyến mãi, đơn lớn và tồn còn dùng được.	Mới	Hiển thị nhu cầu và lượng đề xuất; quản lí duyệt. Không cộng trùng đơn lớn đã giữ; hàng đang giao chỉ dùng dự báo, chưa dùng nhận đơn ngay.
+[5.1]Nhân bản inventory/stock-adjustment.html	stores/ingredients.html	Nguyên liệu tại quầy: còn ghi sổ, giữ cho đơn, khả dụng, mẻ/hạn dùng, số ly/phần ước tính và trạng thái bán.	Mới	Số ly lấy giới hạn thấp nhất theo công thức/size/tùy chọn. Ví dụ 900 g, 30 g/phần đủ 30 phần; còn 150 g = 5 phần thì khóa online theo cấu hình.
+Nhân bản inventory/stock-adjustment.html	stores/shift-reconciliation.html	Đối soát cuối ca: đầu ca + thực nhận - tiêu hao - hủy chưa tính tiêu hao; so với thực đếm, ghi nguyên nhân và duyệt.	Mới	Từng topping có đơn vị/ngưỡng riêng. Tổng hao hụt quy theo giá vốn; hủy món đã pha không trừ nguyên liệu lần hai.
+Nhân bản sales/sales.html	sales/shifts.html	Mở/đóng ca và bàn giao: quầy, nhân viên, tiền, đơn chưa xong, nguyên liệu và chênh lệch.	Mới	Tái dùng bảng/form; liên kết đối soát tiền và nguyên liệu, không đặt toàn bộ trong trang hồ sơ.
+Nhân bản bảng/form sẵn có	marketing/promotions.html	Khuyến mãi/quà: cửa hàng áp dụng/loại trừ, kênh, ca/giờ, món, hiệu lực, ngân sách/lượt, cộng dồn và phiên bản.	Mới	Đơn lưu ưu đãi đã áp dụng. Quà kiểm tra và giữ nguyên liệu như món bán; chương trình riêng được đưa vào kế hoạch cấp ca.
+[6.1]Tận dụng thẻ món và giỏ POS	online/menu.html và online/orders.html	Khách đặt online: chọn cửa hàng, món/size/topping, nhận/giao và theo dõi đơn; không dùng sidebar quản trị cho khách.	Mới	Giữ style card và tùy chọn món. Kiểm tra lại nguyên liệu khi xác nhận; giữ đủ món/quà, ngưỡng online và chống trùng với POS.
+Nhân bản sales/sales.html	sales/preparation.html	Hàng đợi pha chế: đơn đã đủ điều kiện, thời gian, tùy chọn, bắt đầu pha/sẵn sàng và món thiếu.	Mới nếu dùng màn hình; có thể dùng phiếu KOT	Giữ bảng hoặc dùng phiếu in và người có quyền cập nhật. Bắt đầu pha chuyển lượng giữ thành tiêu hao một lần; ghi rõ cách nhóm chọn triển khai.
+assets/js/products.js	assets/js/products.js	Dữ liệu và thao tác menu/nguyên liệu; file này có trong ZIP nhưng chưa được ánh xạ ở bảng gốc.	Lớn về dữ liệu/logic	Giữ phần render phù hợp; bỏ dữ liệu điện tử mẫu và stock món cố định. Tách menu, nguyên liệu, công thức và nguồn dữ liệu dùng chung.
+Mới bổ sung	assets/js/data-service.js và assets/js/offline-sync.js	Lớp truy cập dữ liệu và đồng bộ dùng chung cho POS, đơn, mẻ, cấp phát và báo cáo.	Mới	Bản demo có thể mô phỏng dữ liệu; hệ thống nhiều cửa hàng cần máy chủ lưu đơn, xác thực, kiểm quyền và giữ nguyên liệu nhất quán. Giao diện không tự bảo đảm các ràng buộc này.
+assets/css/app.css; src/input.css; assets/css/tailwind.css	Giữ các đường dẫn hiện có	Phong cách chung, tiếng Việt, VNĐ, ảnh đồ uống, giao diện POS và in bill.	Giữ nền; chỉnh vừa	Sửa nguồn CSS rồi tạo lại CSS đầu ra. Kiểm tra chữ dài, bảng trên màn hình nhỏ và khổ in; thay ảnh điện tử demo.
+package.json; package-lock.json; tailwind.config.js; postcss.config.js; vercel.json; assets/js/chart.min.js; assets/img/	Giữ cấu trúc cấu hình và tài nguyên phù hợp	Chạy giao diện, tạo CSS, đường dẫn triển khai, thư viện biểu đồ và ảnh.	Giữ phần phù hợp	Cập nhật liên kết khi đổi tên file/menu. Cấu hình triển khai giao diện không thay thế phần máy chủ. Kiểm tra bản quyền tài nguyên nếu phân phối lại.
+________________________________________
+
+
+
+PHÂN CÔNG CÔNG VIỆC HTML/CSS — HỆ THỐNG QUẢN LÝ TRÀ SỮA
+LƯU Ý QUAN TRỌNG:
+-	FONT VIỆT HOÁ SAU KHI THAY ĐỔI: Be VietNam Pro
+I. Quy chuẩn chung bắt buộc cho cả 3 người
+1. Nguyên tắc làm việc
+Cả 3 người cùng phát triển một hệ thống nên phải thống nhất giao diện, quy ước HTML/CSS và cách sử dụng thư viện trước khi chỉnh sửa các trang riêng.
+●	Giữ nguyên cấu trúc thư mục và cơ chế hoạt động hiện có của dự án; không tự ý đổi tên, di chuyển hoặc xóa file.
+●	Tái sử dụng template, class, component và tài nguyên đã có thay vì tự viết lại từ đầu.
+●	Không tự ý thêm thư viện mới, thay đổi cấu hình Tailwind hoặc thay đổi cơ chế nạp CSS chung.
+●	Phạm vi giai đoạn này là HTML/CSS. Không tự ý sửa nghiệp vụ JavaScript, API, cơ sở dữ liệu hoặc logic xử lý đơn hàng.
+●	Trước khi tạo component hoặc class mới, kiểm tra xem dự án đã có cách triển khai tương đương chưa.
+●	Không sửa giao diện dùng chung theo hướng làm ảnh hưởng đến các trang thuộc hai người còn lại.
+2. Các thành phần bắt buộc phải thống nhất
+2.1. Khung giao diện toàn hệ thống
+Phải dùng chung hoặc giữ cùng cấu trúc đối với:
+●	Header, sidebar, logo và khu vực thông tin tài khoản.
+●	Cấu trúc container chính, chiều rộng nội dung và khoảng cách với sidebar.
+●	Page header gồm tiêu đề, mô tả, breadcrumb và nhóm nút thao tác.
+●	Cách hiển thị thông báo, menu thả xuống, modal và drawer.
+●	Kiểu hiển thị khi trang có dữ liệu, không có dữ liệu, đang tải hoặc xảy ra lỗi.
+Không để mỗi người tạo một header, sidebar hoặc layout riêng.
+Nếu assets/js/app.js đang chịu trách nhiệm chèn layout dùng chung, hãy giữ nguyên cơ chế đó trong giai đoạn HTML/CSS. Không tự tạo thêm một phiên bản header/sidebar bên trong từng trang.
+2.2. Hệ thống màu sắc và kiểu chữ
+Cả 3 người thống nhất sử dụng cùng một bộ quy chuẩn:
+●	Màu thương hiệu của hệ thống trà sữa.
+●	Màu nền trang, nền thẻ, đường viền và màu chữ.
+●	Màu hành động chính, hành động phụ và hành động nguy hiểm.
+●	Màu trạng thái thành công, cảnh báo, lỗi và thông tin.
+●	Font chữ, cỡ chữ tiêu đề, nội dung, nhãn form và dữ liệu bảng.
+●	Quy tắc bo góc, đổ bóng, khoảng cách, chiều cao input và kích thước nút.
+Không tự chọn các màu gần giống nhau hoặc tạo ra nhiều kiểu nút cho cùng một mục đích.
+2.3. Các thành phần UI cần tái sử dụng
+Cả 3 người phải dùng chung quy chuẩn cho:
+●	Button: nút chính, nút phụ, nút nguy hiểm và nút chỉ có icon.
+●	Form: input, select, textarea, checkbox, radio, date picker và cách hiển thị lỗi.
+●	Table: tiêu đề cột, chiều cao hàng, căn lề, trạng thái hover và phân trang.
+●	Badge: cách hiển thị trạng thái.
+●	Card: thẻ KPI, thẻ thông tin và thẻ thống kê.
+●	Search và filter: vị trí ô tìm kiếm, bộ lọc, nút áp dụng và nút xóa bộ lọc.
+●	Modal/drawer: tiêu đề, nội dung, nút đóng, nút xác nhận và nút hủy.
+●	Các trạng thái loading, empty state, error state và thông báo xác nhận.
+Không nhất thiết mọi trang phải có cùng bố cục nội dung. Điều bắt buộc là các thành phần có cùng chức năng phải có cách hiển thị và cách sử dụng nhất quán.
+2.4. Quy chuẩn dữ liệu hiển thị
+Thống nhất trước khi làm giao diện:
+●	Ngôn ngữ giao diện: tiếng Việt.
+●	Tiền tệ: VND, thống nhất một cách ghi và định dạng số trên toàn hệ thống.
+●	Ngày tháng: dùng định dạng dd/MM/yyyy; ngày giờ dùng cùng một quy ước.
+●	Số lượng, đơn vị đo, giá vốn, giá bán, phần trăm và số điểm tích lũy phải có cách trình bày thống nhất.
+●	Các trạng thái của đơn hàng, pha chế, tồn kho, nhập hàng, ca làm việc và đồng bộ phải thống nhất về tên gọi và màu sắc.
+●	Các trường dữ liệu có cùng ý nghĩa phải dùng cùng tên gọi trên các trang.
+Ví dụ, trạng thái đơn hàng có thể gồm: Chờ xác nhận, Đang pha chế, Sẵn sàng, Đang giao, Hoàn thành và Đã hủy. Trước khi triển khai, cả nhóm cần thống nhất danh sách thực tế theo nghiệp vụ của dự án; không để mỗi trang tự đặt tên trạng thái.
+3. Quy định dùng Tailwind CSS
+3.1. Tailwind CSS — dùng tại các trang HTML
+Các file .html trong cả 3 module sử dụng utility class của Tailwind thông qua thuộc tính class, ví dụ:
+class="flex items-center justify-between gap-4"
+Quy định:
+●	Ưu tiên dùng các utility class có sẵn của Tailwind để dựng layout, grid, flex, spacing, màu sắc, typography, responsive và trạng thái hover/focus.
+●	Tận dụng class Tailwind có sẵn trước khi viết CSS riêng.
+●	Sử dụng cùng một quy ước responsive cho desktop, tablet và mobile, hiện tại template đã có sẵn responsive, muốn sửa thì BẮT BUỘC PHẢI THÔNG BÁO LÊN NHÓM VÀ CHỊU TRÁCH NHIỆM CHO PHẦN RESPONSIVE ĐÓ.
+●	Không tự đặt class Tailwind giả định nếu class đó không thuộc phiên bản/cấu hình đang dùng.
+●	Không ghép tên class động theo cách khiến Tailwind không nhận diện được khi build; kiểm tra cấu hình quét file HTML và build CSS nếu có class mới.
+●	Không tự thêm một bộ CSS framework khác để giải quyết vấn đề mà Tailwind hiện có thể xử lý.
+Các vị trí trong dự án cần thống nhất:
+●	src/input.css: file CSS nguồn của Tailwind nếu dự án đang cấu hình theo cách này.
+●	assets/css/tailwind.css: file CSS đầu ra đã biên dịch nếu đây là file build của dự án. Không sửa trực tiếp file này khi nó được sinh tự động; hãy sửa file nguồn và chạy đúng lệnh build.
+●	assets/css/app.css: tập trung vào style dùng chung của ứng dụng và các điều chỉnh CSS toàn cục đã được nhóm thống nhất. FILE NÀY SẼ  XÂY DỰNG CSS ROOT NÊN KHÁ QUAN  TRỌNG!
+●	assets/css/pages/: có thể tổ chức CSS riêng cho từng module tại đây nếu cấu trúc hiện tại chưa có cơ chế tương đương. Dự kiến gồm sales.css, inventory.css và admin.css. Chỉ tạo và sử dụng các file này sau khi kiểm tra cách nạp CSS hiện tại để tránh nạp trùng hoặc sai đường dẫn.
+Các file trên cần được xác minh với cấu trúc thực tế của repository trước khi chỉnh sửa. Không được tự ý thay thế cơ chế build hiện tại bằng một cơ chế khác.
+II. Phân công công việc
+Người 1 — Bán hàng và khách hàng
+Sales · POS · Customer-facing
+Các trang HTML phụ trách
+●	dashboard.html
+●	sales/add-sale.html
+●	sales/sales.html
+●	sales/sales-returns.html
+●	sales/shifts.html — trang mở/đóng ca mới
+●	sales/preparation.html — hàng đợi pha chế mới
+●	customers/customers.html
+●	marketing/promotions.html — quản lý khuyến mãi mới
+●	online/menu.html
+●	online/orders.html
+Công việc HTML/CSS
+●	Dashboard: giữ grid hiện có; thống nhất thẻ KPI, biểu đồ, bộ lọc chi nhánh và khoảng cách giữa các khu vực.
+●	POS: giữ bố cục hai cột gồm danh mục món và giỏ hàng; bổ sung giao diện chọn size, đường, đá, topping, voucher, hội viên và trạng thái kết nối.
+●	Quản lý đơn hàng: bảng, bộ lọc, badge kênh bán, trạng thái pha chế và giao hàng.
+●	Khách hàng: bảng hội viên, hạng thẻ, điểm tích lũy và lịch sử.
+●	Các trang mới: ca làm việc, hàng đợi pha chế, menu online, theo dõi đơn online và chương trình khuyến mãi.
+●	Đảm bảo giao diện POS, quản lý đơn và menu online có cùng quy chuẩn màu sắc, nút, form, badge và bảng.
+●	Tận dụng Tailwind và các UI component đã được nhóm thống nhất; không tự chỉnh CSS toàn cục trong assets/css/app.css khi chưa trao đổi với người phụ trách.
+Kết quả bàn giao
+Các trang bán hàng, khách hàng và trải nghiệm đặt món có HTML/CSS hoàn chỉnh, nhất quán với design system chung và không làm ảnh hưởng đến layout của các module khác.
+________________________________________
+Người 2 — Kho, nguyên liệu và cung ứng
+Inventory · Production · Procurement
+Các trang HTML phụ trách
+●	inventory/products.html
+●	inventory/ingredients.html — nguyên liệu mới
+●	inventory/add-product.html
+●	inventory/product-details.html
+●	inventory/categories.html
+●	inventory/branches.html
+●	inventory/units.html
+●	inventory/stock-adjustment.html
+●	production/recipes.html — công thức chế biến mới
+●	production/batches.html — quản lý mẻ mới
+●	purchases/purchases.html
+●	purchases/add-purchase.html
+●	purchases/stock-transfers.html
+●	purchases/receipts.html — phiếu nhập kho mới
+●	distribution/planning.html — kế hoạch cấp phát mới
+●	stores/ingredients.html — nguyên liệu tại quầy mới
+●	stores/shift-reconciliation.html — đối soát cuối ca mới
+Công việc HTML/CSS
+●	Menu đồ uống, nguyên liệu và topping: bảng danh mục, trạng thái, đơn vị và giá.
+●	Công thức pha chế: form thông tin món và bảng định lượng theo size.
+●	Nguyên liệu và sản xuất: form công thức mẻ, bảng nguyên liệu đầu vào, sản lượng và hao hụt.
+●	Mua hàng: danh sách đơn mua, thông tin lô, hạn dùng, chất lượng và lượng thực nhận.
+●	Cấp phát: giao diện lập kế hoạch theo cửa hàng và ca sáng/chiều/tối.
+●	Kho tại quầy: hiển thị lượng tồn, lượng giữ cho đơn, lượng khả dụng và số ly ước tính.
+●	Đối soát: bảng đầu ca, thực nhận, tiêu hao, hao hụt và chênh lệch.
+●	Thống nhất cách hiển thị số lượng, đơn vị, giá trị tồn kho, cảnh báo tồn thấp và badge trạng thái với các trang báo cáo.
+●	Tái sử dụng cấu trúc bảng, form, bộ lọc và trạng thái đã có; không tự tạo một hệ thống CSS khác cho module kho.
+Kết quả bàn giao
+Toàn bộ giao diện quản lý vòng đời nguyên liệu từ nhập kho, chế biến mẻ, cấp phát đến sử dụng tại quầy, dùng cùng design system và quy chuẩn dữ liệu với các module còn lại.
+________________________________________
+Người 3 — Báo cáo, quản trị và hệ thống
+Reports · Administration · Configuration
+Các trang HTML phụ trách
+●	invoices/invoices.html
+●	invoices/invoice-details.html
+●	suppliers/suppliers.html
+●	expenses/expenses.html
+●	reports/sales-report.html
+●	reports/inventory-report.html
+●	reports/profit-loss.html
+●	reports/customer-report.html
+●	reports/purchase-report.html
+●	reports/supplier-report.html
+●	users/users.html
+●	users/roles.html
+●	settings/general.html
+●	settings/inventory.html
+●	settings/sales.html
+●	settings/purchases.html
+●	settings/notifications.html
+●	settings/offline-sync.html — trung tâm đồng bộ mới
+●	pages/login.html
+●	pages/profile.html
+●	pages/register.html
+●	pages/forgot-password.html
+●	pages/reset-password.html
+●	404.html
+●	index.html
+Công việc HTML/CSS
+●	Hóa đơn: bảng tra cứu, chi tiết hóa đơn và giao diện in bill K80/K57.
+●	Báo cáo: biểu đồ, bảng dữ liệu, bộ lọc theo chi nhánh, ca, món và kênh bán.
+●	Nhà cung cấp, chi phí: giữ cấu trúc template và cập nhật thông tin phù hợp ngành trà sữa.
+●	Nhân viên và phân quyền: bảng nhân viên, thông tin chi nhánh và giao diện ma trận quyền.
+●	Cài đặt: các form cấu hình thương hiệu, kho, FEFO, bán hàng, mua hàng và thông báo.
+●	Đồng bộ offline: danh sách đơn chờ đồng bộ, trạng thái lỗi, lịch sử và nút thao tác.
+●	Đăng nhập và các trang bổ trợ: giữ bố cục cơ bản, thay đổi nhận diện thương hiệu và bổ sung trường theo yêu cầu.
+●	Làm đầu mối điều phối thay đổi đối với CSS toàn cục và cấu hình Tailwind; tiếp nhận đề xuất từ người 1 và người 2, sau đó thống nhất trước khi cập nhật file dùng chung.
+●	Không tự ý thay đổi layout chung chỉ để phục vụ một trang báo cáo hoặc cài đặt; các thay đổi chung phải tương thích cả ba module.
+Kết quả bàn giao
+Giao diện quản trị và cấu hình hệ thống, báo cáo, hóa đơn và xác thực; đồng thời phối hợp giữ quy chuẩn UI/CSS dùng chung để các module có thể tích hợp nhất quán.
+________________________________________
+III. Tiêu chí nghiệm thu chung
+Mỗi người chỉ hoàn thành công việc khi đáp ứng các tiêu chí sau:
+1.	Tất cả trang được giao đều có HTML/CSS hoàn chỉnh, không bỏ sót trang.
+2.	Không làm hỏng header, sidebar, đường dẫn tài nguyên hoặc layout của trang khác.
+3.	Dùng chung quy chuẩn màu sắc, typography, button, form, table, badge và trạng thái.
+4.	Tận dụng Tailwind và các component thực sự có sẵn trong dự án; không tạo thư viện trùng lặp. KHÔNG ĐỂ AGENT GỌI 1 THƯ VIỆN KHÁC ĐỂ THIẾT KẾ (NHƯ BOOTSTRAP)
+5.	CSS riêng không ảnh hưởng đến module của người khác.
+6.	Bố cục không bị vỡ khi đổi kích thước màn hình.(ĐÃ CÓ SẴN, NHƯNG LỠ CÓ DÍNH LỖI THÌ FIX KỸ, VÌ ĐÂY LÀ TIÊU CHÍ CÔ CHẤM ĐIỂM)
+7.	Giai đoạn này tập trung vào giao diện; những phần cần JavaScript, API hoặc dữ liệu thật được ghi chú rõ để xử lý ở giai đoạn tích hợp tiếp theo.
+

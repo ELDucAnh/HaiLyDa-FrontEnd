@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../assets/css/tailwind.css">
     <script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
 </head>
-<body>
+<body class="sales-ui">
 <div id="sidebar-container"></div>
 <div id="main-wrapper">
     <div id="header-container"></div>
@@ -54,7 +54,7 @@
                            value="Nguyễn An" readonly>
                 </div>
                 <div>
-                    <label class="form-label" for="shift-opening-cash">Tiền đầu ca (₫)</label>
+                    <label class="form-label" for="shift-opening-cash">Tiền đầu ca (VND)</label>
                     <input id="shift-opening-cash" class="form-input"
                            type="number" min="0" step="1000" placeholder="500000">
                 </div>
@@ -80,8 +80,8 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>CA-001</td><td>CN01 / Quầy 01</td><td>Nguyễn An</td>
-                        <td>28/10/2026 · 07:00</td><td>Chưa đóng</td><td>500.000 ₫</td>
+                        <td>CA-001</td><td>CN01 / Quầy 01</td><td class="name-ellipsis" title="Nguyễn An">Nguyễn An</td>
+                        <td>28/10/2026 · 07:00</td><td>Chưa đóng</td><td>500.000 VND</td>
                         <td><span class="badge badge-success">Đang mở</span></td>
                     </tr>
                     </tbody>
@@ -98,7 +98,7 @@
                            value="Chờ dữ liệu giao dịch" readonly>
                 </div>
                 <div>
-                    <label class="form-label" for="shift-counted-cash">Tiền thực đếm (₫)</label>
+                    <label class="form-label" for="shift-counted-cash">Tiền thực đếm (VND)</label>
                     <input id="shift-counted-cash" class="form-input"
                            type="number" min="0" step="1000">
                 </div>
