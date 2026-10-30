@@ -26,7 +26,7 @@
             <span class="current">Nhập hàng</span>
           </div>
           <h1 class="page-title">Báo Cáo Thu Mua &amp; Nhập Hàng F&amp;B</h1>
-          <p class="page-subtitle">Tổng hợp giá trị thu mua trà lá, bột sữa, bao bì và kiểm soát công nợ phải trả nhà cung cấp 12 chi nhánh.</p>
+          <p class="page-subtitle">Tổng hợp chi phí thu mua nguyên vật liệu và quản lý công nợ nhà cung cấp.</p>
         </div>
         <div class="flex gap-2.5 flex-wrap items-center">
           <button class="btn btn-secondary btn-sm" onclick="Toast.info('Đang kết xuất báo cáo nhập hàng PO (PDF)...','Xuất Báo Cáo')">
@@ -37,28 +37,50 @@
       </div>
 
       <!-- KPI Summary Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Tổng Chi Phí Mua Hàng</div>
-          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">684.500.000 ₫</div>
-          <div class="trend-up text-[11px] mt-[2px]">● Tháng 10/2026 (42 đơn PO)</div>
+      <section aria-label="Thống kê nhập hàng">
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-info">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Tổng Chi Phí Mua Hàng</div>
+              <div class="stat-value">684.500.000 ₫</div>
+              <div class="stat-sub-label">Tháng 10/2026 (42 đơn PO)</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-primary">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Đã Thanh Toán</div>
+              <div class="stat-value text-[var(--primary)]">566.250.000 ₫</div>
+              <div class="stat-sub-label">Đạt 82.7% giá trị đơn hàng</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-warning">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Công Nợ Gối Đầu Còn Lại</div>
+              <div class="stat-value text-[var(--warning)]">118.250.000 ₫</div>
+              <div class="stat-sub-label">Hạn thanh toán 15-30 ngày</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-success">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Tỷ Lệ Đạt Chuẩn Nhập Kho</div>
+              <div class="stat-value text-emerald-600">99.4%</div>
+              <div class="stat-sub-label">Đầy đủ tem nhãn và HSD FEFO</div>
+            </div>
+          </div>
         </div>
-        <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Đã Thanh Toán</div>
-          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">566.250.000 ₫</div>
-          <div class="text-[11px] text-[var(--muted)] mt-[2px]">Đạt 82.7% giá trị đơn hàng</div>
-        </div>
-        <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Công Nợ Gối Đầu Còn Lại</div>
-          <div class="text-[26px] font-extrabold text-[var(--warning)] mt-1">118.250.000 ₫</div>
-          <div class="text-[11px] text-[var(--muted)] mt-[2px]">Hạn thanh toán trong 15-30 ngày</div>
-        </div>
-        <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Tỷ Lệ Đạt Chuẩn Nhập Kho</div>
-          <div class="text-[26px] font-extrabold text-emerald-600 mt-1">99.4%</div>
-          <div class="trend-up text-[11px] mt-[2px]">● Đầy đủ tem nhãn và HSD FEFO</div>
-        </div>
-      </div>
+      </section>
 
       <!-- Charts Row -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">

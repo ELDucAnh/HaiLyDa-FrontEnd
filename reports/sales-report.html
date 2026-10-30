@@ -26,7 +26,7 @@
             <span class="current">Doanh thu bán hàng</span>
           </div>
           <h1 class="page-title">Báo Cáo Phân Tích Doanh Thu Chuỗi</h1>
-          <p class="page-subtitle">Theo dõi doanh thu theo 12 chi nhánh, các khung giờ cao điểm, cơ cấu kênh bán và top món đồ uống.</p>
+          <p class="page-subtitle">Phân tích doanh thu theo chi nhánh, khung giờ cao điểm, kênh bán và món đồ uống bán chạy.</p>
         </div>
         <div class="flex gap-2.5 flex-wrap items-center">
           <select class="form-input form-select text-xs w-auto">
@@ -48,28 +48,50 @@
       </div>
 
       <!-- KPI Summary Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Tổng Doanh Thu Bán Hàng</div>
-          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">1.842.600.000 ₫</div>
-          <div class="trend-up text-[11px] mt-[2px]">● +14.8% so với tháng trước</div>
+      <section aria-label="Thống kê doanh thu">
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-primary">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Tổng Doanh Thu Bán Hàng</div>
+              <div class="stat-value">1.842.600.000 ₫</div>
+              <div class="stat-sub-label text-emerald-600 font-medium">● +14.8% so với tháng trước</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-info">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Tổng Số Ly Phục Vụ</div>
+              <div class="stat-value text-[var(--primary)]">42.850 ly</div>
+              <div class="stat-sub-label">Trung bình 1.428 ly/ngày</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-purple">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Giá Trị Đơn Trung Bình (AOV)</div>
+              <div class="stat-value">72.500 ₫</div>
+              <div class="stat-sub-label">~1.7 ly + topping / đơn</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-warning">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Ưu Đãi Hội Viên &amp; Voucher</div>
+              <div class="stat-value text-[var(--warning)]">54.200.000 ₫</div>
+              <div class="stat-sub-label">Tỷ lệ chiết khấu 2.9%</div>
+            </div>
+          </div>
         </div>
-        <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Tổng Số Ly Phục Vụ</div>
-          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">42.850 <span class="text-sm font-normal text-[var(--muted)]">ly</span></div>
-          <div class="trend-up text-[11px] mt-[2px]">● Trung bình 1.428 ly/ngày</div>
-        </div>
-        <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Giá Trị Đơn Trung Bình (AOV)</div>
-          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">72.500 ₫</div>
-          <div class="trend-up text-[11px] mt-[2px]">● ~1.7 ly + topping / đơn</div>
-        </div>
-        <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Ưu Đãi Hội Viên &amp; Voucher</div>
-          <div class="text-[26px] font-extrabold text-[var(--warning)] mt-1">54.200.000 ₫</div>
-          <div class="text-[11px] text-[var(--muted)] mt-[2px]">Tỷ lệ chiết khấu 2.9%</div>
-        </div>
-      </div>
+      </section>
 
       <!-- Charts Row 1: Trend & Kênh Bán -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">

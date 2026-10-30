@@ -26,7 +26,7 @@
             <span class="current">Hiệu quả P&amp;L &amp; Hòa vốn</span>
           </div>
           <h1 class="page-title">Hiệu Quả Kinh Doanh &amp; Điểm Hòa Vốn Chi Nhánh</h1>
-          <p class="page-subtitle">Phân tích biên đóng góp, cơ cấu giá vốn nguyên liệu (COGS) và cảnh báo chi nhánh dưới điểm hòa vốn liên tiếp 4 tuần / 3 tháng.</p>
+          <p class="page-subtitle">Phân tích kết quả kinh doanh, cơ cấu giá vốn (COGS) và điểm hòa vốn chi nhánh.</p>
         </div>
         <div class="flex gap-2.5 flex-wrap items-center">
           <button class="btn btn-secondary btn-sm">Quý 3/2026</button>
@@ -40,28 +40,50 @@
       </div>
 
       <!-- Financial KPI Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Tổng Doanh Thu Thuần</div>
-          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">1.842.600.000 ₫</div>
-          <div class="trend-up text-[11px] mt-[2px]">● +14.8% toàn chuỗi</div>
+      <section aria-label="Chỉ số tài chính">
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-info">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Tổng Doanh Thu Thuần</div>
+              <div class="stat-value">1.842.600.000 ₫</div>
+              <div class="stat-sub-label text-emerald-600 font-medium">● +14.8% toàn chuỗi</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-danger">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 12l-4-4-4 4"/><line x1="12" y1="16" x2="12" y2="8"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Giá Vốn Nguyên Liệu (COGS)</div>
+              <div class="stat-value text-[var(--danger)]">608.058.000 ₫</div>
+              <div class="stat-sub-label">33.0% DT (Chuẩn F&amp;B &lt;35%)</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-primary">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Lợi Nhuận Gộp (Gross Profit)</div>
+              <div class="stat-value text-[var(--primary)]">1.234.542.000 ₫</div>
+              <div class="stat-sub-label">Biên lợi nhuận gộp đạt 67.0%</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-success">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Lợi Nhuận Thuần Sau CP</div>
+              <div class="stat-value text-[var(--primary)]">421.692.000 ₫</div>
+              <div class="stat-sub-label text-emerald-600 font-medium">● Tỷ suất sinh lời ròng 22.9%</div>
+            </div>
+          </div>
         </div>
-        <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Giá Vốn Nguyên Liệu (COGS)</div>
-          <div class="text-[26px] font-extrabold text-[#DC2626] mt-1">608.058.000 ₫</div>
-          <div class="text-[11px] text-[var(--muted)] mt-[2px]">33.0% doanh thu (Chuẩn F&amp;B &lt;35%)</div>
-        </div>
-        <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Lợi Nhuận Gộp (Gross Profit)</div>
-          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">1.234.542.000 ₫</div>
-          <div class="text-[11px] text-[var(--muted)] mt-[2px]">Biên lợi nhuận gộp đạt 67.0%</div>
-        </div>
-        <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Lợi Nhuận Thuần Sau Chi Phí</div>
-          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">421.692.000 ₫</div>
-          <div class="trend-up text-[11px] mt-[2px]">● Tỷ suất sinh lời ròng 22.9%</div>
-        </div>
-      </div>
+      </section>
 
       <!-- CẢNH BÁO HÒA VỐN THEO ĐẶC TẢ MỤC 11 -->
       <section class="page-section mb-6" aria-label="Cảnh báo điểm hòa vốn">

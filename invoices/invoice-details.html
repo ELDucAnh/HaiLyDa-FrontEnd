@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../assets/css/app.css">
   <link rel="stylesheet" href="../assets/css/tailwind.css">
   <style>
-    /* Print styles — không thể convert sang Tailwind */
+    /* Print styles — Hỗ trợ cả chuẩn K80 (80mm) và K57 (57mm) */
     @media print {
       #sidebar, #app-header, .page-header, footer, #toast-container, .no-print {
         display: none !important;
@@ -20,11 +20,17 @@
       .printable-card {
         border: none !important;
         box-shadow: none !important;
-        padding: 8px !important;
+        padding: 6px !important;
         background: white !important;
         color: black !important;
         max-width: 80mm !important; /* Chuẩn bill K80 */
         font-size: 11px !important;
+        margin: 0 auto;
+      }
+      body.print-k57 .printable-card {
+        max-width: 57mm !important; /* Chuẩn bill K57 */
+        font-size: 9.5px !important;
+        padding: 2px !important;
       }
       .no-print-col { display: none !important; }
     }
@@ -57,10 +63,15 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
             Quay Lại
           </a>
-          <button class="btn btn-secondary" onclick="window.print()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-            In Bill K80
-          </button>
+          <div class="inline-flex rounded-lg shadow-sm border border-[var(--border)] overflow-hidden">
+            <button class="btn btn-secondary border-none rounded-none text-xs px-3" onclick="printBill('k80')" title="In khổ tiêu chuẩn K80 (80mm)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+              In Bill K80
+            </button>
+            <button class="btn btn-secondary border-none border-l border-[var(--border)] rounded-none text-xs px-2.5 bg-[var(--background)] hover:bg-[var(--border)]" onclick="printBill('k57')" title="In khổ nhỏ K57 (57mm)">
+              In K57
+            </button>
+          </div>
           <button class="btn btn-secondary" onclick="Toast.info('Đang in phiếu pha chế (KOT)...', 'Xuất')">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
             In Phiếu Pha (KOT)
@@ -201,27 +212,23 @@
               <span class="font-semibold text-[var(--text)]">103.000 đ</span>
             </div>
             <div class="flex justify-between text-[13px]">
-              <span class="text-[var(--muted)]">Giảm giá hạng Gold (topping miễn phí):</span>
-              <span class="text-[var(--danger)]">-6.000 đ</span>
+              <span class="text-[var(--muted)]">Ưu đãi hội viên Gold (Tặng topping):</span>
+              <span class="text-[var(--danger)]">-14.000 đ</span>
             </div>
             <div class="flex justify-between text-[13px]">
-              <span class="text-[var(--muted)]">VAT (10%):</span>
-              <span class="font-semibold text-[var(--text)]">9.700 đ</span>
-            </div>
-            <div class="flex justify-between text-[13px]">
-              <span class="text-[var(--muted)]">Trừ điểm thưởng (0 điểm):</span>
-              <span class="text-[var(--muted)]">0 đ</span>
+              <span class="text-[var(--muted)]">Thuế VAT (8%):</span>
+              <span class="font-semibold text-[var(--text)]">Đã bao gồm</span>
             </div>
             <div class="flex justify-between text-lg font-extrabold border-t-2 border-[var(--border)] pt-[10px] mt-1">
-              <span class="text-[var(--text)]">Tổng Cộng:</span>
+              <span class="text-[var(--text)]">Tổng Thanh Toán:</span>
               <span class="text-[var(--primary)]">89.000 đ</span>
             </div>
             <div class="flex justify-between text-[13px] text-[var(--primary)] font-semibold bg-[var(--primary-light)] py-2 px-3 rounded-lg mt-1.5">
-              <span>Tiền Khách Đưa:</span>
+              <span>Tiền Khách Đưa (Tiền mặt):</span>
               <span>100.000 đ</span>
             </div>
             <div class="flex justify-between text-[13px] font-semibold">
-              <span class="text-[var(--muted)]">Tiền Thối Lại:</span>
+              <span class="text-[var(--muted)]">Tiền Thừa Trả Khách:</span>
               <span class="text-[var(--text)]">11.000 đ</span>
             </div>
           </div>
@@ -256,5 +263,20 @@
   <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
   <script>window.BASE_PATH = '../'; window.CURRENT_PAGE = 'invoices';</script>
   <script src="../assets/js/app.js"></script>
+  <script>
+    function printBill(format) {
+      if (format === 'k57') {
+        document.body.classList.add('print-k57');
+        Toast.info('Đang chuẩn bị bản in theo khổ K57 (57mm)...', 'In Bill K57');
+      } else {
+        document.body.classList.remove('print-k57');
+        Toast.info('Đang chuẩn bị bản in theo khổ K80 (80mm)...', 'In Bill K80');
+      }
+      setTimeout(() => {
+        window.print();
+        setTimeout(() => document.body.classList.remove('print-k57'), 1000);
+      }, 200);
+    }
+  </script>
 </body>
 </html>

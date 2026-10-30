@@ -26,7 +26,7 @@
             <span class="current">Tồn kho &amp; FEFO</span>
           </div>
           <h1 class="page-title">Báo Cáo Tồn Kho &amp; Cảnh Báo Cận Date (FEFO)</h1>
-          <p class="page-subtitle">Giám sát định giá tồn kho tại 12 chi nhánh, đối soát tồn an toàn và theo dõi hạn sử dụng nguyên liệu tươi sống.</p>
+          <p class="page-subtitle">Giám sát giá trị tồn kho, tồn an toàn và cảnh báo hạn sử dụng theo nguyên tắc FEFO.</p>
         </div>
         <div class="flex gap-2.5 flex-wrap items-center">
           <select class="form-input form-select text-xs w-auto">
@@ -46,28 +46,50 @@
       </div>
 
       <!-- KPI Summary Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Định Giá Tồn Kho Toàn Chuỗi</div>
-          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">486.200.000 ₫</div>
-          <div class="text-[11px] text-[var(--muted)] mt-[2px]">Tính theo giá vốn nhập (COGS)</div>
+      <section aria-label="Thống kê tồn kho">
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-info">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Định Giá Tồn Kho Toàn Chuỗi</div>
+              <div class="stat-value">486.200.000 ₫</div>
+              <div class="stat-sub-label">Theo giá vốn nhập (COGS)</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-primary">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Giá Trị Bán Ra Dự Kiến</div>
+              <div class="stat-value text-[var(--primary)]">1.280.500.000 ₫</div>
+              <div class="stat-sub-label">Tương đương ~28.000 ly đồ uống</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-warning">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Nguyên Liệu Dưới Tồn An Toàn</div>
+              <div class="stat-value text-[var(--warning)]">4 Mặt hàng</div>
+              <div class="stat-sub-label">Cần đặt NCC hoặc chuyển kho</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-danger">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Lô Cận Date 7 Ngày (FEFO)</div>
+              <div class="stat-value text-[var(--danger)]">6 Lô hàng</div>
+              <div class="stat-sub-label">Sữa tươi, trân châu, trái cây</div>
+            </div>
+          </div>
         </div>
-        <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Giá Trị Bán Ra Dự Kiến</div>
-          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">1.280.500.000 ₫</div>
-          <div class="text-[11px] text-[var(--muted)] mt-[2px]">Tương đương ~28.000 ly đồ uống</div>
-        </div>
-        <div class="card p-4 border border-amber-200 bg-amber-50/30">
-          <div class="text-[11px] text-amber-700 font-bold uppercase tracking-[0.5px]">Nguyên Liệu Dưới Tồn An Toàn</div>
-          <div class="text-[26px] font-extrabold text-[var(--warning)] mt-1">4 <span class="text-sm font-semibold text-[var(--muted)]">Mặt hàng</span></div>
-          <div class="text-[11px] text-amber-600 mt-[2px]">Cần đặt NCC hoặc chuyển kho cấp cứu</div>
-        </div>
-        <div class="card p-4 border border-red-200 bg-red-50/30">
-          <div class="text-[11px] text-red-700 font-bold uppercase tracking-[0.5px]">Lô Cận Date Trong 7 Ngày (FEFO)</div>
-          <div class="text-[26px] font-extrabold text-[var(--danger)] mt-1">6 <span class="text-sm font-semibold text-[var(--muted)]">Lô hàng</span></div>
-          <div class="text-[11px] text-red-600 mt-[2px]">Sữa tươi, trân châu chín, trái cây</div>
-        </div>
-      </div>
+      </section>
 
       <!-- Charts Row -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">

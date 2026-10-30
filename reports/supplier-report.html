@@ -26,7 +26,7 @@
             <span class="current">Đánh giá NCC</span>
           </div>
           <h1 class="page-title">Bảng Đánh Giá Hiệu Suất Nhà Cung Cấp (Scorecard)</h1>
-          <p class="page-subtitle">Kiểm định chất lượng nguồn nguyên liệu F&B, tỷ lệ giao hàng đúng hẹn, chuẩn ATVSTP và xử lý sự cố hàng cận date.</p>
+          <p class="page-subtitle">Đánh giá chất lượng cung ứng, tỷ lệ giao hàng đúng hẹn và tuân thủ tiêu chuẩn.</p>
         </div>
         <div class="flex gap-2.5 flex-wrap">
           <button class="btn btn-secondary btn-sm" aria-label="Xuất báo cáo PDF" onclick="Toast.info('Đang xuất bảng chấm điểm nhà cung cấp (PDF)...','Xuất Báo Cáo')">
@@ -37,28 +37,50 @@
       </div>
 
       <!-- KPI Summary Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Tỷ Lệ Giao Đúng Hạn</div>
-          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">98.6%</div>
-          <div class="trend-up text-[11px] mt-[2px]">● 41/42 lô hàng giao chuẩn hẹn</div>
+      <section aria-label="Thống kê nhà cung cấp">
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-primary">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Tỷ Lệ Giao Đúng Hạn</div>
+              <div class="stat-value text-[var(--primary)]">98.6%</div>
+              <div class="stat-sub-label">41/42 lô hàng giao chuẩn hẹn</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-success">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Đạt Chuẩn ATVSTP &amp; HSD</div>
+              <div class="stat-value text-[var(--primary)]">99.4%</div>
+              <div class="stat-sub-label">100% lô có kiểm nghiệm</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-info">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Thời Gian Giao Trung Bình</div>
+              <div class="stat-value">1.8 Ngày</div>
+              <div class="stat-sub-label">Đơn khẩn cấp xử lý &lt; 24h</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-purple">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Đối Tác Đang Cung Ứng</div>
+              <div class="stat-value">18 Đơn vị</div>
+              <div class="stat-sub-label">Được xếp hạng A+ và A</div>
+            </div>
+          </div>
         </div>
-        <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Đạt Chuẩn ATVSTP &amp; HSD</div>
-          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">99.4%</div>
-          <div class="text-[11px] text-[var(--muted)] mt-[2px]">100% lô có phiếu kiểm nghiệm</div>
-        </div>
-        <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Thời Gian Giao Trung Bình</div>
-          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">1.8 <span class="text-[13px] font-medium text-[var(--muted)]">Ngày</span></div>
-          <div class="trend-up text-[11px] mt-[2px]">● Đơn khẩn cấp xử lý &lt; 24h</div>
-        </div>
-        <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Đối Tác Đang Cung Ứng</div>
-          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">18 <span class="text-[13px] font-medium text-[var(--muted)]">Nhà xe / NCC</span></div>
-          <div class="text-[11px] text-[var(--muted)] mt-[2px]">Được xếp hạng A+ và A</div>
-        </div>
-      </div>
+      </section>
 
       <!-- Charts Row -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
