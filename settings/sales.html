@@ -1,120 +1,123 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="vi" class="">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sales & POS Settings — Invenza</title>
-  <meta name="description" content="Configure sales tax rates, discount limits, invoice prefixes, and thermal receipt messages.">
+  <title>Cấu Hình Bán Hàng &amp; Đơn Online — MiltyWay</title>
+  <meta name="description" content="Thiết lập tham số bán hàng quầy POS, thời gian tự động hủy đơn online (5 phút), chính sách tích điểm hội viên và mở đóng ca.">
   <link rel="stylesheet" href="../assets/css/app.css">
   <link rel="stylesheet" href="../assets/css/tailwind.css">
-<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+  <script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
 </head>
 <body>
   <div id="sidebar-container"></div>
   <div id="main-wrapper">
     <div id="header-container"></div>
-    <main class="flex-1 p-6">
+    <main class="flex-1 p-4 md:p-6">
 
       <!-- Page Header -->
       <div class="page-header">
         <div>
           <div class="breadcrumb">
-            <a href="../dashboard.html">Home</a>
+            <a href="../dashboard.html">Trang chủ</a>
             <span class="sep">/</span>
-            <a href="general.html">Settings</a>
+            <a href="general.html">Cài đặt</a>
             <span class="sep">/</span>
-            <span class="current">Sales Settings</span>
+            <span class="current">Bán hàng &amp; POS</span>
           </div>
-          <h1 class="page-title">Sales &amp; Point of Sale Settings</h1>
-          <p class="page-subtitle">Configure tax policies, POS checkout parameters, invoice formats, and receipt notes.</p>
+          <h1 class="page-title">Cấu Hình Bán Hàng POS &amp; Kênh Online</h1>
+          <p class="page-subtitle">Cấu hình quy trình bán hàng tại quầy, xử lý đơn trực tuyến và chính sách hội viên.</p>
         </div>
       </div>
 
       <!-- Settings Nav Tabs -->
       <div class="settings-nav-tabs flex gap-2 border-b border-[var(--border)] pb-3 mb-6 overflow-x-auto">
-        <a href="general.html" class="btn btn-secondary btn-sm">General</a>
-        <a href="inventory.html" class="btn btn-secondary btn-sm">Inventory</a>
-        <a href="sales.html" class="btn btn-primary btn-sm">Sales &amp; POS</a>
-        <a href="purchases.html" class="btn btn-secondary btn-sm">Purchases</a>
-        <a href="notifications.html" class="btn btn-secondary btn-sm">Notifications</a>
+        <a href="general.html" class="btn btn-secondary btn-sm">Thông Tin Chung</a>
+        <a href="inventory.html" class="btn btn-secondary btn-sm">Kho &amp; FEFO</a>
+        <a href="sales.html" class="btn btn-primary btn-sm">Bán Hàng &amp; POS</a>
+        <a href="purchases.html" class="btn btn-secondary btn-sm">Thu Mua &amp; Chuyển Kho</a>
+        <a href="notifications.html" class="btn btn-secondary btn-sm">Cảnh Báo Sự Cố</a>
+        <a href="offline-sync.html" class="btn btn-secondary btn-sm">Đồng Bộ &amp; Offline</a>
       </div>
 
-      <form onsubmit="event.preventDefault(); Toast.success('Sales settings updated successfully!','Settings Saved');" class="max-w-4xl">
-        
+      <form onsubmit="event.preventDefault(); Toast.success('Đã lưu cấu hình bán hàng & kênh online!','Đã Lưu');" class="max-w-4xl">
+        <!-- Đơn Hàng Online & Timeout Sự Cố -->
         <div class="card mb-6">
           <div class="card-header mb-4 pb-3 border-b border-[var(--border)]">
-            <h3 class="card-title">Taxes &amp; Invoicing</h3>
+            <h3 class="card-title">Cấu Hình Đơn Hàng Trực Tuyến &amp; Xử Lý Mất Kết Nối</h3>
           </div>
           
-          <div class="grid grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label class="form-label" for="sales-tax-rate">Default Sales Tax Rate (%)</label>
-              <input id="sales-tax-rate" type="number" class="form-input" value="10" min="0" max="100" step="0.1">
+              <label class="form-label">Thời Gian Tự Động Hủy Đơn Online Khi Mất Kết Nối</label>
+              <select class="form-input form-select">
+                <option selected>5 phút (Chuẩn đặc tả F&amp;B — Tránh trễ hẹn shipper)</option>
+                <option>3 phút</option>
+                <option>10 phút</option>
+              </select>
+              <div class="text-[11px] text-[var(--muted)] mt-1">Nếu chi nhánh mất mạng hoặc không xác nhận sau thời gian này, đơn sẽ tự chuyển sang chi nhánh lân cận còn hàng.</div>
             </div>
             <div>
-              <label class="form-label" for="payment-term">Default Invoice Payment Term (Days)</label>
-              <input id="payment-term" type="number" class="form-input" value="14" min="1">
-            </div>
-            <div>
-              <label class="form-label" for="invoice-prefix">Invoice Number Prefix</label>
-              <input id="invoice-prefix" type="text" class="form-input" value="INV-">
-              <div class="text-[11px] text-[var(--muted)] mt-1">Example: INV-000126</div>
-            </div>
-            <div>
-              <label class="form-label" for="cashier-discount">Max Cashier Discount Limit (%)</label>
-              <input id="cashier-discount" type="number" class="form-input" value="20" min="0" max="100">
-              <div class="text-[11px] text-[var(--muted)] mt-1">Discounts above this require manager PIN</div>
+              <label class="form-label">Tự Động Nhận Đơn (Auto-Accept Delivery)</label>
+              <select class="form-input form-select">
+                <option selected>Tự động nhận đơn và in phiếu pha chế (KOT)</option>
+                <option>Thu ngân phải bấm xác nhận thủ công trên màn hình</option>
+              </select>
             </div>
           </div>
         </div>
 
+        <!-- Quy Chuẩn Bán Hàng Tại Quầy POS -->
         <div class="card mb-6">
           <div class="card-header mb-4 pb-3 border-b border-[var(--border)]">
-            <h3 class="card-title">Point of Sale (POS) Receipt Customization</h3>
+            <h3 class="card-title">Cấu Hình Màn Hình Thu Ngân Touch POS</h3>
           </div>
           
-          <div class="flex flex-col gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label class="form-label" for="receipt-header">Receipt Header Message</label>
-              <input id="receipt-header" type="text" class="form-input" value="Invenza Retail Store #01 — 100 Tech Park Ave">
+              <label class="form-label">Mức Đường &amp; Đá Mặc Định Cho Món Mới</label>
+              <select class="form-input form-select">
+                <option selected>100% Đường · 100% Đá (Công thức chuẩn món)</option>
+                <option>70% Đường · 70% Đá (Ít ngọt)</option>
+                <option>50% Đường · 50% Đá</option>
+              </select>
             </div>
             <div>
-              <label class="form-label" for="receipt-footer">Receipt Footer Note</label>
-              <textarea id="receipt-footer" class="form-input" rows="2">Thank you for shopping with Invenza! Returns accepted within 14 days with original receipt.</textarea>
+              <label class="form-label">Bắt Buộc Khai Báo Tiền Đầu Ca &amp; Đối Soát Cuối Ca</label>
+              <select class="form-input form-select">
+                <option selected>Bắt buộc (Nhập quỹ tiền lẻ ban đầu trước khi mở bán)</option>
+                <option>Không bắt buộc</option>
+              </select>
             </div>
             <div>
-              <label class="form-label">Enabled Tender Options at Checkout</label>
-              <div class="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-2.5 mt-2">
-                <label class="flex items-center gap-2 text-[13px] text-[var(--text)] cursor-pointer">
-                  <input type="checkbox" checked class="accent-[var(--primary)]" id="tender-cash"> Cash Payment
-                </label>
-                <label class="flex items-center gap-2 text-[13px] text-[var(--text)] cursor-pointer">
-                  <input type="checkbox" checked class="accent-[var(--primary)]" id="tender-card"> Credit / Debit Card
-                </label>
-                <label class="flex items-center gap-2 text-[13px] text-[var(--text)] cursor-pointer">
-                  <input type="checkbox" checked class="accent-[var(--primary)]" id="tender-wire"> Bank Transfer / Wire
-                </label>
-                <label class="flex items-center gap-2 text-[13px] text-[var(--text)] cursor-pointer">
-                  <input type="checkbox" checked class="accent-[var(--primary)]" id="tender-giftcard"> Store Credit &amp; Gift Card
-                </label>
-              </div>
+              <label class="form-label">Tỷ Lệ Tích Điểm Hội Viên Chuỗi (Loyalty)</label>
+              <select class="form-input form-select">
+                <option selected>10.000 ₫ = 1 điểm (1% giá trị thanh toán)</option>
+                <option>20.000 ₫ = 1 điểm</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">Thời Hạn Giữ Hạng &amp; Reset Điểm Hội Viên</label>
+              <select class="form-input form-select">
+                <option selected>12 Tháng kể từ ngày tích lũy (Chuẩn đặc tả mục 10)</option>
+                <option>Cuối năm tài chính (31/12 hàng năm)</option>
+              </select>
             </div>
           </div>
         </div>
 
-        <div class="flex gap-3">
-          <button type="submit" class="btn btn-primary" aria-label="Save sales settings">Save Sales Settings</button>
+        <div class="flex justify-end gap-3">
+          <button type="button" class="btn btn-secondary" onclick="Toast.info('Đã hủy thay đổi chưa lưu','Hủy')">Hủy Bỏ</button>
+          <button type="submit" class="btn btn-primary">Lưu Cấu Hình Bán Hàng</button>
         </div>
       </form>
 
     </main>
-    <footer class="app-footer">
-      <span class="app-footer-text">Copyright © 2026 Invenza All rights reserved.</span>
-    </footer>
+    <div id="footer-container"></div>
   </div>
 
   <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
-  <script>window.BASE_PATH = '../'; window.CURRENT_PAGE = 'settings-sales';</script>
+
   <script src="../assets/js/app.js"></script>
 </body>
 </html>
