@@ -1,145 +1,169 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="vi" class="">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>General Settings — Invenza</title>
-  <meta name="description" content="Configure enterprise profile, business currency, date format, and company branding.">
+  <title>Cài Đặt Hệ Thống &amp; Thương Hiệu — MiltyWay</title>
+  <meta name="description" content="Cấu hình thông tin pháp lý doanh nghiệp, trụ sở chuỗi, định dạng tiền tệ VNĐ và cấu hình máy in bill K80.">
   <link rel="stylesheet" href="../assets/css/app.css">
   <link rel="stylesheet" href="../assets/css/tailwind.css">
-<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+  <script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
 </head>
 <body>
   <div id="sidebar-container"></div>
   <div id="main-wrapper">
     <div id="header-container"></div>
-    <main class="flex-1 p-6">
+    <main class="flex-1 p-4 md:p-6">
 
       <!-- Page Header -->
       <div class="page-header">
         <div>
           <div class="breadcrumb">
-            <a href="../dashboard.html">Home</a>
+            <a href="../dashboard.html">Trang chủ</a>
             <span class="sep">/</span>
-            <span class="current">Settings</span>
+            <span class="current">Cài đặt hệ thống</span>
           </div>
-          <h1 class="page-title">Company &amp; General Settings</h1>
-          <p class="page-subtitle">Configure your enterprise information, localization, currencies, and brand assets.</p>
+          <h1 class="page-title">Thông Tin Doanh Nghiệp &amp; Cài Đặt Chung</h1>
+          <p class="page-subtitle">Cấu hình nhận diện thương hiệu, thông tin pháp lý và quy chuẩn in hóa đơn.</p>
         </div>
       </div>
 
       <!-- Settings Nav Tabs -->
       <div class="settings-nav-tabs flex gap-2 border-b border-[var(--border)] pb-3 mb-6 overflow-x-auto">
-        <a href="general.html" class="btn btn-primary btn-sm">General</a>
-        <a href="inventory.html" class="btn btn-secondary btn-sm">Inventory</a>
-        <a href="sales.html" class="btn btn-secondary btn-sm">Sales &amp; POS</a>
-        <a href="purchases.html" class="btn btn-secondary btn-sm">Purchases</a>
-        <a href="notifications.html" class="btn btn-secondary btn-sm">Notifications</a>
+        <a href="general.html" class="btn btn-primary btn-sm">Thông Tin Chung</a>
+        <a href="inventory.html" class="btn btn-secondary btn-sm">Kho &amp; FEFO</a>
+        <a href="sales.html" class="btn btn-secondary btn-sm">Bán Hàng &amp; POS</a>
+        <a href="purchases.html" class="btn btn-secondary btn-sm">Thu Mua &amp; Chuyển Kho</a>
+        <a href="notifications.html" class="btn btn-secondary btn-sm">Cảnh Báo Sự Cố</a>
+        <a href="offline-sync.html" class="btn btn-secondary btn-sm">Đồng Bộ &amp; Offline</a>
       </div>
 
       <!-- General Settings Form -->
-      <form onsubmit="event.preventDefault(); Toast.success('General settings saved successfully!','Settings Updated');" class="max-w-4xl">
+      <form onsubmit="event.preventDefault(); Toast.success('Đã lưu cấu hình doanh nghiệp MiltyWay thành công!','Đã Cập Nhật');" class="max-w-4xl">
         <div class="card mb-6">
           <div class="card-header mb-4 pb-3 border-b border-[var(--border)]">
-            <h3 class="card-title">Company Profile</h3>
+            <h3 class="card-title">Hồ Sơ Thương Hiệu Chuỗi Trà Sữa</h3>
           </div>
           
           <div class="flex items-center gap-5 mb-5">
-            <div class="w-[72px] h-[72px] rounded-[18px] bg-[var(--primary)] flex items-center justify-center text-white text-2xl font-extrabold shrink-0">
-              SF
+            <div class="w-[72px] h-[72px] rounded-[18px] bg-gradient-to-br from-[#22B573] to-[#16A34A] flex items-center justify-center text-white text-3xl font-extrabold shrink-0 shadow-md">
+              MW
             </div>
             <div>
-              <div class="text-sm font-semibold text-[var(--text)]">Company Brand Logo</div>
-              <div class="text-xs text-[var(--muted)] mt-0.5">PNG, SVG, or JPG (Recommended size 200x200px)</div>
+              <div class="text-sm font-semibold text-[var(--text)]">Logo Thương Hiệu MiltyWay</div>
+              <div class="text-xs text-[var(--muted)] mt-0.5">Khổ PNG trong suốt, SVG hoặc JPG (Hiển thị trên đầu bill K80 &amp; Màn hình POS)</div>
               <div class="flex gap-2.5 mt-2">
-                <button type="button" class="btn btn-secondary btn-sm" aria-label="Upload new company logo" onclick="Toast.info('Logo upload dialog...','Upload')">Upload New</button>
-                <button type="button" class="btn btn-ghost btn-sm text-[var(--danger)]" onclick="Toast.info('Logo removed','Remove')">Remove</button>
+                <button type="button" class="btn btn-secondary btn-sm" aria-label="Tải logo mới" onclick="Toast.info('Chọn tệp logo thương hiệu mới...','Tải Tệp')">Đổi Logo</button>
+                <button type="button" class="btn btn-ghost btn-sm text-[var(--danger)]" onclick="Toast.info('Đã khôi phục logo mặc định','Khôi Phục')">Mặc Định</button>
               </div>
             </div>
           </div>
 
-          <div class="grid grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label class="form-label" for="company-name">Company / Legal Entity Name <span class="required">*</span></label>
-              <input id="company-name" type="text" class="form-input" value="Invenza Retail &amp; Logistics Inc." required>
+              <label class="form-label" for="company-name">Tên Doanh Nghiệp Pháp Lý <span class="text-red-500">*</span></label>
+              <input id="company-name" type="text" class="form-input" value="Công Ty Cổ Phần Trà Sữa MiltyWay Việt Nam" required>
             </div>
             <div>
-              <label class="form-label" for="tax-vat">Tax / VAT Registration Number</label>
-              <input id="tax-vat" type="text" class="form-input" value="US-994820184">
+              <label class="form-label" for="tax-vat">Mã Số Thuế Doanh Nghiệp (MST)</label>
+              <input id="tax-vat" type="text" class="form-input" value="0317892345">
             </div>
             <div>
-              <label class="form-label" for="support-email">Official Support Email <span class="required">*</span></label>
-              <input id="support-email" type="email" class="form-input" value="contact@invenza.io" required>
+              <label class="form-label" for="support-email">Email Chăm Sóc Khách Hàng <span class="text-red-500">*</span></label>
+              <input id="support-email" type="email" class="form-input" value="cskh@miltyway.vn" required>
             </div>
             <div>
-              <label class="form-label" for="business-phone">Official Business Phone <span class="required">*</span></label>
-              <input id="business-phone" type="text" class="form-input" value="+1 (555) 019-2834" required>
+              <label class="form-label" for="business-phone">Hotline Tổng Đài Toàn Chuỗi <span class="text-red-500">*</span></label>
+              <input id="business-phone" type="text" class="form-input" value="1900 8866 · (028) 3822 9999" required>
             </div>
             <div class="col-span-full">
-              <label class="form-label" for="hq-address">Headquarters Address</label>
-              <input id="hq-address" type="text" class="form-input" value="100 Tech Park Avenue, Suite 400, San Francisco, CA 94107, USA">
+              <label class="form-label" for="hq-address">Trụ Sở Điều Hành Chính</label>
+              <input id="hq-address" type="text" class="form-input" value="Tầng 18, Tòa nhà Bitexco Financial Tower, Số 2 Hải Triều, P. Bến Nghé, Quận 1, TP. Hồ Chí Minh">
+            </div>
+            <div class="col-span-full">
+              <label class="form-label">Quy Mô Chuỗi Cửa Hàng Hiện Tại</label>
+              <input type="text" class="form-input" value="12 Chi Nhánh Trực Tiếp Vận Hành tại TP.HCM + 1 Kho Tổng Trung Tâm (Bình Tân)" readonly>
             </div>
           </div>
         </div>
 
         <div class="card mb-6">
           <div class="card-header mb-4 pb-3 border-b border-[var(--border)]">
-            <h3 class="card-title">Localization &amp; Currency</h3>
+            <h3 class="card-title">Định Dạng Tiền Tệ &amp; Bản Địa Hóa</h3>
           </div>
           
-          <div class="grid grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label class="form-label" for="base-currency">Base Currency</label>
+              <label class="form-label" for="base-currency">Đơn Vị Tiền Tệ Mặc Định</label>
               <select id="base-currency" class="form-input form-select">
-                <option selected>USD ($) — United States Dollar</option>
-                <option>EUR (—) — Euro</option>
-                <option>GBP (—) — British Pound</option>
-                <option>CAD ($) — Canadian Dollar</option>
-                <option>AUD ($) — Australian Dollar</option>
+                <option selected>VNĐ (₫) — Việt Nam Đồng</option>
               </select>
             </div>
             <div>
-              <label class="form-label" for="currency-position">Currency Symbol Position</label>
-              <select id="currency-position" class="form-input form-select">
-                <option selected>Before Amount ($100.00)</option>
-                <option>After Amount (100.00 $)</option>
-              </select>
-            </div>
-            <div>
-              <label class="form-label" for="timezone">Default Timezone</label>
-              <select id="timezone" class="form-input form-select">
-                <option selected>(UTC-08:00) Pacific Time (US &amp; Canada)</option>
-                <option>(UTC-05:00) Eastern Time (US &amp; Canada)</option>
-                <option>(UTC+00:00) UTC / London</option>
-                <option>(UTC+01:00) Central European Time</option>
-                <option>(UTC+08:00) Singapore, Hong Kong</option>
-              </select>
-            </div>
-            <div>
-              <label class="form-label" for="date-format">Date Format</label>
+              <label class="form-label" for="date-format">Định Dạng Ngày Tháng &amp; Hạn Dùng FEFO</label>
               <select id="date-format" class="form-input form-select">
-                <option selected>MMM DD, YYYY (e.g. Sep 15, 2026)</option>
-                <option>YYYY-MM-DD (e.g. 2026-09-15)</option>
-                <option>DD/MM/YYYY (e.g. 15/09/2026)</option>
-                <option>MM/DD/YYYY (e.g. 09/15/2026)</option>
+                <option selected>DD/MM/YYYY (Chuẩn Việt Nam: 28/10/2026)</option>
+                <option>YYYY-MM-DD (ISO)</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" for="timezone">Múi Giờ Hệ Thống</label>
+              <select id="timezone" class="form-input form-select">
+                <option selected>GMT+7 (Asia/Ho_Chi_Minh — Giờ chuẩn Việt Nam)</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">Quy Định Làm Tròn Tiền Bán Lẻ POS</label>
+              <select class="form-input form-select">
+                <option selected>Làm tròn đến 1.000 ₫ (Không dùng tiền lẻ xu)</option>
+                <option>Làm tròn đến 500 ₫</option>
+                <option>Không làm tròn (Chính xác tuyệt đối)</option>
               </select>
             </div>
           </div>
         </div>
 
-        <div class="flex gap-3">
-          <button type="submit" class="btn btn-primary" aria-label="Save general settings">Save General Settings</button>
+        <!-- Cấu Hình Máy In Bill K80/K57 -->
+        <div class="card mb-6">
+          <div class="card-header mb-4 pb-3 border-b border-[var(--border)]">
+            <h3 class="card-title">Cấu Hình Máy In Hóa Đơn &amp; Phiếu Pha Chế (K80 / K57)</h3>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="form-label">Khổ Giấy In Mặc Định Tại Quầy</label>
+              <select class="form-input form-select">
+                <option selected>Khổ K80 (Khổ rộng 80mm — Tiêu chuẩn quán trà sữa)</option>
+                <option>Khổ K57 (Khổ nhỏ 57mm — Máy POS cầm tay)</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">Chế Độ In Hóa Đơn Khi Thanh Toán</label>
+              <select class="form-input form-select">
+                <option selected>Tự động in bill K80 ngay khi hoàn tất đơn</option>
+                <option>Hỏi thu ngân trước khi in</option>
+                <option>Chỉ xuất hóa đơn điện tử / E-Receipt</option>
+              </select>
+            </div>
+            <div class="col-span-full">
+              <label class="form-label">Nội Dung Chân Hóa Đơn (Footer Bill)</label>
+              <input type="text" class="form-input" value="Cảm ơn Quý khách! Pass Wifi: miltyway2026 · Quét mã QR để tích điểm & nhận voucher 20%">
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-3">
+          <button type="button" class="btn btn-secondary" onclick="Toast.info('Đã hủy thay đổi chưa lưu','Hủy')">Hủy Bỏ</button>
+          <button type="submit" class="btn btn-primary">Lưu Cấu Hình</button>
         </div>
       </form>
 
     </main>
-    <footer class="app-footer">
-      <span class="app-footer-text">Copyright © 2026 Invenza All rights reserved.</span>
-    </footer>
+    <div id="footer-container"></div>
   </div>
 
   <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
-  <script>window.BASE_PATH = '../'; window.CURRENT_PAGE = 'settings-general';</script>
+
   <script src="../assets/js/app.js"></script>
 </body>
 </html>

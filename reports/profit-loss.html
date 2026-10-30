@@ -1,180 +1,331 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="vi" class="">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profit & Loss Statement — Invenza</title>
-  <meta name="description" content="Comprehensive income statement, COGS analysis, overhead expenses, and net profit margins.">
+  <title>Báo Cáo Hiệu Quả Chi Nhánh &amp; Điểm Hòa Vốn — MiltyWay</title>
+  <meta name="description" content="Báo cáo kết quả kinh doanh P&L, phân tích giá vốn COGS, biên đóng góp và giám sát cảnh báo hòa vốn 12 chi nhánh.">
   <link rel="stylesheet" href="../assets/css/app.css">
   <link rel="stylesheet" href="../assets/css/tailwind.css">
-<script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
+  <script>try{if(localStorage.getItem('sf_theme')==="dark"){document.documentElement.classList.add("dark")}else{document.documentElement.classList.remove("dark")}}catch(e){}</script>
 </head>
 <body>
   <div id="sidebar-container"></div>
   <div id="main-wrapper">
     <div id="header-container"></div>
-    <main class="flex-1 p-6">
+    <main class="flex-1 p-4 md:p-6">
 
       <!-- Page Header -->
       <div class="page-header">
         <div>
           <div class="breadcrumb">
-            <a href="../dashboard.html">Home</a>
+            <a href="../dashboard.html">Trang chủ</a>
             <span class="sep">/</span>
-            <a href="../dashboard.html">Reports</a>
+            <a href="profit-loss.html">Báo cáo</a>
             <span class="sep">/</span>
-            <span class="current">Profit &amp; Loss</span>
+            <span class="current">Hiệu quả P&amp;L &amp; Hòa vốn</span>
           </div>
-          <h1 class="page-title">Profit &amp; Loss Statement</h1>
-          <p class="page-subtitle">Monthly financial statement of revenues, costs of goods sold, and operating profit.</p>
+          <h1 class="page-title">Hiệu Quả Kinh Doanh &amp; Điểm Hòa Vốn Chi Nhánh</h1>
+          <p class="page-subtitle">Phân tích kết quả kinh doanh, cơ cấu giá vốn (COGS) và điểm hòa vốn chi nhánh.</p>
         </div>
         <div class="flex gap-2.5 flex-wrap items-center">
-          <button class="btn btn-secondary btn-sm">Q1 2026</button>
-          <button class="btn btn-secondary btn-sm">Q2 2026</button>
-          <button class="btn btn-primary btn-sm">Year to Date (2026)</button>
-          <button class="btn btn-secondary btn-sm" aria-label="Export P and L Statement as PDF" onclick="Toast.info('Exporting P&L Statement...','Export')">Export PDF</button>
+          <button class="btn btn-secondary btn-sm">Quý 3/2026</button>
+          <button class="btn btn-secondary btn-sm">Quý 4/2026</button>
+          <button class="btn btn-primary btn-sm">Tháng 10/2026 (Hiện tại)</button>
+          <button class="btn btn-secondary btn-sm" aria-label="Xuất báo cáo tài chính P&L" onclick="Toast.info('Đang kết xuất Báo cáo P&L chuỗi MiltyWay (PDF)...','Xuất Báo Cáo')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Xuất PDF P&amp;L
+          </button>
         </div>
       </div>
 
       <!-- Financial KPI Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Gross Sales</div>
-          <div class="text-[26px] font-extrabold text-[var(--text)] mt-1">$67,347.00</div>
-          <div class="trend-up text-[11px] mt-[2px]">● 12.5% increase</div>
+      <section aria-label="Chỉ số tài chính">
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-info">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Tổng Doanh Thu Thuần</div>
+              <div class="stat-value">1.842.600.000 ₫</div>
+              <div class="stat-sub-label text-emerald-600 font-medium">● +14.8% toàn chuỗi</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-danger">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 12l-4-4-4 4"/><line x1="12" y1="16" x2="12" y2="8"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Giá Vốn Nguyên Liệu (COGS)</div>
+              <div class="stat-value text-[var(--danger)]">608.058.000 ₫</div>
+              <div class="stat-sub-label">33.0% DT (Chuẩn F&amp;B &lt;35%)</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-primary">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Lợi Nhuận Gộp (Gross Profit)</div>
+              <div class="stat-value text-[var(--primary)]">1.234.542.000 ₫</div>
+              <div class="stat-sub-label">Biên lợi nhuận gộp đạt 67.0%</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon icon-bg-success">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div class="stat-card-body">
+              <div class="stat-label">Lợi Nhuận Thuần Sau CP</div>
+              <div class="stat-value text-[var(--primary)]">421.692.000 ₫</div>
+              <div class="stat-sub-label text-emerald-600 font-medium">● Tỷ suất sinh lời ròng 22.9%</div>
+            </div>
+          </div>
         </div>
-        <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Cost of Goods (COGS)</div>
-          <div class="text-[26px] font-extrabold text-[#DC2626] mt-1">$34,107.00</div>
-          <div class="text-[11px] text-[var(--muted)] mt-[2px]">50.6% of sales revenue</div>
+      </section>
+
+      <!-- CẢNH BÁO HÒA VỐN THEO ĐẶC TẢ MỤC 11 -->
+      <section class="page-section mb-6" aria-label="Cảnh báo điểm hòa vốn">
+        <div class="card border-2 border-red-300 bg-red-50/40 p-4">
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center shrink-0 mt-0.5">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between flex-wrap gap-2">
+                <h3 class="text-[16px] font-bold text-red-900 m-0">Hệ Thống Giám Sát Chi Nhánh Dưới Điểm Hòa Vốn (Break-Even Warning)</h3>
+                <span class="badge badge-danger">Cơ Chế Trung Bình Trượt 4 Tuần &amp; 3 Tháng</span>
+              </div>
+              <p class="text-xs text-red-700 mt-1 mb-3">
+                Theo quy chuẩn đặc tả vận hành chuỗi trà sữa MiltyWay: Nếu chi nhánh có doanh thu thực tế thấp hơn định phí hoạt động (dưới điểm hòa vốn) liên tiếp 4 tuần hoặc 3 tháng, hệ thống tự động kích hoạt cảnh báo đỏ để Ban Giám Đốc xem xét cải thiện chiến dịch tiếp thị hoặc tái cơ cấu / đóng cửa điểm bán.
+              </p>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                <div class="p-3 rounded-lg bg-white border border-red-200">
+                  <div class="flex justify-between items-center mb-1">
+                    <span class="font-bold text-red-700">CN11 — Tân Phú (Tân Sơn Nhì)</span>
+                    <span class="badge badge-danger">Báo Động Đỏ</span>
+                  </div>
+                  <div class="text-[var(--text)]">Doanh thu T10: <strong>68.400.000 ₫</strong> / Điểm hòa vốn: <strong>85.000.000 ₫</strong> (Đạt 80.5%)</div>
+                  <div class="text-red-600 font-semibold mt-1">⚠ 3 tuần liên tiếp dưới điểm hòa vốn — Cần tái cơ cấu menu &amp; chạy Flash Sale</div>
+                </div>
+
+                <div class="p-3 rounded-lg bg-white border border-amber-200">
+                  <div class="flex justify-between items-center mb-1">
+                    <span class="font-bold text-amber-700">CN12 — Quận 6 (Hậu Giang)</span>
+                    <span class="badge badge-warning">Cảnh Báo Vàng</span>
+                  </div>
+                  <div class="text-[var(--text)]">Doanh thu T10: <strong>76.200.000 ₫</strong> / Điểm hòa vốn: <strong>78.000.000 ₫</strong> (Đạt 97.7%)</div>
+                  <div class="text-amber-700 font-semibold mt-1">⚠ Cận ngưỡng hòa vốn (Trung bình trượt 4 tuần tiệm cận) — Đang theo dõi</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Gross Profit</div>
-          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">$33,240.00</div>
-          <div class="text-[11px] text-[var(--muted)] mt-[2px]">49.4% gross margin</div>
-        </div>
-        <div class="card p-4">
-          <div class="text-[11px] text-[var(--muted)] font-semibold uppercase tracking-[0.5px]">Net Operating Profit</div>
-          <div class="text-[26px] font-extrabold text-[var(--primary)] mt-1">$18,420.00</div>
-          <div class="text-[11px] text-[var(--muted)] mt-[2px]">27.3% net profit margin</div>
-        </div>
-      </div>
+      </section>
 
       <!-- Comparison Chart -->
       <div class="card mb-6">
         <div class="flex items-center justify-between mb-4">
-          <h3 class="text-[15px] font-bold text-[var(--text)] mb-0">Revenue vs Cost &amp; Expenses (2026)</h3>
-          <span class="badge badge-success">Profitable Quarter</span>
+          <h3 class="text-[15px] font-bold text-[var(--text)] mb-0">Tương Quan Doanh Thu vs Giá Vốn &amp; Chi Phí Vận Hành (Tháng 10/2026)</h3>
+          <span class="badge badge-success">Toàn Chuỗi Có Lãi</span>
         </div>
         <div class="h-[260px]">
           <canvas id="pnlChart"></canvas>
         </div>
       </div>
 
-      <!-- Detailed Statement Table -->
-      <div class="card p-0 overflow-hidden">
+      <!-- Bảng So Sánh Hiệu Quả & Điểm Hòa Vốn 12 Chi Nhánh -->
+      <div class="card p-0 overflow-hidden mb-6">
         <div class="py-4 px-5 border-b border-[var(--border)] flex items-center justify-between">
-          <h3 class="text-[15px] font-bold text-[var(--text)] mb-0">Detailed Income Statement</h3>
-          <span class="text-xs text-[var(--muted)]">All amounts in USD ($)</span>
+          <div>
+            <h3 class="text-[15px] font-bold text-[var(--text)] mb-0">Bảng So Sánh Hiệu Quả &amp; Điểm Hòa Vốn 12 Chi Nhánh TP.HCM</h3>
+            <div class="text-xs text-[var(--muted)] mt-0.5">Dữ liệu tài chính tháng 10/2026 · Đơn vị: VNĐ</div>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="Toast.info('Đang tính toán lại số liệu trung bình trượt 4 tuần...','Cập Nhật')">Cập Nhật Trượt</button>
         </div>
         <div class="overflow-x-auto">
           <table class="data-table">
             <thead>
               <tr>
-                <th>Account / Line Item</th>
-                <th>Category</th>
-                <th class="text-right">Jan - Apr</th>
-                <th class="text-right">May - Aug</th>
-                <th class="text-right">YTD Total</th>
-                <th class="text-right">% Revenue</th>
+                <th>Chi Nhánh</th>
+                <th class="text-right">Doanh Thu Thuần</th>
+                <th class="text-right">Giá Vốn COGS</th>
+                <th class="text-right">Chi Phí Vận Hành</th>
+                <th class="text-right">Lợi Nhuận Thuần</th>
+                <th class="text-right">Điểm Hòa Vốn</th>
+                <th class="text-center">Tỷ Lệ Đạt</th>
+                <th class="text-center">Cảnh Báo Hòa Vốn (4 Tuần / 3 Tháng)</th>
               </tr>
             </thead>
             <tbody>
-              <!-- Revenue Section -->
+              <tr>
+                <td class="font-bold text-[var(--text)]">CN01 — Quận 1 (Nguyễn Huệ)</td>
+                <td class="text-right font-extrabold text-[var(--primary)]">342.500.000 ₫</td>
+                <td class="text-right text-[var(--muted)]">113.025.000 ₫</td>
+                <td class="text-right text-[var(--muted)]">62.500.000 ₫</td>
+                <td class="text-right font-bold text-emerald-600">166.975.000 ₫</td>
+                <td class="text-right font-medium">95.000.000 ₫</td>
+                <td class="text-center font-bold text-emerald-600">360.5%</td>
+                <td class="text-center"><span class="badge badge-success">Vượt ngưỡng an toàn</span></td>
+              </tr>
+              <tr>
+                <td class="font-bold text-[var(--text)]">CN05 — Quận 10 (Sư Vạn Hạnh)</td>
+                <td class="text-right font-extrabold text-[var(--primary)]">238.400.000 ₫</td>
+                <td class="text-right text-[var(--muted)]">78.672.000 ₫</td>
+                <td class="text-right text-[var(--muted)]">48.200.000 ₫</td>
+                <td class="text-right font-bold text-emerald-600">111.528.000 ₫</td>
+                <td class="text-right font-medium">75.000.000 ₫</td>
+                <td class="text-center font-bold text-emerald-600">317.8%</td>
+                <td class="text-center"><span class="badge badge-success">Vượt ngưỡng an toàn</span></td>
+              </tr>
+              <tr>
+                <td class="font-bold text-[var(--text)]">CN06 — Bình Thạnh (D2)</td>
+                <td class="text-right font-extrabold text-[var(--primary)]">215.800.000 ₫</td>
+                <td class="text-right text-[var(--muted)]">71.214.000 ₫</td>
+                <td class="text-right text-[var(--muted)]">43.600.000 ₫</td>
+                <td class="text-right font-bold text-emerald-600">100.986.000 ₫</td>
+                <td class="text-right font-medium">68.000.000 ₫</td>
+                <td class="text-center font-bold text-emerald-600">317.3%</td>
+                <td class="text-center"><span class="badge badge-success">Vượt ngưỡng an toàn</span></td>
+              </tr>
+              <tr>
+                <td class="font-bold text-[var(--text)]">CN02 — Quận 3 (Võ Văn Tần)</td>
+                <td class="text-right font-extrabold text-[var(--primary)]">198.600.000 ₫</td>
+                <td class="text-right text-[var(--muted)]">65.538.000 ₫</td>
+                <td class="text-right text-[var(--muted)]">41.500.000 ₫</td>
+                <td class="text-right font-bold text-emerald-600">91.562.000 ₫</td>
+                <td class="text-right font-medium">65.000.000 ₫</td>
+                <td class="text-center font-bold text-emerald-600">305.5%</td>
+                <td class="text-center"><span class="badge badge-success">Vượt ngưỡng an toàn</span></td>
+              </tr>
+              <tr class="bg-amber-50/40">
+                <td class="font-bold text-amber-900">CN12 — Quận 6 (Hậu Giang)</td>
+                <td class="text-right font-bold text-amber-700">76.200.000 ₫</td>
+                <td class="text-right text-[var(--muted)]">25.146.000 ₫</td>
+                <td class="text-right text-[var(--muted)]">28.400.000 ₫</td>
+                <td class="text-right font-bold text-amber-700">22.654.000 ₫</td>
+                <td class="text-right font-bold">78.000.000 ₫</td>
+                <td class="text-center font-bold text-amber-700">97.7%</td>
+                <td class="text-center"><span class="badge badge-warning">Cảnh báo hòa vốn (Cận mức)</span></td>
+              </tr>
+              <tr class="bg-red-50/60">
+                <td class="font-bold text-red-900">CN11 — Tân Phú (Tân Sơn Nhì)</td>
+                <td class="text-right font-bold text-red-600">68.400.000 ₫</td>
+                <td class="text-right text-[var(--muted)]">22.572.000 ₫</td>
+                <td class="text-right text-[var(--muted)]">31.200.000 ₫</td>
+                <td class="text-right font-bold text-red-600">14.628.000 ₫</td>
+                <td class="text-right font-bold">85.000.000 ₫</td>
+                <td class="text-center font-bold text-red-600">80.5%</td>
+                <td class="text-center"><span class="badge badge-danger">3 tuần dưới hòa vốn</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Detailed Statement Table -->
+      <div class="card p-0 overflow-hidden">
+        <div class="py-4 px-5 border-b border-[var(--border)] flex items-center justify-between">
+          <h3 class="text-[15px] font-bold text-[var(--text)] mb-0">Báo Cáo Thu Nhập &amp; Chi Phí Toàn Chuỗi (P&amp;L Tổng Thể)</h3>
+          <span class="text-xs text-[var(--muted)]">Đơn vị: VNĐ</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Khoản Mục Tài Chính</th>
+                <th>Phân Loại</th>
+                <th class="text-right">Quý 3/2026</th>
+                <th class="text-right">Tháng 10/2026</th>
+                <th class="text-right">Lũy Kế Năm (YTD)</th>
+                <th class="text-right">Tỷ Trọng Doanh Thu</th>
+              </tr>
+            </thead>
+            <tbody>
               <tr class="bg-[var(--background)]">
-                <td colspan="6" class="font-extrabold text-[var(--text)] text-sm">1. OPERATING REVENUE</td>
+                <td colspan="6" class="font-extrabold text-[var(--text)] text-sm">1. DOANH THU HOẠT ĐỘNG</td>
               </tr>
               <tr>
-                <td class="pl-7 font-medium">Gross Retail Product Sales</td>
-                <td>Revenue</td>
-                <td class="text-right">$24,200.00</td>
-                <td class="text-right">$43,147.00</td>
-                <td class="text-right font-bold text-[var(--text)]">$67,347.00</td>
-                <td class="text-right font-semibold">100.0%</td>
+                <td class="pl-7 font-medium">Doanh thu bán đồ uống tại quầy POS &amp; Mang đi</td>
+                <td>Doanh thu</td>
+                <td class="text-right">3.820.000.000 ₫</td>
+                <td class="text-right font-bold">1.326.672.000 ₫</td>
+                <td class="text-right">12.450.000.000 ₫</td>
+                <td class="text-right font-bold">72.0%</td>
               </tr>
               <tr>
-                <td class="pl-7 font-medium text-[var(--danger)]">Less: Sales Returns &amp; Discounts</td>
-                <td>Contra Revenue</td>
-                <td class="text-right text-[var(--danger)]">-$480.00</td>
-                <td class="text-right text-[var(--danger)]">-$940.00</td>
-                <td class="text-right font-bold text-[var(--danger)]">-$1,420.00</td>
-                <td class="text-right text-[var(--danger)]">-2.1%</td>
+                <td class="pl-7 font-medium">Doanh thu bán qua App Delivery (Grab, ShopeeFood)</td>
+                <td>Doanh thu</td>
+                <td class="text-right">950.000.000 ₫</td>
+                <td class="text-right font-bold">331.668.000 ₫</td>
+                <td class="text-right">3.120.000.000 ₫</td>
+                <td class="text-right font-bold">18.0%</td>
               </tr>
-              <tr class="border-t border-[var(--border)] border-b-2 border-[var(--border)] font-bold">
-                <td class="pl-7 text-[var(--primary)]">Net Sales Revenue</td>
-                <td>Total Inflow</td>
-                <td class="text-right">$23,720.00</td>
-                <td class="text-right">$42,207.00</td>
-                <td class="text-right text-[var(--primary)]">$65,927.00</td>
-                <td class="text-right">97.9%</td>
+              <tr>
+                <td class="pl-7 font-medium">Doanh thu bán sỉ B2B &amp; Đặt tiệc trà</td>
+                <td>Doanh thu</td>
+                <td class="text-right">530.000.000 ₫</td>
+                <td class="text-right font-bold">184.260.000 ₫</td>
+                <td class="text-right">1.750.000.000 ₫</td>
+                <td class="text-right font-bold">10.0%</td>
               </tr>
 
-              <!-- COGS Section -->
               <tr class="bg-[var(--background)]">
-                <td colspan="6" class="font-extrabold text-[var(--text)] text-sm">2. COST OF GOODS SOLD (COGS)</td>
+                <td colspan="6" class="font-extrabold text-[var(--text)] text-sm">2. GIÁ VỐN HÀNG BÁN (COGS)</td>
               </tr>
               <tr>
-                <td class="pl-7 font-medium">Inventory Purchase Costs</td>
-                <td>Cost of Sales</td>
-                <td class="text-right">$12,500.00</td>
-                <td class="text-right">$21,607.00</td>
-                <td class="text-right font-bold text-[var(--text)]">$34,107.00</td>
-                <td class="text-right">50.6%</td>
+                <td class="pl-7 font-medium">Chi phí nguyên vật liệu cốt trà, bột sữa, trân châu, siro</td>
+                <td>Giá vốn</td>
+                <td class="text-right">1.450.000.000 ₫</td>
+                <td class="text-right text-red-600 font-bold">497.502.000 ₫</td>
+                <td class="text-right">4.720.000.000 ₫</td>
+                <td class="text-right text-red-600 font-bold">27.0%</td>
               </tr>
-              <tr class="border-t border-[var(--border)] border-b-2 border-[var(--border)] font-bold">
-                <td class="pl-7 text-[var(--primary)]">GROSS PROFIT</td>
-                <td>Margin</td>
-                <td class="text-right">$11,220.00</td>
-                <td class="text-right">$20,600.00</td>
-                <td class="text-right text-[var(--primary)]">$31,820.00</td>
-                <td class="text-right">47.3%</td>
+              <tr>
+                <td class="pl-7 font-medium">Chi phí bao bì, ly nhựa, nắp, màng ép, ống hút</td>
+                <td>Giá vốn</td>
+                <td class="text-right">320.000.000 ₫</td>
+                <td class="text-right text-red-600 font-bold">110.556.000 ₫</td>
+                <td class="text-right">1.040.000.000 ₫</td>
+                <td class="text-right text-red-600 font-bold">6.0%</td>
               </tr>
 
-              <!-- Operating Expenses -->
               <tr class="bg-[var(--background)]">
-                <td colspan="6" class="font-extrabold text-[var(--text)] text-sm">3. OPERATING EXPENSES</td>
+                <td colspan="6" class="font-extrabold text-[var(--text)] text-sm">3. CHI PHÍ VẬN HÀNH (OPEX)</td>
               </tr>
               <tr>
-                <td class="pl-7 font-medium">Facility Rent &amp; Storage</td>
-                <td>Overhead</td>
-                <td class="text-right">$3,600.00</td>
-                <td class="text-right">$3,600.00</td>
-                <td class="text-right font-bold">$7,200.00</td>
-                <td class="text-right">10.7%</td>
+                <td class="pl-7 font-medium">Tiền thuê mặt bằng 12 chi nhánh</td>
+                <td>Chi phí cố định</td>
+                <td class="text-right">555.000.000 ₫</td>
+                <td class="text-right text-amber-700 font-bold">185.000.000 ₫</td>
+                <td class="text-right">1.850.000.000 ₫</td>
+                <td class="text-right text-amber-700 font-bold">10.0%</td>
               </tr>
               <tr>
-                <td class="pl-7 font-medium">Staff Payroll &amp; Benefits</td>
-                <td>Payroll</td>
-                <td class="text-right">$1,950.00</td>
-                <td class="text-right">$2,450.00</td>
-                <td class="text-right font-bold">$4,400.00</td>
-                <td class="text-right">6.5%</td>
+                <td class="pl-7 font-medium">Lương nhân viên ca, quản lý, thủ kho</td>
+                <td>Chi phí nhân sự</td>
+                <td class="text-right">475.200.000 ₫</td>
+                <td class="text-right text-amber-700 font-bold">158.400.000 ₫</td>
+                <td class="text-right">1.584.000.000 ₫</td>
+                <td class="text-right text-amber-700 font-bold">8.6%</td>
               </tr>
               <tr>
-                <td class="pl-7 font-medium">Utilities, Freight &amp; Misc</td>
-                <td>Operations</td>
-                <td class="text-right">$820.00</td>
-                <td class="text-right">$980.00</td>
-                <td class="text-right font-bold">$1,800.00</td>
-                <td class="text-right">2.7%</td>
+                <td class="pl-7 font-medium">Điện nước, bảo trì máy, hao hụt hủy hỏng</td>
+                <td>Chi phí vận hành</td>
+                <td class="text-right">208.350.000 ₫</td>
+                <td class="text-right text-amber-700 font-bold">69.450.000 ₫</td>
+                <td class="text-right">694.500.000 ₫</td>
+                <td class="text-right text-amber-700 font-bold">3.8%</td>
               </tr>
-              <tr class="bg-[var(--primary-light)] font-extrabold text-[15px]">
-                <td class="text-[var(--primary)]">NET OPERATING PROFIT</td>
-                <td>Final Net</td>
-                <td class="text-right text-[var(--primary)]">$4,850.00</td>
-                <td class="text-right text-[var(--primary)]">$13,570.00</td>
-                <td class="text-right text-[var(--primary)]">$18,420.00</td>
-                <td class="text-right text-[var(--primary)]">27.3%</td>
+
+              <tr class="bg-emerald-500/10 border-t-2 border-emerald-500">
+                <td colspan="2" class="font-extrabold text-emerald-800 text-sm">4. LỢI NHUẬN THUẦN TRƯỚC THUẾ (NET PROFIT)</td>
+                <td class="text-right font-extrabold text-emerald-700">1.261.450.000 ₫</td>
+                <td class="text-right font-extrabold text-emerald-700 text-base">421.692.000 ₫</td>
+                <td class="text-right font-extrabold text-emerald-700">4.111.500.000 ₫</td>
+                <td class="text-right font-extrabold text-emerald-700">22.9%</td>
               </tr>
             </tbody>
           </table>
@@ -182,42 +333,47 @@
       </div>
 
     </main>
-    <footer class="app-footer">
-      <span class="app-footer-text">Copyright © 2026 Invenza All rights reserved.</span>
-    </footer>
+    <div id="footer-container"></div>
   </div>
 
+  <div id="modal-container"></div>
   <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2.5"></div>
 
+  <script src="../assets/js/chart.min.js"></script>
+  <script src="../assets/js/app.js"></script>
   <script>
-    window.BASE_PATH = '../';
-    window.CURRENT_PAGE = 'profit-loss';
-
     document.addEventListener('DOMContentLoaded', () => {
-      const ctx = document.getElementById('pnlChart').getContext('2d');
+      // Comparison chart
+      const ctx = document.getElementById('pnlChart')?.getContext('2d');
       if (ctx) {
         new Chart(ctx, {
           type: 'bar',
           data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+            labels: ['Tháng 07', 'Tháng 08', 'Tháng 09', 'Tháng 10/2026'],
             datasets: [
               {
-                label: 'Gross Revenue ($)',
-                data: [4200, 5800, 6400, 7800, 8900, 9400, 11200, 13647],
+                label: 'Doanh Thu Thuần',
+                data: [1620, 1710, 1780, 1842.6],
                 backgroundColor: '#22B573',
-                borderRadius: 4
+                borderRadius: 6
               },
               {
-                label: 'COGS & Cost ($)',
-                data: [2100, 2900, 3200, 3900, 4500, 4800, 5700, 6907],
+                label: 'Giá Vốn COGS',
+                data: [540, 565, 587, 608],
                 backgroundColor: '#EF4444',
-                borderRadius: 4
+                borderRadius: 6
               },
               {
-                label: 'Net Profit ($)',
-                data: [1200, 1800, 2100, 2600, 3100, 3200, 3900, 4820],
+                label: 'Chi Phí Vận Hành',
+                data: [390, 402, 408, 412.8],
+                backgroundColor: '#F59E0B',
+                borderRadius: 6
+              },
+              {
+                label: 'Lợi Nhuận Thuần',
+                data: [350, 383, 415, 421.7],
                 backgroundColor: '#3B82F6',
-                borderRadius: 4
+                borderRadius: 6
               }
             ]
           },
@@ -234,7 +390,5 @@
       }
     });
   </script>
-  <script src="../assets/js/chart.min.js"></script>
-  <script src="../assets/js/app.js"></script>
 </body>
 </html>

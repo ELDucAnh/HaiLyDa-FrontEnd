@@ -2356,6 +2356,7 @@ footer a:hover {
 .stat-card-body {
   flex: 1;
   min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .stat-label {
@@ -2754,7 +2755,7 @@ a:focus-visible {
   }
 
   .stat-value {
-    font-size: 28px;
+    font-size: 22px;
   }
 
   .page-title {
@@ -2773,7 +2774,7 @@ a:focus-visible {
   }
 
   .stat-value {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .stat-card {
@@ -2866,7 +2867,7 @@ a:focus-visible {
   }
 
   .stat-value {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .page-title {
@@ -2929,7 +2930,7 @@ a:focus-visible {
   }
 
   .stat-value {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .stat-card {
@@ -3098,7 +3099,7 @@ a:focus-visible {
   }
 
   .stat-value {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .stat-card {
