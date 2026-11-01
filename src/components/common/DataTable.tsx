@@ -9,10 +9,11 @@ export interface DataTableColumn<T> {
 }
 
 export interface DataTableProps<T> {
-    columns: readonly DataTableColumn<T>[];
-    data: readonly T[];
-    rowKey: (row: T) => Key;
-    caption: string;
+    columns?: readonly DataTableColumn<T>[];
+    data?: readonly T[];
+    rowKey?: (row: T) => Key;
+    caption?: string;
+    children?: ReactNode;
     pageSize?: number;
     pagination?: boolean;
     loading?: boolean;
@@ -27,18 +28,26 @@ export default function DataTable<T>({
                                          pageSize = 10,
                                          pagination = true,
                                          loading = false,
+                                         children,
                                          emptyMessage = "Không có dữ liệu phù hợp.",
                                      }: DataTableProps<T>) {
     const [requestedPage, setRequestedPage] = useState(1);
 
+    if (children !== undefined) {
+        return <div className="min-w-0"><div className="overflow-x-auto">{children}</div></div>;
+    }
+
+    const tableColumns = columns ?? [];
+    const tableData = data ?? [];
+    const getRowKey = rowKey ?? ((row: T) => String(row));
     const size = Number.isFinite(pageSize)
         ? Math.max(1, Math.floor(pageSize))
         : 10;
 
-    const totalPages = Math.max(1, Math.ceil(data.length / size));
+    const totalPages = Math.max(1, Math.ceil(tableData.length / size));
     const currentPage = Math.min(requestedPage, totalPages);
     const start = pagination ? (currentPage - 1) * size : 0;
-    const rows = pagination ? data.slice(start, start + size) : data;
+    const rows = pagination ? tableData.slice(start, start + size) : tableData;
 
     const firstPage = Math.max(
         1,
@@ -58,7 +67,7 @@ export default function DataTable<T>({
 
                     <thead>
                     <tr>
-                        {columns.map((column) => (
+                        {tableColumns.map((column) => (
                             <th
                                 key={column.id}
                                 scope="col"
@@ -73,7 +82,7 @@ export default function DataTable<T>({
                     <tbody>
                     {loading ? (
                         <tr>
-                            <td colSpan={columns.length}>
+                            <td colSpan={tableColumns.length}>
                                 <div className="py-6 text-center text-[var(--muted)]">
                                     Đang tải dữ liệu...
                                 </div>
@@ -81,16 +90,16 @@ export default function DataTable<T>({
                         </tr>
                     ) : rows.length === 0 ? (
                         <tr>
-                            <td colSpan={columns.length}>
+                            <td colSpan={tableColumns.length}>
                                 <div className="py-6 text-center text-[var(--muted)]">
                                     {emptyMessage}
                                 </div>
                             </td>
                         </tr>
                     ) : (
-                        rows.map((row) => (
-                            <tr key={rowKey(row)}>
-                                {columns.map((column) => (
+                        rows.map((row, index) => (
+                            <tr key={getRowKey(row) ?? index}>
+                                {tableColumns.map((column) => (
                                     <td key={column.id} className={column.className}>
                                         {column.render(row)}
                                     </td>
@@ -105,11 +114,11 @@ export default function DataTable<T>({
             {pagination && !loading && (
                 <div className="table-footer">
                     <div className="table-footer-info">
-                        Hiển thị {data.length === 0 ? 0 : start + 1}
-                        –{Math.min(start + size, data.length)} / {data.length}
+                        Hiển thị {tableData.length === 0 ? 0 : start + 1}
+                        –{Math.min(start + size, tableData.length)} / {tableData.length}
                     </div>
 
-                    <nav className="pagination" aria-label={`Phân trang ${caption}`}>
+                    <nav className="pagination" aria-label={`Phân trang ${caption ?? "dữ liệu"}`}>
                         <button
                             type="button"
                             className="page-btn"

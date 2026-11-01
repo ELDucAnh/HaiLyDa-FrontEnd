@@ -3,7 +3,8 @@ import type { ReactNode } from "react";
 import { createPortal } from "react-dom";
 
 export interface ModalProps {
-    open: boolean;
+    open?: boolean;
+    isOpen?: boolean;
     title: string;
     children: ReactNode;
     onClose: () => void;
@@ -30,6 +31,7 @@ const focusableSelector = [
 
 export default function Modal({
                                   open,
+                                  isOpen,
                                   title,
                                   children,
                                   onClose,
@@ -37,6 +39,7 @@ export default function Modal({
                                   size = "md",
                                   closeOnBackdrop = true,
                               }: ModalProps) {
+    const modalOpen = open ?? isOpen ?? false;
     const titleId = useId();
     const dialogRef = useRef<HTMLDivElement>(null);
     const closeRef = useRef(onClose);
@@ -46,7 +49,7 @@ export default function Modal({
     }, [onClose]);
 
     useEffect(() => {
-        if (!open) return;
+        if (!modalOpen) return;
 
         const previousFocus =
             document.activeElement instanceof HTMLElement
@@ -122,9 +125,9 @@ export default function Modal({
                 previousFocus.focus();
             }
         };
-    }, [open]);
+    }, [modalOpen]);
 
-    if (!open) return null;
+    if (!modalOpen) return null;
 
     return createPortal(
         <div

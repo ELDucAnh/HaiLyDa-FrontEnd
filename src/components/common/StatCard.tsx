@@ -11,7 +11,7 @@ export type StatTone =
 export interface StatCardProps {
     label: string;
     value: ReactNode;
-    icon: ReactNode;
+    icon?: ReactNode;
     subLabel?: ReactNode;
     tone?: StatTone;
     trend?: "up" | "down";
@@ -43,12 +43,12 @@ export default function StatCard({
 
     return (
         <div className={`stat-card ${className}`}>
-            <div
+            {icon !== undefined && <div
                 className={`stat-card-icon ${iconClasses[tone]}`}
                 aria-hidden="true"
             >
                 {icon}
-            </div>
+            </div>}
 
             <div className="stat-card-body">
                 <div className="stat-label">{label}</div>
