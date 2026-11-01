@@ -178,6 +178,7 @@ export default function CustomersPage() {
             <SalesPageHeader
                 title="Khách hàng và hội viên"
                 breadcrumb="Khách hàng"
+                parent={{ label: "", to: "" }}
                 description="Tra cứu hội viên, hạng thẻ, chi tiêu và lịch sử điểm toàn chuỗi."
                 actions={
                     <button

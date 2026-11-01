@@ -16,7 +16,7 @@ export default function ModulePendingPage() {
                     <nav className="breadcrumb" aria-label="Đường dẫn trang">
                         {pathname !== "/dashboard" && (
                             <>
-                                <Link to="/dashboard">Tổng quan</Link>
+                                <Link to="/dashboard">Trang chủ</Link>
                                 <span className="sep" aria-hidden="true">
                                     /
                                 </span>

@@ -1,24 +1,122 @@
 import { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import StatCard from "../../components/common/StatCard";
 import KpiIcon from "../shared/KpiIcon";
 import Badge from "../../components/common/Badge";
 import DataTable from "../../components/common/DataTable";
 import { useToast } from "../../contexts/ToastContext";
-interface PurchaseOrder {id:string;code:string;supplier:string;date:string;warehouse:string;lot:string;mfg:string;expiry:string;ordered:number;received:number;unit:string;status:"draft"|"placed"|"partial"|"received"|"waiting";}
-const INITIAL:PurchaseOrder[]=[
-{id:"1",code:"PO-2026-042",supplier:"Công ty Nguyên liệu An Tâm",date:"20/10/2026",warehouse:"Kho tổng",lot:"TR-201026",mfg:"20/10/2026",expiry:"20/04/2027",ordered:30,received:30,unit:"kg",status:"received"},
-{id:"2",code:"PO-2026-043",supplier:"Thực phẩm Minh Phát",date:"22/10/2026",warehouse:"Kho tổng",lot:"SUA-221026",mfg:"22/10/2026",expiry:"22/11/2026",ordered:50,received:30,unit:"lít",status:"partial"},
-{id:"3",code:"PO-2026-044",supplier:"Bao bì Sài Gòn",date:"25/10/2026",warehouse:"Kho tổng",lot:"LY-251026",mfg:"25/10/2026",expiry:"Không áp dụng",ordered:5000,received:0,unit:"cái",status:"placed"},
-{id:"4",code:"PO-2026-045",supplier:"Hương liệu Việt",date:"27/10/2026",warehouse:"Kho tổng",lot:"SY-271026",mfg:"27/10/2026",expiry:"27/01/2027",ordered:12,received:0,unit:"chai",status:"waiting"},
+interface PurchaseOrder { id: string; code: string; supplier: string; date: string; warehouse: string; lot: string; mfg: string; expiry: string; ordered: number; received: number; unit: string; status: "draft" | "placed" | "partial" | "received" | "waiting"; }
+const INITIAL: PurchaseOrder[] = [
+    { id: "1", code: "PO-2026-042", supplier: "Công ty Nguyên liệu An Tâm", date: "20/10/2026", warehouse: "Kho tổng", lot: "TR-201026", mfg: "20/10/2026", expiry: "20/04/2027", ordered: 30, received: 30, unit: "kg", status: "received" },
+    { id: "2", code: "PO-2026-043", supplier: "Thực phẩm Minh Phát", date: "22/10/2026", warehouse: "Kho tổng", lot: "SUA-221026", mfg: "22/10/2026", expiry: "22/11/2026", ordered: 50, received: 30, unit: "lít", status: "partial" },
+    { id: "3", code: "PO-2026-044", supplier: "Bao bì Sài Gòn", date: "25/10/2026", warehouse: "Kho tổng", lot: "LY-251026", mfg: "25/10/2026", expiry: "Không áp dụng", ordered: 5000, received: 0, unit: "cái", status: "placed" },
+    { id: "4", code: "PO-2026-045", supplier: "Hương liệu Việt", date: "27/10/2026", warehouse: "Kho tổng", lot: "SY-271026", mfg: "27/10/2026", expiry: "27/01/2027", ordered: 12, received: 0, unit: "chai", status: "waiting" },
 ];
-const STATUS:Record<PurchaseOrder["status"],string>={draft:"Bản nháp",placed:"Đã đặt",partial:"Nhận một phần",received:"Đã nhận đủ",waiting:"Chờ giao"};
-export default function PurchasesPage(){const navigate=useNavigate();const {showToast}=useToast();const [orders]=useState(INITIAL);const [search,setSearch]=useState("");const [status,setStatus]=useState("all");const [expiry,setExpiry]=useState("all");const [applied,setApplied]=useState({search:"",status:"all",expiry:"all"});
-const rows=useMemo(()=>orders.filter(o=>(!applied.search||[o.code,o.supplier,o.lot].some(x=>x.toLowerCase().includes(applied.search.toLowerCase())))&&(applied.status==="all"||o.status===applied.status)&&(applied.expiry==="all"||(applied.expiry==="expiring"&&o.expiry==="22/11/2026")||(applied.expiry==="valid"&&o.expiry!=="22/11/2026"))),[orders,applied]);
-return <div><div className="page-header"><div><div className="breadcrumb"><button onClick={()=>navigate("/dashboard")}>Trang chủ</button><span className="sep">/</span><span>Mua hàng &amp; cấp phát</span><span className="sep">/</span><span className="current">Đơn mua nguyên liệu</span></div><h1 className="page-title">Đơn mua nguyên liệu</h1><p className="page-subtitle mt-1">Theo dõi đơn mua tập trung, lô nguyên liệu, ngày sản xuất, hạn dùng và lượng thực nhận.</p></div><span className="text-xs text-[var(--muted)]">Dữ liệu minh họa</span></div>
-<section className="mb-6"><div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4"><StatCard label="Đơn mua kỳ này" value="28" subLabel="Kho tổng" tone="info" icon={<KpiIcon kind="cart"/>}/><StatCard label="Chờ giao" value="5" subLabel="Đang chờ nhà cung cấp" tone="warning" icon={<KpiIcon kind="clock"/>}/><StatCard label="Đã nhận đủ" value="18" subLabel="Đã kiểm tra số lượng" tone="success" icon={<KpiIcon kind="document-check"/>}/><StatCard label="Lô cận hạn" value="3" subLabel="Cần ưu tiên FEFO" tone="warning" icon={<KpiIcon kind="clock"/>}/></div></section>
-<section className="card mb-6 border-l-4 border-[var(--warning)]"><h2 className="text-sm font-bold mb-1">Nhập theo lô</h2><p className="text-sm text-[var(--muted)]">Thông tin lô, ngày sản xuất, hạn dùng và chất lượng là dữ liệu bắt buộc khi nhận nguyên liệu. Số lượng thực nhận có thể khác lượng đặt; chênh lệch phải được ghi nhận rõ.</p></section>
-<section className="card mb-6"><div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 items-end"><div><label className="form-label" htmlFor="purchase-search">Tìm kiếm</label><input id="purchase-search" className="form-input" value={search} onChange={e=>setSearch(e.target.value)} placeholder="Mã PO, nhà cung cấp, mã lô..."/></div><div><label className="form-label" htmlFor="purchase-status">Trạng thái đơn</label><select id="purchase-status" className="form-input form-select" value={status} onChange={e=>setStatus(e.target.value)}><option value="all">Tất cả</option><option value="draft">Bản nháp</option><option value="placed">Đã đặt</option><option value="partial">Nhận một phần</option><option value="received">Đã nhận đủ</option><option value="waiting">Chờ giao</option></select></div><div><label className="form-label" htmlFor="purchase-expiry">Hạn dùng</label><select id="purchase-expiry" className="form-input form-select" value={expiry} onChange={e=>setExpiry(e.target.value)}><option value="all">Tất cả lô</option><option value="expiring">Cận hạn 7 ngày</option><option value="valid">Còn hạn</option></select></div><div className="flex gap-2"><button className="btn btn-secondary" onClick={()=>{setSearch("");setStatus("all");setExpiry("all");setApplied({search:"",status:"all",expiry:"all"});}}>Xóa lọc</button><button className="btn btn-primary" onClick={()=>setApplied({search,status,expiry})}>Áp dụng</button></div></div></section>
-<section className="card p-0 overflow-hidden"><div className="p-4 md:p-5 border-b border-[var(--border)] flex flex-wrap justify-between gap-3"><div><h2 className="font-bold">Đơn mua nguyên liệu</h2><p className="text-sm text-[var(--muted)] mt-1">Đơn mua định kỳ phục vụ nhu cầu toàn chuỗi, nhập về kho tổng theo quy ước mapping.</p></div><div className="flex flex-wrap gap-2"><button className="btn btn-secondary" onClick={()=>navigate("/purchases/receipts")}>Phiếu nhận hàng</button><button className="btn btn-primary" onClick={()=>navigate("/purchases/new")}>+ Lập đơn mua</button></div></div><DataTable><table className="w-full text-sm text-left"><thead className="bg-[var(--background)] text-[var(--muted)]"><tr>{["Mã PO","Nhà cung cấp","Ngày đặt","Kho nhận","Mã lô","Ngày SX","Hạn dùng","Đặt / nhận","Trạng thái"].map(x=><th key={x} className="px-3 py-3 font-semibold whitespace-nowrap">{x}</th>)}</tr></thead><tbody>{rows.map(o=><tr key={o.id} className="border-t border-[var(--border)]"><td className="px-3 py-3 font-semibold">{o.code}</td><td className="px-3 py-3">{o.supplier}</td><td className="px-3 py-3">{o.date}</td><td className="px-3 py-3">{o.warehouse}</td><td className="px-3 py-3">{o.lot}</td><td className="px-3 py-3">{o.mfg}</td><td className="px-3 py-3">{o.expiry}</td><td className="px-3 py-3">{o.ordered.toLocaleString("vi-VN")} / {o.received.toLocaleString("vi-VN")} {o.unit}</td><td className="px-3 py-3"><Badge variant={o.status==="received"?"success":o.status==="partial"?"info":o.status==="waiting"?"warning":"warning"}>{STATUS[o.status]}</Badge></td></tr>)}</tbody></table></DataTable></section>
-<div className="flex justify-end mt-4"><button className="btn btn-secondary" onClick={()=>{showToast({type:"info",title:"Điều chuyển kho",message:"Chuyển sang danh sách điều chuyển nguyên liệu liên chi nhánh."});navigate("/purchases/transfers");}}>Mở phiếu điều chuyển</button></div></div>;
+const STATUS: Record<PurchaseOrder["status"], string> = { draft: "Bản nháp", placed: "Đã đặt", partial: "Nhận một phần", received: "Đã nhận đủ", waiting: "Chờ giao" };
+export default function PurchasesPage() {
+    const navigate = useNavigate(); const { showToast } = useToast(); const [orders] = useState(INITIAL); const [search, setSearch] = useState(""); const [status, setStatus] = useState("all"); const [expiry, setExpiry] = useState("all"); const [applied, setApplied] = useState({ search: "", status: "all", expiry: "all" });
+    const rows = useMemo(() => orders.filter(o => (!applied.search || [o.code, o.supplier, o.lot].some(x => x.toLowerCase().includes(applied.search.toLowerCase()))) && (applied.status === "all" || o.status === applied.status) && (applied.expiry === "all" || (applied.expiry === "expiring" && o.expiry === "22/11/2026") || (applied.expiry === "valid" && o.expiry !== "22/11/2026"))), [orders, applied]);
+    return (
+        <div>
+            <div className="page-header">
+                <div>
+                    <nav className="breadcrumb" aria-label="Đường dẫn trang">
+                        <Link to="/dashboard">Trang chủ</Link>
+                        <span className="sep">/</span>
+                        <Link to="/purchases">Nhập hàng</Link>
+                        <span className="sep">/</span>
+                        <span className="current">Tất cả đơn nhập</span>
+                    </nav>
+                    <h1 className="page-title">Đơn mua nguyên liệu</h1>
+                    <p className="page-subtitle mt-1">Theo dõi đơn mua tập trung, lô nguyên liệu, ngày sản xuất, hạn dùng và lượng thực nhận.</p>
+                </div>
+                <span className="text-xs text-[var(--muted)]">Dữ liệu minh họa</span>
+            </div>
+
+            <section className="mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+                    <StatCard label="Đơn mua kỳ này" value="28" subLabel="Kho tổng" tone="info" icon={<KpiIcon kind="cart" />} />
+                    <StatCard label="Chờ giao" value="5" subLabel="Đang chờ nhà cung cấp" tone="warning" icon={<KpiIcon kind="clock" />} />
+                    <StatCard label="Đã nhận đủ" value="18" subLabel="Đã kiểm tra số lượng" tone="success" icon={<KpiIcon kind="document-check" />} />
+                    <StatCard label="Lô cận hạn" value="3" subLabel="Cần ưu tiên FEFO" tone="warning" icon={<KpiIcon kind="clock" />} />
+                </div>
+            </section>
+
+            <section className="card mb-6 border-l-4 border-[var(--warning)]">
+                <h2 className="text-sm font-bold mb-1">Nhập theo lô</h2>
+                <p className="text-sm text-[var(--muted)]">Thông tin lô, ngày sản xuất, hạn dùng và chất lượng là dữ liệu bắt buộc khi nhận nguyên liệu. Số lượng thực nhận có thể khác lượng đặt; chênh lệch phải được ghi nhận rõ.</p>
+            </section>
+
+            <section className="card mb-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 items-end">
+                    <div>
+                        <label className="form-label" htmlFor="purchase-search">Tìm kiếm</label>
+                        <input id="purchase-search" className="form-input" value={search} onChange={e => setSearch(e.target.value)} placeholder="Mã PO, nhà cung cấp, mã lô..." />
+                    </div>
+                    <div>
+                        <label className="form-label" htmlFor="purchase-status">Trạng thái đơn</label>
+                        <select id="purchase-status" className="form-input form-select" value={status} onChange={e => setStatus(e.target.value)}>
+                            <option value="all">Tất cả</option>
+                            <option value="draft">Bản nháp</option>
+                            <option value="placed">Đã đặt</option>
+                            <option value="partial">Nhận một phần</option>
+                            <option value="received">Đã nhận đủ</option>
+                            <option value="waiting">Chờ giao</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label className="form-label" htmlFor="purchase-expiry">Hạn dùng</label>
+                        <select id="purchase-expiry" className="form-input form-select" value={expiry} onChange={e => setExpiry(e.target.value)}>
+                            <option value="all">Tất cả lô</option>
+                            <option value="expiring">Cận hạn 7 ngày</option>
+                            <option value="valid">Còn hạn</option>
+                        </select>
+                    </div>
+                    <div className="flex gap-2">
+                        <button className="btn btn-secondary" onClick={() => { setSearch(""); setStatus("all"); setExpiry("all"); setApplied({ search: "", status: "all", expiry: "all" }); }}>Xóa lọc</button>
+                        <button className="btn btn-primary" onClick={() => setApplied({ search, status, expiry })}>Áp dụng</button>
+                    </div>
+                </div>
+            </section>
+
+            <section className="card p-0 overflow-hidden">
+                <div className="p-4 md:p-5 border-b border-[var(--border)] flex flex-wrap justify-between gap-3">
+                    <div>
+                        <h2 className="font-bold">Đơn mua nguyên liệu</h2>
+                        <p className="text-sm text-[var(--muted)] mt-1">Đơn mua định kỳ phục vụ nhu cầu toàn chuỗi, nhập về kho tổng theo quy ước mapping.</p>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                        <button className="btn btn-secondary" onClick={() => navigate("/purchases/receipts")}>Phiếu nhận hàng</button>
+                        <button className="btn btn-primary" onClick={() => navigate("/purchases/new")}>+ Lập đơn mua</button>
+                    </div>
+                </div>
+                <DataTable>
+                    <table className="w-full text-sm text-left">
+                        <thead className="bg-[var(--background)] text-[var(--muted)]">
+                            <tr>
+                                {["Mã PO", "Nhà cung cấp", "Ngày đặt", "Kho nhận", "Mã lô", "Ngày SX", "Hạn dùng", "Đặt / nhận", "Trạng thái"].map(x => <th key={x} className="px-3 py-3 font-semibold whitespace-nowrap">{x}</th>)}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {rows.map(o => <tr key={o.id} className="border-t border-[var(--border)]">
+                                <td className="px-3 py-3 font-semibold">{o.code}</td>
+                                <td className="px-3 py-3">{o.supplier}</td>
+                                <td className="px-3 py-3">{o.date}</td>
+                                <td className="px-3 py-3">{o.warehouse}</td>
+                                <td className="px-3 py-3">{o.lot}</td>
+                                <td className="px-3 py-3">{o.mfg}</td>
+                                <td className="px-3 py-3">{o.expiry}</td>
+                                <td className="px-3 py-3">{o.ordered.toLocaleString("vi-VN")} / {o.received.toLocaleString("vi-VN")} {o.unit}</td>
+                                <td className="px-3 py-3"><Badge variant={o.status === "received" ? "success" : o.status === "partial" ? "info" : o.status === "waiting" ? "warning" : "warning"}>{STATUS[o.status]}</Badge></td>
+                            </tr>)}
+                        </tbody>
+                    </table>
+                </DataTable>
+            </section>
+
+            <div className="flex justify-end mt-4">
+                <button className="btn btn-secondary" onClick={() => { showToast({ type: "info", title: "Điều chuyển kho", message: "Chuyển sang danh sách điều chuyển nguyên liệu liên chi nhánh." }); navigate("/purchases/transfers"); }}>Mở phiếu điều chuyển</button>
+            </div>
+        </div>
+    );
 }

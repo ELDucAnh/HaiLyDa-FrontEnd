@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import StatCard from "../../components/common/StatCard";
 import KpiIcon from "../shared/KpiIcon";
 import Badge from "../../components/common/Badge";
@@ -23,10 +23,105 @@ const BRANCHES:Branch[]=[
 const LABEL={active:"Hoạt động",suspended:"Tạm ngừng / tạm khóa món",connection:"Mất điện / mất mạng",loss:"Cảnh báo tồn"};
 const VARIANT={active:"success",suspended:"warning",connection:"danger",loss:"warning"} as const;
 export default function BranchesPage(){const navigate=useNavigate();const [search,setSearch]=useState("");const [status,setStatus]=useState("all");const [applied,setApplied]=useState({search:"",status:"all"});const [selected,setSelected]=useState<Branch|null>(null);const rows=useMemo(()=>BRANCHES.filter(b=>(!applied.search||[b.code,b.name,b.area].some(x=>x.toLocaleLowerCase("vi-VN").includes(applied.search.toLocaleLowerCase("vi-VN"))))&&(applied.status==="all"||b.status===applied.status)),[applied]);
-return <div><div className="page-header"><div><div className="breadcrumb"><button onClick={()=>navigate("/dashboard")}>Trang chủ</button><span className="sep">/</span><span>Kho &amp; nguyên liệu</span><span className="sep">/</span><span className="current">Chi nhánh</span></div><h1 className="page-title">Quản lý 12 chi nhánh</h1><p className="page-subtitle mt-1">Theo dõi thông tin chi nhánh, người phụ trách, số quầy POS và kho thuộc chi nhánh.</p></div><span className="text-xs text-[var(--muted)]">Dữ liệu minh họa</span></div>
-<section className="mb-6"><div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4"><StatCard label="Chi nhánh toàn chuỗi" value="12" subLabel="Mỗi chi nhánh một kho" tone="primary" icon={<KpiIcon kind="branch"/>}/><StatCard label="POS hoạt động" value="26" subLabel="Số liệu minh họa" tone="success" icon={<KpiIcon kind="document-check"/>}/><StatCard label="Kho cần kiểm tra" value="1" subLabel="Tồn dưới mức an toàn" tone="warning" icon={<KpiIcon kind="warning"/>}/><StatCard label="Mất kết nối" value="0" subLabel="Theo dõi trạng thái kết nối" tone="info" icon={<KpiIcon kind="branch"/>}/></div></section>
-<section className="card mb-6 border-l-4 border-[var(--info)]"><h2 className="text-sm font-bold mb-1">Phạm vi quản lý kho</h2><p className="text-sm text-[var(--muted)]">Mỗi chi nhánh có một kho riêng. Trường sức chứa kho phải là thông tin cấu hình; không tự suy ra số lượng tồn từ sức chứa.</p></section>
-<section className="card mb-6"><div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end"><div><label className="form-label" htmlFor="branch-search">Tìm kiếm</label><input id="branch-search" className="form-input" value={search} onChange={e=>setSearch(e.target.value)} placeholder="Mã, tên hoặc khu vực..."/></div><div><label className="form-label" htmlFor="branch-status">Trạng thái</label><select id="branch-status" className="form-input form-select" value={status} onChange={e=>setStatus(e.target.value)}><option value="all">Tất cả trạng thái</option><option value="active">Hoạt động</option><option value="suspended">Tạm ngừng</option><option value="connection">Mất điện / mất mạng</option><option value="loss">Cảnh báo tồn / hiệu quả</option></select></div><div className="flex gap-2"><button className="btn btn-secondary" onClick={()=>{setSearch("");setStatus("all");setApplied({search:"",status:"all"});}}>Xóa lọc</button><button className="btn btn-primary" onClick={()=>setApplied({search,status})}>Áp dụng</button></div></div></section>
-<section className="card p-0 overflow-hidden"><div className="p-4 md:p-5 border-b border-[var(--border)]"><h2 className="font-bold">Danh sách chi nhánh TP.HCM</h2><p className="text-sm text-[var(--muted)] mt-1">Thông tin minh họa theo kế hoạch repository; địa chỉ chi tiết cần được nhóm xác nhận.</p></div><DataTable><table className="w-full text-sm text-left"><thead className="bg-[var(--background)] text-[var(--muted)]"><tr>{["Mã CN","Tên chi nhánh","Khu vực","Địa chỉ","Quản lý phụ trách","Số quầy POS","Kho","Trạng thái","Liên kết"].map(x=><th key={x} className="px-3 py-3 font-semibold whitespace-nowrap">{x}</th>)}</tr></thead><tbody>{rows.map(b=><tr key={b.id} className="border-t border-[var(--border)]"><td className="px-3 py-3 font-semibold">{b.code}</td><td className="px-3 py-3">{b.name}</td><td className="px-3 py-3">{b.area}</td><td className="px-3 py-3">{b.address}</td><td className="px-3 py-3">{b.manager}</td><td className="px-3 py-3">{b.pos}</td><td className="px-3 py-3">1 kho / {b.capacity}</td><td className="px-3 py-3"><Badge variant={VARIANT[b.status]}>{LABEL[b.status]}</Badge></td><td className="px-3 py-3"><button className="btn btn-secondary" onClick={()=>setSelected(b)}>Xem kho</button></td></tr>)}</tbody></table></DataTable></section>
-<Modal isOpen={!!selected} title="Thông tin kho chi nhánh" onClose={()=>setSelected(null)}>{selected&&<div className="space-y-3 text-sm"><p className="font-semibold">{selected.code} · {selected.name}</p><p>Địa chỉ: {selected.address}, {selected.area}</p><p>Quản lý: {selected.manager}</p><p>Số quầy POS: {selected.pos}</p><p>Kho: một kho riêng thuộc chi nhánh. Sức chứa: chưa có số liệu xác thực; cần cấu hình trong dữ liệu quản trị.</p><Badge variant={VARIANT[selected.status]}>{LABEL[selected.status]}</Badge><p className="text-[var(--muted)]">{selected.note}</p><div className="flex justify-end"><button className="btn btn-primary" onClick={()=>setSelected(null)}>Đóng</button></div></div>}</Modal></div>;
+  return (
+    <div>
+      <div className="page-header">
+        <div>
+          <nav className="breadcrumb" aria-label="Đường dẫn trang">
+            <Link to="/dashboard">Trang chủ</Link>
+            <span className="sep">/</span>
+            <Link to="/inventory">Kho hàng</Link>
+            <span className="sep">/</span>
+            <span className="current">Chi nhánh</span>
+          </nav>
+          <h1 className="page-title">Quản lý 12 chi nhánh</h1>
+          <p className="page-subtitle mt-1">Theo dõi thông tin chi nhánh, người phụ trách, số quầy POS và kho thuộc chi nhánh.</p>
+        </div>
+        <span className="text-xs text-[var(--muted)]">Dữ liệu minh họa</span>
+      </div>
+
+      <section className="mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          <StatCard label="Chi nhánh toàn chuỗi" value="12" subLabel="Mỗi chi nhánh một kho" tone="primary" icon={<KpiIcon kind="branch"/>}/>
+          <StatCard label="POS hoạt động" value="26" subLabel="Số liệu minh họa" tone="success" icon={<KpiIcon kind="document-check"/>}/>
+          <StatCard label="Kho cần kiểm tra" value="1" subLabel="Tồn dưới mức an toàn" tone="warning" icon={<KpiIcon kind="warning"/>}/>
+          <StatCard label="Mất kết nối" value="0" subLabel="Theo dõi trạng thái kết nối" tone="info" icon={<KpiIcon kind="branch"/>}/>
+        </div>
+      </section>
+
+      <section className="card mb-6 border-l-4 border-[var(--info)]">
+        <h2 className="text-sm font-bold mb-1">Phạm vi quản lý kho</h2>
+        <p className="text-sm text-[var(--muted)]">Mỗi chi nhánh có một kho riêng. Trường sức chứa kho phải là thông tin cấu hình; không tự suy ra số lượng tồn từ sức chứa.</p>
+      </section>
+
+      <section className="card mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+          <div>
+            <label className="form-label" htmlFor="branch-search">Tìm kiếm</label>
+            <input id="branch-search" className="form-input" value={search} onChange={e=>setSearch(e.target.value)} placeholder="Mã, tên hoặc khu vực..."/>
+          </div>
+          <div>
+            <label className="form-label" htmlFor="branch-status">Trạng thái</label>
+            <select id="branch-status" className="form-input form-select" value={status} onChange={e=>setStatus(e.target.value)}>
+              <option value="all">Tất cả trạng thái</option>
+              <option value="active">Hoạt động</option>
+              <option value="suspended">Tạm ngừng</option>
+              <option value="connection">Mất điện / mất mạng</option>
+              <option value="loss">Cảnh báo tồn / hiệu quả</option>
+            </select>
+          </div>
+          <div className="flex gap-2">
+            <button className="btn btn-secondary" onClick={()=>{setSearch("");setStatus("all");setApplied({search:"",status:"all"});}}>Xóa lọc</button>
+            <button className="btn btn-primary" onClick={()=>setApplied({search,status})}>Áp dụng</button>
+          </div>
+        </div>
+      </section>
+
+      <section className="card p-0 overflow-hidden">
+        <div className="p-4 md:p-5 border-b border-[var(--border)]">
+          <h2 className="font-bold">Danh sách chi nhánh TP.HCM</h2>
+          <p className="text-sm text-[var(--muted)] mt-1">Thông tin minh họa theo kế hoạch repository; địa chỉ chi tiết cần được nhóm xác nhận.</p>
+        </div>
+        <DataTable>
+          <table className="w-full text-sm text-left">
+            <thead className="bg-[var(--background)] text-[var(--muted)]">
+              <tr>
+                {["Mã CN","Tên chi nhánh","Khu vực","Địa chỉ","Quản lý phụ trách","Số quầy POS","Kho","Trạng thái","Liên kết"].map(x=><th key={x} className="px-3 py-3 font-semibold whitespace-nowrap">{x}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map(b=><tr key={b.id} className="border-t border-[var(--border)]">
+                <td className="px-3 py-3 font-semibold">{b.code}</td>
+                <td className="px-3 py-3">{b.name}</td>
+                <td className="px-3 py-3">{b.area}</td>
+                <td className="px-3 py-3">{b.address}</td>
+                <td className="px-3 py-3">{b.manager}</td>
+                <td className="px-3 py-3">{b.pos}</td>
+                <td className="px-3 py-3">1 kho / {b.capacity}</td>
+                <td className="px-3 py-3"><Badge variant={VARIANT[b.status]}>{LABEL[b.status]}</Badge></td>
+                <td className="px-3 py-3"><button className="btn btn-secondary" onClick={()=>setSelected(b)}>Xem kho</button></td>
+              </tr>)}
+            </tbody>
+          </table>
+        </DataTable>
+      </section>
+
+      <Modal isOpen={!!selected} title="Thông tin kho chi nhánh" onClose={()=>setSelected(null)}>
+        {selected && (
+          <div className="space-y-3 text-sm">
+            <p className="font-semibold">{selected.code} · {selected.name}</p>
+            <p>Địa chỉ: {selected.address}, {selected.area}</p>
+            <p>Quản lý: {selected.manager}</p>
+            <p>Số quầy POS: {selected.pos}</p>
+            <p>Kho: một kho riêng thuộc chi nhánh. Sức chứa: chưa có số liệu xác thực; cần cấu hình trong dữ liệu quản trị.</p>
+            <Badge variant={VARIANT[selected.status]}>{LABEL[selected.status]}</Badge>
+            <p className="text-[var(--muted)]">{selected.note}</p>
+            <div className="flex justify-end">
+              <button className="btn btn-primary" onClick={()=>setSelected(null)}>Đóng</button>
+            </div>
+          </div>
+        )}
+      </Modal>
+    </div>
+  );
 }

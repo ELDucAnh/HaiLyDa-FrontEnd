@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npx tailwindcss -i ./src/input.css -o ./assets/css/tailwind.css --minify",
     "watch": "npx tailwindcss -i ./src/input.css -o ./assets/css/tailwind.css --watch",
-    "dev": "npx concurrently \"npx tailwindcss -i ./src/input.css -o ./assets/css/tailwind.css --watch\" \"npx lite-server\"",
+    "dev": "vite",
     "dev:react": "vite",
     "build:react": "tsc --noEmit && vite build",
     "preview:react": "vite preview"

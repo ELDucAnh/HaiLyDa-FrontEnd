@@ -1,5 +1,5 @@
 import { useMemo, useState, type FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import StatCard from "../../components/common/StatCard";
 import KpiIcon from "../shared/KpiIcon";
 import Badge from "../../components/common/Badge";
@@ -7,27 +7,150 @@ import DataTable from "../../components/common/DataTable";
 import Modal from "../../components/common/Modal";
 import { useToast } from "../../contexts/ToastContext";
 
- type Quality="unchecked"|"pass"|"partial"|"fail";
- type ReceiptStatus="pending"|"partial"|"received"|"quarantine";
- interface Receipt {id:string;code:string;po:string;ingredient:string;lot:string;mfg:string;expiry:string;ordered:number;actual:number;unit:string;quality:Quality;status:ReceiptStatus;}
- const INITIAL:Receipt[]=[
- {id:"1",code:"PN-2810-01",po:"PO-2026-042",ingredient:"Cốt hồng trà đặc",lot:"TR-201026",mfg:"20/10/2026",expiry:"20/04/2027",ordered:30,actual:30,unit:"kg",quality:"pass",status:"received"},
- {id:"2",code:"PN-2810-02",po:"PO-2026-043",ingredient:"Sữa tươi thanh trùng",lot:"SUA-221026",mfg:"22/10/2026",expiry:"22/11/2026",ordered:50,actual:30,unit:"lít",quality:"partial",status:"partial"},
- {id:"3",code:"PN-2810-03",po:"PO-2026-044",ingredient:"Ly nhựa 500 ml",lot:"LY-251026",mfg:"25/10/2026",expiry:"Không áp dụng",ordered:5000,actual:5000,unit:"cái",quality:"pass",status:"received"},
- {id:"4",code:"PN-2810-04",po:"PO-2026-045",ingredient:"Syrup đào",lot:"SY-271026",mfg:"27/10/2026",expiry:"27/01/2027",ordered:12,actual:12,unit:"chai",quality:"fail",status:"quarantine"},
- ];
- const QUALITY_LABEL:Record<Quality,string>={unchecked:"Chưa kiểm tra",pass:"Đạt",partial:"Đạt một phần",fail:"Không đạt"};
- const STATUS_LABEL:Record<ReceiptStatus,string>={pending:"Chờ xác nhận",partial:"Nhận một phần",received:"Đã nhập kho",quarantine:"Đang cách ly"};
- export default function ReceiptsPage(){
- const navigate=useNavigate();const {showToast}=useToast();const [receipts,setReceipts]=useState(INITIAL);const [search,setSearch]=useState("");const [quality,setQuality]=useState("all");const [status,setStatus]=useState("all");const [applied,setApplied]=useState({search:"",quality:"all",status:"all"});const [selected,setSelected]=useState<Receipt|null>(null);const [actual,setActual]=useState("");const [result,setResult]=useState<Quality>("unchecked");const [note,setNote]=useState("");
- const rows=useMemo(()=>receipts.filter(r=>(!applied.search||[r.code,r.po,r.ingredient,r.lot].some(x=>x.toLowerCase().includes(applied.search.toLowerCase())))&&(applied.quality==="all"||r.quality===applied.quality)&&(applied.status==="all"||r.status===applied.status)),[receipts,applied]);
- function openReceipt(row:Receipt){setSelected(row);setActual(String(row.actual));setResult(row.quality);setNote("");}
- function submit(e:FormEvent){e.preventDefault();if(!selected){return;}const received=Number(actual);if(!Number.isFinite(received)||received<0){showToast({type:"error",title:"Số lượng không hợp lệ",message:"Số lượng thực nhận phải là số không âm."});return;}if(result==="unchecked"){showToast({type:"error",title:"Chưa kiểm tra chất lượng",message:"Cần chọn kết quả kiểm nhận trước khi xác nhận."});return;}const nextStatus:ReceiptStatus=result==="fail"?"quarantine":received<selected.ordered?"partial":"received";setReceipts(prev=>prev.map(r=>r.id===selected.id?{...r,actual:received,quality:result,status:nextStatus}:r));setSelected(null);showToast({type:"success",title:result==="fail"?"Lô hàng đã cách ly":"Đã cập nhật phiếu nhận",message:result==="fail"?"Lô không đạt không được cộng vào tồn khả dụng.":"Thông tin nhận hàng đã được cập nhật trong mock state."});}
- return <div><div className="page-header"><div><div className="breadcrumb"><button onClick={()=>navigate("/dashboard")}>Trang chủ</button><span className="sep">/</span><button onClick={()=>navigate("/purchases")}>Mua hàng &amp; cấp phát</button><span className="sep">/</span><span className="current">Phiếu nhập kho</span></div><h1 className="page-title">Phiếu nhận hàng / nhập kho</h1><p className="page-subtitle mt-1">Kiểm nhận nguyên liệu theo lô, HSD, số lượng thực nhận và chất lượng trước khi vào tồn.</p></div><span className="text-xs text-[var(--muted)]">Dữ liệu minh họa</span></div>
- <section className="mb-6"><div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4"><StatCard label="Phiếu nhập hôm nay" value="6" subLabel="Tại kho tổng" tone="info" icon={<KpiIcon kind="receipt"/>}/><StatCard label="Chờ kiểm nhận" value={String(receipts.filter(r=>r.status==="pending").length)} subLabel="Chưa xác nhận vào tồn" tone="warning" icon={<KpiIcon kind="clock"/>}/><StatCard label="Nhận thiếu" value={String(receipts.filter(r=>r.status==="partial").length)} subLabel="Cần lập biên bản" tone="danger" icon={<KpiIcon kind="warning"/>}/><StatCard label="Lô không đạt" value={String(receipts.filter(r=>r.status==="quarantine").length)} subLabel="Đang cách ly" tone="danger" icon={<KpiIcon kind="box"/>}/></div></section>
- <section className="card mb-6 border-l-4 border-[var(--warning)]"><h2 className="text-sm font-bold mb-1">Trình tự nhập kho</h2><p className="text-sm text-[var(--muted)]">Kiểm số lượng thực nhận, mã lô, ngày sản xuất, hạn dùng, chất lượng và chứng từ. Chỉ xác nhận nhập kho sau khi hoàn tất kiểm nhận; lô không đạt phải cách ly.</p></section>
- <section className="card mb-6"><div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 items-end"><div><label className="form-label" htmlFor="receipt-search">Tìm kiếm</label><input id="receipt-search" className="form-input" value={search} onChange={e=>setSearch(e.target.value)} placeholder="Mã phiếu, PO, nguyên liệu, lô..."/></div><div><label className="form-label" htmlFor="receipt-quality">Chất lượng</label><select id="receipt-quality" className="form-input form-select" value={quality} onChange={e=>setQuality(e.target.value)}><option value="all">Tất cả</option><option value="unchecked">Chưa kiểm tra</option><option value="pass">Đạt</option><option value="partial">Đạt một phần</option><option value="fail">Không đạt</option></select></div><div><label className="form-label" htmlFor="receipt-status">Trạng thái phiếu</label><select id="receipt-status" className="form-input form-select" value={status} onChange={e=>setStatus(e.target.value)}><option value="all">Tất cả</option><option value="pending">Chờ xác nhận</option><option value="partial">Nhận một phần</option><option value="received">Đã nhập kho</option><option value="quarantine">Đang cách ly</option></select></div><div className="flex gap-2"><button className="btn btn-secondary" onClick={()=>{setSearch("");setQuality("all");setStatus("all");setApplied({search:"",quality:"all",status:"all"});}}>Xóa lọc</button><button className="btn btn-primary" onClick={()=>setApplied({search,quality,status})}>Áp dụng</button></div></div></section>
- <section className="card p-0 overflow-hidden"><div className="p-4 md:p-5 border-b border-[var(--border)]"><h2 className="font-bold">Phiếu nhận hàng</h2><p className="text-sm text-[var(--muted)] mt-1">Ghi nhận số lượng đặt, số lượng thực nhận và trạng thái kiểm tra chất lượng.</p></div><DataTable><table className="w-full min-w-[1050px] text-sm text-left"><thead className="bg-[var(--background)] text-[var(--muted)]"><tr>{["Mã phiếu","Mã PO","Nguyên liệu","Mã lô","Ngày SX","Hạn dùng","Đặt","Thực nhận","Chất lượng","Trạng thái","Thao tác"].map(x=><th key={x} className="px-3 py-3 font-semibold">{x}</th>)}</tr></thead><tbody>{rows.map(r=><tr key={r.id} className="border-t border-[var(--border)]"><td className="px-3 py-3 font-semibold">{r.code}</td><td className="px-3 py-3">{r.po}</td><td className="px-3 py-3">{r.ingredient}</td><td className="px-3 py-3">{r.lot}</td><td className="px-3 py-3">{r.mfg}</td><td className="px-3 py-3">{r.expiry}</td><td className="px-3 py-3">{r.ordered} {r.unit}</td><td className="px-3 py-3">{r.actual} {r.unit}</td><td className="px-3 py-3"><Badge variant={r.quality==="pass"?"success":r.quality==="fail"?"danger":"warning"}>{QUALITY_LABEL[r.quality]}</Badge></td><td className="px-3 py-3"><Badge variant={r.status==="received"?"success":r.status==="quarantine"?"danger":"warning"}>{STATUS_LABEL[r.status]}</Badge></td><td className="px-3 py-3"><button className="btn btn-secondary" disabled={r.status==="received"||r.status==="quarantine"} onClick={()=>openReceipt(r)}>Kiểm nhận</button></td></tr>)}</tbody></table></DataTable></section>
- <Modal isOpen={!!selected} title="Xác nhận nhận hàng (mẫu)" onClose={()=>setSelected(null)}>{selected&&<form className="space-y-3" onSubmit={submit}><p className="text-sm font-semibold">{selected.code} · {selected.po}</p><p className="text-sm text-[var(--muted)]">{selected.ingredient} · Lô {selected.lot}</p><div><label className="form-label" htmlFor="receipt-actual">Số lượng thực nhận *</label><input id="receipt-actual" type="number" min="0" step="0.01" className="form-input" value={actual} onChange={e=>setActual(e.target.value)} required/><p className="text-xs text-[var(--muted)] mt-1">Số lượng đặt: {selected.ordered} {selected.unit}</p></div><div><label className="form-label" htmlFor="receipt-quality-new">Chất lượng *</label><select id="receipt-quality-new" className="form-input form-select" value={result} onChange={e=>setResult(e.target.value as Quality)}><option value="unchecked">Chưa kiểm tra</option><option value="pass">Đạt</option><option value="partial">Đạt một phần</option><option value="fail">Không đạt</option></select></div><div><label className="form-label" htmlFor="receipt-note">Ghi chú / biên bản chênh lệch</label><textarea id="receipt-note" rows={3} className="form-input form-textarea" value={note} onChange={e=>setNote(e.target.value)}/></div>{result==="fail"&&<p className="text-sm text-[var(--danger)]">Lô không đạt sẽ được chuyển sang trạng thái cách ly và không tính vào tồn khả dụng.</p>}<div className="flex justify-end gap-2"><button type="button" className="btn btn-secondary" onClick={()=>setSelected(null)}>Hủy</button><button type="submit" className="btn btn-primary">Xác nhận kiểm nhận</button></div></form>}</Modal>
- </div>;
+type Quality = "unchecked" | "pass" | "partial" | "fail";
+type ReceiptStatus = "pending" | "partial" | "received" | "quarantine";
+interface Receipt { id: string; code: string; po: string; ingredient: string; lot: string; mfg: string; expiry: string; ordered: number; actual: number; unit: string; quality: Quality; status: ReceiptStatus; }
+const INITIAL: Receipt[] = [
+  { id: "1", code: "PN-2810-01", po: "PO-2026-042", ingredient: "Cốt hồng trà đặc", lot: "TR-201026", mfg: "20/10/2026", expiry: "20/04/2027", ordered: 30, actual: 30, unit: "kg", quality: "pass", status: "received" },
+  { id: "2", code: "PN-2810-02", po: "PO-2026-043", ingredient: "Sữa tươi thanh trùng", lot: "SUA-221026", mfg: "22/10/2026", expiry: "22/11/2026", ordered: 50, actual: 30, unit: "lít", quality: "partial", status: "partial" },
+  { id: "3", code: "PN-2810-03", po: "PO-2026-044", ingredient: "Ly nhựa 500 ml", lot: "LY-251026", mfg: "25/10/2026", expiry: "Không áp dụng", ordered: 5000, actual: 5000, unit: "cái", quality: "pass", status: "received" },
+  { id: "4", code: "PN-2810-04", po: "PO-2026-045", ingredient: "Syrup đào", lot: "SY-271026", mfg: "27/10/2026", expiry: "27/01/2027", ordered: 12, actual: 12, unit: "chai", quality: "fail", status: "quarantine" },
+];
+const QUALITY_LABEL: Record<Quality, string> = { unchecked: "Chưa kiểm tra", pass: "Đạt", partial: "Đạt một phần", fail: "Không đạt" };
+const STATUS_LABEL: Record<ReceiptStatus, string> = { pending: "Chờ xác nhận", partial: "Nhận một phần", received: "Đã nhập kho", quarantine: "Đang cách ly" };
+export default function ReceiptsPage() {
+  const navigate = useNavigate(); const { showToast } = useToast(); const [receipts, setReceipts] = useState(INITIAL); const [search, setSearch] = useState(""); const [quality, setQuality] = useState("all"); const [status, setStatus] = useState("all"); const [applied, setApplied] = useState({ search: "", quality: "all", status: "all" }); const [selected, setSelected] = useState<Receipt | null>(null); const [actual, setActual] = useState(""); const [result, setResult] = useState<Quality>("unchecked"); const [note, setNote] = useState("");
+  const rows = useMemo(() => receipts.filter(r => (!applied.search || [r.code, r.po, r.ingredient, r.lot].some(x => x.toLowerCase().includes(applied.search.toLowerCase()))) && (applied.quality === "all" || r.quality === applied.quality) && (applied.status === "all" || r.status === applied.status)), [receipts, applied]);
+  function openReceipt(row: Receipt) { setSelected(row); setActual(String(row.actual)); setResult(row.quality); setNote(""); }
+  function submit(e: FormEvent) { e.preventDefault(); if (!selected) { return; } const received = Number(actual); if (!Number.isFinite(received) || received < 0) { showToast({ type: "error", title: "Số lượng không hợp lệ", message: "Số lượng thực nhận phải là số không âm." }); return; } if (result === "unchecked") { showToast({ type: "error", title: "Chưa kiểm tra chất lượng", message: "Cần chọn kết quả kiểm nhận trước khi xác nhận." }); return; } const nextStatus: ReceiptStatus = result === "fail" ? "quarantine" : received < selected.ordered ? "partial" : "received"; setReceipts(prev => prev.map(r => r.id === selected.id ? { ...r, actual: received, quality: result, status: nextStatus } : r)); setSelected(null); showToast({ type: "success", title: result === "fail" ? "Lô hàng đã cách ly" : "Đã cập nhật phiếu nhận", message: result === "fail" ? "Lô không đạt không được cộng vào tồn khả dụng." : "Thông tin nhận hàng đã được cập nhật trong mock state." }); }
+  return (
+    <div>
+      <div className="page-header">
+        <div>
+          <nav className="breadcrumb" aria-label="Đường dẫn trang">
+            <Link to="/dashboard">Trang chủ</Link>
+            <span className="sep">/</span>
+            <Link to="/purchases">Nhập hàng</Link>
+            <span className="sep">/</span>
+            <span className="current">Phiếu nhập kho</span>
+          </nav>
+          <h1 className="page-title">Phiếu nhận hàng / nhập kho</h1>
+          <p className="page-subtitle mt-1">Kiểm nhận nguyên liệu theo lô, HSD, số lượng thực nhận và chất lượng trước khi vào tồn.</p>
+        </div>
+        <span className="text-xs text-[var(--muted)]">Dữ liệu minh họa</span>
+      </div>
+
+      <section className="mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          <StatCard label="Phiếu nhập hôm nay" value="6" subLabel="Tại kho tổng" tone="info" icon={<KpiIcon kind="receipt" />} />
+          <StatCard label="Chờ kiểm nhận" value={String(receipts.filter(r => r.status === "pending").length)} subLabel="Chưa xác nhận vào tồn" tone="warning" icon={<KpiIcon kind="clock" />} />
+          <StatCard label="Nhận thiếu" value={String(receipts.filter(r => r.status === "partial").length)} subLabel="Cần lập biên bản" tone="danger" icon={<KpiIcon kind="warning" />} />
+          <StatCard label="Lô không đạt" value={String(receipts.filter(r => r.status === "quarantine").length)} subLabel="Đang cách ly" tone="danger" icon={<KpiIcon kind="box" />} />
+        </div>
+      </section>
+
+      <section className="card mb-6 border-l-4 border-[var(--warning)]">
+        <h2 className="text-sm font-bold mb-1">Trình tự nhập kho</h2>
+        <p className="text-sm text-[var(--muted)]">Kiểm số lượng thực nhận, mã lô, ngày sản xuất, hạn dùng, chất lượng và chứng từ. Chỉ xác nhận nhập kho sau khi hoàn tất kiểm nhận; lô không đạt phải cách ly.</p>
+      </section>
+
+      <section className="card mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 items-end">
+          <div>
+            <label className="form-label" htmlFor="receipt-search">Tìm kiếm</label>
+            <input id="receipt-search" className="form-input" value={search} onChange={e => setSearch(e.target.value)} placeholder="Mã phiếu, PO, nguyên liệu, lô..." />
+          </div>
+          <div>
+            <label className="form-label" htmlFor="receipt-quality">Chất lượng</label>
+            <select id="receipt-quality" className="form-input form-select" value={quality} onChange={e => setQuality(e.target.value)}>
+              <option value="all">Tất cả</option>
+              <option value="unchecked">Chưa kiểm tra</option>
+              <option value="pass">Đạt</option>
+              <option value="partial">Đạt một phần</option>
+              <option value="fail">Không đạt</option>
+            </select>
+          </div>
+          <div>
+            <label className="form-label" htmlFor="receipt-status">Trạng thái phiếu</label>
+            <select id="receipt-status" className="form-input form-select" value={status} onChange={e => setStatus(e.target.value)}>
+              <option value="all">Tất cả</option>
+              <option value="pending">Chờ xác nhận</option>
+              <option value="partial">Nhận một phần</option>
+              <option value="received">Đã nhập kho</option>
+              <option value="quarantine">Đang cách ly</option>
+            </select>
+          </div>
+          <div className="flex gap-2">
+            <button className="btn btn-secondary" onClick={() => { setSearch(""); setQuality("all"); setStatus("all"); setApplied({ search: "", quality: "all", status: "all" }); }}>Xóa lọc</button>
+            <button className="btn btn-primary" onClick={() => setApplied({ search, quality, status })}>Áp dụng</button>
+          </div>
+        </div>
+      </section>
+
+      <section className="card p-0 overflow-hidden">
+        <div className="p-4 md:p-5 border-b border-[var(--border)]">
+          <h2 className="font-bold">Phiếu nhận hàng</h2>
+          <p className="text-sm text-[var(--muted)] mt-1">Ghi nhận số lượng đặt, số lượng thực nhận và trạng thái kiểm tra chất lượng.</p>
+        </div>
+        <DataTable>
+          <table className="w-full min-w-[1050px] text-sm text-left">
+            <thead className="bg-[var(--background)] text-[var(--muted)]">
+              <tr>
+                {["Mã phiếu", "Mã PO", "Nguyên liệu", "Mã lô", "Ngày SX", "Hạn dùng", "Đặt", "Thực nhận", "Chất lượng", "Trạng thái", "Thao tác"].map(x => <th key={x} className="px-3 py-3 font-semibold">{x}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map(r => <tr key={r.id} className="border-t border-[var(--border)]">
+                <td className="px-3 py-3 font-semibold">{r.code}</td>
+                <td className="px-3 py-3">{r.po}</td>
+                <td className="px-3 py-3">{r.ingredient}</td>
+                <td className="px-3 py-3">{r.lot}</td>
+                <td className="px-3 py-3">{r.mfg}</td>
+                <td className="px-3 py-3">{r.expiry}</td>
+                <td className="px-3 py-3">{r.ordered} {r.unit}</td>
+                <td className="px-3 py-3">{r.actual} {r.unit}</td>
+                <td className="px-3 py-3"><Badge variant={r.quality === "pass" ? "success" : r.quality === "fail" ? "danger" : "warning"}>{QUALITY_LABEL[r.quality]}</Badge></td>
+                <td className="px-3 py-3"><Badge variant={r.status === "received" ? "success" : r.status === "quarantine" ? "danger" : "warning"}>{STATUS_LABEL[r.status]}</Badge></td>
+                <td className="px-3 py-3"><button className="btn btn-secondary" disabled={r.status === "received" || r.status === "quarantine"} onClick={() => openReceipt(r)}>Kiểm nhận</button></td>
+              </tr>)}
+            </tbody>
+          </table>
+        </DataTable>
+      </section>
+
+      <Modal isOpen={!!selected} title="Xác nhận nhận hàng (mẫu)" onClose={() => setSelected(null)}>
+        {selected && (
+          <form className="space-y-3" onSubmit={submit}>
+            <p className="text-sm font-semibold">{selected.code} · {selected.po}</p>
+            <p className="text-sm text-[var(--muted)]">{selected.ingredient} · Lô {selected.lot}</p>
+            <div>
+              <label className="form-label" htmlFor="receipt-actual">Số lượng thực nhận *</label>
+              <input id="receipt-actual" type="number" min="0" step="0.01" className="form-input" value={actual} onChange={e => setActual(e.target.value)} required />
+              <p className="text-xs text-[var(--muted)] mt-1">Số lượng đặt: {selected.ordered} {selected.unit}</p>
+            </div>
+            <div>
+              <label className="form-label" htmlFor="receipt-quality-new">Chất lượng *</label>
+              <select id="receipt-quality-new" className="form-input form-select" value={result} onChange={e => setResult(e.target.value as Quality)}>
+                <option value="unchecked">Chưa kiểm tra</option>
+                <option value="pass">Đạt</option>
+                <option value="partial">Đạt một phần</option>
+                <option value="fail">Không đạt</option>
+              </select>
+            </div>
+            <div>
+              <label className="form-label" htmlFor="receipt-note">Ghi chú / biên bản chênh lệch</label>
+              <textarea id="receipt-note" rows={3} className="form-input form-textarea" value={note} onChange={e => setNote(e.target.value)} />
+            </div>
+            {result === "fail" && (
+              <p className="text-sm text-[var(--danger)]">Lô không đạt sẽ được chuyển sang trạng thái cách ly và không tính vào tồn khả dụng.</p>
+            )}
+            <div className="flex justify-end gap-2">
+              <button type="button" className="btn btn-secondary" onClick={() => setSelected(null)}>Hủy</button>
+              <button type="submit" className="btn btn-primary">Xác nhận kiểm nhận</button>
+            </div>
+          </form>
+        )}
+      </Modal>
+    </div>
+  );
 }

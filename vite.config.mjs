@@ -1,51 +1,23 @@
 import { defineConfig } from "vite";
 
-const reactRoutes = new Set([
-    "/dashboard",
-    "/sales",
-    "/sales/pos",
-    "/sales/returns",
-    "/sales/shifts",
-    "/sales/preparation",
-    "/customers",
-    "/marketing/promotions",
-    "/inventory/products",
-    "/inventory/products/new",
-    "/inventory/ingredients",
-    "/inventory/branches",
-    "/inventory/categories",
-    "/inventory/units",
-    "/inventory/stock-adjustment",
-    "/production/recipes",
-    "/production/batches",
-    "/purchases",
-    "/purchases/new",
-    "/purchases/transfers",
-    "/purchases/receipts",
-    "/distribution/planning",
-    "/stores/ingredients",
-    "/stores/shift-reconciliation",
-]);
-
 export default defineConfig({
+    server: {
+        port: 3000,
+        host: true,
+    },
     plugins: [
         {
-            name: "react-page-routing",
+            name: "spa-fallback",
             configureServer(server) {
                 server.middlewares.use((req, res, next) => {
                     const pathname = (req.url ?? "/").split("?")[0];
-
-                    const normalizedPath = pathname.replace(/\/$/, "");
-                    const isProductDetailsRoute = /^\/inventory\/products\/[^/]+$/.test(normalizedPath)
-                        && normalizedPath !== "/inventory/products/new";
-
+                    // Nếu là yêu cầu trang HTML và không phải file tĩnh có đuôi mở rộng (.js, .css, .png, ...)
                     if (
                         req.headers.accept?.includes("text/html") &&
-                        (reactRoutes.has(normalizedPath) || isProductDetailsRoute)
+                        (!pathname.includes(".") || pathname.endsWith(".html"))
                     ) {
                         req.url = "/index.html";
                     }
-
                     next();
                 });
             },

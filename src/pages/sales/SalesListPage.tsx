@@ -37,7 +37,7 @@ export default function SalesListPage() {
   { id: "action", header: "Thao tác", render: r => <button className="btn btn-secondary btn-sm" onClick={() => setKot(r)}>Xem KOT</button> },
  ];
  return <>
-  <SalesPageHeader title="Quản lý đơn hàng đa kênh" breadcrumb="Đơn hàng" description="Tra cứu đơn tại quầy, mang đi và trực tuyến." actions={<button className="btn btn-primary" onClick={() => navigate("/sales/pos")}>Tạo đơn mới</button>} />
+  <SalesPageHeader title="Quản lý đơn hàng đa kênh" breadcrumb="Tất cả đơn bán" parent={{ label: "Bán hàng", to: "/sales" }} description="Tra cứu đơn tại quầy, mang đi và trực tuyến." actions={<button className="btn btn-primary" onClick={() => navigate("/sales/pos")}>Tạo đơn mới</button>} />
   <section aria-label="Thống kê mẫu" className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
    <StatCard label="Tổng đơn hàng" value="786" icon={<SalesStatIcon />} subLabel="+8,2% so với tháng trước" />
    <StatCard label="Doanh thu" value={formatCurrency(67347)} icon={<SalesStatIcon />} tone="info" subLabel="+12,5% so với tháng trước" />

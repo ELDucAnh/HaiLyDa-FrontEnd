@@ -1,5 +1,5 @@
 import { useMemo, useState, type FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import StatCard from "../../components/common/StatCard";
 import KpiIcon from "../shared/KpiIcon";
 import Badge from "../../components/common/Badge";
@@ -27,12 +27,152 @@ export default function ShiftReconciliationPage(){
  const totalWaste=useMemo(()=>lines.reduce((sum,l)=>sum+l.waste,0),[lines]);const totalVariance=useMemo(()=>lines.reduce((sum,l)=>sum+Math.abs(calcVariance(l))*l.unitCost,0),[lines]);const changedLines=lines.filter(l=>Math.abs(calcVariance(l))>0.0001);
  function updateCount(id:string,value:number){setLines(prev=>prev.map(l=>l.id===id?{...l,counted:value}:l));}
  function submit(e:FormEvent){e.preventDefault();if(!date||!branch||!operator.trim()){showToast({type:"error",title:"Thiếu thông tin ca",message:"Ngày, chi nhánh và người đối soát là bắt buộc."});return;}const enteredValue=Number(amount);if(!Number.isFinite(enteredValue)||enteredValue<0){showToast({type:"error",title:"Giá trị không hợp lệ",message:"Giá trị chênh lệch cần là số không âm."});return;}const status:ReconciliationStatus=changedLines.length>0||enteredValue>0?"pending":"reconciled";const record:ReconcileRecord={id:makeId("reconcile"),date:new Date(`${date}T00:00:00`).toLocaleDateString("vi-VN"),branch,shift,status,varianceValue:Math.max(enteredValue,totalVariance)};setRecords(prev=>[record,...prev]);showToast({type:"success",title:status==="pending"?"Đã gửi đối soát chờ duyệt":"Đã ghi nhận đối soát",message:"Bảng đối soát không tự sửa tồn kho; chênh lệch cần chứng từ và phê duyệt riêng."});}
- return <div><div className="page-header"><div><div className="breadcrumb"><button onClick={()=>navigate("/dashboard")}>Trang chủ</button><span className="sep">/</span><span>Kho tại quầy</span><span className="sep">/</span><span className="current">Đối soát cuối ca</span></div><h1 className="page-title">Đối soát nguyên liệu cuối ca</h1><p className="page-subtitle mt-1">Đối chiếu tồn đầu ca, thực nhận, tiêu hao, hao hụt và số kiểm đếm cuối ca.</p></div><span className="text-xs text-[var(--muted)]">Dữ liệu minh họa</span></div>
- <section className="mb-6"><div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4"><StatCard label="Ca chờ đối soát" value={String(records.filter(r=>r.status!=="reconciled").length)} subLabel="Chưa hoàn tất xác nhận" tone="warning" icon={<KpiIcon kind="clock"/>}/><StatCard label="Tổng cấp phát ca" value="42,5 kg/lít" subLabel="Số liệu tổng hợp minh họa" tone="info" icon={<KpiIcon kind="box"/>}/><StatCard label="Hao hụt ghi nhận" value={`${totalWaste.toLocaleString("vi-VN")} kg/lít`} subLabel="Cần ghi rõ nguyên nhân" tone="warning" icon={<KpiIcon kind="warning"/>}/><StatCard label="Chênh lệch cần duyệt" value={String(records.filter(r=>r.status==="pending").length)} subLabel="Chờ quản lý chi nhánh" tone="warning" icon={<KpiIcon kind="balance"/>}/></div></section>
- <section className="card mb-6 border-l-4 border-[var(--warning)]"><h2 className="text-sm font-bold mb-1">Đối soát cuối ca</h2><p className="text-sm text-[var(--muted)]">So sánh đầu ca, thực nhận, tiêu hao theo định mức, hao hụt có lý do và số kiểm đếm cuối ca. Không được sửa trực tiếp tồn kho; điều chỉnh phải có chứng từ và phê duyệt theo ngưỡng.</p></section>
- <form onSubmit={submit} className="space-y-6"><section className="card"><h2 className="font-bold mb-4">Thông tin ca đối soát (mẫu)</h2><div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"><div><label className="form-label" htmlFor="reconcile-date">Ngày làm việc *</label><input id="reconcile-date" type="date" className="form-input" value={date} onChange={e=>setDate(e.target.value)} required/></div><div><label className="form-label" htmlFor="reconcile-branch">Chi nhánh *</label><select id="reconcile-branch" className="form-input form-select" value={branch} onChange={e=>setBranch(e.target.value)}>{BRANCHES.map(b=><option key={b}>{b}</option>)}</select></div><div><label className="form-label" htmlFor="reconcile-shift">Ca làm việc *</label><select id="reconcile-shift" className="form-input form-select" value={shift} onChange={e=>setShift(e.target.value as Shift)}><option>Ca sáng</option><option>Ca chiều</option><option>Ca tối</option></select></div><div><label className="form-label" htmlFor="reconcile-opener">Người mở ca</label><input id="reconcile-opener" className="form-input" value={opener} onChange={e=>setOpener(e.target.value)}/></div><div><label className="form-label" htmlFor="reconcile-operator">Người đối soát *</label><input id="reconcile-operator" className="form-input" value={operator} onChange={e=>setOperator(e.target.value)} required/></div><div><label className="form-label" htmlFor="reconcile-state">Trạng thái</label><input id="reconcile-state" className="form-input" value="Bản nháp / chờ xác nhận" readOnly/></div></div></section>
- <section className="card p-0 overflow-hidden"><div className="p-4 md:p-5 border-b border-[var(--border)]"><h2 className="font-bold">Bảng đối soát nguyên liệu cuối ca</h2><p className="text-sm text-[var(--muted)] mt-1">Lượng tiêu hao theo định mức cần so sánh với lượng dùng thực tế; chênh lệch bất thường cần giải trình.</p></div><DataTable><table className="w-full min-w-[1050px] text-sm text-left"><thead className="bg-[var(--background)] text-[var(--muted)]"><tr>{["Nguyên liệu","Đơn vị","Tồn đầu ca","Thực nhận","Tiêu hao định mức","Hao hụt ghi nhận","Tồn kiểm đếm","Chênh lệch"].map(x=><th key={x} className="px-3 py-3 font-semibold">{x}</th>)}</tr></thead><tbody>{lines.map(l=><tr key={l.id} className="border-t border-[var(--border)]"><td className="px-3 py-3">{l.ingredient}</td><td className="px-3 py-3">{l.unit}</td><td className="px-3 py-3">{l.opening}</td><td className="px-3 py-3">{l.received}</td><td className="px-3 py-3">{l.standardUse}</td><td className="px-3 py-3">{l.waste}</td><td className="px-3 py-2"><input aria-label={`Tồn kiểm đếm ${l.ingredient}`} type="number" min="0" step="0.001" className="form-input w-28" value={l.counted} onChange={e=>updateCount(l.id,Number(e.target.value))}/></td><td className="px-3 py-3"><span className={calcVariance(l)===0?"text-[var(--success)]":"text-[var(--warning)] font-semibold"}>{calcVariance(l)>0?"+":""}{calcVariance(l)}</span></td></tr>)}</tbody></table></DataTable><div className="p-4 border-t border-[var(--border)] text-sm flex flex-wrap justify-between gap-2"><span>{changedLines.length} dòng có chênh lệch</span><b>Giá trị chênh lệch ước tính: {formatCurrency(totalVariance)}</b></div></section>
- <section className="card"><h2 className="font-bold mb-4">Giải trình chênh lệch</h2><div className="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label className="form-label" htmlFor="reconcile-reason">Nguyên nhân *</label><select id="reconcile-reason" className="form-input form-select" value={reason} onChange={e=>setReason(e.target.value as Reason)}>{Object.entries(REASONS).map(([v,l])=><option key={v} value={v}>{l}</option>)}</select></div><div><label className="form-label" htmlFor="reconcile-value">Giá trị chênh lệch khai báo (đ)</label><input id="reconcile-value" type="number" min="0" className="form-input" value={amount} onChange={e=>setAmount(e.target.value)}/></div><div className="md:col-span-2"><label className="form-label" htmlFor="reconcile-note">Biên bản / ghi chú</label><textarea id="reconcile-note" rows={3} className="form-input form-textarea" value={note} onChange={e=>setNote(e.target.value)} placeholder="Nêu rõ nguyên nhân, mặt hàng, nhân viên hoặc chứng từ liên quan..."/></div></div><div className="flex flex-wrap justify-end gap-2 mt-4"><button type="button" className="btn btn-secondary" onClick={()=>showToast({type:"info",title:"Bản nháp",message:"Dữ liệu biểu mẫu vẫn giữ trong phiên hiện tại."})}>Lưu bản nháp</button><button type="submit" className="btn btn-primary">Gửi đối soát</button></div></section></form>
- <section className="card p-0 overflow-hidden mt-6"><div className="p-4 md:p-5 border-b border-[var(--border)]"><h2 className="font-bold">Lịch sử đối soát</h2></div><DataTable><table className="w-full text-sm text-left"><thead className="bg-[var(--background)] text-[var(--muted)]"><tr>{["Ngày","Chi nhánh","Ca","Giá trị chênh lệch","Trạng thái"].map(x=><th key={x} className="px-4 py-3 font-semibold">{x}</th>)}</tr></thead><tbody>{records.map(r=><tr key={r.id} className="border-t border-[var(--border)]"><td className="px-4 py-3">{r.date}</td><td className="px-4 py-3">{r.branch}</td><td className="px-4 py-3">{r.shift}</td><td className="px-4 py-3">{formatCurrency(r.varianceValue)}</td><td className="px-4 py-3"><Badge variant={r.status==="reconciled"?"success":r.status==="pending"?"warning":"info"}>{r.status==="reconciled"?"Đã đối soát":r.status==="pending"?"Chờ xác nhận":"Bản nháp"}</Badge></td></tr>)}</tbody></table></DataTable></section>
- </div>;
+  return (
+    <div>
+      <div className="page-header">
+        <div>
+          <nav className="breadcrumb" aria-label="Đường dẫn trang">
+            <Link to="/dashboard">Trang chủ</Link>
+            <span className="sep">/</span>
+            <Link to="/stores">Cửa hàng chi nhánh</Link>
+            <span className="sep">/</span>
+            <span className="current">Đối soát ca trực</span>
+          </nav>
+          <h1 className="page-title">Đối soát nguyên liệu cuối ca</h1>
+          <p className="page-subtitle mt-1">Đối chiếu tồn đầu ca, thực nhận, tiêu hao, hao hụt và số kiểm đếm cuối ca.</p>
+        </div>
+        <span className="text-xs text-[var(--muted)]">Dữ liệu minh họa</span>
+      </div>
+
+      <section className="mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          <StatCard label="Ca chờ đối soát" value={String(records.filter(r=>r.status!=="reconciled").length)} subLabel="Chưa hoàn tất xác nhận" tone="warning" icon={<KpiIcon kind="clock"/>}/>
+          <StatCard label="Tổng cấp phát ca" value="42,5 kg/lít" subLabel="Số liệu tổng hợp minh họa" tone="info" icon={<KpiIcon kind="box"/>}/>
+          <StatCard label="Hao hụt ghi nhận" value={`${totalWaste.toLocaleString("vi-VN")} kg/lít`} subLabel="Cần ghi rõ nguyên nhân" tone="warning" icon={<KpiIcon kind="warning"/>}/>
+          <StatCard label="Chênh lệch cần duyệt" value={String(records.filter(r=>r.status==="pending").length)} subLabel="Chờ quản lý chi nhánh" tone="warning" icon={<KpiIcon kind="balance"/>}/>
+        </div>
+      </section>
+
+      <section className="card mb-6 border-l-4 border-[var(--warning)]">
+        <h2 className="text-sm font-bold mb-1">Đối soát cuối ca</h2>
+        <p className="text-sm text-[var(--muted)]">So sánh đầu ca, thực nhận, tiêu hao theo định mức, hao hụt có lý do và số kiểm đếm cuối ca. Không được sửa trực tiếp tồn kho; điều chỉnh phải có chứng từ và phê duyệt theo ngưỡng.</p>
+      </section>
+
+      <form onSubmit={submit} className="space-y-6">
+        <section className="card">
+          <h2 className="font-bold mb-4">Thông tin ca đối soát (mẫu)</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            <div>
+              <label className="form-label" htmlFor="reconcile-date">Ngày làm việc *</label>
+              <input id="reconcile-date" type="date" className="form-input" value={date} onChange={e=>setDate(e.target.value)} required/>
+            </div>
+            <div>
+              <label className="form-label" htmlFor="reconcile-branch">Chi nhánh *</label>
+              <select id="reconcile-branch" className="form-input form-select" value={branch} onChange={e=>setBranch(e.target.value)}>{BRANCHES.map(b=><option key={b}>{b}</option>)}</select>
+            </div>
+            <div>
+              <label className="form-label" htmlFor="reconcile-shift">Ca làm việc *</label>
+              <select id="reconcile-shift" className="form-input form-select" value={shift} onChange={e=>setShift(e.target.value as Shift)}>
+                <option>Ca sáng</option>
+                <option>Ca chiều</option>
+                <option>Ca tối</option>
+              </select>
+            </div>
+            <div>
+              <label className="form-label" htmlFor="reconcile-opener">Người mở ca</label>
+              <input id="reconcile-opener" className="form-input" value={opener} onChange={e=>setOpener(e.target.value)}/>
+            </div>
+            <div>
+              <label className="form-label" htmlFor="reconcile-operator">Người đối soát *</label>
+              <input id="reconcile-operator" className="form-input" value={operator} onChange={e=>setOperator(e.target.value)} required/>
+            </div>
+            <div>
+              <label className="form-label" htmlFor="reconcile-state">Trạng thái</label>
+              <input id="reconcile-state" className="form-input" value="Bản nháp / chờ xác nhận" readOnly/>
+            </div>
+          </div>
+        </section>
+
+        <section className="card p-0 overflow-hidden">
+          <div className="p-4 md:p-5 border-b border-[var(--border)]">
+            <h2 className="font-bold">Bảng đối soát nguyên liệu cuối ca</h2>
+            <p className="text-sm text-[var(--muted)] mt-1">Lượng tiêu hao theo định mức cần so sánh với lượng dùng thực tế; chênh lệch bất thường cần giải trình.</p>
+          </div>
+          <DataTable>
+            <table className="w-full min-w-[1050px] text-sm text-left">
+              <thead className="bg-[var(--background)] text-[var(--muted)]">
+                <tr>
+                  {["Nguyên liệu","Đơn vị","Tồn đầu ca","Thực nhận","Tiêu hao định mức","Hao hụt ghi nhận","Tồn kiểm đếm","Chênh lệch"].map(x=><th key={x} className="px-3 py-3 font-semibold">{x}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {lines.map(l=><tr key={l.id} className="border-t border-[var(--border)]">
+                  <td className="px-3 py-3">{l.ingredient}</td>
+                  <td className="px-3 py-3">{l.unit}</td>
+                  <td className="px-3 py-3">{l.opening}</td>
+                  <td className="px-3 py-3">{l.received}</td>
+                  <td className="px-3 py-3">{l.standardUse}</td>
+                  <td className="px-3 py-3">{l.waste}</td>
+                  <td className="px-3 py-2"><input aria-label={`Tồn kiểm đếm ${l.ingredient}`} type="number" min="0" step="0.001" className="form-input w-28" value={l.counted} onChange={e=>updateCount(l.id,Number(e.target.value))}/></td>
+                  <td className="px-3 py-3"><span className={calcVariance(l)===0?"text-[var(--success)]":"text-[var(--warning)] font-semibold"}>{calcVariance(l)>0?"+":""}{calcVariance(l)}</span></td>
+                </tr>)}
+              </tbody>
+            </table>
+          </DataTable>
+          <div className="p-4 border-t border-[var(--border)] text-sm flex flex-wrap justify-between gap-2">
+            <span>{changedLines.length} dòng có chênh lệch</span>
+            <b>Giá trị chênh lệch ước tính: {formatCurrency(totalVariance)}</b>
+          </div>
+        </section>
+
+        <section className="card">
+          <h2 className="font-bold mb-4">Giải trình chênh lệch</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="form-label" htmlFor="reconcile-reason">Nguyên nhân *</label>
+              <select id="reconcile-reason" className="form-input form-select" value={reason} onChange={e=>setReason(e.target.value as Reason)}>
+                {Object.entries(REASONS).map(([v,l])=><option key={v} value={v}>{l}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="form-label" htmlFor="reconcile-value">Giá trị chênh lệch khai báo (đ)</label>
+              <input id="reconcile-value" type="number" min="0" className="form-input" value={amount} onChange={e=>setAmount(e.target.value)}/>
+            </div>
+            <div className="md:col-span-2">
+              <label className="form-label" htmlFor="reconcile-note">Biên bản / ghi chú</label>
+              <textarea id="reconcile-note" rows={3} className="form-input form-textarea" value={note} onChange={e=>setNote(e.target.value)} placeholder="Nêu rõ nguyên nhân, mặt hàng, nhân viên hoặc chứng từ liên quan..."/>
+            </div>
+          </div>
+          <div className="flex flex-wrap justify-end gap-2 mt-4">
+            <button type="button" className="btn btn-secondary" onClick={()=>showToast({type:"info",title:"Bản nháp",message:"Dữ liệu biểu mẫu vẫn giữ trong phiên hiện tại."})}>Lưu bản nháp</button>
+            <button type="submit" className="btn btn-primary">Gửi đối soát</button>
+          </div>
+        </section>
+      </form>
+
+      <section className="card p-0 overflow-hidden mt-6">
+        <div className="p-4 md:p-5 border-b border-[var(--border)]">
+          <h2 className="font-bold">Lịch sử đối soát</h2>
+        </div>
+        <DataTable>
+          <table className="w-full text-sm text-left">
+            <thead className="bg-[var(--background)] text-[var(--muted)]">
+              <tr>
+                {["Ngày","Chi nhánh","Ca","Giá trị chênh lệch","Trạng thái"].map(x=><th key={x} className="px-4 py-3 font-semibold">{x}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {records.map(r=><tr key={r.id} className="border-t border-[var(--border)]">
+                <td className="px-4 py-3">{r.date}</td>
+                <td className="px-4 py-3">{r.branch}</td>
+                <td className="px-4 py-3">{r.shift}</td>
+                <td className="px-4 py-3">{formatCurrency(r.varianceValue)}</td>
+                <td className="px-4 py-3"><Badge variant={r.status==="reconciled"?"success":r.status==="pending"?"warning":"info"}>{r.status==="reconciled"?"Đã đối soát":r.status==="pending"?"Chờ xác nhận":"Bản nháp"}</Badge></td>
+              </tr>)}
+            </tbody>
+          </table>
+        </DataTable>
+      </section>
+    </div>
+  );
 }

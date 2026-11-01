@@ -78,11 +78,11 @@ interface PromotionInputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 function PromotionInput({
-                            id,
-                            label,
-                            wrapperClassName = "",
-                            ...props
-                        }: PromotionInputProps) {
+    id,
+    label,
+    wrapperClassName = "",
+    ...props
+}: PromotionInputProps) {
     return (
         <div className={wrapperClassName}>
             <label className="form-label" htmlFor={id}>{label}</label>
@@ -426,6 +426,7 @@ export default function PromotionsPage() {
             <SalesPageHeader
                 title="Chương trình khuyến mãi"
                 breadcrumb="Khuyến mãi"
+                parent={{ label: "", to: "" }}
                 description="Quản lý ưu đãi, thời gian và phạm vi áp dụng."
                 actions={
                     <button
@@ -434,10 +435,10 @@ export default function PromotionsPage() {
                         onClick={() => editorRef.current?.scrollIntoView({ block: "start" })}
                     >
                         <svg width="16" height="16" viewBox="0 0 24 24"
-                         fill="none" stroke="currentColor" strokeWidth="2"
-                         strokeLinecap="round" aria-hidden="true">
-                        <path d="M12 5v14M5 12h14"/>
-                    </svg> Tạo chương trình
+                            fill="none" stroke="currentColor" strokeWidth="2"
+                            strokeLinecap="round" aria-hidden="true">
+                            <path d="M12 5v14M5 12h14" />
+                        </svg> Tạo chương trình
                     </button>
                 }
             />

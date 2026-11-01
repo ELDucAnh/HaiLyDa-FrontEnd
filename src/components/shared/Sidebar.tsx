@@ -203,7 +203,7 @@ export default function Sidebar({mobileOpen,onNavigate,collapsed = false}: Sideb
 
 
 <div id="sidebar-user" className="p-3 border-t" style={{"borderColor": "var(--border)", "flexShrink": "0"}}>
-  <NavLink onClick={onNavigate} end to="/pages/profile" className="flex items-center gap-3 p-2 rounded-xl hover:bg-[var(--background)] transition-colors" style={{"textDecoration": "none"}}>
+  <NavLink onClick={onNavigate} end to="/profile" className="flex items-center gap-3 p-2 rounded-xl hover:bg-[var(--background)] transition-colors" style={{"textDecoration": "none"}}>
     <div className="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-white font-semibold text-sm" style={{"background": "var(--primary)"}}>HL</div>
     <div className="sidebar-label min-w-0">
       <div style={{"fontSize": "13px", "fontWeight": "600", "color": "var(--text)", "whiteSpace": "nowrap", "overflow": "hidden", "textOverflow": "ellipsis"}}>Nguyễn Hoàng Long</div>
