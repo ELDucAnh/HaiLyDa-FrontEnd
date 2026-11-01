@@ -110,7 +110,7 @@ export default function Header({mobileOpen,isDark,onToggleSidebar,onToggleTheme}
     <div id="user-dropdown" className="dropdown-menu" style={{ display: userOpen ? "block" : "none", right: 0, minWidth: 200 }}>
       <div style={{"padding": "12px 16px", "borderBottom": "1px solid var(--border)"}}>
         <div style={{"fontSize": "13px", "fontWeight": "600", "color": "var(--text)"}}>Nguyễn Hoàng Long</div>
-        <div style={{"fontSize": "12px", "color": "var(--muted)"}}>long.nh@miltyway.vn</div>
+        <div style={{"fontSize": "12px", "color": "var(--muted)"}}>long.nh@MilktyWay.vn</div>
       </div>
       <a href="/pages/profile" className="dropdown-item">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>

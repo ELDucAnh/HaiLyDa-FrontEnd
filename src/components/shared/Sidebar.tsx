@@ -21,7 +21,7 @@ export default function Sidebar({mobileOpen,onNavigate,collapsed = false}: Sideb
       </svg>
     </div>
     <div className="sidebar-label" style={{"borderLeft": "1px solid var(--border)", "paddingLeft": "12px"}}>
-      <div style={{"fontSize": "16px", "fontWeight": "700", "color": "var(--text)", "lineHeight": "1.1", "letterSpacing": "-0.3px"}}>MiltyWay</div>
+      <div style={{"fontSize": "16px", "fontWeight": "700", "color": "var(--text)", "lineHeight": "1.1", "letterSpacing": "-0.3px"}}>MilktyWay</div>
       <div style={{"fontSize": "9.5px", "color": "var(--primary)", "fontWeight": "600", "letterSpacing": "0.8px", "textTransform": "uppercase", "marginTop": "2px"}}>Quản Lý Chuỗi Cửa Hàng</div>
     </div>
   </div>

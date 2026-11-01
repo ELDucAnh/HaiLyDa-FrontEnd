@@ -28,7 +28,7 @@ function getSidebarHTML() {
       </svg>
     </div>
     <div class="sidebar-label" style="border-left:1px solid var(--border);padding-left:12px;">
-      <div style="font-size:16px;font-weight:700;color:var(--text);line-height:1.1;letter-spacing:-0.3px;">MiltyWay</div>
+      <div style="font-size:16px;font-weight:700;color:var(--text);line-height:1.1;letter-spacing:-0.3px;">MilktyWay</div>
       <div style="font-size:9.5px;color:var(--primary);font-weight:600;letter-spacing:0.8px;text-transform:uppercase;margin-top:2px;">Quản Lý Chuỗi Cửa Hàng</div>
     </div>
   </div>
@@ -328,7 +328,7 @@ function getHeaderHTML() {
     <div id="user-dropdown" class="dropdown-menu" style="display:none;right:0;min-width:200px;">
       <div style="padding:12px 16px;border-bottom:1px solid var(--border);">
         <div style="font-size:13px;font-weight:600;color:var(--text);">Nguyễn Hoàng Long</div>
-        <div style="font-size:12px;color:var(--muted);">long.nh@miltyway.vn</div>
+        <div style="font-size:12px;color:var(--muted);">long.nh@MilktyWay.vn</div>
       </div>
       <a href="${bp}pages/profile.html" class="dropdown-item">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
