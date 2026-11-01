@@ -54,3 +54,6 @@ Thumbs.db
 
 #Markdown
 .md
+
+# Build output
+dist/

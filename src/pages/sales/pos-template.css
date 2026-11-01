@@ -1,0 +1,14 @@
+
+    .sales-ui .pos-product-card { transition: all 0.25s cubic-bezier(0.4,0,0.2,1); position: relative; user-select: none; }
+    .sales-ui .pos-product-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px -8px rgba(0,0,0,0.12); }
+    .sales-ui .pos-product-card:active { transform: translateY(-1px) scale(0.98); }
+    .sales-ui .pos-product-card .out-of-stock-overlay { opacity: 0; transition: opacity 0.2s ease; }
+    .sales-ui .pos-product-card:hover .out-of-stock-overlay { opacity: 1; }
+    .sales-ui .quick-amount-btn { transition: all 0.15s ease; }
+    .sales-ui .quick-amount-btn:hover { transform: scale(1.05); }
+    .sales-ui .quick-amount-btn:active { transform: scale(0.95); }
+    @keyframes salesCartBounce { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+    .sales-ui .cart-bounce { animation: salesCartBounce 0.3s ease; }
+    .sales-ui .cart-item-enter { animation: salesCartSlideIn 0.25s ease forwards; }
+    @keyframes salesCartSlideIn { from{opacity:0;transform:translateX(12px)} to{opacity:1;transform:translateX(0)} }
+  
