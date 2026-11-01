@@ -33,13 +33,13 @@ export default function PosTerminalPage() {
  return <>
       <div className="page-header mb-5">
         <div>
-          <div className="breadcrumb">
-            <Link to="/dashboard">Tổng quan</Link>
+          <nav className="breadcrumb" aria-label="Đường dẫn trang">
+            <Link to="/dashboard">Trang chủ</Link>
             <span className="sep">/</span>
-            <Link to="/sales">Đơn hàng</Link>
+            <Link to="/sales">Bán hàng</Link>
             <span className="sep">/</span>
-            <span className="current">Bán hàng tại quầy</span>
-          </div>
+            <span className="current">Điểm bán hàng (POS)</span>
+          </nav>
           <div className="flex items-center gap-3 mt-1">
             <h1 className="page-title mb-0">Bán hàng tại quầy (POS)</h1>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold border border-emerald-200">

@@ -1,5 +1,5 @@
 import { useMemo, useState, type FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Badge from "../../components/common/Badge";
 import DataTable from "../../components/common/DataTable";
 import { useToast } from "../../contexts/ToastContext";
@@ -22,13 +22,201 @@ export default function AddPurchasePage(){
  function addLine(){setLines(prev=>[...prev,{id:makeId("purchase-line"),ingredient:"",unit:"kg",ordered:0,received:0,lot:"",mfg:"",expiry:"",unitPrice:0}]);}
  function removeLine(id:string){setLines(prev=>prev.filter(line=>line.id!==id));}
  function submit(e:FormEvent){e.preventDefault();if(!form.supplier||!form.orderDate||!lines.length||lines.some(l=>!l.ingredient.trim()||l.ordered<=0||l.unitPrice<0)){showToast({type:"error",title:"Thông tin đơn mua chưa hợp lệ",message:"Chọn nhà cung cấp, ngày đặt và khai báo nguyên liệu, số lượng đặt hợp lệ."});return;}if(form.paid>total){showToast({type:"error",title:"Số tiền thanh toán không hợp lệ",message:"Số tiền đã thanh toán không được vượt tổng đơn."});return;}setSaved(true);showToast({type:"success",title:"Đã lưu đơn mua mô phỏng",message:`${form.code} · ${formatCurrency(total)}. Dữ liệu chưa được gửi lên backend.`});}
- return <div><div className="page-header"><div><div className="breadcrumb"><button onClick={()=>navigate("/dashboard")}>Trang chủ</button><span className="sep">/</span><button onClick={()=>navigate("/purchases")}>Mua hàng &amp; cấp phát</button><span className="sep">/</span><span className="current">Lập đơn mua</span></div><h1 className="page-title">Lập đơn mua nguyên liệu</h1><p className="page-subtitle mt-1">Tạo đơn mua cho kho tổng, theo dõi công nợ và phân biệt lượng đặt với lượng thực nhận.</p></div><span className="text-xs text-[var(--muted)]">Dữ liệu minh họa</span></div>
- <section className="card mb-6 border-l-4 border-[var(--info)]"><h2 className="text-sm font-bold mb-1">Kho nhận theo mapping</h2><p className="text-sm text-[var(--muted)]">Mẫu đơn mua dành cho kho tổng; số lượng đặt được phân biệt với số lượng thực nhận. Cấp phát tới từng cửa hàng được theo dõi ở trang riêng.</p></section>
- <form onSubmit={submit} className="grid grid-cols-1 xl:grid-cols-3 gap-6"><div className="xl:col-span-2 space-y-6">
- <section className="card"><h2 className="font-bold mb-4 pb-3 border-b border-[var(--border)]">Thông tin đơn mua</h2><div className="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label className="form-label" htmlFor="po-supplier">Nhà cung cấp *</label><select id="po-supplier" className="form-input form-select" value={form.supplier} onChange={e=>update("supplier",e.target.value)} required><option value="">Chọn nhà cung cấp</option><option value="Công ty Nguyên liệu An Tâm">Công ty Nguyên liệu An Tâm</option><option value="Thực phẩm Minh Phát">Thực phẩm Minh Phát</option><option value="Bao bì Sài Gòn">Bao bì Sài Gòn</option><option value="Hương liệu Việt">Hương liệu Việt</option></select></div><div><label className="form-label" htmlFor="po-code">Mã đơn mua</label><input id="po-code" className="form-input" value={form.code} onChange={e=>update("code",e.target.value.toUpperCase())}/></div><div><label className="form-label" htmlFor="po-date">Ngày đặt hàng *</label><input id="po-date" type="date" className="form-input" value={form.orderDate} onChange={e=>update("orderDate",e.target.value)} required/></div><div><label className="form-label" htmlFor="po-warehouse">Kho nhận *</label><select id="po-warehouse" className="form-input form-select" value={form.warehouse} onChange={e=>update("warehouse",e.target.value)}><option value="central">Kho tổng / trung tâm</option></select></div><div><label className="form-label" htmlFor="po-status">Trạng thái</label><select id="po-status" className="form-input form-select" value={form.status} onChange={e=>update("status",e.target.value as PurchaseStatus)}><option value="draft">Bản nháp</option><option value="placed">Đã đặt</option><option value="partial">Nhận một phần</option><option value="received">Đã nhận đủ</option></select></div><div><label className="form-label" htmlFor="po-term">Điều khoản thanh toán</label><select id="po-term" className="form-input form-select" value={form.paymentTerm} onChange={e=>update("paymentTerm",e.target.value)}><option value="prepaid">Thanh toán trước</option><option value="credit-15">Công nợ 15 ngày</option><option value="credit-30">Công nợ 30 ngày</option></select></div></div></section>
- <section className="card p-0 overflow-hidden"><div className="p-4 md:p-5 border-b border-[var(--border)] flex flex-wrap items-center justify-between gap-3"><div><h2 className="font-bold">Danh sách nguyên liệu đặt mua</h2><p className="text-sm text-[var(--muted)] mt-1">Khai báo số lượng đặt và lô/hạn dùng khi nhận hàng.</p></div><button type="button" className="btn btn-secondary" onClick={addLine}>+ Thêm dòng</button></div><DataTable><table className="w-full min-w-[1050px] text-sm text-left"><thead className="bg-[var(--background)] text-[var(--muted)]"><tr>{["Nguyên liệu","Đơn vị","Số lượng đặt","Số lượng thực nhận","Mã lô","Ngày SX","Hạn dùng","Đơn giá",""].map(x=><th key={x} className="px-2 py-3 font-semibold">{x}</th>)}</tr></thead><tbody>{lines.map(line=><tr key={line.id} className="border-t border-[var(--border)]"><td className="px-2 py-2"><input aria-label="Tên nguyên liệu" className="form-input min-w-[150px]" value={line.ingredient} onChange={e=>updateLine(line.id,"ingredient",e.target.value)} placeholder="Tên nguyên liệu"/></td><td className="px-2 py-2"><select aria-label="Đơn vị" className="form-input form-select" value={line.unit} onChange={e=>updateLine(line.id,"unit",e.target.value)}><option>kg</option><option>lít</option><option>cái</option><option>chai</option><option>thùng</option></select></td><td className="px-2 py-2"><input aria-label="Số lượng đặt" type="number" min="0" className="form-input w-24" value={line.ordered} onChange={e=>updateLine(line.id,"ordered",Number(e.target.value))}/></td><td className="px-2 py-2"><input aria-label="Số lượng thực nhận" type="number" min="0" className="form-input w-24" value={line.received} onChange={e=>updateLine(line.id,"received",Number(e.target.value))}/></td><td className="px-2 py-2"><input aria-label="Mã lô" className="form-input w-28" value={line.lot} onChange={e=>updateLine(line.id,"lot",e.target.value)}/></td><td className="px-2 py-2"><input aria-label="Ngày sản xuất" type="date" className="form-input min-w-[135px]" value={line.mfg} onChange={e=>updateLine(line.id,"mfg",e.target.value)}/></td><td className="px-2 py-2"><input aria-label="Hạn dùng" type="date" className="form-input min-w-[135px]" value={line.expiry} onChange={e=>updateLine(line.id,"expiry",e.target.value)}/></td><td className="px-2 py-2"><input aria-label="Đơn giá" type="number" min="0" className="form-input w-28" value={line.unitPrice} onChange={e=>updateLine(line.id,"unitPrice",Number(e.target.value))}/></td><td className="px-2 py-2"><button type="button" className="btn btn-secondary" disabled={lines.length===1} onClick={()=>removeLine(line.id)}>Xóa</button></td></tr>)}</tbody></table></DataTable><p className="p-4 text-xs text-[var(--muted)]">Số lượng đặt được phân biệt với số lượng thực nhận. Dữ liệu lô, ngày sản xuất và hạn dùng cần được kiểm tra khi nhận hàng.</p></section>
- <section className="card"><h2 className="font-bold mb-4">Thông tin kiểm nhận &amp; chất lượng</h2><div className="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label className="form-label" htmlFor="po-quality">Kết quả chất lượng</label><select id="po-quality" className="form-input form-select" value={form.quality} onChange={e=>update("quality",e.target.value)}><option value="unchecked">Chưa kiểm tra</option><option value="pass">Đạt</option><option value="partial">Đạt một phần</option><option value="fail">Không đạt</option></select></div><div><label className="form-label" htmlFor="po-document">Chứng từ / mã hóa đơn</label><input id="po-document" className="form-input" value={form.document} onChange={e=>update("document",e.target.value)}/></div><div className="md:col-span-2"><label className="form-label" htmlFor="po-note">Ghi chú nhận hàng</label><textarea id="po-note" rows={2} className="form-input form-textarea" value={form.note} onChange={e=>update("note",e.target.value)}/></div></div></section>
- </div><aside className="space-y-6"><section className="card"><h2 className="font-bold mb-4">Tổng hợp chi phí</h2><div className="space-y-3 text-sm"><div className="flex justify-between"><span className="text-[var(--muted)]">Tạm tính</span><b>{formatCurrency(subtotal)}</b></div><div><label className="form-label" htmlFor="po-discount">Chiết khấu (đ)</label><input id="po-discount" type="number" min="0" className="form-input" value={form.discount} onChange={e=>update("discount",Number(e.target.value))}/></div><div><label className="form-label" htmlFor="po-shipping">Vận chuyển (đ)</label><input id="po-shipping" type="number" min="0" className="form-input" value={form.shipping} onChange={e=>update("shipping",Number(e.target.value))}/></div><div><label className="form-label" htmlFor="po-tax">Thuế (đ)</label><input id="po-tax" type="number" min="0" className="form-input" value={form.tax} onChange={e=>update("tax",Number(e.target.value))}/></div><div className="border-t border-[var(--border)] pt-3 flex justify-between"><span className="font-semibold">Tổng đơn</span><strong className="text-lg">{formatCurrency(total)}</strong></div></div></section>
- <section className="card"><h2 className="font-bold mb-4">Thanh toán</h2><div className="space-y-3"><div><label className="form-label" htmlFor="po-payment-status">Trạng thái thanh toán</label><select id="po-payment-status" className="form-input form-select" value={form.paymentStatus} onChange={e=>update("paymentStatus",e.target.value)}><option value="unpaid">Chưa thanh toán</option><option value="partial">Thanh toán một phần</option><option value="paid">Đã thanh toán</option></select></div><div><label className="form-label" htmlFor="po-paid">Số tiền đã thanh toán (đ)</label><input id="po-paid" type="number" min="0" className="form-input" value={form.paid} onChange={e=>update("paid",Number(e.target.value))}/></div><div className="text-sm flex justify-between"><span className="text-[var(--muted)]">Công nợ còn lại</span><b>{formatCurrency(balance)}</b></div><div><label className="form-label" htmlFor="po-debt-note">Ghi chú công nợ</label><textarea id="po-debt-note" rows={2} className="form-input form-textarea" value={form.debtNote} onChange={e=>update("debtNote",e.target.value)}/></div></div></section>
- <section className="card"><h2 className="font-bold mb-3">Lưu đơn mua</h2>{saved&&<div className="mb-3"><Badge variant="success">Đã lưu mô phỏng</Badge></div>}<p className="text-sm text-[var(--muted)] mb-4">Các thao tác đang dùng mock state, chưa ghi dữ liệu thật.</p><button type="submit" className="btn btn-primary w-full">Lưu bản nháp</button><button type="button" className="btn btn-secondary w-full mt-2" onClick={()=>{update("status","placed");showToast({type:"info",title:"Xác nhận đặt hàng (mẫu)",message:"Trạng thái trong biểu mẫu đã chuyển sang Đã đặt. Hãy lưu để giữ trạng thái mô phỏng."});}}>Xác nhận đặt hàng (mẫu)</button><button type="button" className="btn btn-secondary w-full mt-2" onClick={()=>navigate("/purchases")}>Quay lại danh sách</button></section></aside></form></div>;
+  return (
+    <div>
+      <div className="page-header">
+        <div>
+          <nav className="breadcrumb" aria-label="Đường dẫn trang">
+            <Link to="/dashboard">Trang chủ</Link>
+            <span className="sep">/</span>
+            <Link to="/purchases">Nhập hàng</Link>
+            <span className="sep">/</span>
+            <span className="current">Tạo đơn nhập</span>
+          </nav>
+          <h1 className="page-title">Lập đơn mua nguyên liệu</h1>
+          <p className="page-subtitle mt-1">Tạo đơn mua cho kho tổng, theo dõi công nợ và phân biệt lượng đặt với lượng thực nhận.</p>
+        </div>
+        <span className="text-xs text-[var(--muted)]">Dữ liệu minh họa</span>
+      </div>
+
+      <section className="card mb-6 border-l-4 border-[var(--info)]">
+        <h2 className="text-sm font-bold mb-1">Kho nhận theo mapping</h2>
+        <p className="text-sm text-[var(--muted)]">Mẫu đơn mua dành cho kho tổng; số lượng đặt được phân biệt với số lượng thực nhận. Cấp phát tới từng cửa hàng được theo dõi ở trang riêng.</p>
+      </section>
+
+      <form onSubmit={submit} className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div className="xl:col-span-2 space-y-6">
+          <section className="card">
+            <h2 className="font-bold mb-4 pb-3 border-b border-[var(--border)]">Thông tin đơn mua</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="form-label" htmlFor="po-supplier">Nhà cung cấp *</label>
+                <select id="po-supplier" className="form-input form-select" value={form.supplier} onChange={e=>update("supplier",e.target.value)} required>
+                  <option value="">Chọn nhà cung cấp</option>
+                  <option value="Công ty Nguyên liệu An Tâm">Công ty Nguyên liệu An Tâm</option>
+                  <option value="Thực phẩm Minh Phát">Thực phẩm Minh Phát</option>
+                  <option value="Bao bì Sài Gòn">Bao bì Sài Gòn</option>
+                  <option value="Hương liệu Việt">Hương liệu Việt</option>
+                </select>
+              </div>
+              <div>
+                <label className="form-label" htmlFor="po-code">Mã đơn mua</label>
+                <input id="po-code" className="form-input" value={form.code} onChange={e=>update("code",e.target.value.toUpperCase())}/>
+              </div>
+              <div>
+                <label className="form-label" htmlFor="po-date">Ngày đặt hàng *</label>
+                <input id="po-date" type="date" className="form-input" value={form.orderDate} onChange={e=>update("orderDate",e.target.value)} required/>
+              </div>
+              <div>
+                <label className="form-label" htmlFor="po-warehouse">Kho nhận *</label>
+                <select id="po-warehouse" className="form-input form-select" value={form.warehouse} onChange={e=>update("warehouse",e.target.value)}>
+                  <option value="central">Kho tổng / trung tâm</option>
+                </select>
+              </div>
+              <div>
+                <label className="form-label" htmlFor="po-status">Trạng thái</label>
+                <select id="po-status" className="form-input form-select" value={form.status} onChange={e=>update("status",e.target.value as PurchaseStatus)}>
+                  <option value="draft">Bản nháp</option>
+                  <option value="placed">Đã đặt</option>
+                  <option value="partial">Nhận một phần</option>
+                  <option value="received">Đã nhận đủ</option>
+                </select>
+              </div>
+              <div>
+                <label className="form-label" htmlFor="po-term">Điều khoản thanh toán</label>
+                <select id="po-term" className="form-input form-select" value={form.paymentTerm} onChange={e=>update("paymentTerm",e.target.value)}>
+                  <option value="prepaid">Thanh toán trước</option>
+                  <option value="credit-15">Công nợ 15 ngày</option>
+                  <option value="credit-30">Công nợ 30 ngày</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          <section className="card p-0 overflow-hidden">
+            <div className="p-4 md:p-5 border-b border-[var(--border)] flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h2 className="font-bold">Danh sách nguyên liệu đặt mua</h2>
+                <p className="text-sm text-[var(--muted)] mt-1">Khai báo số lượng đặt và lô/hạn dùng khi nhận hàng.</p>
+              </div>
+              <button type="button" className="btn btn-secondary" onClick={addLine}>+ Thêm dòng</button>
+            </div>
+            <DataTable>
+              <table className="w-full min-w-[1050px] text-sm text-left">
+                <thead className="bg-[var(--background)] text-[var(--muted)]">
+                  <tr>
+                    {["Nguyên liệu","Đơn vị","Số lượng đặt","Số lượng thực nhận","Mã lô","Ngày SX","Hạn dùng","Đơn giá",""].map(x=><th key={x} className="px-2 py-3 font-semibold">{x}</th>)}
+                  </tr>
+                </thead>
+                <tbody>
+                  {lines.map(line=><tr key={line.id} className="border-t border-[var(--border)]">
+                    <td className="px-2 py-2"><input aria-label="Tên nguyên liệu" className="form-input min-w-[150px]" value={line.ingredient} onChange={e=>updateLine(line.id,"ingredient",e.target.value)} placeholder="Tên nguyên liệu"/></td>
+                    <td className="px-2 py-2"><select aria-label="Đơn vị" className="form-input form-select" value={line.unit} onChange={e=>updateLine(line.id,"unit",e.target.value)}><option>kg</option><option>lít</option><option>cái</option><option>chai</option><option>thùng</option></select></td>
+                    <td className="px-2 py-2"><input aria-label="Số lượng đặt" type="number" min="0" className="form-input w-24" value={line.ordered} onChange={e=>updateLine(line.id,"ordered",Number(e.target.value))}/></td>
+                    <td className="px-2 py-2"><input aria-label="Số lượng thực nhận" type="number" min="0" className="form-input w-24" value={line.received} onChange={e=>updateLine(line.id,"received",Number(e.target.value))}/></td>
+                    <td className="px-2 py-2"><input aria-label="Mã lô" className="form-input w-28" value={line.lot} onChange={e=>updateLine(line.id,"lot",e.target.value)}/></td>
+                    <td className="px-2 py-2"><input aria-label="Ngày sản xuất" type="date" className="form-input min-w-[135px]" value={line.mfg} onChange={e=>updateLine(line.id,"mfg",e.target.value)}/></td>
+                    <td className="px-2 py-2"><input aria-label="Hạn dùng" type="date" className="form-input min-w-[135px]" value={line.expiry} onChange={e=>updateLine(line.id,"expiry",e.target.value)}/></td>
+                    <td className="px-2 py-2"><input aria-label="Đơn giá" type="number" min="0" className="form-input w-28" value={line.unitPrice} onChange={e=>updateLine(line.id,"unitPrice",Number(e.target.value))}/></td>
+                    <td className="px-2 py-2"><button type="button" className="btn btn-secondary" disabled={lines.length===1} onClick={()=>removeLine(line.id)}>Xóa</button></td>
+                  </tr>)}
+                </tbody>
+              </table>
+            </DataTable>
+            <p className="p-4 text-xs text-[var(--muted)]">Số lượng đặt được phân biệt với số lượng thực nhận. Dữ liệu lô, ngày sản xuất và hạn dùng cần được kiểm tra khi nhận hàng.</p>
+          </section>
+
+          <section className="card">
+            <h2 className="font-bold mb-4">Thông tin kiểm nhận &amp; chất lượng</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="form-label" htmlFor="po-quality">Kết quả chất lượng</label>
+                <select id="po-quality" className="form-input form-select" value={form.quality} onChange={e=>update("quality",e.target.value)}>
+                  <option value="unchecked">Chưa kiểm tra</option>
+                  <option value="pass">Đạt</option>
+                  <option value="partial">Đạt một phần</option>
+                  <option value="fail">Không đạt</option>
+                </select>
+              </div>
+              <div>
+                <label className="form-label" htmlFor="po-document">Chứng từ / mã hóa đơn</label>
+                <input id="po-document" className="form-input" value={form.document} onChange={e=>update("document",e.target.value)}/>
+              </div>
+              <div className="md:col-span-2">
+                <label className="form-label" htmlFor="po-note">Ghi chú nhận hàng</label>
+                <textarea id="po-note" rows={2} className="form-input form-textarea" value={form.note} onChange={e=>update("note",e.target.value)}/>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <aside className="space-y-6">
+          <section className="card">
+            <h2 className="font-bold mb-4">Tổng hợp chi phí</h2>
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between">
+                <span className="text-[var(--muted)]">Tạm tính</span>
+                <b>{formatCurrency(subtotal)}</b>
+              </div>
+              <div>
+                <label className="form-label" htmlFor="po-discount">Chiết khấu (đ)</label>
+                <input id="po-discount" type="number" min="0" className="form-input" value={form.discount} onChange={e=>update("discount",Number(e.target.value))}/>
+              </div>
+              <div>
+                <label className="form-label" htmlFor="po-shipping">Vận chuyển (đ)</label>
+                <input id="po-shipping" type="number" min="0" className="form-input" value={form.shipping} onChange={e=>update("shipping",Number(e.target.value))}/>
+              </div>
+              <div>
+                <label className="form-label" htmlFor="po-tax">Thuế (đ)</label>
+                <input id="po-tax" type="number" min="0" className="form-input" value={form.tax} onChange={e=>update("tax",Number(e.target.value))}/>
+              </div>
+              <div className="border-t border-[var(--border)] pt-3 flex justify-between">
+                <span className="font-semibold">Tổng đơn</span>
+                <strong className="text-lg">{formatCurrency(total)}</strong>
+              </div>
+            </div>
+          </section>
+
+          <section className="card">
+            <h2 className="font-bold mb-4">Thanh toán</h2>
+            <div className="space-y-3">
+              <div>
+                <label className="form-label" htmlFor="po-payment-status">Trạng thái thanh toán</label>
+                <select id="po-payment-status" className="form-input form-select" value={form.paymentStatus} onChange={e=>update("paymentStatus",e.target.value)}>
+                  <option value="unpaid">Chưa thanh toán</option>
+                  <option value="partial">Thanh toán một phần</option>
+                  <option value="paid">Đã thanh toán</option>
+                </select>
+              </div>
+              <div>
+                <label className="form-label" htmlFor="po-paid">Số tiền đã thanh toán (đ)</label>
+                <input id="po-paid" type="number" min="0" className="form-input" value={form.paid} onChange={e=>update("paid",Number(e.target.value))}/>
+              </div>
+              <div className="text-sm flex justify-between">
+                <span className="text-[var(--muted)]">Công nợ còn lại</span>
+                <b>{formatCurrency(balance)}</b>
+              </div>
+              <div>
+                <label className="form-label" htmlFor="po-debt-note">Ghi chú công nợ</label>
+                <textarea id="po-debt-note" rows={2} className="form-input form-textarea" value={form.debtNote} onChange={e=>update("debtNote",e.target.value)}/>
+              </div>
+            </div>
+          </section>
+
+          <section className="card">
+            <h2 className="font-bold mb-3">Lưu đơn mua</h2>
+            {saved && (
+              <div className="mb-3">
+                <Badge variant="success">Đã lưu mô phỏng</Badge>
+              </div>
+            )}
+            <p className="text-sm text-[var(--muted)] mb-4">Các thao tác đang dùng mock state, chưa ghi dữ liệu thật.</p>
+            <button type="submit" className="btn btn-primary w-full">Lưu bản nháp</button>
+            <button type="button" className="btn btn-secondary w-full mt-2" onClick={()=>{update("status","placed");showToast({type:"info",title:"Xác nhận đặt hàng (mẫu)",message:"Trạng thái trong biểu mẫu đã chuyển sang Đã đặt. Hãy lưu để giữ trạng thái mô phỏng."});}}>Xác nhận đặt hàng (mẫu)</button>
+            <button type="button" className="btn btn-secondary w-full mt-2" onClick={()=>navigate("/purchases")}>Quay lại danh sách</button>
+          </section>
+        </aside>
+      </form>
+    </div>
+  );
 }

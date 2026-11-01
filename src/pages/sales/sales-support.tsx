@@ -135,20 +135,20 @@ export interface SalesPageHeaderProps {
 }
 
 export function SalesPageHeader({
-                                    title,
-                                    breadcrumb,
-                                    description,
-                                    actions,
-                                    parent,
-                                }: SalesPageHeaderProps) {
+    title,
+    breadcrumb,
+    description,
+    actions,
+    parent = { label: "Bán hàng", to: "/sales" },
+}: SalesPageHeaderProps) {
     return (
         <div className="page-header">
             <div>
                 <nav className="breadcrumb" aria-label="Đường dẫn trang">
-                    <Link to="/dashboard">Bảng điều khiển</Link>
+                    <Link to="/dashboard">Trang chủ</Link>
                     <span className="sep" aria-hidden="true">/</span>
 
-                    {parent && (
+                    {parent && parent.label && (
                         <>
                             <Link to={parent.to}>{parent.label}</Link>
                             <span className="sep" aria-hidden="true">/</span>

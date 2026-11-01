@@ -1,5 +1,5 @@
 import { useMemo, useState, type FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import StatCard from "../../components/common/StatCard";
 import KpiIcon from "../shared/KpiIcon";
 import Badge from "../../components/common/Badge";
@@ -24,11 +24,159 @@ export default function StockTransfersPage(){
  const rows=useMemo(()=>transfers.filter(t=>(!applied.search||[t.code,t.ingredient,t.lot].some(v=>v.toLowerCase().includes(applied.search.toLowerCase())))&&(applied.from==="all"||t.from===applied.from)&&(applied.to==="all"||t.to===applied.to)&&(applied.status==="all"||t.status===applied.status)),[transfers,applied]);
  function updateStatus(transfer:Transfer,next:TransferStatus){setTransfers(prev=>prev.map(t=>t.id===transfer.id?{...t,status:next,received:next==="received"?(t.received??t.sent):t.received}:t));showToast({type:"success",title:"Đã cập nhật phiếu điều chuyển",message:`${transfer.code}: ${LABEL[next]}.`});}
  function submit(e:FormEvent){e.preventDefault();const quantity=Number(form.quantity);if(form.from===form.to||!form.ingredient.trim()||!form.lot.trim()||!form.expiry||quantity<=0){showToast({type:"error",title:"Thông tin phiếu chưa hợp lệ",message:"Chọn hai chi nhánh khác nhau và khai báo nguyên liệu, mã lô, hạn dùng, số lượng hợp lệ."});return;}const item:Transfer={id:makeId("transfer"),code:`DC-2026-${String(29+transfers.length).padStart(3,"0")}`,from:form.from,to:form.to,ingredient:form.ingredient,lot:form.lot,expiry:new Date(`${form.expiry}T00:00:00`).toLocaleDateString("vi-VN"),sent:quantity,received:null,unit:form.unit,date:"31/10/2026",status:"pending"};setTransfers(prev=>[item,...prev]);setModalOpen(false);setForm({from:BRANCHES[0],to:BRANCHES[1],ingredient:"",lot:"",expiry:"",quantity:"",unit:"kg"});showToast({type:"success",title:"Đã tạo phiếu chuyển",message:"Phiếu đang ở trạng thái Chờ duyệt."});}
- return <div><div className="page-header"><div><div className="breadcrumb"><button onClick={()=>navigate("/dashboard")}>Trang chủ</button><span className="sep">/</span><span>Mua hàng &amp; cấp phát</span><span className="sep">/</span><span className="current">Điều chuyển kho</span></div><h1 className="page-title">Điều chuyển nguyên liệu giữa chi nhánh</h1><p className="page-subtitle mt-1">Theo dõi phiếu chuyển khẩn cấp, lô hàng và xác nhận thực nhận.</p></div><div className="page-header-actions"><button className="btn btn-primary" onClick={()=>setModalOpen(true)}>Tạo phiếu chuyển</button></div></div>
- <section className="mb-6"><div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4"><StatCard label="Phiếu trong tháng" value="28" subLabel="Toàn chuỗi" tone="primary" icon={<KpiIcon kind="transfer" size={18} strokeWidth={2}/>}/><StatCard label="Chờ duyệt" value={String(transfers.filter(t=>t.status==="pending").length)} subLabel="Chưa xuất kho" tone="warning" icon={<KpiIcon kind="clock-compact" size={18} strokeWidth={2}/>}/><StatCard label="Đang vận chuyển" value={String(transfers.filter(t=>t.status==="in-transit"||t.status==="approved").length)} subLabel="Chưa xác nhận nhận" tone="info" icon={<KpiIcon kind="truck" size={18} strokeWidth={2}/>}/><StatCard label="Chênh lệch nhận" value={String(transfers.filter(t=>t.status==="discrepancy").length)} subLabel="Cần đối chiếu" tone="warning" icon={<KpiIcon kind="warning" size={18} strokeWidth={2}/>}/></div></section>
- <section className="card mb-6 border-l-4 border-[var(--info)]"><h2 className="text-sm font-bold mb-1">Quy trình điều chuyển</h2><p className="text-sm text-[var(--muted)]">Theo dõi trạng thái từ chờ duyệt → đã xuất → đang vận chuyển → xác nhận nhận. Mã lô và hạn dùng được giữ nguyên để hỗ trợ FEFO. Số lượng nhận được đối chiếu khi cửa hàng xác nhận bàn giao.</p></section>
- <section className="card mb-6"><div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4 items-end"><div><label className="form-label" htmlFor="transfer-search">Tìm kiếm</label><input id="transfer-search" className="form-input" value={search} onChange={e=>setSearch(e.target.value)} placeholder="Mã phiếu, nguyên liệu, lô..."/></div><div><label className="form-label" htmlFor="transfer-from">Chi nhánh xuất</label><select id="transfer-from" className="form-input form-select" value={from} onChange={e=>setFrom(e.target.value)}><option value="all">Tất cả</option>{BRANCHES.map(b=><option key={b}>{b}</option>)}</select></div><div><label className="form-label" htmlFor="transfer-to">Chi nhánh nhận</label><select id="transfer-to" className="form-input form-select" value={to} onChange={e=>setTo(e.target.value)}><option value="all">Tất cả</option>{BRANCHES.map(b=><option key={b}>{b}</option>)}</select></div><div><label className="form-label" htmlFor="transfer-status">Trạng thái</label><select id="transfer-status" className="form-input form-select" value={status} onChange={e=>setStatus(e.target.value)}><option value="all">Tất cả trạng thái</option><option value="pending">Chờ duyệt</option><option value="approved">Đã xuất</option><option value="in-transit">Đang vận chuyển</option><option value="received">Đã nhận</option><option value="discrepancy">Có chênh lệch</option></select></div><div className="flex gap-2"><button className="btn btn-secondary" onClick={()=>{setSearch("");setFrom("all");setTo("all");setStatus("all");setApplied({search:"",from:"all",to:"all",status:"all"});}}>Xóa lọc</button><button className="btn btn-primary" onClick={()=>setApplied({search,from,to,status})}>Áp dụng</button></div></div></section>
- <section className="card p-0 overflow-hidden"><div className="p-4 md:p-5 border-b border-[var(--border)]"><h2 className="font-bold">Phiếu điều chuyển liên chi nhánh</h2><p className="text-sm text-[var(--muted)] mt-1">Mã lô, hạn dùng, số lượng và trạng thái của từng phiếu.</p></div><DataTable><table className="w-full min-w-[1100px] text-sm text-left"><thead className="bg-[var(--background)] text-[var(--muted)]"><tr>{["Mã phiếu","Từ chi nhánh","Đến chi nhánh","Nguyên liệu","Mã lô","Hạn dùng","SL chuyển / nhận","Ngày tạo","Trạng thái","Thao tác"].map(x=><th key={x} className="px-3 py-3 font-semibold">{x}</th>)}</tr></thead><tbody>{rows.map(t=><tr key={t.id} className="border-t border-[var(--border)]"><td className="px-3 py-3 font-semibold">{t.code}</td><td className="px-3 py-3">{t.from}</td><td className="px-3 py-3">{t.to}</td><td className="px-3 py-3">{t.ingredient}</td><td className="px-3 py-3">{t.lot}</td><td className="px-3 py-3">{t.expiry}</td><td className="px-3 py-3">{t.sent} / {t.received??"—"} {t.unit}</td><td className="px-3 py-3">{t.date}</td><td className="px-3 py-3"><Badge variant={VARIANT[t.status]}>{LABEL[t.status]}</Badge></td><td className="px-3 py-3"><div className="flex gap-1">{t.status==="pending"&&<button className="btn btn-secondary" onClick={()=>updateStatus(t,"approved")}>Duyệt &amp; xuất</button>}{t.status==="approved"&&<button className="btn btn-secondary" onClick={()=>updateStatus(t,"in-transit")}>Bàn giao</button>}{t.status==="in-transit"&&<button className="btn btn-primary" onClick={()=>updateStatus(t,"received")}>Xác nhận nhận</button>}</div></td></tr>)}</tbody></table></DataTable></section>
- <Modal isOpen={modalOpen} title="Tạo phiếu yêu cầu chuyển kho cấp cứu" onClose={()=>setModalOpen(false)}><form className="space-y-3" onSubmit={submit}><div><label className="form-label" htmlFor="transfer-source">Chi nhánh xuất *</label><select id="transfer-source" className="form-input form-select" value={form.from} onChange={e=>setForm(p=>({...p,from:e.target.value}))}>{BRANCHES.map(b=><option key={b}>{b}</option>)}</select></div><div><label className="form-label" htmlFor="transfer-destination">Chi nhánh nhận *</label><select id="transfer-destination" className="form-input form-select" value={form.to} onChange={e=>setForm(p=>({...p,to:e.target.value}))}>{BRANCHES.map(b=><option key={b}>{b}</option>)}</select></div><div><label className="form-label" htmlFor="transfer-ingredient">Nguyên liệu *</label><input id="transfer-ingredient" className="form-input" value={form.ingredient} onChange={e=>setForm(p=>({...p,ingredient:e.target.value}))} required/></div><div className="grid grid-cols-2 gap-3"><div><label className="form-label" htmlFor="transfer-lot">Mã lô *</label><input id="transfer-lot" className="form-input" value={form.lot} onChange={e=>setForm(p=>({...p,lot:e.target.value}))} required/></div><div><label className="form-label" htmlFor="transfer-expiry">Hạn dùng *</label><input id="transfer-expiry" type="date" className="form-input" value={form.expiry} onChange={e=>setForm(p=>({...p,expiry:e.target.value}))} required/></div></div><div className="grid grid-cols-2 gap-3"><div><label className="form-label" htmlFor="transfer-quantity">Số lượng chuyển *</label><input id="transfer-quantity" type="number" min="0.01" step="0.01" className="form-input" value={form.quantity} onChange={e=>setForm(p=>({...p,quantity:e.target.value}))} required/></div><div><label className="form-label" htmlFor="transfer-unit">Đơn vị</label><select id="transfer-unit" className="form-input form-select" value={form.unit} onChange={e=>setForm(p=>({...p,unit:e.target.value}))}><option>kg</option><option>lít</option><option>chai</option><option>cái</option></select></div></div><p className="text-xs text-[var(--muted)]">Bản mô phỏng không tự kiểm tra tồn an toàn tại chi nhánh nguồn; quy trình thật cần backend xác nhận quyền duyệt và lượng tồn có thể chuyển.</p><div className="flex justify-end gap-2"><button type="button" className="btn btn-secondary" onClick={()=>setModalOpen(false)}>Hủy</button><button type="submit" className="btn btn-primary">Tạo phiếu</button></div></form></Modal>
- </div>;
+  return (
+    <div>
+      <div className="page-header">
+        <div>
+          <nav className="breadcrumb" aria-label="Đường dẫn trang">
+            <Link to="/dashboard">Trang chủ</Link>
+            <span className="sep">/</span>
+            <Link to="/purchases">Nhập hàng</Link>
+            <span className="sep">/</span>
+            <span className="current">Điều chuyển kho</span>
+          </nav>
+          <h1 className="page-title">Điều chuyển nguyên liệu giữa chi nhánh</h1>
+          <p className="page-subtitle mt-1">Theo dõi phiếu chuyển khẩn cấp, lô hàng và xác nhận thực nhận.</p>
+        </div>
+        <div className="page-header-actions">
+          <button className="btn btn-primary" onClick={()=>setModalOpen(true)}>Tạo phiếu chuyển</button>
+        </div>
+      </div>
+
+      <section className="mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          <StatCard label="Phiếu trong tháng" value="28" subLabel="Toàn chuỗi" tone="primary" icon={<KpiIcon kind="transfer" size={18} strokeWidth={2}/>}/>
+          <StatCard label="Chờ duyệt" value={String(transfers.filter(t=>t.status==="pending").length)} subLabel="Chưa xuất kho" tone="warning" icon={<KpiIcon kind="clock-compact" size={18} strokeWidth={2}/>}/>
+          <StatCard label="Đang vận chuyển" value={String(transfers.filter(t=>t.status==="in-transit"||t.status==="approved").length)} subLabel="Chưa xác nhận nhận" tone="info" icon={<KpiIcon kind="truck" size={18} strokeWidth={2}/>}/>
+          <StatCard label="Chênh lệch nhận" value={String(transfers.filter(t=>t.status==="discrepancy").length)} subLabel="Cần đối chiếu" tone="warning" icon={<KpiIcon kind="warning" size={18} strokeWidth={2}/>}/>
+        </div>
+      </section>
+
+      <section className="card mb-6 border-l-4 border-[var(--info)]">
+        <h2 className="text-sm font-bold mb-1">Quy trình điều chuyển</h2>
+        <p className="text-sm text-[var(--muted)]">Theo dõi trạng thái từ chờ duyệt → đã xuất → đang vận chuyển → xác nhận nhận. Mã lô và hạn dùng được giữ nguyên để hỗ trợ FEFO. Số lượng nhận được đối chiếu khi cửa hàng xác nhận bàn giao.</p>
+      </section>
+
+      <section className="card mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4 items-end">
+          <div>
+            <label className="form-label" htmlFor="transfer-search">Tìm kiếm</label>
+            <input id="transfer-search" className="form-input" value={search} onChange={e=>setSearch(e.target.value)} placeholder="Mã phiếu, nguyên liệu, lô..."/>
+          </div>
+          <div>
+            <label className="form-label" htmlFor="transfer-from">Chi nhánh xuất</label>
+            <select id="transfer-from" className="form-input form-select" value={from} onChange={e=>setFrom(e.target.value)}>
+              <option value="all">Tất cả</option>
+              {BRANCHES.map(b=><option key={b}>{b}</option>)}
+            </select>
+          </div>
+          <div>
+            <label className="form-label" htmlFor="transfer-to">Chi nhánh nhận</label>
+            <select id="transfer-to" className="form-input form-select" value={to} onChange={e=>setTo(e.target.value)}>
+              <option value="all">Tất cả</option>
+              {BRANCHES.map(b=><option key={b}>{b}</option>)}
+            </select>
+          </div>
+          <div>
+            <label className="form-label" htmlFor="transfer-status">Trạng thái</label>
+            <select id="transfer-status" className="form-input form-select" value={status} onChange={e=>setStatus(e.target.value)}>
+              <option value="all">Tất cả trạng thái</option>
+              <option value="pending">Chờ duyệt</option>
+              <option value="approved">Đã xuất</option>
+              <option value="in-transit">Đang vận chuyển</option>
+              <option value="received">Đã nhận</option>
+              <option value="discrepancy">Có chênh lệch</option>
+            </select>
+          </div>
+          <div className="flex gap-2">
+            <button className="btn btn-secondary" onClick={()=>{setSearch("");setFrom("all");setTo("all");setStatus("all");setApplied({search:"",from:"all",to:"all",status:"all"});}}>Xóa lọc</button>
+            <button className="btn btn-primary" onClick={()=>setApplied({search,from,to,status})}>Áp dụng</button>
+          </div>
+        </div>
+      </section>
+
+      <section className="card p-0 overflow-hidden">
+        <div className="p-4 md:p-5 border-b border-[var(--border)]">
+          <h2 className="font-bold">Phiếu điều chuyển liên chi nhánh</h2>
+          <p className="text-sm text-[var(--muted)] mt-1">Mã lô, hạn dùng, số lượng và trạng thái của từng phiếu.</p>
+        </div>
+        <DataTable>
+          <table className="w-full min-w-[1100px] text-sm text-left">
+            <thead className="bg-[var(--background)] text-[var(--muted)]">
+              <tr>
+                {["Mã phiếu","Từ chi nhánh","Đến chi nhánh","Nguyên liệu","Mã lô","Hạn dùng","SL chuyển / nhận","Ngày tạo","Trạng thái","Thao tác"].map(x=><th key={x} className="px-3 py-3 font-semibold">{x}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map(t=><tr key={t.id} className="border-t border-[var(--border)]">
+                <td className="px-3 py-3 font-semibold">{t.code}</td>
+                <td className="px-3 py-3">{t.from}</td>
+                <td className="px-3 py-3">{t.to}</td>
+                <td className="px-3 py-3">{t.ingredient}</td>
+                <td className="px-3 py-3">{t.lot}</td>
+                <td className="px-3 py-3">{t.expiry}</td>
+                <td className="px-3 py-3">{t.sent} / {t.received??"—"} {t.unit}</td>
+                <td className="px-3 py-3">{t.date}</td>
+                <td className="px-3 py-3"><Badge variant={VARIANT[t.status]}>{LABEL[t.status]}</Badge></td>
+                <td className="px-3 py-3">
+                  <div className="flex gap-1">
+                    {t.status==="pending"&&<button className="btn btn-secondary" onClick={()=>updateStatus(t,"approved")}>Duyệt &amp; xuất</button>}
+                    {t.status==="approved"&&<button className="btn btn-secondary" onClick={()=>updateStatus(t,"in-transit")}>Bàn giao</button>}
+                    {t.status==="in-transit"&&<button className="btn btn-primary" onClick={()=>updateStatus(t,"received")}>Xác nhận nhận</button>}
+                  </div>
+                </td>
+              </tr>)}
+            </tbody>
+          </table>
+        </DataTable>
+      </section>
+
+      <Modal isOpen={modalOpen} title="Tạo phiếu yêu cầu chuyển kho cấp cứu" onClose={()=>setModalOpen(false)}>
+        <form className="space-y-3" onSubmit={submit}>
+          <div>
+            <label className="form-label" htmlFor="transfer-source">Chi nhánh xuất *</label>
+            <select id="transfer-source" className="form-input form-select" value={form.from} onChange={e=>setForm(p=>({...p,from:e.target.value}))}>{BRANCHES.map(b=><option key={b}>{b}</option>)}</select>
+          </div>
+          <div>
+            <label className="form-label" htmlFor="transfer-destination">Chi nhánh nhận *</label>
+            <select id="transfer-destination" className="form-input form-select" value={form.to} onChange={e=>setForm(p=>({...p,to:e.target.value}))}>{BRANCHES.map(b=><option key={b}>{b}</option>)}</select>
+          </div>
+          <div>
+            <label className="form-label" htmlFor="transfer-ingredient">Nguyên liệu *</label>
+            <input id="transfer-ingredient" className="form-input" value={form.ingredient} onChange={e=>setForm(p=>({...p,ingredient:e.target.value}))} required/>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="form-label" htmlFor="transfer-lot">Mã lô *</label>
+              <input id="transfer-lot" className="form-input" value={form.lot} onChange={e=>setForm(p=>({...p,lot:e.target.value}))} required/>
+            </div>
+            <div>
+              <label className="form-label" htmlFor="transfer-expiry">Hạn dùng *</label>
+              <input id="transfer-expiry" type="date" className="form-input" value={form.expiry} onChange={e=>setForm(p=>({...p,expiry:e.target.value}))} required/>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="form-label" htmlFor="transfer-quantity">Số lượng chuyển *</label>
+              <input id="transfer-quantity" type="number" min="0.01" step="0.01" className="form-input" value={form.quantity} onChange={e=>setForm(p=>({...p,quantity:e.target.value}))} required/>
+            </div>
+            <div>
+              <label className="form-label" htmlFor="transfer-unit">Đơn vị</label>
+              <select id="transfer-unit" className="form-input form-select" value={form.unit} onChange={e=>setForm(p=>({...p,unit:e.target.value}))}>
+                <option>kg</option>
+                <option>lít</option>
+                <option>chai</option>
+                <option>cái</option>
+              </select>
+            </div>
+          </div>
+          <p className="text-xs text-[var(--muted)]">Bản mô phỏng không tự kiểm tra tồn an toàn tại chi nhánh nguồn; quy trình thật cần backend xác nhận quyền duyệt và lượng tồn có thể chuyển.</p>
+          <div className="flex justify-end gap-2">
+            <button type="button" className="btn btn-secondary" onClick={()=>setModalOpen(false)}>Hủy</button>
+            <button type="submit" className="btn btn-primary">Tạo phiếu</button>
+          </div>
+        </form>
+      </Modal>
+    </div>
+  );
 }

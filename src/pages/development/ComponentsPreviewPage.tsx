@@ -107,7 +107,7 @@ export default function ComponentsPreviewPage() {
             <div className="page-header">
         <div>
             <nav className="breadcrumb" aria-label="Đường dẫn trang">
-    <Link to="/dashboard">Tổng quan</Link>
+    <Link to="/dashboard">Trang chủ</Link>
     <span className="sep" aria-hidden="true">/</span>
         <span className="current" aria-current="page">
         Kiểm tra component

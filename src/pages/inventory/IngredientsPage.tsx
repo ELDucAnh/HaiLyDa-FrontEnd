@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import StatCard from "../../components/common/StatCard";
 import KpiIcon from "../shared/KpiIcon";
 import Badge from "../../components/common/Badge";
@@ -27,11 +27,115 @@ import { useToast } from "../../contexts/ToastContext";
   const filtered=useMemo(()=>items.filter(i=>{const q=applied.search.toLocaleLowerCase("vi-VN");return(!q||i.code.toLocaleLowerCase("vi-VN").includes(q)||i.name.toLocaleLowerCase("vi-VN").includes(q))&&(applied.group==="all"||i.group===applied.group)&&(applied.status==="all"||i.status===applied.status);}),[items,applied]);
   const apply=()=>{setApplied({search,group,status});showToast({type:"success",title:"Đã áp dụng bộ lọc",message:"Danh mục nguyên liệu đã được lọc."});};
   const clear=()=>{setSearch("");setGroup("all");setStatus("all");setApplied({search:"",group:"all",status:"all"});};
-  return <div><div className="page-header"><div><div className="breadcrumb"><button onClick={()=>navigate("/dashboard")}>Trang chủ</button><span className="sep">/</span><span>Kho &amp; nguyên liệu</span><span className="sep">/</span><span className="current">Nguyên liệu</span></div><h1 className="page-title">Quản lý nguyên liệu</h1><p className="page-subtitle mt-1">Theo dõi nguyên liệu thô, vật tư bao bì, đơn vị tính, tồn an toàn và điều kiện bảo quản.</p></div><span className="text-xs text-[var(--muted)]">Dữ liệu minh họa</span></div>
-  <section className="mb-6"><div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4"><StatCard label="Mã nguyên liệu" value="42" subLabel="Nguyên liệu và vật tư" tone="primary" icon={<KpiIcon kind="box"/>}/><StatCard label="Dưới tồn an toàn" value="5" subLabel="Cần kiểm tra cấp phát" tone="warning" icon={<KpiIcon kind="warning"/>}/><StatCard label="Lô cận hạn 7 ngày" value="3" subLabel="Ưu tiên FEFO" tone="warning" icon={<KpiIcon kind="clock"/>}/><StatCard label="Đang cách ly" value="1" subLabel="Không tính tồn khả dụng" tone="danger" icon={<KpiIcon kind="warning"/>}/></div></section>
-  <section className="card mb-6 border-l-4 border-[var(--warning)]"><h2 className="text-sm font-bold mb-1">Nguyên tắc tồn khả dụng</h2><p className="text-sm text-[var(--muted)]">Tồn khả dụng = tồn thực tế − tồn giữ cho đơn − tồn khóa kiểm kê. Lô hết hạn, không đạt chất lượng hoặc đang cách ly không được xuất dùng.</p></section>
-  <section className="card mb-6"><div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 items-end"><div><label className="form-label" htmlFor="ingredient-search">Tìm kiếm</label><input id="ingredient-search" className="form-input" value={search} onChange={e=>setSearch(e.target.value)} placeholder="Tìm mã hoặc tên nguyên liệu..."/></div><div><label className="form-label" htmlFor="ingredient-group">Nhóm nguyên liệu</label><select id="ingredient-group" className="form-input form-select" value={group} onChange={e=>setGroup(e.target.value)}><option value="all">Tất cả nhóm</option>{Object.entries(GROUPS).map(([v,l])=><option key={v} value={v}>{l}</option>)}</select></div><div><label className="form-label" htmlFor="ingredient-status">Trạng thái</label><select id="ingredient-status" className="form-input form-select" value={status} onChange={e=>setStatus(e.target.value)}><option value="all">Tất cả trạng thái</option><option value="active">Đang sử dụng</option><option value="low">Dưới tồn an toàn</option><option value="expiring">Lô cận hạn</option><option value="quarantine">Cách ly</option></select></div><div className="flex gap-2"><button className="btn btn-secondary" onClick={clear}>Xóa lọc</button><button className="btn btn-primary" onClick={apply}>Áp dụng</button></div></div></section>
-  <section className="card p-0 overflow-hidden"><div className="p-4 md:p-5 border-b border-[var(--border)] flex justify-between gap-3"><div><h2 className="font-bold">Danh mục nguyên liệu</h2><p className="text-sm text-[var(--muted)] mt-1">Theo dõi đơn vị cơ sở, tồn thực tế, tồn an toàn và điều kiện bảo quản.</p></div><button className="btn btn-secondary" onClick={()=>navigate("/inventory/products")}>Danh mục món</button></div><DataTable><table className="w-full text-sm text-left"><thead className="bg-[var(--background)] text-[var(--muted)]"><tr>{["Mã","Tên nguyên liệu","Nhóm","Đơn vị cơ sở","Tồn thực tế","Tồn an toàn","Trạng thái","Bảo quản"].map(x=><th key={x} className="px-4 py-3 font-semibold">{x}</th>)}</tr></thead><tbody>{filtered.map(i=><tr key={i.id} className="border-t border-[var(--border)] hover:bg-[var(--background)]"><td className="px-4 py-3 font-semibold">{i.code}</td><td className="px-4 py-3"><button className="text-left font-medium text-[var(--primary)]" onClick={()=>setSelected(i)}>{i.name}</button><div className="text-xs text-[var(--muted)]">Lô {i.lot}</div></td><td className="px-4 py-3">{GROUPS[i.group]}</td><td className="px-4 py-3">{i.unit}</td><td className="px-4 py-3">{i.stock.toLocaleString("vi-VN")} {i.unit}</td><td className="px-4 py-3">{i.minimum.toLocaleString("vi-VN")} {i.unit}</td><td className="px-4 py-3"><Badge variant={VARIANT[i.status]}>{STATUS[i.status]}</Badge></td><td className="px-4 py-3">{i.storage}</td></tr>)}</tbody></table></DataTable></section>
-  <Modal isOpen={!!selected} title="Chi tiết nguyên liệu và lô" onClose={()=>setSelected(null)}>{selected&&<div className="space-y-3 text-sm"><p><b>{selected.code} · {selected.name}</b></p><p>Nhóm: {GROUPS[selected.group]}</p><p>Tồn thực tế: {selected.stock} {selected.unit}</p><p>Tồn giữ: {selected.reserved} · Tồn khóa: {selected.locked} · Tồn khả dụng: {Math.max(0,selected.stock-selected.reserved-selected.locked)} {selected.unit}</p><p>Mã lô: {selected.lot}</p><p>Hạn dùng: {selected.expiry||"Không áp dụng"}</p><p>Bảo quản: {selected.storage}</p><p className="text-[var(--muted)]">Khi xuất kho cần ưu tiên lô có hạn dùng gần nhất (FEFO); lô cách ly hoặc hết hạn không được xuất dùng.</p><div className="flex justify-end"><button className="btn btn-secondary" onClick={()=>setSelected(null)}>Đóng</button></div></div>}</Modal>
-  </div>;
- }
+  return (
+    <div>
+      <div className="page-header">
+        <div>
+          <nav className="breadcrumb" aria-label="Đường dẫn trang">
+            <Link to="/dashboard">Trang chủ</Link>
+            <span className="sep">/</span>
+            <Link to="/inventory">Kho hàng</Link>
+            <span className="sep">/</span>
+            <span className="current">Nguyên vật liệu</span>
+          </nav>
+          <h1 className="page-title">Quản lý nguyên liệu</h1>
+          <p className="page-subtitle mt-1">Theo dõi nguyên liệu thô, vật tư bao bì, đơn vị tính, tồn an toàn và điều kiện bảo quản.</p>
+        </div>
+        <span className="text-xs text-[var(--muted)]">Dữ liệu minh họa</span>
+      </div>
+
+      <section className="mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          <StatCard label="Mã nguyên liệu" value="42" subLabel="Nguyên liệu và vật tư" tone="primary" icon={<KpiIcon kind="box"/>}/>
+          <StatCard label="Dưới tồn an toàn" value="5" subLabel="Cần kiểm tra cấp phát" tone="warning" icon={<KpiIcon kind="warning"/>}/>
+          <StatCard label="Lô cận hạn 7 ngày" value="3" subLabel="Ưu tiên FEFO" tone="warning" icon={<KpiIcon kind="clock"/>}/>
+          <StatCard label="Đang cách ly" value="1" subLabel="Không tính tồn khả dụng" tone="danger" icon={<KpiIcon kind="warning"/>}/>
+        </div>
+      </section>
+
+      <section className="card mb-6 border-l-4 border-[var(--warning)]">
+        <h2 className="text-sm font-bold mb-1">Nguyên tắc tồn khả dụng</h2>
+        <p className="text-sm text-[var(--muted)]">Tồn khả dụng = tồn thực tế − tồn giữ cho đơn − tồn khóa kiểm kê. Lô hết hạn, không đạt chất lượng hoặc đang cách ly không được xuất dùng.</p>
+      </section>
+
+      <section className="card mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 items-end">
+          <div>
+            <label className="form-label" htmlFor="ingredient-search">Tìm kiếm</label>
+            <input id="ingredient-search" className="form-input" value={search} onChange={e=>setSearch(e.target.value)} placeholder="Tìm mã hoặc tên nguyên liệu..."/>
+          </div>
+          <div>
+            <label className="form-label" htmlFor="ingredient-group">Nhóm nguyên liệu</label>
+            <select id="ingredient-group" className="form-input form-select" value={group} onChange={e=>setGroup(e.target.value)}>
+              <option value="all">Tất cả nhóm</option>
+              {Object.entries(GROUPS).map(([v,l])=><option key={v} value={v}>{l}</option>)}
+            </select>
+          </div>
+          <div>
+            <label className="form-label" htmlFor="ingredient-status">Trạng thái</label>
+            <select id="ingredient-status" className="form-input form-select" value={status} onChange={e=>setStatus(e.target.value)}>
+              <option value="all">Tất cả trạng thái</option>
+              <option value="active">Đang sử dụng</option>
+              <option value="low">Dưới tồn an toàn</option>
+              <option value="expiring">Lô cận hạn</option>
+              <option value="quarantine">Cách ly</option>
+            </select>
+          </div>
+          <div className="flex gap-2">
+            <button className="btn btn-secondary" onClick={clear}>Xóa lọc</button>
+            <button className="btn btn-primary" onClick={apply}>Áp dụng</button>
+          </div>
+        </div>
+      </section>
+
+      <section className="card p-0 overflow-hidden">
+        <div className="p-4 md:p-5 border-b border-[var(--border)] flex justify-between gap-3">
+          <div>
+            <h2 className="font-bold">Danh mục nguyên liệu</h2>
+            <p className="text-sm text-[var(--muted)] mt-1">Theo dõi đơn vị cơ sở, tồn thực tế, tồn an toàn và điều kiện bảo quản.</p>
+          </div>
+          <button className="btn btn-secondary" onClick={()=>navigate("/inventory/products")}>Danh mục món</button>
+        </div>
+        <DataTable>
+          <table className="w-full text-sm text-left">
+            <thead className="bg-[var(--background)] text-[var(--muted)]">
+              <tr>
+                {["Mã","Tên nguyên liệu","Nhóm","Đơn vị cơ sở","Tồn thực tế","Tồn an toàn","Trạng thái","Bảo quản"].map(x=><th key={x} className="px-4 py-3 font-semibold">{x}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {filtered.map(i=><tr key={i.id} className="border-t border-[var(--border)] hover:bg-[var(--background)]">
+                <td className="px-4 py-3 font-semibold">{i.code}</td>
+                <td className="px-4 py-3"><button className="text-left font-medium text-[var(--primary)]" onClick={()=>setSelected(i)}>{i.name}</button><div className="text-xs text-[var(--muted)]">Lô {i.lot}</div></td>
+                <td className="px-4 py-3">{GROUPS[i.group]}</td>
+                <td className="px-4 py-3">{i.unit}</td>
+                <td className="px-4 py-3">{i.stock.toLocaleString("vi-VN")} {i.unit}</td>
+                <td className="px-4 py-3">{i.minimum.toLocaleString("vi-VN")} {i.unit}</td>
+                <td className="px-4 py-3"><Badge variant={VARIANT[i.status]}>{STATUS[i.status]}</Badge></td>
+                <td className="px-4 py-3">{i.storage}</td>
+              </tr>)}
+            </tbody>
+          </table>
+        </DataTable>
+      </section>
+
+      <Modal isOpen={!!selected} title="Chi tiết nguyên liệu và lô" onClose={()=>setSelected(null)}>
+        {selected && (
+          <div className="space-y-3 text-sm">
+            <p><b>{selected.code} · {selected.name}</b></p>
+            <p>Nhóm: {GROUPS[selected.group]}</p>
+            <p>Tồn thực tế: {selected.stock} {selected.unit}</p>
+            <p>Tồn giữ: {selected.reserved} · Tồn khóa: {selected.locked} · Tồn khả dụng: {Math.max(0,selected.stock-selected.reserved-selected.locked)} {selected.unit}</p>
+            <p>Mã lô: {selected.lot}</p>
+            <p>Hạn dùng: {selected.expiry||"Không áp dụng"}</p>
+            <p>Bảo quản: {selected.storage}</p>
+            <p className="text-[var(--muted)]">Khi xuất kho cần ưu tiên lô có hạn dùng gần nhất (FEFO); lô cách ly hoặc hết hạn không được xuất dùng.</p>
+            <div className="flex justify-end">
+              <button className="btn btn-secondary" onClick={()=>setSelected(null)}>Đóng</button>
+            </div>
+          </div>
+        )}
+      </Modal>
+    </div>
+  );
+}

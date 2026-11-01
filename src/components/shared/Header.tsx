@@ -36,8 +36,8 @@ export default function Header({mobileOpen,isDark,onToggleSidebar,onToggleTheme}
     </button>
     <div id="notification-dropdown" className="dropdown-menu" style={{ display: notifications ? "block" : "none", right: 0, width: "min(340px, 90vw)", maxHeight: 440 }}>
       <div style={{"padding": "14px 16px", "borderBottom": "1px solid var(--border)", "display": "flex", "alignItems": "center", "justifyContent": "space-between"}}>
-        <span style={{"fontSize": "15px", "fontWeight": "600", "color": "var(--text)"}}>Notifications</span>
-        <span className="badge badge-danger">4 New</span>
+        <span style={{"fontSize": "15px", "fontWeight": "600", "color": "var(--text)"}}>Thông báo</span>
+        <span className="badge badge-danger">4 Mới</span>
       </div>
       <div style={{"overflowY": "auto", "maxHeight": "320px"}}>
         <div className="notification-item unread">
@@ -92,7 +92,7 @@ export default function Header({mobileOpen,isDark,onToggleSidebar,onToggleTheme}
         </div>
       </div>
       <div style={{"padding": "12px 16px", "borderTop": "1px solid var(--border)", "textAlign": "center"}}>
-        <a href="#" style={{"fontSize": "13px", "color": "var(--primary)", "fontWeight": "500", "textDecoration": "none"}}>Xem tất cả thông báo</a>
+        <Link to="/settings/notifications" onClick={() => setNotifications(false)} style={{"fontSize": "13px", "color": "var(--primary)", "fontWeight": "500", "textDecoration": "none"}}>Xem tất cả thông báo</Link>
       </div>
     </div>
   </div>
@@ -112,19 +112,19 @@ export default function Header({mobileOpen,isDark,onToggleSidebar,onToggleTheme}
         <div style={{"fontSize": "13px", "fontWeight": "600", "color": "var(--text)"}}>Nguyễn Hoàng Long</div>
         <div style={{"fontSize": "12px", "color": "var(--muted)"}}>long.nh@MilktyWay.vn</div>
       </div>
-      <a href="/pages/profile" className="dropdown-item">
+      <Link to="/profile" onClick={() => setUserOpen(false)} className="dropdown-item">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         Hồ sơ cá nhân
-      </a>
-      <a href="/settings/general" className="dropdown-item">
+      </Link>
+      <Link to="/settings/general" onClick={() => setUserOpen(false)} className="dropdown-item">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M5.34 18.66l-1.41 1.41M2 12h2M20 12h2M6.34 5.34L4.93 4.93M19.07 19.07l-1.41-1.41M12 2v2M12 20v2"/></svg>
         Cài đặt hệ thống
-      </a>
+      </Link>
       <div className="dropdown-divider"></div>
-      <a href="/pages/login" className="dropdown-item danger">
+      <Link to="/login" onClick={() => setUserOpen(false)} className="dropdown-item danger">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         Đăng xuất
-      </a>
+      </Link>
     </div>
   </div>
 </div>

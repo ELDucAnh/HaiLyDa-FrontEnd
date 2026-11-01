@@ -283,6 +283,7 @@ export default function ShiftsPage() {
             <SalesPageHeader
                 title="Mở, đóng ca và bàn giao"
                 breadcrumb="Ca làm việc"
+                parent={{ label: "Bán hàng", to: "/sales" }}
                 description="Theo dõi quầy, nhân viên, tiền mặt và các nội dung cần bàn giao."
                 actions={
                     <Link to="/sales/pos" className="btn btn-secondary">

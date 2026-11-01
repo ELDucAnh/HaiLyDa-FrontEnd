@@ -61,7 +61,10 @@ export default function MainLayout() {
                 />
 
                 <main className="min-w-0 flex-1 p-4 md:p-6">
-                    <Outlet />
+                    {/* Inner content animation on route change & reload (Excludes Header and Sidebar) */}
+                    <div key={pathname} className="animate-fadeIn min-w-0 flex-1">
+                        <Outlet />
+                    </div>
                 </main>
 
                 <Footer />

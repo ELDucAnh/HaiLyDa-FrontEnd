@@ -252,7 +252,11 @@ export default function PreparationQueuePage() {
                         className="breadcrumb"
                         aria-label="Đường dẫn trang"
                     >
-                        <Link to="/dashboard">Tổng quan</Link>
+                        <Link to="/dashboard">Trang chủ</Link>
+                        <span className="sep" aria-hidden="true">
+                            /
+                        </span>
+                        <Link to="/sales">Bán hàng</Link>
                         <span className="sep" aria-hidden="true">
                             /
                         </span>
@@ -260,7 +264,7 @@ export default function PreparationQueuePage() {
                             className="current"
                             aria-current="page"
                         >
-                            Pha chế
+                            Hàng đợi pha chế
                         </span>
                     </nav>
 
