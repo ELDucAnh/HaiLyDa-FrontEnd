@@ -21,7 +21,7 @@ export default function Sidebar({mobileOpen,onNavigate,collapsed = false}: Sideb
       </svg>
     </div>
     <div className="sidebar-label" style={{"borderLeft": "1px solid var(--border)", "paddingLeft": "12px"}}>
-      <div style={{"fontSize": "16px", "fontWeight": "700", "color": "var(--text)", "lineHeight": "1.1", "letterSpacing": "-0.3px"}}>MiltyWay</div>
+      <div style={{"fontSize": "16px", "fontWeight": "700", "color": "var(--text)", "lineHeight": "1.1", "letterSpacing": "-0.3px"}}>MilktyWay</div>
       <div style={{"fontSize": "9.5px", "color": "var(--primary)", "fontWeight": "600", "letterSpacing": "0.8px", "textTransform": "uppercase", "marginTop": "2px"}}>Quản Lý Chuỗi Cửa Hàng</div>
     </div>
   </div>
@@ -51,7 +51,7 @@ export default function Sidebar({mobileOpen,onNavigate,collapsed = false}: Sideb
     <div className={`submenu ${expanded["inventory"] ? "open" : ""}`} id="submenu-inventory" inert={!expanded["inventory"]}>
       <NavLink onClick={onNavigate} end to="/inventory/products" className="submenu-item" data-page="products">Sản phẩm</NavLink>
       <NavLink onClick={onNavigate} end to="/inventory/ingredients" className="submenu-item" data-page="ingredients">Nguyên vật liệu</NavLink>
-      <NavLink onClick={onNavigate} end to="/inventory/add-product" className="submenu-item" data-page="add-product">Thêm sản phẩm</NavLink>
+      <NavLink onClick={onNavigate} end to="/inventory/products/new" className="submenu-item" data-page="add-product">Thêm sản phẩm</NavLink>
       <NavLink onClick={onNavigate} end to="/inventory/categories" className="submenu-item" data-page="categories">Danh mục</NavLink>
       <NavLink onClick={onNavigate} end to="/inventory/branches" className="submenu-item" data-page="branches">Chi nhánh</NavLink>
       <NavLink onClick={onNavigate} end to="/inventory/units" className="submenu-item" data-page="units">Đơn vị tính</NavLink>
@@ -70,10 +70,10 @@ export default function Sidebar({mobileOpen,onNavigate,collapsed = false}: Sideb
       </span>
     </button>
     <div className={`submenu ${expanded["purchases"] ? "open" : ""}`} id="submenu-purchases" inert={!expanded["purchases"]}>
-      <NavLink onClick={onNavigate} end to="/purchases/purchases" className="submenu-item" data-page="purchases">Tất cả đơn nhập</NavLink>
-      <NavLink onClick={onNavigate} end to="/purchases/add-purchase" className="submenu-item" data-page="add-purchase">Tạo đơn nhập</NavLink>
+      <NavLink onClick={onNavigate} end to="/purchases" className="submenu-item" data-page="purchases">Tất cả đơn nhập</NavLink>
+      <NavLink onClick={onNavigate} end to="/purchases/new" className="submenu-item" data-page="add-purchase">Tạo đơn nhập</NavLink>
       <NavLink onClick={onNavigate} end to="/purchases/receipts" className="submenu-item" data-page="receipts">Phiếu nhập kho</NavLink>
-      <NavLink onClick={onNavigate} end to="/purchases/stock-transfers" className="submenu-item" data-page="stock-transfers">Điều chuyển kho</NavLink>
+      <NavLink onClick={onNavigate} end to="/purchases/transfers" className="submenu-item" data-page="stock-transfers">Điều chuyển kho</NavLink>
     </div>
   </div>
 

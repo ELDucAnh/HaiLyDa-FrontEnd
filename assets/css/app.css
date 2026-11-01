@@ -662,6 +662,7 @@ option {
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   padding: 9px 18px;
   border-radius: 10px;
@@ -671,6 +672,7 @@ option {
   cursor: pointer;
   border: 1px solid transparent;
   text-decoration: none;
+  text-align: center;
   white-space: nowrap;
   line-height: 1.4;
 }

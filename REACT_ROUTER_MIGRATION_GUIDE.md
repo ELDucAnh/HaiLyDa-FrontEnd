@@ -1,4 +1,4 @@
-# Kế Hoạch & Ma Trận Chuyển Đổi Sang React Router (MiltyWay Chain)
+# Kế Hoạch & Ma Trận Chuyển Đổi Sang React Router (MilktyWay Chain)
 
 Tài liệu này chuẩn bị cấu trúc định tuyến và kiến trúc component sẵn sàng cho giai đoạn chuyển đổi toàn bộ hệ thống giao diện HTML tĩnh sang **React (Vite + React Router v6 / v7)**.
 
